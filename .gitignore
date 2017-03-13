@@ -1,4 +1,5 @@
-#config.php
-#files/*
-#images/avatar/*
-#images/equipment/*
+config.php
+files/*
+!files/index.htm
+images/avatar/*
+images/equipment/*
