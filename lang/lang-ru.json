@@ -26,13 +26,9 @@
   "Menu_knt" : "Контрагенты",
   "Menu_contact" : "Контакты",
   "Menu_email" : "Почта",
-  "Menu_log" : "Лог анализатор",
-  "Menu_help" : "Система заявок",
-  "Menu_jabber" : "Админ Jabber",
   "Menu_calendar" : "Календарь",
   "Menu_documents" : "Документы",
   "Menu_news" : "Новости",
-  "Menu_shut":"Выключение сервера",
 
   "CONF_info":"В данном разделе содержатся основные настройки системы.",
   "CONF_mail":"E-mail администратора",
@@ -66,8 +62,6 @@
   "CONF_mail_from":"Оправитель",
   "CONF_mail_debug":"Режим отладки",
   "CONF_mail_type":"Тип",
-  "CONF_shudown_permit":"Разрешение на выключение сервера",
-  "CONF_pass_server":"Пароль www-data",
 
   "menu": "Файл",
   "processing": "Подождите...",
@@ -302,7 +296,9 @@
  "Active_ok" : "<i class=\"fa fa-eye fa-fw\"></i>&nbsp;Активные",
  "Active_no" : "<i class=\"fa fa-eye-slash fa-fw\"></i>&nbsp;Неактивные",
  "Util" : "<i class=\"fa fa-recycle fa-fw\"></i>&nbsp;Утилизировано",
-"Util_no" : "<i class=\"fa fa-recycle fa-fw\"></i>&nbsp;Не утилизировано",
+ "Util_no" : "<i class=\"fa fa-recycle fa-fw\"></i>&nbsp;Не утилизировано",
+ "Sale" : "<i class=\"fa fa-ruble fa-fw\"></i>&nbsp;Продано",
+ "Sale_no" : "<i class=\"fa fa-ruble fa-fw\"></i>&nbsp;Не продано",
  "Work_tel" : "Рабочий телефон",
  "Mob_tel" : "Сотовый телефон",
  "Happy" : "День рождения",
@@ -415,14 +411,6 @@
 "Event_example" : "Пример события",
 "Color_event" : "Цвет события",
 "Color_text" : "Цвет текста",
-"Shutdown": "<i class=\"fa fa-power-off fa-fw\"></i> Выключить сервер",
-"Shut_title":"Выключение сервера",
-"Shut_info":"В данном разделе при необходимости вы можете выключить сервер!",
-"JS_shut": "<center><font size=\"18\">Вы дейстивтельно хотите выключить сервер?</font></center>",
-"Shut_cancel":"<i class=\"fa fa-remove fa-fw\"></i> Отменить выключение",
-"Shut_show":"Серверу была послана каманда на выключение! Через несколько секунд он выключиться!",
-"Shut_show_error":"Серверу не удалось выключиться, так как отсутствует пароль!",
-"Shut_show_incorect_password":"Серверу не удалось выключиться, так как пароль неправильный!",
 "Clear_select":"Очистить поле"
 
 

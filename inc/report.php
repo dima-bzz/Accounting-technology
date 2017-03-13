@@ -26,6 +26,7 @@ include("menus.php");
                   <option value=3>Наличие ТМЦ - только не ОС и не списанное</option>
                   <option value=4>Наличие ТМЦ - только не на бумаге</option>
                   <option value=5>Утилизированное ТМЦ</option>
+                  <option value=6>Проданное ТМЦ</option>
 
               </select>
               <label class="control-label" style="margin-top: 5px;"><small><?=get_lang('Matname');?>:</small></label>
