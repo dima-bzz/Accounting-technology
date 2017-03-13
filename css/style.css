@@ -1,0 +1,394 @@
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+#ping_show, #print_test_show, #invoice_show, #report_show, #file, #change_img, #file_req, #file_knt, #file_documents, #add_param, #report_move_show, .dop{
+  display: none;
+}
+.chosen-container .chosen-results {
+    max-height:150px !important;
+}
+.bootstrap-dialog-footer{
+  text-align: center;
+}
+.size_dell{
+  font-size: 18pt;
+}
+.invoice{
+  display: inline-block;
+}
+.group_text{
+  background-color: #ddd;
+  color: #337ab7;
+}
+.center_submit{
+  margin-top: 10px;
+  text-align: center;
+}
+.center_profile{
+  margin-bottom: 15px;
+  text-align: center;
+}
+.center_table, .center_all{
+  text-align: center;
+}
+.center_header{
+  text-align: center;
+  vertical-align:middle !important;
+}
+.class{
+  background-color: white !important;
+}
+.btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.select,.allwidht, .comment{
+  width: 100% !important;
+}
+#add_input{
+  float: right;
+  margin-bottom: 10px;
+}
+.rows_add{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.img-responsive {
+    margin: 0 auto;
+}
+.imageBox
+{
+    position: relative;
+    height: 154px;
+    width: 154px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    cursor:move;
+    text-align: center;
+}
+.imageBox .thumbBox
+{
+    position: absolute;
+    /*top: 0%;
+    left: 0%;*/
+    width: 154px;
+    height: 154px;
+    border-radius: 50%;
+    /*margin-top: 0px;
+    margin-left: 0px;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /*border: 1px solid rgb(102, 102, 102);*/
+    /*box-shadow: 0 0 0 1000px rgba(0,0,0,.49);*/
+    /*background: none repeat scroll 0% 0% transparent;*/
+}
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 154px;
+    background: rgba(0,0,0,0.7);
+}
+.img-circle{
+  width: 100px;
+  height: 100px;
+}
+.action
+{
+    width: 154px;
+    height: 30px;
+    margin: 10px 0;
+}
+.imageBox2
+{
+    position: relative;
+    height: 240px;
+    width: 240px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    cursor:move;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.imageBox2 .thumbBox2
+{
+    position: absolute;
+    /*top: 50%;*/
+    /*left: 50%;*/
+    width: 240px;
+    height: 240px;
+    /*margin-top: -125px;*/
+    /*margin-left: -125px;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /*border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0,0,0,.35);
+    background: none repeat scroll 0% 0% transparent;*/
+}
+
+.imageBox2 .spinner2
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 240px;
+    background: rgba(0,0,0,0.7);
+}
+.action2
+{
+    width: 240px;
+    height: 30px;
+    margin: 10px auto;
+}
+.data_responsive{
+padding-left: 10px;
+padding-right:  10px;
+}
+.row_active {
+  background-color: #08C!important;
+}
+.users_not_active {
+  background-color: #fcf8e3!important;
+}
+.not_active{
+  background-color: #d9534f!important;
+  color: #fff;
+}
+.row_repair{
+  background-color: #08C !important;
+}
+.fc-day-grid-event > .fc-content {
+  white-space: nowrap !important;
+  text-overflow: ellipsis;
+}
+.fc-event_anti {
+	position: relative; /* for resize handle and other inner positioning */
+	display: block; /* make the <a> tag block */
+	font-size: .85em;
+	line-height: 1.3;
+	border-radius: 3px;
+	border: 1px solid #f4c2c2; /* default BORDER color */
+	background-color: #f4c2c2; /* default BACKGROUND color */
+	font-weight: normal; /* undo jqui's ui-widget-header bold */
+  color: #333; /* default TEXT color */
+  text-decoration: none; /* if <a> has an href */
+}
+.fc-event_users {
+	position: relative; /* for resize handle and other inner positioning */
+	display: block; /* make the <a> tag block */
+	font-size: .85em;
+	line-height: 1.3;
+  max-width: 250px;
+	border-radius: 3px;
+	font-weight: normal; /* undo jqui's ui-widget-header bold */
+  text-decoration: none; /* if <a> has an href */
+}
+td.fc-sun, td.fc-sat{
+  background: rgba(205,205,205,.15);
+}
+.view-source{
+  cursor: pointer;
+}
+.add-edit-dialog .modal-dialog {
+                width: 1000px;
+}
+.org_add_edit-dialog .modal-dialog{
+            width: 400px;
+}
+.places_add_edit-dialog .modal-dialog{
+            width: 400px;
+}
+.vendors_add_edit-dialog .modal-dialog{
+            width: 400px;
+}
+.group_nome_add_edit-dialog .modal-dialog{
+            width: 400px;
+}
+/*.move-dialog .modal-dialog {
+                width: 700px;
+}*/
+.del-dialog .modal-dialog {
+                width: 500px;
+}
+.license_col-dialog .modal-dialog {
+                width: 500px;
+}
+.param-dialog .modal-dialog {
+                width: 820px;
+}
+/*.copy-dialog .modal-dialog {
+                width: 600px;
+}*/
+/*.repair-dialog .modal-dialog {
+                width: 500px;
+}*/
+/*td.prosto{
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}*/
+/*table td {
+  word-wrap: break-word; /* IE 5.5+ and CSS3 */
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  height: auto;
+  vertical-align: middle;
+}
+
+#equipment_table { table-layout: fixed; }*/
+
+
+#circleG{
+	/*width:300px;*/
+	margin:auto;
+}
+
+.circleG{
+	background-color:rgb(255,255,255);
+	/*float:left;*/
+	height:4px;
+	margin-left:2px;
+	width:4px;
+	animation-name:bounce_circleG;
+		-o-animation-name:bounce_circleG;
+		-ms-animation-name:bounce_circleG;
+		-webkit-animation-name:bounce_circleG;
+		-moz-animation-name:bounce_circleG;
+	animation-duration:2.24s;
+		-o-animation-duration:2.24s;
+		-ms-animation-duration:2.24s;
+		-webkit-animation-duration:2.24s;
+		-moz-animation-duration:2.24s;
+	animation-iteration-count:infinite;
+		-o-animation-iteration-count:infinite;
+		-ms-animation-iteration-count:infinite;
+		-webkit-animation-iteration-count:infinite;
+		-moz-animation-iteration-count:infinite;
+	animation-direction:normal;
+		-o-animation-direction:normal;
+		-ms-animation-direction:normal;
+		-webkit-animation-direction:normal;
+		-moz-animation-direction:normal;
+	border-radius:3px;
+		-o-border-radius:3px;
+		-ms-border-radius:3px;
+		-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+}
+#circleG_1{
+  display: inline-block;;
+	animation-delay:0.6s;
+		-o-animation-delay:0.6s;
+		-ms-animation-delay:0.6s;
+		-webkit-animation-delay:0.6s;
+		-moz-animation-delay:0.6s;
+}
+
+#circleG_2{
+  display: inline-block;;
+	animation-delay:0.75s;
+		-o-animation-delay:0.75s;
+		-ms-animation-delay:0.75s;
+		-webkit-animation-delay:0.75s;
+		-moz-animation-delay:0.75s;
+}
+
+#circleG_3{
+  display: inline-block;;
+	animation-delay:0.9s;
+		-o-animation-delay:0.9s;
+		-ms-animation-delay:0.9s;
+		-webkit-animation-delay:0.9s;
+		-moz-animation-delay:0.9s;
+}
+#circleG_4{
+  display: inline-block;;
+	animation-delay:1.05s;
+		-o-animation-delay:1.05s;
+		-ms-animation-delay:1.05s;
+		-webkit-animation-delay:1.05s;
+		-moz-animation-delay:1.05s;
+}
+#circleG_5{
+  display: inline-block;;
+	animation-delay:1.2s;
+		-o-animation-delay:1.2s;
+		-ms-animation-delay:1.2s;
+		-webkit-animation-delay:1.2s;
+		-moz-animation-delay:1.2s;
+}
+
+
+
+@keyframes bounce_circleG{
+	0%{}
+
+	50%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{}
+}
+
+@-o-keyframes bounce_circleG{
+	0%{}
+
+	50%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{}
+}
+
+@-ms-keyframes bounce_circleG{
+	0%{}
+
+	50%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{}
+}
+
+@-webkit-keyframes bounce_circleG{
+	0%{}
+
+	50%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{}
+}
+
+@-moz-keyframes bounce_circleG{
+	0%{}
+
+	50%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{}
+}

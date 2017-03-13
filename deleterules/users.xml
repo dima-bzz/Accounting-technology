@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="users" key="id">
+        <reqtable name="equipment" is_delete="no" key="usersid"></reqtable>
+        <reqtable name="users_profile" is_delete="yes" key="usersid"></reqtable>
+        <reqtable name="places_users" is_delete="yes" key="userid"></reqtable>
+        <reqtable name="move" is_delete="yes" key="useridto"></reqtable>
+    </entertable>
+</tables>

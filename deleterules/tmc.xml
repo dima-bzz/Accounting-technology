@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="nome" key="id">
+        <reqtable name="equipment" is_delete="no" key="nomeid"></reqtable>
+    </entertable>
+    <entertable name="group_nome" key="id">
+        <reqtable name="nome" is_delete="no" key="groupid"></reqtable>
+    </entertable>
+    <entertable name="vendor" key="id">
+        <reqtable name="nome" is_delete="no" key="vendorid"></reqtable>
+    </entertable>
+</tables>

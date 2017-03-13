@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="print" key="id">
+        <reqtable name="print_param" is_delete="yes" key="printid"></reqtable>
+    </entertable>
+</tables>

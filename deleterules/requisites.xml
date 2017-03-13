@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="requisites" key="id">
+        <reqtable name="files_requisites" is_delete="no" key="idrequisites"></reqtable>
+    </entertable>
+</tables>

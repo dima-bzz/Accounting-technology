@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="knt" key="id">
+        <reqtable name="files_contractor" is_delete="no" key="idcontract"></reqtable>
+    </entertable>
+</tables>

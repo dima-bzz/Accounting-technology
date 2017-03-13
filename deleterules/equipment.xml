@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="equipment" key="id">
+        <reqtable name="eq_param" is_delete="yes" key="eqid"></reqtable>
+        <reqtable name="move" is_delete="yes" key="eqid"></reqtable>
+        <reqtable name="repair" is_delete="yes" key="eqid"></reqtable>
+        <reqtable name="shtr" is_delete="yes" key="eqid"></reqtable>
+      </entertable>
+</tables>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tables>
+    <entertable name="places" key="id">
+        <reqtable name="equipment" is_delete="no" key="placesid"></reqtable>
+            <reqtable name="places_users" is_delete="yes" key="placesid"></reqtable>
+            <reqtable name="move" is_delete="yes" key="placesidto"></reqtable>
+    </entertable>
+</tables>
