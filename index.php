@@ -126,7 +126,6 @@ case 'delete': include('inc/delete.php');	break;
 case 'calendar': include('inc/calendar.php');	break;
 case 'documents': include('inc/documents.php');	break;
 case 'news': include('inc/news.php');	break;
-case 'shut': include('inc/shutdown.php');	break;
 default: include('404.php');
 }
 }
