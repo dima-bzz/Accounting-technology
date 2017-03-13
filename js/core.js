@@ -250,6 +250,11 @@ else {
 }
 });
 };
+function check_approve_users(){
+   $.post( ACTIONPATH,{ mode: "approve_users" },function( data ) {
+     $("#test").html(data);
+});
+};
 
 // $("#inf").find('br').first().remove();
 if ($("#inf").find("br").length){
@@ -1050,6 +1055,7 @@ function check_update(){
 }
 setInterval(function(){
     check_update();
+    check_approve_users();
 },5000);
 // ******Сохранение настроек******
 $('body').on('click', 'button#conf_edit_main', function(event) {
@@ -1205,6 +1211,7 @@ $('body').on('click', 'button#equipment_add', function(event) {
         "&invoice_date="+encodeURIComponent($("#invoice_date").val())+
         "&mode_eq="+encodeURIComponent($("#mode_eq").prop('checked'))+
         "&eq_util="+encodeURIComponent($("#eq_util").prop('checked'))+
+        "&eq_sale="+encodeURIComponent($("#eq_sale").prop('checked'))+
         "&comment="+encodeURIComponent($("#comment").val()),
         success: function() {
           dialog_add.close();
@@ -1302,6 +1309,7 @@ $('body').on('click', 'button#equipment_edit', function(event) {
         "&invoice_date="+encodeURIComponent($("#invoice_date").val())+
         "&mode_eq="+encodeURIComponent($("#mode_eq").prop('checked'))+
         "&eq_util="+encodeURIComponent($("#eq_util").prop('checked'))+
+        "&eq_sale="+encodeURIComponent($("#eq_sale").prop('checked'))+
         "&comment="+encodeURIComponent($("#comment").val()),
         success: function() {
           dialog_edit.close();
@@ -3894,6 +3902,20 @@ stateLoadCallback: function(){
                           closeByBackdrop: false,
                           closeByKeyboard: false,
                             onshown: function(){
+                              $("#eq_util").on('click', function(){
+                                  if ($(this).prop("checked")){
+                                    $("#eq_sale").attr('disabled', true);
+                                  } else {
+                                    $("#eq_sale").attr('disabled', false);
+                                  }
+                              })
+                              $("#eq_sale").on('click', function(){
+                                if ($(this).prop("checked")){
+                                  $("#eq_util").attr('disabled', true);
+                                } else {
+                                  $("#eq_util").attr('disabled', false);
+                                }
+                              })
                             my_select();
                             my_select2();
                             img_equipment();
@@ -4051,6 +4073,26 @@ stateLoadCallback: function(){
                               closeByBackdrop: false,
                               closeByKeyboard: false,
                               onshown: function(){
+                                if ($("#eq_util").val() == 1){
+                                  $("#eq_sale").attr('disabled', true);
+                                }
+                                if ($("#eq_sale").val() == 1){
+                                  $("#eq_util").attr('disabled', true);
+                                }
+                                $("#eq_util").on('click', function(){
+                                    if ($(this).prop("checked")){
+                                      $("#eq_sale").attr('disabled', true);
+                                    } else {
+                                      $("#eq_sale").attr('disabled', false);
+                                    }
+                                })
+                                $("#eq_sale").on('click', function(){
+                                  if ($(this).prop("checked")){
+                                    $("#eq_util").attr('disabled', true);
+                                  } else {
+                                    $("#eq_util").attr('disabled', false);
+                                  }
+                                })
                                 my_select();
                                 my_select2();
                                 img_equipment();
@@ -4673,6 +4715,9 @@ stateLoadCallback: function(){
             exportOptions: {
                 stripHtml: false,
                 columns: ':visible'
+            },
+            customize:function(a) {
+              $(a.document.body).find('th').addClass('center_header');
             }
           },
           {
@@ -4683,6 +4728,9 @@ stateLoadCallback: function(){
                 modifier:{
                 selected: true
                 }
+            },
+            customize:function(a) {
+              $(a.document.body).find('th').addClass('center_header');
             }
           }
             ]
@@ -4717,7 +4765,7 @@ stateLoadCallback: function(){
             },
             {
             text: function(a){
-              if ($.cookie('cookie_eq') == '0'){
+              if ($.cookie('cookie_eq_util') == '0'){
               return a.i18n("Util","Util")
               }
               else {
@@ -4725,14 +4773,36 @@ stateLoadCallback: function(){
               }
             },
             action: function () {
-              if ($.cookie('cookie_eq') == '0'){
+              if ($.cookie('cookie_eq_util') == '0'){
               this.text(function(a){return a.i18n("Util_no","Util no");});
-              $.cookie('cookie_eq','1');
+              $.cookie('cookie_eq_util','1');
               table_eq.ajax.reload();
             }
             else {
               this.text(function(a){return a.i18n("Util","Util");});
-              $.cookie('cookie_eq','0');
+              $.cookie('cookie_eq_util','0');
+              table_eq.ajax.reload();
+            }
+              }
+            },
+            {
+            text: function(a){
+              if ($.cookie('cookie_eq_sale') == '0'){
+              return a.i18n("Sale","Sale")
+              }
+              else {
+                return a.i18n("Sale_no","Sale no")
+              }
+            },
+            action: function () {
+              if ($.cookie('cookie_eq_sale') == '0'){
+              this.text(function(a){return a.i18n("Sale_no","Sale no");});
+              $.cookie('cookie_eq_sale','1');
+              table_eq.ajax.reload();
+            }
+            else {
+              this.text(function(a){return a.i18n("Sale","Sale");});
+              $.cookie('cookie_eq_sale','0');
               table_eq.ajax.reload();
             }
               }
@@ -4780,7 +4850,7 @@ function render_tooltip(data, type, full) {
 };
 function render_active(data, type, full) {
     var active = "";
-          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\"></i>'} else if (data == "not_active") { active = '<i class=\"btn-danger fa fa-trash-o fa-lg\"></i>'} else if (data == "repair") { active = '<i class=\"btn-info fa fa-gavel fa-lg\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\"></i>'};
+          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\"></i>'} else if (data == "not_active") { active = '<i class=\"btn-danger fa fa-trash-o fa-lg\"></i>'} else if (data == "repair") { active = '<i class=\"btn-info fa fa-gavel fa-lg\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\"></i>'} else if (data == "sale") { active = '<i class=\"fa fa-ruble\"></i>'};
               return active;
 };
 $('#equipment_table tbody').on( 'click', 'tr', function () {
@@ -5226,7 +5296,7 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
 "aoColumnDefs": [
                 { "sType": 'de_datetime', "aTargets": 1 }
 ],
-"sDom": "<'row'<'col-sm-2'l><'col-sm-2'B><'col-sm-8'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+"sDom": "<'row'<'col-sm-2'l><'col-sm-4'B><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
 "buttons":[
   {
         extend: 'collection',
@@ -5239,6 +5309,10 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
         exportOptions: {
             stripHtml: false,
             columns: ':visible'
+        },
+        customize:function(a) {
+          $(a.document.body).find('thead').remove();
+          $(a.document.body).find('tbody').before('<thead><tr><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Date","Date") + '</th><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("TMC","TMC") + '</th><th colspan="5" class="center_header">'+ table_eq_move_show_all.i18n("From","From") + '</th><th colspan="3" class="center_header">'+ table_eq_move_show_all.i18n("To","To") + '</th><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Comment","Comment") + '</th></tr><tr><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Orgname","Orgname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Places","Places") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Matname","Matname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Kntname","Kntname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Invoice","Invoice") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Orgname","Orgname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Places","Places") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Matname","Matname") + '</th></tr></thead>');
         }
       },
       {
@@ -5248,11 +5322,59 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
             stripHtml: false,
             modifier:{
             selected: true
-            }
+          }
+        },
+        customize:function(a) {
+          $(a.document.body).find('thead').remove();
+          $(a.document.body).find('tbody').before('<thead><tr><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Date","Date") + '</th><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("TMC","TMC") + '</th><th colspan="5" class="center_header">'+ table_eq_move_show_all.i18n("From","From") + '</th><th colspan="3" class="center_header">'+ table_eq_move_show_all.i18n("To","To") + '</th><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Comment","Comment") + '</th></tr><tr><th rowspan="2" class="center_header">'+ table_eq_move_show_all.i18n("Orgname","Orgname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Places","Places") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Matname","Matname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Kntname","Kntname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Invoice","Invoice") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Orgname","Orgname") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Places","Places") + '</th><th class="center_header">'+ table_eq_move_show_all.i18n("Matname","Matname") + '</th></tr></thead>');
         }
       }
         ]
   },
+  {
+  text: function(a){
+    if ($.cookie('cookie_eq_util') == '0'){
+    return a.i18n("Util","Util")
+    }
+    else {
+      return a.i18n("Util_no","Util no")
+    }
+  },
+  action: function () {
+    if ($.cookie('cookie_eq_util') == '0'){
+    this.text(function(a){return a.i18n("Util_no","Util no");});
+    $.cookie('cookie_eq_util','1');
+    table_eq_move_show_all.ajax.reload();
+  }
+  else {
+    this.text(function(a){return a.i18n("Util","Util");});
+    $.cookie('cookie_eq_util','0');
+    table_eq_move_show_all.ajax.reload();
+  }
+    }
+  },
+  {
+  text: function(a){
+    if ($.cookie('cookie_eq_sale') == '0'){
+    return a.i18n("Sale","Sale")
+    }
+    else {
+      return a.i18n("Sale_no","Sale no")
+    }
+  },
+  action: function () {
+    if ($.cookie('cookie_eq_sale') == '0'){
+    this.text(function(a){return a.i18n("Sale_no","Sale no");});
+    $.cookie('cookie_eq_sale','1');
+    table_eq_move_show_all.ajax.reload();
+  }
+  else {
+    this.text(function(a){return a.i18n("Sale","Sale");});
+    $.cookie('cookie_eq_sale','0');
+    table_eq_move_show_all.ajax.reload();
+  }
+    }
+  }
 ],
 "language": {
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
@@ -5634,6 +5756,9 @@ fnRowCallback: function( nRow ) {
                                 exportOptions: {
                                     stripHtml: false,
                                     columns: ':visible'
+                                },
+                                customize:function(a) {
+                                  $(a.document.body).find('th').addClass('center_header');
                                 }
                               },
                               {
@@ -5644,6 +5769,9 @@ fnRowCallback: function( nRow ) {
                                     modifier:{
                                     selected: true
                                     }
+                                },
+                                customize:function(a) {
+                                  $(a.document.body).find('th').addClass('center_header');
                                 }
                               }
                                 ]
@@ -6062,6 +6190,11 @@ var table_license = $('#table_license').DataTable({
 ],
 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f><'col-sm-12'B>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
 "buttons":[
+        {
+          extend: 'collection',
+          text: function(a){return a.i18n("Action_b","Action button")},
+          autoClose: true,
+          "buttons":[
           {
               text: function(a){return a.i18n("Add","Add")},
               className: 'License_delete_bt',
@@ -6294,8 +6427,47 @@ var table_license = $('#table_license').DataTable({
                     draggable: true
                     });
                   }
-              }
+                }
+              },
+              {
+                text: function(a){return a.i18n("Delete","Delete")},
+                className: 'License_delete_bt',
+                action: function( e, dt, node, config ){
+                  var $rows = table_license.$('tr.selected');
+                    if ($rows.length > '0'){
+                      window.dialog_license_del = new BootstrapDialog({
+                              title: get_lang_param("License_delete"),
+                              message: get_lang_param("Info_del"),
+                              type: BootstrapDialog.TYPE_DANGER,
+                              cssClass: 'del-dialog',
+                              closable: true,
+                              draggable: true,
+                              closeByBackdrop: false,
+                              closeByKeyboard: false,
+                              buttons:[{
+                                id: "license_delete",
+                                label: get_lang_param("Delete"),
+                                cssClass: " btn-danger",
+                              }],
+                              onhidden: function(){
+                                table_license.rows().deselect();
+                                arrList_li=[];
+                              }
+                            });
+                      dialog_license_del.open();
+                    }
+                    else {
+                      BootstrapDialog.alert({
+                      title: get_lang_param("Er_title"),
+                      message: get_lang_param("Er_msg2"),
+                      type: BootstrapDialog.TYPE_WARNING,
+                      draggable: true
+                      });
+                    }
+                }
 
+              }
+            ]
             },
             {
                 text: function(a){return a.i18n("License_col","License col")},
@@ -6352,44 +6524,6 @@ var table_license = $('#table_license').DataTable({
 
               },
           {
-            text: function(a){return a.i18n("Delete","Delete")},
-            className: 'License_delete_bt',
-            action: function( e, dt, node, config ){
-              var $rows = table_license.$('tr.selected');
-                if ($rows.length > '0'){
-                  window.dialog_license_del = new BootstrapDialog({
-                          title: get_lang_param("License_delete"),
-                          message: get_lang_param("Info_del"),
-                          type: BootstrapDialog.TYPE_DANGER,
-                          cssClass: 'del-dialog',
-                          closable: true,
-                          draggable: true,
-                          closeByBackdrop: false,
-                          closeByKeyboard: false,
-                          buttons:[{
-                            id: "license_delete",
-                            label: get_lang_param("Delete"),
-                            cssClass: " btn-danger",
-                          }],
-                          onhidden: function(){
-                            table_license.rows().deselect();
-                            arrList_li=[];
-                          }
-                        });
-                  dialog_license_del.open();
-                }
-                else {
-                  BootstrapDialog.alert({
-                  title: get_lang_param("Er_title"),
-                  message: get_lang_param("Er_msg2"),
-                  type: BootstrapDialog.TYPE_WARNING,
-                  draggable: true
-                  });
-                }
-            }
-
-          },
-          {
                 extend: 'collection',
                 text: function(a){return a.i18n("Print","Print")},
                 autoClose: true,
@@ -6400,6 +6534,9 @@ var table_license = $('#table_license').DataTable({
                 exportOptions: {
                     stripHtml: false,
                     columns: ':visible'
+                },
+                customize:function(a) {
+                  $(a.document.body).find('th').addClass('center_header');
                 }
               },
               {
@@ -6410,6 +6547,9 @@ var table_license = $('#table_license').DataTable({
                     modifier:{
                     selected: true
                   }
+                },
+                customize:function(a) {
+                  $(a.document.body).find('th').addClass('center_header');
                 }
               }
                 ]
@@ -6435,7 +6575,7 @@ var table_license = $('#table_license').DataTable({
                 },
                 {
                 text: function(a){
-                  if ($.cookie('cookie_eq') == '0'){
+                  if ($.cookie('cookie_eq_util') == '0'){
                   return a.i18n("Util","Util")
                   }
                   else {
@@ -6443,16 +6583,38 @@ var table_license = $('#table_license').DataTable({
                   }
                 },
                 action: function () {
-                  if ($.cookie('cookie_eq') == '0'){
+                  if ($.cookie('cookie_eq_util') == '0'){
                   this.text(function(a){return a.i18n("Util_no","Util no");});
-                  $.cookie('cookie_eq','1');
+                  $.cookie('cookie_eq_util','1');
                   table_license.ajax.reload();
                 }
                 else {
                   this.text(function(a){return a.i18n("Util","Util");});
-                  $.cookie('cookie_eq','0');
+                  $.cookie('cookie_eq_util','0');
                   table_license.ajax.reload();
                 }
+                  }
+                },
+                {
+                  text: function(a){
+                    if ($.cookie('cookie_eq_sale') == '0'){
+                      return a.i18n("Sale","Sale")
+                    }
+                    else {
+                      return a.i18n("Sale_no","Sale no")
+                    }
+                  },
+                  action: function () {
+                    if ($.cookie('cookie_eq_sale') == '0'){
+                      this.text(function(a){return a.i18n("Sale_no","Sale no");});
+                      $.cookie('cookie_eq_sale','1');
+                      table_license.ajax.reload();
+                    }
+                    else {
+                      this.text(function(a){return a.i18n("Sale","Sale");});
+                      $.cookie('cookie_eq_sale','0');
+                      table_license.ajax.reload();
+                    }
                   }
                 }
         ],
@@ -6895,6 +7057,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                 exportOptions: {
                     stripHtml: false,
                     columns: ':visible'
+                },
+                customize:function(a) {
+                  $(a.document.body).find('th').addClass('center_header');
                 }
               },
               {
@@ -6905,6 +7070,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                     modifier:{
                     selected: true
                     }
+                },
+                customize:function(a) {
+                  $(a.document.body).find('th').addClass('center_header');
                 }
               }
                 ]
@@ -7090,6 +7258,9 @@ fnRowCallback: function( nRow ) {
            exportOptions: {
                 stripHtml: false,
                columns: ':visible'
+           },
+           customize:function(a) {
+             $(a.document.body).find('th').addClass('center_header');
            }
          },
          {
@@ -7100,6 +7271,9 @@ fnRowCallback: function( nRow ) {
                modifier:{
                selected: true
                }
+           },
+           customize:function(a) {
+             $(a.document.body).find('th').addClass('center_header');
            }
          }
            ]
@@ -7745,6 +7919,9 @@ window.table_report = $('#report').DataTable({
         exportOptions: {
             stripHtml: false,
             columns: ':visible'
+        },
+        customize:function(a) {
+          $(a.document.body).find('th').addClass('center_header');
         }
       },
       {
@@ -7756,6 +7933,9 @@ window.table_report = $('#report').DataTable({
             modifier:{
             selected: true
             }
+        },
+        customize:function(a) {
+          $(a.document.body).find('th').addClass('center_header');
         }
       }
         ]
@@ -9032,6 +9212,9 @@ var table_contact = $('#table_contact').DataTable({
       exportOptions: {
           stripHtml: false,
           columns: ':visible'
+      },
+      customize:function(a) {
+        $(a.document.body).find('th').addClass('center_header');
       }
     },
     {
@@ -9042,6 +9225,9 @@ var table_contact = $('#table_contact').DataTable({
           modifier:{
           selected: true
           }
+      },
+      customize:function(a) {
+        $(a.document.body).find('th').addClass('center_header');
       }
     },
     {

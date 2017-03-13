@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   `kntid` int(11) NOT NULL,
   `dtendgar` date NOT NULL,
   `util` int(3) NOT NULL DEFAULT '0',
+  `sale` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

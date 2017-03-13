@@ -551,7 +551,7 @@ return $r;
 function validate_login_equipment($str) {
 global $dbConnection;
 
-$stmt = $dbConnection->prepare('SELECT count(usersid) as u from equipment where usersid=:str and util=0');
+$stmt = $dbConnection->prepare('SELECT count(usersid) as u from equipment where usersid=:str and util=0 and sale=0');
 $stmt->execute(array(':str' => $str));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row['u'] > 0) {$u=false;}
@@ -707,7 +707,7 @@ function GetArrayNome_users($in){ // Возврат - массив активн�
     global $dbConnection;
 		$cnt=0;
 		$mOrgs = array();
-		$stmt = $dbConnection->prepare('SELECT nome.name as name, nome.id as nomeid, equipment.id as id FROM equipment INNER JOIN nome ON equipment.nomeid = nome.id WHERE equipment.usersid = :in and nome.groupid IN (1,8,15,22,27) and equipment.util=0 order by nome.name');
+		$stmt = $dbConnection->prepare('SELECT nome.name as name, nome.id as nomeid, equipment.id as id FROM equipment INNER JOIN nome ON equipment.nomeid = nome.id WHERE equipment.usersid = :in and nome.groupid IN (1,8,15,22,27) and equipment.util=0 and equipment.sale=0 order by nome.name');
     $stmt->execute(array(':in' => $in));
     $res1 = $stmt->fetchAll();
     foreach($res1 as $myrow) {

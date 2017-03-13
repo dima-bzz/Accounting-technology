@@ -232,6 +232,8 @@ if ($mode == "equipment_add") {
   if ($mode_eq == "true") {$mode_eq=1;} else {$mode_eq=0;}
   $eq_util=($_POST['eq_util']);
   if ($eq_util == "true") {$eq_util=1;} else {$eq_util=0;}
+  $eq_sale=($_POST['eq_sale']);
+  if ($eq_sale == "true") {$eq_sale=1;} else {$eq_sale=0;}
   $bum=($_POST['bum']);
   if ($bum == "true") {$bum=1;} else {$bum=0;}
   $comment=($_POST['comment']);
@@ -250,7 +252,7 @@ $success = file_put_contents(UPLOAD_DIR . $file, $data);
 else {
   $file = 'noimage.png';
 }
-  $stmt = $dbConnection->prepare('INSERT INTO equipment (id,orgid,placesid,usersid,nomeid,buhname,datepost,cost,currentcost,sernum,invnum,invoice,os,mode,bum,comment,photo,active,ip,kntid,dtendgar,util) VALUES (:id,:sorgid,:splaces,:suserid,:snomeid,:buhname,:dtpost,:cost,:currentcost,:sernum,:invnum,:invoice,:os,:mode,:bum,:comment,:photo,:active,:ip,:kntid,:dtendgar,:util)');
+  $stmt = $dbConnection->prepare('INSERT INTO equipment (id,orgid,placesid,usersid,nomeid,buhname,datepost,cost,currentcost,sernum,invnum,invoice,os,mode,bum,comment,photo,active,ip,kntid,dtendgar,util,sale) VALUES (:id,:sorgid,:splaces,:suserid,:snomeid,:buhname,:dtpost,:cost,:currentcost,:sernum,:invnum,:invoice,:os,:mode,:bum,:comment,:photo,:active,:ip,:kntid,:dtendgar,:util,:sale)');
   $stmt->execute(array(
       ':id'=>'NULL',
       ':sorgid'=>$sorgid,
@@ -273,7 +275,8 @@ else {
       ':ip'=>$ip,
       ':kntid'=>$kntid,
       ':dtendgar'=>$dtendgar,
-      ':util'=>$eq_util));
+      ':util'=>$eq_util,
+      ':sale'=>$eq_sale));
 
       $stmt = $dbConnection->prepare('Select max(last_insert_id(id)) as eq_id from equipment');
       $stmt->execute();
@@ -306,6 +309,8 @@ if ($mode == "equipment_edit"){
   if ($mode_eq == "true") {$mode_eq=1;} else {$mode_eq=0;}
   $eq_util=($_POST['eq_util']);
   if ($eq_util == "true") {$eq_util=1;} else {$eq_util=0;}
+  $eq_sale=($_POST['eq_sale']);
+  if ($eq_sale == "true") {$eq_sale=1;} else {$eq_sale=0;}
   $bum=($_POST['bum']);
   if ($bum == "true") {$bum=1;} else {$bum=0;}
   $comment=($_POST['comment']);
@@ -344,7 +349,7 @@ else {
 }
   $stmt = $dbConnection->prepare ('UPDATE equipment SET nomeid=:snomeid,buhname=:buhname,
 datepost=:dtpost,cost=:cost,currentcost=:currentcost,sernum=:sernum,invnum=:invnum,
-invoice=:invoice,os=:os,mode=:mode,bum=:bum,comment=:comment,ip=:ip,kntid=:kntid,dtendgar=:dtendgar,photo=:photo,util=:util WHERE id=:id');
+invoice=:invoice,os=:os,mode=:mode,bum=:bum,comment=:comment,ip=:ip,kntid=:kntid,dtendgar=:dtendgar,photo=:photo,util=:util,sale=:sale WHERE id=:id');
 $stmt->execute(array(
     ':id' => $id,
     ':snomeid'=>$snomeid,
@@ -363,7 +368,8 @@ $stmt->execute(array(
     ':kntid'=>$kntid,
     ':dtendgar'=>$dtendgar,
     ':photo'=>$file,
-    ':util'=>$eq_util));
+    ':util'=>$eq_util,
+    ':sale'=>$eq_sale));
     echo "ok";
 }
 if ($mode == "equipment_move"){
@@ -525,13 +531,13 @@ if ($mode == "eq_mat"){
   $stmt = $dbConnection->prepare('SELECT name as grname,res2.* FROM group_nome INNER JOIN (SELECT places.name as plname,res.* FROM places INNER JOIN(
                 SELECT name AS namenome,nome.groupid as grpid, eq . *  FROM nome INNER JOIN(SELECT users.fio AS fio, fi . * FROM users INNER JOIN(SELECT org.name AS orgname, rg . * FROM org INNER JOIN ( SELECT shtr.id as shtrid, shtr.orgid as shtr_orgid, shtr.shtr_id as shtr_id, sh . * FROM shtr INNER JOIN(
                 SELECT equipment.id AS eqid, equipment.placesid AS plid, equipment.usersid AS usid,equipment.orgid AS eqorgid, equipment.nomeid AS nid, equipment.buhname AS bn, equipment.cost AS cs, equipment.currentcost AS curc, equipment.invnum, equipment.sernum, equipment.mode as eqmode, equipment.os as os FROM equipment
-                WHERE  equipment.active = :eq_active and equipment.usersid= :eq_usersid and equipment.util = :eq_util)
+                WHERE  equipment.active = :eq_active and equipment.usersid= :eq_usersid and equipment.util = :eq_util and equipment.sale = :eq_sale)
                 AS sh ON shtr.eqid = sh.eqid)
     AS rg ON org.id=rg.eqorgid)
     AS fi ON users.id=fi.usid)
                 AS eq ON nome.id = eq.nid)
                 AS res ON places.id=res.plid)   AS res2 ON group_nome.id=res2.grpid');
-                $stmt->execute(array(':eq_active'=> '1',':eq_usersid'=> $uid,':eq_util'=>'0'));
+                $stmt->execute(array(':eq_active'=> '1',':eq_usersid'=> $uid,':eq_util'=>'0',':eq_sale'=>'0'));
                 $res1 = $stmt->fetchall();
                   foreach($res1 as $row => $info) {
                     if ($info['os']==1){$os= true;} else {$os= false;};
@@ -552,10 +558,11 @@ if ($mode == "eq_mat"){
 }
 if ($mode == "eq"){
     $orid = $_COOKIE['cookieorgid'];
-    $util_eq= $_COOKIE['cookie_eq'];
+    $util_eq= $_COOKIE['cookie_eq_util'];
+    $sale_eq= $_COOKIE['cookie_eq_sale'];
   $stmt = $dbConnection->prepare("SELECT equipment.dtendgar, knt.name as kntname, getvendorandgroup.grnomeid,equipment.id AS eqid,equipment.orgid AS eqorgid, org.name AS orgname, getvendorandgroup.vendorname AS vname,
             getvendorandgroup.groupname AS grnome, places.name AS placesname, users.login AS userslogin,users.fio AS fio,
-            getvendorandgroup.nomename AS nomename, buhname, sernum, invnum, shtr.id as shtrid, shtr.orgid as shtr_orgid, shtr.shtr_id as shtr_id,invoice, datepost, cost, currentcost, os, equipment.mode AS eqmode,equipment.bum AS eqbum,equipment.comment AS eqcomment, equipment.active AS eqactive,equipment.repair AS eqrepair, equipment.util AS equtil
+            getvendorandgroup.nomename AS nomename, buhname, sernum, invnum, shtr.id as shtrid, shtr.orgid as shtr_orgid, shtr.shtr_id as shtr_id,invoice, datepost, cost, currentcost, os, equipment.mode AS eqmode,equipment.bum AS eqbum,equipment.comment AS eqcomment, equipment.active AS eqactive,equipment.repair AS eqrepair, equipment.util AS equtil, equipment.sale AS eqsale
   FROM equipment
   INNER JOIN (
   SELECT nome.groupid AS grnomeid,nome.id AS nomeid, vendor.name AS vendorname, group_nome.name AS groupname, nome.name AS nomename
@@ -567,8 +574,8 @@ if ($mode == "eq"){
   INNER JOIN places ON places.id = equipment.placesid
   INNER JOIN shtr ON shtr.eqid = equipment.id
   INNER JOIN users ON users.id = equipment.usersid
-  LEFT JOIN knt ON knt.id = equipment.kntid WHERE equipment.orgid = :equipment_orgid  and equipment.util = :equipment_util");
-  $stmt->execute(array(':equipment_orgid' => $orid, ':equipment_util' => $util_eq));
+  LEFT JOIN knt ON knt.id = equipment.kntid WHERE equipment.orgid = :equipment_orgid  and equipment.util = :equipment_util and equipment.sale = :equipment_sale");
+  $stmt->execute(array(':equipment_orgid' => $orid, ':equipment_util' => $util_eq, ':equipment_sale' => $sale_eq));
   $res1 = $stmt->fetchall();
 
 
@@ -576,6 +583,7 @@ if ($mode == "eq"){
     if ($key['eqactive']=="1") {$active="active";} else {$active="not_active";};
     if ($key['eqrepair']=="1"){$active="repair";};
     if ($key['equtil']=="1"){$active="util";};
+    if ($key['eqsale']=="1"){$active="sale";};
     if ($key['os']==1){$os=true;} else {$os=false;};
     if ($key['eqmode']==1){$eqmode=true;} else {$eqmode=false;};
     if ($key['eqbum']==1){$eqbum=true;} else {$eqbum=false;};
@@ -642,6 +650,9 @@ else {
 }
 }
 if ($mode == "eq_table_move_show_all"){
+  $util_eq= $_COOKIE['cookie_eq_util'];
+  $sale_eq= $_COOKIE['cookie_eq_sale'];
+
   $stmt = $dbConnection->prepare('SELECT mv.id as mvid, mv.eqid, nome.name,mv.nomeid,mv.dt, mv.orgname1, org.name AS orgname2, mv.place1, places.name AS place2, mv.user1, users.fio AS user2, mv.kntfrom, move.invoice as invoicefrom,move.comment as comment
             FROM move
             INNER JOIN (
@@ -651,13 +662,13 @@ if ($mode == "eq_table_move_show_all"){
             INNER JOIN places ON places.id = placesidfrom
             INNER JOIN users ON users.id = useridfrom
             INNER JOIN equipment ON equipment.id = eqid
-	    INNER JOIN knt ON knt.id = kntfrom
+	          INNER JOIN knt ON knt.id = kntfrom WHERE equipment.util=:util_eq and equipment.sale=:sale_eq
             ) AS mv ON move.id = mv.id
             INNER JOIN org ON org.id = move.orgidto
             INNER JOIN places ON places.id = placesidto
             INNER JOIN users ON users.id = useridto
-            INNER JOIN nome ON nome.id = mv.nomeid ');
-            $stmt->execute();
+            INNER JOIN nome ON nome.id = mv.nomeid');
+            $stmt->execute(array(':util_eq' => $util_eq, ':sale_eq' => $sale_eq));
             $res1 = $stmt->fetchall();
 
             foreach($res1 as $row => $key) {
@@ -786,7 +797,7 @@ if ($mode == "table_ping"){
   if ($orgid!='') {$where=$where." and equipment.orgid=$orgid";}
   if ($placesid!='') {$where=$where." and equipment.placesid=$placesid";}
 
-  $stmt = $dbConnection->prepare  ("SELECT places.name as pname,eq3.fio as fio,eq3.grname as grname,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.grname as grname,eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT eq1.placesid as placesid,eq1.usersid as usersid,group_nome.name as grname,eq1.ip as ip,eq1.nomename as nomename FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.ip<>'' ".$where." ) as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
+  $stmt = $dbConnection->prepare  ("SELECT places.name as pname,eq3.fio as fio,eq3.grname as grname,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.grname as grname,eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT eq1.placesid as placesid,eq1.usersid as usersid,group_nome.name as grname,eq1.ip as ip,eq1.nomename as nomename FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where." ) as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
   $stmt->execute();
   $res1 = $stmt->fetchall();
   foreach($res1 as $row => $key) {
@@ -813,7 +824,7 @@ if ($mode == "eq_list"){
                 SELECT name AS namenome,nome.groupid as grpid, eq . *  FROM nome INNER JOIN(SELECT users.fio AS fio, fi . * FROM users INNER JOIN(SELECT org.name AS orgname, rg . * FROM org INNER JOIN ( SELECT shtr.id as shtrid, shtr.orgid as shtr_orgid, shtr.shtr_id as shtr_id, sh . * FROM shtr INNER JOIN(
                 SELECT equipment.id AS eqid, equipment.placesid AS plid,equipment.usersid AS usid,equipment.orgid AS eqorgid,  equipment.nomeid AS nid, equipment.buhname AS bn, equipment.cost AS cs, equipment.currentcost AS curc, equipment.invnum, equipment.sernum, equipment.mode, equipment.os FROM equipment INNER JOIN (
                 SELECT placesid FROM places_users WHERE userid =:userid) AS pl ON pl.placesid = equipment.placesid
-                WHERE equipment.active =1 and equipment.util=0)
+                WHERE equipment.active =1 and equipment.util=0 and equipment.sale=0)
 								AS sh ON shtr.eqid = sh.eqid)
 		AS rg ON org.id=rg.eqorgid)
 		AS fi ON users.id=fi.usid)
@@ -852,10 +863,11 @@ if ($mode == "invoice_show"){
   }
 }
 if ($mode == "license"){
-  $util_eq= $_COOKIE['cookie_eq'];
+  $util_eq= $_COOKIE['cookie_eq_util'];
+  $sale_eq= $_COOKIE['cookie_eq_sale'];
 
-  $stmt = $dbConnection->prepare ("SELECT license.id as licenseid,license.system as system, license.office as office,license.antiname as antiname,license.antivirus as antivirus,license.visio as visio,license.adobe as adobe,license.lingvo as lingvo,license.winrar as winrar,license.visual as visual,users.fio as fio,license.comment as comment,license.active as active,nome.name as nomename, orgg.orgname as orname,orgg.orgid as orggid, orgg2.name as organti, orgg.anti_col as anti_col FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.name as orgname, org.antivirus_col as anti_col, org.id as orgid, equipment.usersid as equsersid, equipment.id as eqid, equipment.nomeid as eqnomeid FROM equipment INNER JOIN org ON org.id = equipment.orgid  WHERE equipment.util=:util_eq) AS orgg ON orgg.equsersid = license.usersid and orgg.eqid = license.eqid INNER JOIN users ON license.usersid=users.id INNER JOIN nome ON orgg.eqnomeid = nome.id LEFT JOIN org as orgg2 ON orgg2.id = license.organti  GROUP BY license.id");
-  $stmt->execute(array(':util_eq' => $util_eq));
+  $stmt = $dbConnection->prepare ("SELECT license.id as licenseid,license.system as system, license.office as office,license.antiname as antiname,license.antivirus as antivirus,license.visio as visio,license.adobe as adobe,license.lingvo as lingvo,license.winrar as winrar,license.visual as visual,users.fio as fio,license.comment as comment,license.active as active,nome.name as nomename, orgg.orgname as orname,orgg.orgid as orggid, orgg2.name as organti, orgg.anti_col as anti_col FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.name as orgname, org.antivirus_col as anti_col, org.id as orgid, equipment.usersid as equsersid, equipment.id as eqid, equipment.nomeid as eqnomeid FROM equipment INNER JOIN org ON org.id = equipment.orgid  WHERE equipment.util=:util_eq and equipment.sale=:sale_eq) AS orgg ON orgg.equsersid = license.usersid and orgg.eqid = license.eqid INNER JOIN users ON license.usersid=users.id INNER JOIN nome ON orgg.eqnomeid = nome.id LEFT JOIN org as orgg2 ON orgg2.id = license.organti  GROUP BY license.id");
+  $stmt->execute(array(':util_eq' => $util_eq, ':sale_eq' => $sale_eq));
   $res1 = $stmt->fetchAll();
 
   foreach($res1 as $row => $key) {
@@ -935,7 +947,7 @@ if ($mode == "license"){
 				$antivir = $antivirus;
 		}
 
-    $stmt = $dbConnection->prepare ("SELECT organti, antiname, Count(*) as count FROM license WHERE antiname IN (1,2) and organti =:organti Group by antiname,organti");
+    $stmt = $dbConnection->prepare ("SELECT license.organti, license.antiname, equipment.util, equipment.sale, Count(*) as count FROM license INNER JOIN equipment ON equipment.id = license.eqid WHERE license.antiname IN (1,2) and license.organti =:organti and equipment.util=0 and equipment.sale=0 Group by license.antiname,license.organti");
     $stmt->execute(array(':organti' => $key['orggid']));
 
     $res1 = $stmt->fetchAll();
@@ -947,7 +959,7 @@ if ($mode == "license"){
       $counts_str = $counts_str."".$antinames[$licid]." = ".$row['count']."; ";
     // }
   }
-  $stmt = $dbConnection->prepare ("SELECT Count(*) as count,orgg.orgid as orggid FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.id as orgid, equipment.id as eqid FROM equipment INNER JOIN org ON org.id = equipment.orgid WHERE org.id = :orgid and equipment.util=0) AS orgg ON  orgg.eqid = license.eqid GROUP BY orggid");
+  $stmt = $dbConnection->prepare ("SELECT Count(*) as count,orgg.orgid as orggid FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.id as orgid, equipment.id as eqid FROM equipment INNER JOIN org ON org.id = equipment.orgid WHERE org.id = :orgid and equipment.util=0 and equipment.sale=0) AS orgg ON  orgg.eqid = license.eqid GROUP BY orggid");
   $stmt->execute(array(':orgid' => $key['orggid']));
 
   $res1 = $stmt->fetchAll();
@@ -1369,6 +1381,7 @@ if ($mode == "dialog_equipment_edit"){
      $kntid=$myrow["kntid"];
      $photo=$myrow["photo"];
      $eq_util=$myrow["util"];
+     $eq_sale=$myrow["sale"];
    }
    $stmt = $dbConnection->prepare('SELECT * FROM nome WHERE id= :nomeid;');
    $stmt->execute(array(':nomeid' => $nomeid));
@@ -1500,10 +1513,10 @@ if ($mode == "dialog_equipment_edit"){
   <label class="control-label"><small>Старый Штрихкод: </small></label>
   <p><input class="form-control input-sm allwidht" id=invnum name=invnum type="text" value="<?php echo "$invnum";?>"></p>
   <label class="checkbox-inline">
-    <input type="checkbox" name="os" id="os" value="1" <?php if ($os=="1") {echo "checked";};?>><b><small>Основные ср-ва</small></b>
+    <input type="checkbox" name="os" id="os"  <?php if ($os=="1") {echo "checked";};?>><b><small>Основные ср-ва</small></b>
   </label><br>
   <label class="checkbox-inline">
-    <input type="checkbox" name="bum" id="bum" value="1" <?php if ($bum=="1") {echo "checked";};?>><b><small>На Бумаге</small></b>
+    <input type="checkbox" name="bum" id="bum"  <?php if ($bum=="1") {echo "checked";};?>><b><small>На Бумаге</small></b>
   </label>
 
   </div>
@@ -1522,8 +1535,13 @@ if ($mode == "dialog_equipment_edit"){
   <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:29%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата" value="<?php echo "$invoice_end[1]";?>">
 </div>
   <label class="checkbox-inline">
-  <input type="checkbox" name="mode" id="mode_eq" value="1" <?php if ($mode=="1") {echo "checked";};?>><b><small>Списано</small></b><br>
-  <input type="checkbox" name="eq_util" id="eq_util" value="1" <?php if ($eq_util=="1") {echo "checked";};?>><b><small>Утилизированно</small></b>
+  <input type="checkbox" name="mode" id="mode_eq"  <?php if ($mode=="1") {echo "checked";};?>><b><small>Списано</small></b>
+</label><br>
+  <label class="checkbox-inline">
+  <input type="checkbox" name="eq_util" id="eq_util" value="<?php echo $eq_util?>"  <?php if ($eq_util=="1") {echo "checked";};?>><b><small>Утилизировано</small></b>
+</label><br>
+  <label class="checkbox-inline">
+    <input type="checkbox" name="eq_sale" id="eq_sale" value="<?php echo $eq_sale?>"  <?php if ($eq_sale=="1") {echo "checked";};?>><b><small>Продано</small></b>
   </label>
   </div>
   </div><br>
@@ -1727,10 +1745,15 @@ if ($mode == "dialog_equipment_add"){
   <div class="invoice">
   <input class="form-control input-sm col-md-2" id="invoice" style="width:65%;" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="Номер накладной"><b><small style="float:left;line-height:2.5">от</small></b>
   <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:30%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата">
-</div>
+  </div>
   <label class="checkbox-inline">
-  <input type="checkbox" name="mode_eq" id="mode_eq"><b><small>Списано</small></b><br>
-  <input type="checkbox" name="eq_util" id="eq_util"><b><small>Утилизированно</small></b>
+  <input type="checkbox" name="mode_eq" id="mode_eq"><b><small>Списано</small></b>
+</label><br>
+  <label class="checkbox-inline">
+  <input type="checkbox" name="eq_util" id="eq_util"><b><small>Утилизировано</small></b>
+</label><br>
+  <label class="checkbox-inline">
+  <input type="checkbox" name="eq_sale" id="eq_sale"><b><small>Продано</small></b>
   </label>
   </div>
   </div><br>
@@ -1823,29 +1846,29 @@ if ($mode == "dialog_license_add"){
  <div class="row">
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="visio" id="visio" value="1"><b><small>Visio</small></b>
+  <input type="checkbox" name="visio" id="visio" ><b><small>Visio</small></b>
   </label>
 </div>
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="lingvo" id="lingvo" value="1"><b><small>Lingvo</small></b>
+  <input type="checkbox" name="lingvo" id="lingvo" ><b><small>Lingvo</small></b>
   </label>
 </div>
 <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="winrar" id="winrar" value="1"><b><small>Winrar</small></b>
+  <input type="checkbox" name="winrar" id="winrar" ><b><small>Winrar</small></b>
   </label>
 </div>
 </div><br>
 <div class="row">
 <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="adobe" id="adobe" value="1"><b><small>Adobe Finereader</small></b>
+  <input type="checkbox" name="adobe" id="adobe" ><b><small>Adobe Finereader</small></b>
     </label>
   </div>
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="visual" id="visual" value="1"><b><small>Visual Studio</small></b>
+  <input type="checkbox" name="visual" id="visual" ><b><small>Visual Studio</small></b>
       </label>
   </div>
 </div><br>
@@ -1982,29 +2005,29 @@ $comment=$myrow['comment'];
  <div class="row">
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="visio" id="visio" value="1" <?php if ($visio=="1") {echo "checked";};?>><b><small>Visio</small></b>
+  <input type="checkbox" name="visio" id="visio"  <?php if ($visio=="1") {echo "checked";};?>><b><small>Visio</small></b>
   </label>
 </div>
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="lingvo" id="lingvo" value="1" <?php if ($lingvo=="1") {echo "checked";};?>><b><small>Lingvo</small></b>
+  <input type="checkbox" name="lingvo" id="lingvo"  <?php if ($lingvo=="1") {echo "checked";};?>><b><small>Lingvo</small></b>
   </label>
 </div>
 <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="winrar" id="winrar" value="1" <?php if ($winrar=="1") {echo "checked";};?>><b><small>Winrar</small></b>
+  <input type="checkbox" name="winrar" id="winrar"  <?php if ($winrar=="1") {echo "checked";};?>><b><small>Winrar</small></b>
   </label>
 </div>
 </div><br>
 <div class="row">
 <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="adobe" id="adobe" value="1" <?php if ($adobe=="1") {echo "checked";};?>><b><small>Adobe Finereader</small></b>
+  <input type="checkbox" name="adobe" id="adobe"  <?php if ($adobe=="1") {echo "checked";};?>><b><small>Adobe Finereader</small></b>
     </label>
   </div>
   <div class="col-md-4">
   <label class="checkbox-inline">
-  <input type="checkbox" name="visual" id="visual" value="1" <?php if ($visual=="1") {echo "checked";};?>><b><small>Visual Studio</small></b>
+  <input type="checkbox" name="visual" id="visual"  <?php if ($visual=="1") {echo "checked";};?>><b><small>Visual Studio</small></b>
       </label>
   </div>
 </div><br>
@@ -2286,7 +2309,7 @@ if ($mode == "print_test"){
   if ($placesid!='') {$where=$where." and equipment.placesid=$placesid";}
   if ($userid!='') {$where=$where." and equipment.usersid=$userid";}
   include_once 'inc/Printer.php';
-  $stmt = $dbConnection->prepare ("SELECT places.name as pname,eq3.fio as fio,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT * FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.ip<>'' ".$where.") as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id where eq1.groupid IN (7,9)) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
+  $stmt = $dbConnection->prepare ("SELECT places.name as pname,eq3.fio as fio,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT * FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where.") as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id where eq1.groupid IN (7,9)) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $myrow => $key) {
@@ -2453,13 +2476,13 @@ if ($mode == "dialog_cartridge_add"){
     <div class="center_all">
       <br>
   <label class="checkbox-inline">
-          <input type="checkbox" name="newk" id="newk" value="1" <?php if ($newk=="1") {echo "checked";};?>><small>Новый</small>
+          <input type="checkbox" name="newk" id="newk"  <?php if ($newk=="1") {echo "checked";};?>><small>Новый</small>
   </label><br><br>
 
 
 
   <label class="checkbox-inline">
-          <input type="checkbox" name="zapr" id="zapr" value="1" <?php if ($zapr=="1") {echo "checked";};?>><small>Заправленный</small>
+          <input type="checkbox" name="zapr" id="zapr"  <?php if ($zapr=="1") {echo "checked";};?>><small>Заправленный</small>
       </label>
     </div>
   </div>
@@ -2583,11 +2606,11 @@ $zapr=$myrow['zapr'];
     <div class="center_all">
       <br>
   <label class="checkbox-inline">
-          <input type="checkbox" name="newk" id="newk" value="1" <?php if ($newk=="1") {echo "checked";};?>><small>Новый</small>
+          <input type="checkbox" name="newk" id="newk"  <?php if ($newk=="1") {echo "checked";};?>><small>Новый</small>
   </label><br><br>
 
   <label class="checkbox-inline">
-          <input type="checkbox" name="zapr" id="zapr" value="1" <?php if ($zapr=="1") {echo "checked";};?>><small>Заправленный</small>
+          <input type="checkbox" name="zapr" id="zapr"  <?php if ($zapr=="1") {echo "checked";};?>><small>Заправленный</small>
       </label>
     </div>
   </div>
@@ -2655,10 +2678,10 @@ $comment=$myrow['comment'];
   <div class="row">
     <div class="col-md-6">
     <label class="checkbox-inline">
-            <input type="checkbox" name="newk" id="newk" value="1" <?php if ($newk=="1") {echo "checked";};?>><b><small>Новый</small></b>
+            <input type="checkbox" name="newk" id="newk"  <?php if ($newk=="1") {echo "checked";};?>><b><small>Новый</small></b>
     </label><br><br>
     <label class="checkbox-inline">
-            <input type="checkbox" name="zapr" id="zapr" value="1" <?php if ($zapr=="1") {echo "checked";};?>><b><small>Заправленный</small></b>
+            <input type="checkbox" name="zapr" id="zapr"  <?php if ($zapr=="1") {echo "checked";};?>><b><small>Заправленный</small></b>
         </label><br><br>
       <label class="control-label" style="display:inline"><small>Колличество:</small></label>
   <input class="input-sm form-control" style="width:100px;margin: 0 auto;" placeholder="Кол-во" name="coll" id="coll" value="<?php echo "$coll";?>">
@@ -2801,7 +2824,7 @@ if ($mode == "table_invoice"){
   $stmt = $dbConnection->prepare ('SELECT name as grname,res2.* FROM group_nome INNER JOIN (SELECT places.name as plname,res.* FROM places  INNER JOIN(
                 SELECT name AS namenome,nome.groupid as grpid, eq . *  FROM nome INNER JOIN(SELECT users.fio AS fio, fi . * FROM users INNER JOIN(SELECT org.name AS orgname, ro . * FROM org INNER JOIN ( SELECT shtr.id as shtrid, shtr.orgid as shtr_orgid, shtr.shtr_id as shtr_id, sh . * FROM shtr INNER JOIN (
                 SELECT equipment.id AS eqid,equipment.orgid AS orid, equipment.placesid AS plid, equipment.usersid AS usid, equipment.nomeid AS nid, equipment.buhname AS bn, equipment.cost AS cs, equipment.currentcost AS curc, equipment.invnum, equipment.sernum, equipment.mode, equipment.os FROM equipment
-                WHERE equipment.active =1 and equipment.usersid=:userid and equipment.util=0)
+                WHERE equipment.active =1 and equipment.usersid=:userid and equipment.util=0 and equipment.sale=0)
 								AS sh ON shtr.eqid = sh.eqid)
 		AS ro ON org.id = ro.orid)
 		AS fi ON users.id = fi.usid)
@@ -3023,11 +3046,12 @@ if ($mode == "table_report"){
   if ($repair=='true') {$where=$where." and equipment.repair=1";}
   if ($mode_eq=='true') {$where=$where." and equipment.mode=1";}
   if ($bum=='true') {$where=$where." and equipment.bum=1";}
-  if ($sel_rep=='1') {$where=$where." and equipment.util=0";}
-  if ($sel_rep=='2') {$where=$where." and equipment.mode=0 and equipment.util=0";}
-  if ($sel_rep=='3') {$where=$where." and equipment.mode=0  and equipment.os=0 and equipment.util=0";}
-  if ($sel_rep=='4') {$where=$where." and equipment.bum=0 and equipment.util=0 ";}
-  if ($sel_rep=='5') {$where=$where." and equipment.util=1 ";}
+  if ($sel_rep=='1') {$where=$where." and equipment.util=0 and equipment.sale=0";}
+  if ($sel_rep=='2') {$where=$where." and equipment.mode=0 and equipment.util=0 and equipment.sale=0";}
+  if ($sel_rep=='3') {$where=$where." and equipment.mode=0  and equipment.os=0 and equipment.util=0 and equipment.sale=0";}
+  if ($sel_rep=='4') {$where=$where." and equipment.bum=0 and equipment.util=0 and equipment.sale=0";}
+  if ($sel_rep=='5') {$where=$where." and equipment.util=1 and equipment.sale=0";}
+  if ($sel_rep=='6') {$where=$where." and equipment.util=0 and equipment.sale=1";}
   if (!empty ($dtpost_report)){$where=$where." and equipment.datepost like'%$dtpost_report%'";}
 
   $where_name="";
@@ -3244,6 +3268,20 @@ if ($mode == "approve"){
   $stmt->execute();
   $count = $stmt->fetch(PDO::FETCH_ASSOC);
   echo $count['t1'];
+}
+if ($mode == "approve_users"){
+  $stmt = $dbConnection->prepare ("select lastdt from users");
+  $stmt->execute();
+  $res1 = $stmt->fetchAll();
+  $count_lt = array();
+  foreach($res1 as $row) {
+    $lt = $row['lastdt'];
+    $d = time()-strtotime($lt);
+if ($d < 20) {
+    array_push($count_lt,$d);
+  }
+  }
+  echo count($count_lt);
 }
 if ($mode == "places_table"){
   $stmt = $dbConnection->prepare ("SELECT id,name,comment,active FROM places");
