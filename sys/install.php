@@ -215,7 +215,7 @@ $current .= "	'db_name'	=> '".$mysql_database."'\n";
 $current .= ");\n";
 
 $current .= "//System configuration variables and some options\n";
-$current .= '$CONF_HD'." = array (\n";
+$current .= '$CONF_AT'." = array (\n";
 $current .= "	'debug_mode'	=> false\n";
 $current .= ");\n";
 
@@ -304,7 +304,7 @@ if (isset($_GET['mode'])) {
         <div class="form-group">
     <label for="db" class="col-sm-4 control-label"><small>Имя БД</small></label>
     <div class="col-sm-8">
-<input type="text" class="form-control input-sm" id="db" name="db" placeholder="hd.rustem" value="">
+<input type="text" class="form-control input-sm" id="db" name="db" placeholder="accounting_technology" value="">
 
    </div>
   </div>
