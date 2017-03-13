@@ -31,7 +31,7 @@ $CONF = array (
 'permit_users_news' => get_conf_param('permit_users_news')
 );
 
-if ($CONF_H['debug_mode'] == true) {
+if ($CONF_AT['debug_mode'] == true) {
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 }

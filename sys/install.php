@@ -215,7 +215,7 @@ $current .= "	'db_name'	=> '".$mysql_database."'\n";
 $current .= ");\n";
 
 $current .= "//System configuration variables and some options\n";
-$current .= '$CONF_HD'." = array (\n";
+$current .= '$CONF_AT'." = array (\n";
 $current .= "	'debug_mode'	=> false\n";
 $current .= ");\n";
 
@@ -223,8 +223,6 @@ $current .= ");\n";
 $current .= "?>\n";
 file_put_contents($fileconf, $current);
 
-// $pos = strrpos($_SERVER['REQUEST_URI'], '/');
-// $sys_url= "http://".$_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 0, $pos + 1);
 
 mysql_query("update perf set value='$sys_url' where param='hostname'")or die("Invalid query: " . mysql_error() . '<br><br><center>
 <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
@@ -304,7 +302,7 @@ if (isset($_GET['mode'])) {
         <div class="form-group">
     <label for="db" class="col-sm-4 control-label"><small>Имя БД</small></label>
     <div class="col-sm-8">
-<input type="text" class="form-control input-sm" id="db" name="db" placeholder="hd.rustem" value="">
+<input type="text" class="form-control input-sm" id="db" name="db" placeholder="accounting_technology" value="">
 
    </div>
   </div>
