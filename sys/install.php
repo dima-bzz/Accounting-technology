@@ -223,8 +223,6 @@ $current .= ");\n";
 $current .= "?>\n";
 file_put_contents($fileconf, $current);
 
-// $pos = strrpos($_SERVER['REQUEST_URI'], '/');
-// $sys_url= "http://".$_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 0, $pos + 1);
 
 mysql_query("update perf set value='$sys_url' where param='hostname'")or die("Invalid query: " . mysql_error() . '<br><br><center>
 <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
