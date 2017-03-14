@@ -314,7 +314,8 @@ VALUES
   (21, 'permit_users_req', ''),
   (22, 'permit_users_cont', ''),
   (23, 'permit_users_documents', ''),
-  (24, 'permit_users_news', '');
+  (24, 'permit_users_news', ''),
+  (25, 'permit_users_license', '');
 
 UNLOCK TABLES;
 -- --------------------------------------------------------

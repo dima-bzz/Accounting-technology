@@ -1076,7 +1076,8 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&permit_users_req="+encodeURIComponent($("#permit_users_req").val()) +
         "&permit_users_cont="+encodeURIComponent($("#permit_users_cont").val()) +
         "&permit_users_documents="+encodeURIComponent($("#permit_users_documents").val())+
-        "&permit_users_news="+encodeURIComponent($("#permit_users_news").val()),
+        "&permit_users_news="+encodeURIComponent($("#permit_users_news").val())+
+        "&permit_users_license="+encodeURIComponent($("#permit_users_license").val()),
         success: function(html) {
         $("#conf_edit_main").blur();
         $("#conf_edit_main_res").hide().html(html).fadeIn(500);

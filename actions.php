@@ -59,6 +59,7 @@ update_val_by_key("permit_users_req", $_POST['permit_users_req']);
 update_val_by_key("permit_users_cont", $_POST['permit_users_cont']);
 update_val_by_key("permit_users_documents", $_POST['permit_users_documents']);
 update_val_by_key("permit_users_news", $_POST['permit_users_news']);
+update_val_by_key("permit_users_license", $_POST['permit_users_license']);
 
 ?>
 <div class="alert alert-success">

@@ -289,7 +289,15 @@ if ($row['event_repeat'] == '0'){
   }
   if (sizeof($eve) > 0 ) {echo "<br>";};
 //////////////////////////
-    if ((validate_priv($_SESSION['dilema_user_id']) == 1) || ($_SESSION['dilema_user_id'] == 63)) {
+    $user_id=$_SESSION['dilema_user_id'];
+    $permit_users_license = get_conf_param('permit_users_license');
+    $permit = explode(",",$permit_users_license);
+    foreach ($permit as $permit_id) {
+      if ($user_id == $permit_id){
+        $priv_license="yes";
+      }
+    }
+    if ((validate_priv($_SESSION['dilema_user_id']) == 1) || ($priv_license == "yes")) {
       $month = date("m.Y");
       $month2 = date("m.Y",strtotime("+1 month"));
       $month3 = date("m.Y",strtotime("-1 month"));
@@ -308,7 +316,7 @@ if ($row['event_repeat'] == '0'){
           if (validate_priv($_SESSION['dilema_user_id']) == 1){
           array_push($license_list, "<br><span class=\"text-info\"><strong>".$i.". ".$orgname." - ".$anti_date."</strong>&nbsp;<a href=\"license?org=".$orgname."\"style=\"text-decoration:underline; color:#31708f;\">осталось обновить компьютеров: ".$count."</a></span>");
     }
-    if ($_SESSION['dilema_user_id'] == 63) {
+    if ($priv_license == "yes") {
           array_push($license_list, "<br><span class=\"text-info\"><strong>".$i.". ".$orgname." - ".$anti_date."</strong></span>");
     }
     $i++;

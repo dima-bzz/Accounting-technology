@@ -209,10 +209,35 @@ if ($val== $row['value']) {$opt_sel="selected";}
                         ?>
     </select>
 </div>
-<div data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('CONF_Id_news');?>" style="padding-top: 10px;">
+<div data-toggle="tooltip" data-placement="left" title="<?=get_lang('CONF_Id_news');?>" style="padding-top: 10px;">
 <select data-placeholder="<?=get_lang('Select_users');?>" class="my_select2 select" multiple id="permit_users_news" name="permit_users_news[]">
 <?php
     $us = get_conf_param('permit_users_news');
+    $u=explode(",", $us);
+
+      $stmt = $dbConnection->prepare('SELECT fio as fio, id as value FROM users where on_off=:n2 and id !=:n');
+$stmt->execute(array(':n'=>'0',':n2'=>'1'));
+$res1 = $stmt->fetchAll();
+
+      foreach($res1 as $row) {
+                          $row['fio']=nameshort($row['fio']);
+                          $row['value']=(int)$row['value'];
+$opt_sel='';
+foreach ($u as $val) {
+if ($val== $row['value']) {$opt_sel="selected";}
+}
+                          ?>
+                          <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=nameshort($row['fio'])?></option>
+                      <?php
+                      }
+
+                      ?>
+  </select>
+</div>
+<div data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('CONF_Id_license');?>" style="padding-top: 10px;">
+<select data-placeholder="<?=get_lang('Select_users');?>" class="my_select2 select" multiple id="permit_users_license" name="permit_users_license[]">
+<?php
+    $us = get_conf_param('permit_users_license');
     $u=explode(",", $us);
 
       $stmt = $dbConnection->prepare('SELECT fio as fio, id as value FROM users where on_off=:n2 and id !=:n');
