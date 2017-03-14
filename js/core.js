@@ -677,7 +677,8 @@ if (event.description == 'antivirus'){
 element.find('.fc-title').prepend('<i class=\"fa fa-key\"></i>&nbsp;');
 }
 },
-eventSources: [{
+eventSources: [
+          {
             url: ACTIONPATH,
             type: 'POST', // Send post data
             data: {

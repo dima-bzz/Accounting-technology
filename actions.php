@@ -5276,7 +5276,15 @@ if ($mode == "calendar_birthday"){
   echo json_encode($events);
 }
 if ($mode == "calendar_antivirus"){
-  if ((validate_priv($_SESSION['dilema_user_id']) == 1) || ($_SESSION['dilema_user_id'] == 63)){
+  $user_id=$_SESSION['dilema_user_id'];
+  $permit_users_license = get_conf_param('permit_users_license');
+  $permit = explode(",",$permit_users_license);
+  foreach ($permit as $permit_id) {
+    if ($user_id == $permit_id){
+      $priv_license="yes";
+    }
+  }
+  if ((validate_priv($_SESSION['dilema_user_id']) == 1) || ($priv_license == "yes")){
   $events = array();
   $stmt = $dbConnection->prepare("SELECT org.id as id,org.name as name,license.antivirus as antivirus FROM license INNER JOIN org ON org.id = license.organti  WHERE license.active = 1 GROUP BY license.antivirus");
   $stmt->execute();
@@ -5285,8 +5293,8 @@ if ($mode == "calendar_antivirus"){
     $e = array();
     $e['id_anti'] = $myrow['id'];
     $e['title'] = get_lang('End_license')." ".$myrow['name'];
-    $e['start'] = $myrow['antivirus']."  00:00:00";
-    $e['end'] = $myrow['antivirus']."  23:59:00";
+    $e['start'] = $myrow['antivirus']." 00:00:00";
+    $e['end'] = $myrow['antivirus']." 23:59:00";
     $e['description'] = "antivirus";
     // $e['allDay'] = false;
     array_push($events, $e);
