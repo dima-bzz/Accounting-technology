@@ -16,18 +16,7 @@ include("menus.php");
         <div class="panel panel-default">
         <div class="panel-heading">
           <i class="fa fa-info-circle"></i>&nbsp;<?=get_lang('Equipment_title');?>
-          <!-- <select class='my_select' style="width:200px;" name="org_equipment" id="org_equipment">
-          <?php
-              $stmt = $dbConnection->prepare("SELECT * FROM org WHERE active=1 order by name;");
-              $stmt->execute();
-              $res1 = $stmt->fetchAll();
-              foreach($res1 as $myrow) {
-                  echo "<option value=".$myrow["id"];
-                  if ($myrow["id"]==$_COOKIE['cookieorgid']){echo " selected";};
-                  echo ">$myrow[name]</option>";
-                 };
-          ?>
-          </select> -->
+
       	</div>
       <div class="panel-body">
         <table id="equipment_table" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
