@@ -63,7 +63,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
         setcookie ('lang_cookie',$row['lang']);
         setcookie ('on_off_cookie',$row['on_off']);
         setcookie('authhash_usid', $_SESSION['dilema_user_id']);
-        setcookie('cookieorgid','1');
+        setcookie('cookieorgid',get_conf_param('default_org'));
         setcookie('cookie_eq_util','0');
         setcookie('cookie_eq_sale','0');
         setcookie ('date',date('Y-m-d'));
@@ -72,7 +72,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
 
             setcookie('authhash_usid', $_SESSION['dilema_user_id'], time()+60*60*24*7);
             setcookie('authhash_uscode', $_SESSION['us_code'], time()+60*60*24*7);
-            setcookie('cookieorgid', '1', time()+60*60*24*7);
+            setcookie('cookieorgid', get_conf_param('default_org'), time()+60*60*24*7);
             setcookie('cookie_eq_util', '0', time()+60*60*24*7);
             setcookie('cookie_eq_sale', '0', time()+60*60*24*7);
             setcookie ('lang_cookie',$row['lang'], time()+60*60*24*7);

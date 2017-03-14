@@ -1077,9 +1077,10 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&permit_users_req="+encodeURIComponent($("#permit_users_req").val()) +
         "&permit_users_cont="+encodeURIComponent($("#permit_users_cont").val()) +
         "&permit_users_documents="+encodeURIComponent($("#permit_users_documents").val())+
-        "&permit_users_news="+encodeURIComponent($("#permit_users_news").val())+
-        "&permit_users_license="+encodeURIComponent($("#permit_users_license").val()),
+        "&permit_users_license="+encodeURIComponent($("#permit_users_license").val())+
+        "&default_org="+encodeURIComponent($("#default_org").val()),
         success: function(html) {
+        $.cookie('cookieorgid',$("#default_org").val());
         $("#conf_edit_main").blur();
         $("#conf_edit_main_res").hide().html(html).fadeIn(500);
         setTimeout(function() {$('#conf_edit_main_res').children('.alert').fadeOut(500);}, 3000);
@@ -3819,7 +3820,10 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                     {
                         $(nRow).css({'background-color': '#5bc0de', 'color': '#fff'});
                     }
-                    if ($.cookie('cookie_eq') == '1'){
+                    if ($.cookie('cookie_eq_util') == '1'){
+                    $(nRow).addClass('users_not_active');
+                    }
+                    if ($.cookie('cookie_eq_sale') == '1'){
                     $(nRow).addClass('users_not_active');
                     }
                   },

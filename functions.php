@@ -29,7 +29,8 @@ $CONF = array (
 'permit_users_cont' => get_conf_param('permit_users_cont'),
 'permit_users_documents' => get_conf_param('permit_users_documents'),
 'permit_users_news' => get_conf_param('permit_users_news'),
-'permit_users_license' => get_conf_param('permit_users_license')
+'permit_users_license' => get_conf_param('permit_users_license'),
+'default_org' => get_conf_param('default_org')
 );
 
 if ($CONF_AT['debug_mode'] == true) {
