@@ -23,7 +23,7 @@ include("menus.php");
               $res1 = $stmt->fetchAll();
               foreach($res1 as $myrow) {
                   echo "<option value=".$myrow["id"];
-                  if ($myrow[id]==$_COOKIE['cookieorgid']){echo " selected";};
+                  if ($myrow["id"]==$_COOKIE['cookieorgid']){echo " selected";};
                   echo ">$myrow[name]</option>";
                  };
           ?>

@@ -2399,7 +2399,7 @@ if ($mode == "dialog_cartridge_add"){
     foreach($res1 as $myrow)
       {$vl=$myrow['id'];
         echo "<option value=$vl";
-        if ($myrow[id]==$nomeid){echo " selected";};
+        if ($myrow["id"]==$nomeid){echo " selected";};
         $nm=$myrow['name'];
         echo ">$nm</option>";
       };
@@ -2528,7 +2528,7 @@ $zapr=$myrow['zapr'];
     foreach($res1 as $myrow)
       {$vl=$myrow['id'];
         echo "<option value=$vl";
-        if ($myrow[id]==$nomeid){echo " selected";};
+        if ($myrow["id"]==$nomeid){echo " selected";};
         $nm=$myrow['name'];
         echo ">$nm</option>";
       };
@@ -5201,7 +5201,7 @@ if ($mode == "select_print"){
   foreach($res1 as $myrow)
     {$vl=$myrow['id'];
       echo "<option value=$vl";
-      if ($myrow[id]==$nomeid){echo " selected";};
+      if ($myrow["id"]==$nomeid){echo " selected";};
       $nm=$myrow['name'];
       echo ">$nm</option>";
     };
@@ -5239,7 +5239,7 @@ if ($mode == "select_org"){
       $res1 = $stmt->fetchAll();
       foreach($res1 as $myrow) {
           echo "<option value=".$myrow["id"];
-          if ($myrow[id]==$_COOKIE['cookieorgid']){echo " selected";};
+          if ($myrow["id"]==$_COOKIE['cookieorgid']){echo " selected";};
           echo ">$myrow[name]</option>";
          };
   ?>
