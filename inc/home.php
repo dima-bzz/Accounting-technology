@@ -74,7 +74,7 @@ if ($d < 20) {
       array_push($count_lt,$d);
     }
     }
-    $users_coll = "&nbsp;&nbsp;&nbsp;<b>".get_lang('Users_coll')." <span id=\"test\">".count($count_lt)."</span></b>";
+    $users_coll = "&nbsp;&nbsp;&nbsp;<b>".get_lang('Users_coll')." <span id=\"count_update\">".count($count_lt)."</span></b>";
     echo $users_coll;
      ?>
     <div id="time"></div>

@@ -252,7 +252,7 @@ else {
 };
 function check_approve_users(){
    $.post( ACTIONPATH,{ mode: "approve_users" },function( data ) {
-     $("#test").html(data);
+     $("#count_update").html(data);
 });
 };
 
