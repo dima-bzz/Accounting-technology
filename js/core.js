@@ -664,8 +664,8 @@ $("#calendar").fullCalendar({
 // },
 // {
 // title: '123',
-// start: '2016-04-29 00:00:00',
-// end: '2016-04-29 23:59:00',
+// start: '2017-03-29 00:00:00',
+// end: '2017-03-29 23:59:00',
 // // allDay:true
 // },
 // ],
@@ -1077,6 +1077,7 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&permit_users_req="+encodeURIComponent($("#permit_users_req").val()) +
         "&permit_users_cont="+encodeURIComponent($("#permit_users_cont").val()) +
         "&permit_users_documents="+encodeURIComponent($("#permit_users_documents").val())+
+        "&permit_users_news="+encodeURIComponent($("#permit_users_news").val())+
         "&permit_users_license="+encodeURIComponent($("#permit_users_license").val())+
         "&default_org="+encodeURIComponent($("#default_org").val()),
         success: function(html) {
@@ -1087,6 +1088,7 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         }
         });
 });
+
 // ******Добавление ТМЦ******
 function img_equipment(){
 var options =
@@ -2299,6 +2301,13 @@ function check_account(){
 $('body').on('click', 'button#add_users', function(event) {
           event.preventDefault();
           var er = check_er.login || check_er.email || check_er.user_name;
+          var permit_menu = "";
+          if ($("#priv").val() == 0){
+            permit_menu = "3-1,3-2,3-5,3-6,3-7"
+          }
+          if ($("#priv").val() == 2){
+            permit_menu = "1-1,3-1,3-2,3-3,3-4,3-5,3-6,3-7"
+          }
           var valid_users_add_edit = function(){
           var valid_result = false;
           if ($('#login').val().length < '3'){
@@ -2342,6 +2351,7 @@ $('body').on('click', 'button#add_users', function(event) {
         "&fio=" + encodeURIComponent($("#fio").val())+
         "&email=" + encodeURIComponent($("#email").val())+
         "&priv=" + encodeURIComponent($("#priv").val())+
+        "&permit_menu=" + permit_menu+
         "&dostup=" + encodeURIComponent($("#dostup").val())+
         "&user_name=" + encodeURIComponent($("#user_name").val())+
         "&lang=" + encodeURIComponent($("#lang").val()),
@@ -2398,6 +2408,7 @@ $('body').on('click', 'button#edit_users', function(event) {
         "&fio=" + encodeURIComponent($("#fio").val())+
         "&email=" + encodeURIComponent($("#email").val())+
         "&priv=" + encodeURIComponent($("#priv").val())+
+        "&permit_menu=" + encodeURIComponent($("#permit_menu").val())+
         "&dostup=" + encodeURIComponent($("#dostup").val())+
         "&user_name=" + encodeURIComponent($("#user_name").val())+
         "&on_off=" + encodeURIComponent($("#on_off").val())+

@@ -465,6 +465,19 @@ function validate_priv($user_id) {
     return $priv;
 
 }
+function validate_menu($user_id) {
+    global $dbConnection;
+
+    $stmt = $dbConnection->prepare('SELECT permit_menu from users where id=:user_id LIMIT 1');
+    $stmt->execute(array(':user_id' => $user_id));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $permit=$row['permit_menu'];
+
+    // if ($admin == "1") {return true;}
+    // else {return false;}
+    return $permit;
+
+}
 
 function validate_user($user_id, $input) {
 
@@ -686,7 +699,7 @@ foreach($res1 as $myrow) {
 return $mOrgs;
 };
 
-function GetArrayVendor_nome($in,$in2){ // Возврат - массив номенклатуры..
+function GetArrayVendor_nome($in,$in2){ // Возврат - массив вендер и группы..
 echo "Nome\n";
 echo "ID=".var_dump($in,$in2)."\n";
 global $dbConnection;
@@ -703,7 +716,7 @@ foreach($res1 as $myrow) {
   };
 return $mOrgs;
 };
-function GetArrayNome_users($in){ // Возврат - массив активных контрагентов
+function GetArrayNome_users($in){ // Возврат - массив тмц лицензирования
 		echo "INVOICE\n";
 		echo "ID=".var_dump($in)."\n";
     global $dbConnection;

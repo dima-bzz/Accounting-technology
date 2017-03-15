@@ -62,6 +62,7 @@ update_val_by_key("permit_users_news", $_POST['permit_users_news']);
 update_val_by_key("permit_users_license", $_POST['permit_users_license']);
 update_val_by_key("default_org", $_POST['default_org']);
 
+
 ?>
 <div class="alert alert-success">
 <?=get_lang('PROFILE_msg_ok');?>
@@ -3538,7 +3539,7 @@ if ($mode == "dialog_users_add"){
 }
 if ($mode == "dialog_users_edit"){
   $id = $_POST['id'];
-  $stmt = $dbConnection->prepare ('SELECT login,pass,fio,email,priv,on_off,dostup,lang,user_name FROM users WHERE id=:id');
+  $stmt = $dbConnection->prepare ('SELECT login,pass,fio,email,priv,permit_menu,on_off,dostup,lang,user_name FROM users WHERE id=:id');
   $stmt->execute(array(':id' => $id));
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row){
@@ -3547,6 +3548,7 @@ if ($mode == "dialog_users_edit"){
     $fio = $row['fio'];
     $email = $row['email'];
     $priv = $row['priv'];
+    $permit_menu = $row['permit_menu'];
     $on_off = $row['on_off'];
     $dostup = $row['dostup'];
     $user_name = $row['user_name'];
@@ -3606,6 +3608,37 @@ if ($mode == "dialog_users_edit"){
             </select>
           </div>
           </div>
+          <?php
+          if ($priv != 1){
+           ?>
+          <div class="form-group">
+            <div class="col-sm-4 text-right" ><label class="control-label"><small>Доступ к меню:</small></label></div>
+          <div class="col-sm-8">
+            <select class="my_select2 select" data-placeholder="Пункты меню" multiple id="permit_menu" name="permit_menu[]">
+              <?php
+                $pm = explode(",",$permit_menu);
+               ?>
+            <option value="1-1" <?php if (in_array("1-1",$pm)) {echo "selected";} ?>><?=get_lang('Menu_reports');?></option>
+            <option value="1-2" <?php if (in_array("1-2",$pm)) {echo "selected";} ?>><?=get_lang('Menu_invoice');?></option>
+            <option value="1-3" <?php if (in_array("1-3",$pm)) {echo "selected";} ?>><?=get_lang('Menu_history_moving');?></option>
+            <option value="1-4" <?php if (in_array("1-4",$pm)) {echo "selected";} ?>><?=get_lang('Menu_cartridge');?></option>
+            <option value="1-5" <?php if (in_array("1-5",$pm)) {echo "selected";} ?>><?=get_lang('Menu_license');?></option>
+            <option value="1-6" <?php if (in_array("1-6",$pm)) {echo "selected";} ?>><?=get_lang('Menu_equipment');?></option>
+            <option value="2-1" <?php if (in_array("2-1",$pm)) {echo "selected";} ?>><?=get_lang('Menu_ping');?></option>
+            <option value="2-2" <?php if (in_array("2-2",$pm)) {echo "selected";} ?>><?=get_lang('Menu_printer');?></option>
+            <option value="3-1" <?php if (in_array("3-1",$pm)) {echo "selected";} ?>><?=get_lang('Menu_news');?></option>
+            <option value="3-2" <?php if (in_array("3-2",$pm)) {echo "selected";} ?>><?=get_lang('Menu_eqlist');?></option>
+            <option value="3-3" <?php if (in_array("3-3",$pm)) {echo "selected";} ?>><?=get_lang('Menu_requisites');?></option>
+            <option value="3-4" <?php if (in_array("3-4",$pm)) {echo "selected";} ?>><?=get_lang('Menu_knt');?></option>
+            <option value="3-5" <?php if (in_array("3-5",$pm)) {echo "selected";} ?>><?=get_lang('Menu_documents');?></option>
+            <option value="3-6" <?php if (in_array("3-6",$pm)) {echo "selected";} ?>><?=get_lang('Menu_contact');?></option>
+            <option value="3-7" <?php if (in_array("3-7",$pm)) {echo "selected";} ?>><?=get_lang('Menu_calendar');?></option>
+          </select>
+          </div>
+          </div>
+          <?php
+        }
+          ?>
             <div class="form-group" id="account_grp">
               <div class="col-sm-4 text-right" >
             <label class="control-label"><small>Аккаунт:</small></label>
@@ -3763,11 +3796,12 @@ if ($mode == "users_add"){
   $fio = $_POST['fio'];
   $email = $_POST['email'];
   $priv = $_POST['priv'];
+  $permit_menu = $_POST['permit_menu'];
   $dostup = $_POST['dostup'];
   $user_name = $_POST['user_name'];
   $lang = $_POST['lang'];
-  $stmt = $dbConnection->prepare ("INSERT INTO users (id,login,fio,pass,email,priv,active,on_off,dostup,lang,user_name) VALUES (NULL,:login,:fio,:pass,:email,:priv,1,1,:dostup,:lang,:user_name)");
-  $stmt->execute(array(':login' => $login, ':fio' => $fio, ':pass' => $pass, ':email' => $email, ':priv' => $priv, 'dostup' => $dostup, ':lang' => $lang, ':user_name' => $user_name ));
+  $stmt = $dbConnection->prepare ("INSERT INTO users (id,login,fio,pass,email,priv,permit_menu,active,on_off,dostup,lang,user_name) VALUES (NULL,:login,:fio,:pass,:email,:priv,:permit_menu,1,1,:dostup,:lang,:user_name)");
+  $stmt->execute(array(':login' => $login, ':fio' => $fio, ':pass' => $pass, ':email' => $email, ':priv' => $priv, ':permit_menu' => $permit_menu, 'dostup' => $dostup, ':lang' => $lang, ':user_name' => $user_name ));
 
   $stmt = $dbConnection->prepare('SELECT max(last_insert_id(id)) as us_id FROM users');
   $stmt->execute();
@@ -3784,13 +3818,14 @@ if ($mode == "users_edit"){
   $fio = $_POST['fio'];
   $email = $_POST['email'];
   $priv = $_POST['priv'];
+  $permit_menu = $_POST['permit_menu'];
   $dostup = $_POST['dostup'];
   $user_name = $_POST['user_name'];
   $lang = $_POST['lang'];
   $on_off = $_POST['on_off'];
 
-  $stmt = $dbConnection->prepare ("UPDATE users SET login = :login, fio = :fio, pass = :pass, email = :email, priv = :priv, on_off = :on_off, dostup = :dostup, lang = :lang, user_name = :user_name WHERE id = :id");
-  $stmt->execute(array(':login' => $login, ':fio' => $fio, ':pass' => $pass, ':email' => $email, ':priv' => $priv, ':on_off' => $on_off, 'dostup' => $dostup, ':lang' => $lang, ':user_name' => $user_name, ':id' => $id ));
+  $stmt = $dbConnection->prepare ("UPDATE users SET login = :login, fio = :fio, pass = :pass, email = :email, priv = :priv, permit_menu = :permit_menu, on_off = :on_off, dostup = :dostup, lang = :lang, user_name = :user_name WHERE id = :id");
+  $stmt->execute(array(':login' => $login, ':fio' => $fio, ':pass' => $pass, ':email' => $email, ':priv' => $priv, ':permit_menu' => $permit_menu, ':on_off' => $on_off, 'dostup' => $dostup, ':lang' => $lang, ':user_name' => $user_name, ':id' => $id ));
 }
 if ($mode == "users_delete"){
   $id = $_POST['id'];
@@ -5263,7 +5298,7 @@ if ($mode == "calendar_birthday"){
     $years = range($yearBegin, $yearEnd, 1);
     foreach ($years as $year) {
     $bi = DateToMySQLDateBirthday($myrow['birthday']);
-    $test = '<i class="fa fa-birthday-cake"></i>&nbsp;';
+    // $test = '<i class="fa fa-birthday-cake"></i>&nbsp;';
     $e['id_bi'] = $myrow['id'];
     $e['title'] = $myrow['fio'];
     $e['start'] = $year."-".$bi." 00:00:00";

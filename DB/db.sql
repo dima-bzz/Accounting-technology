@@ -451,6 +451,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `pass` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `priv` int(11) NOT NULL,
+  `permit_menu` varchar(512) NOT NULL,
   `lastdt` datetime NOT NULL,
   `active` tinyint(1) NOT NULL,
   `on_off` tinyint(1) NOT NULL DEFAULT '1',
@@ -464,7 +465,7 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `fio`, `login`, `pass`, `priv`, `active`, `email`)
 VALUES
-	(1,'Main system account','system','1234',1,'1','no-email@company.local');
+	(1,'Main system account','system','1234','1','1','no-email@company.local');
 
 UNLOCK TABLES;
 -- --------------------------------------------------------
