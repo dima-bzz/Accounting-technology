@@ -3420,12 +3420,12 @@ if ($mode == "users_table"){
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
     switch($key["priv"]){
-  case 0: $priv="Пользователь";
-  break;
-  case 1: $priv="Администратор";
-  break;
-  case 2: $priv="Опытный Пользователь";
-  break;
+      case 0: $priv="<span data-toggle=\"tooltip\" data-placement=\"right\" data-original-title=\"".validate_menu_lang($key['id'])."\" data-html=\"true\">Пользователь</span>";
+      break;
+      case 1: $priv="<span data-toggle=\"tooltip\" data-placement=\"right\" data-original-title=\"".get_lang("All_menu")."\" data-html=\"true\">Администратор</span>";
+      break;
+      case 2: $priv="<span data-toggle=\"tooltip\" data-placement=\"right\" data-original-title=\"".validate_menu_lang($key['id'])."\" data-html=\"true\">Опытный Пользователь</span>";
+      break;
     }
     switch($key["dostup"]){
   case 0: $dostup="Доступа нет";

@@ -473,9 +473,69 @@ function validate_menu($user_id) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $permit=$row['permit_menu'];
 
-    // if ($admin == "1") {return true;}
-    // else {return false;}
     return $permit;
+
+}
+
+function validate_menu_lang($user_id) {
+    global $dbConnection;
+    $menu_lang = array();
+    $stmt = $dbConnection->prepare('SELECT permit_menu from users where id=:user_id LIMIT 1');
+    $stmt->execute(array(':user_id' => $user_id));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $menu=$row['permit_menu'];
+    $menu = explode(",", $menu);
+    foreach ($menu as $key)  {
+      switch ($key) {
+        case '1-1':
+        $menu_lang[] = get_lang('Menu_reports');
+        break;
+        case '1-2':
+        $menu_lang[] = get_lang('Menu_invoice');
+        break;
+        case '1-3':
+        $menu_lang[] = get_lang('Menu_history_moving');
+        break;
+        case '1-4':
+        $menu_lang[] = get_lang('Menu_cartridge');
+        break;
+        case '1-5':
+        $menu_lang[] = get_lang('Menu_license');
+        break;
+        case '1-6':
+        $menu_lang[] = get_lang('Menu_equipment');
+        break;
+        case '2-1':
+        $menu_lang[] = get_lang('Menu_ping');
+        break;
+        case '2-2':
+        $menu_lang[] = get_lang('Menu_printer');
+        break;
+        case '3-1':
+        $menu_lang[] = get_lang('Menu_news');
+        break;
+        case '3-2':
+        $menu_lang[] = get_lang('Menu_eqlist');
+        break;
+        case '3-3':
+        $menu_lang[] = get_lang('Menu_requisites');
+        break;
+        case '3-4':
+        $menu_lang[] = get_lang('Menu_knt');
+        break;
+        case '3-5':
+        $menu_lang[] = get_lang('Menu_documents');
+        break;
+        case '3-6':
+        $menu_lang[] = get_lang('Menu_contact');
+        break;
+        case '3-7':
+        $menu_lang[] = get_lang('Menu_calendar');
+        break;
+      }
+    }
+
+    return implode("<br>",$menu_lang);
 
 }
 
