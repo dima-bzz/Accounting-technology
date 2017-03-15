@@ -3,6 +3,7 @@ session_start();
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");
 include("menus.php");
+  if ((in_array('1-1', explode(",",validate_menu($_SESSION['dilema_user_id'])))) || (validate_priv($_SESSION['dilema_user_id']) == 1)){
  ?>
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
@@ -217,10 +218,23 @@ for ($i = 0; $i < count($morgs); $i++) {
  </div>
  </div>
  </div>
-<?php
-include("footer.php");
-}
-else {
-    include 'auth.php';
-}
+ <?php
+ }
+  else{
  ?>
+ <div class="row">
+   <div class="col-md-12">
+     <center>
+     <font size="20"><?=get_lang('Access_denied')?></font>
+   </center>
+   </div>
+ </div>
+ <br>
+ <?php
+ }
+ include("footer.php");
+ }
+ else {
+     include 'auth.php';
+ }
+  ?>

@@ -81,20 +81,20 @@ include("menus.php");
  </div>
   </div>
   <div class="form-group">
-<label for="default_org" class="col-sm-4 control-label"><small><?=get_lang('CONF_default_org');?></small></label>
-<div class="col-sm-8">
-  <select data-placeholder="Выберите организацию" class='my_select select' name="default_org" id="default_org">
-   <option value=""></option>
-  <?php
-  $morgs=GetArrayOrg();
-  for ($i = 0; $i < count($morgs); $i++) {
-      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      if ($nid==get_conf_param('default_org')){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
-  };
-  ?>
-  </select>
-</div>
+  <label for="default_org" class="col-sm-4 control-label"><small><?=get_lang('CONF_default_org');?></small></label>
+  <div class="col-sm-8">
+    <select data-placeholder="Выберите организацию" class='my_select select' name="default_org" id="default_org">
+     <option value=""></option>
+    <?php
+    $morgs=GetArrayOrg();
+    for ($i = 0; $i < count($morgs); $i++) {
+        $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+        if ($nid==get_conf_param('default_org')){$sl=" selected";} else {$sl="";};
+        echo "<option value=$nid $sl>$nm</option>";
+    };
+    ?>
+    </select>
+  </div>
 </div>
   <div class="form-group">
     <label for="file_types" class="col-sm-4 control-label"><small><?=get_lang('CONF_file_types');?></small></label>

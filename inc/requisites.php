@@ -3,6 +3,7 @@ session_start();
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");
 include("menus.php");
+  if ((in_array('3-3', explode(",",validate_menu($_SESSION['dilema_user_id'])))) || (validate_priv($_SESSION['dilema_user_id']) == 1)){
  ?>
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
@@ -58,16 +59,29 @@ include("menus.php");
  </div>
  </div>
  </div>
-<?php
-include("footer.php");
-?>
-<script>
-var file_types = ['<?=str_replace(",", "','", get_conf_param('file_types'))?>'];
-var permit_users_req = ['<?=str_replace(",", "','", get_conf_param('permit_users_req'))?>'];
-</script>
-<?php
-}
-else {
-    include 'auth.php';
-}
+ <?php
+ }
+  else{
  ?>
+ <div class="row">
+   <div class="col-md-12">
+     <center>
+     <font size="20"><?=get_lang('Access_denied')?></font>
+   </center>
+   </div>
+ </div>
+ <br>
+ <?php
+ }
+ include("footer.php");
+ ?>
+ <script>
+ var file_types = ['<?=str_replace(",", "','", get_conf_param('file_types'))?>'];
+ var permit_users_req = ['<?=str_replace(",", "','", get_conf_param('permit_users_req'))?>'];
+ </script>
+ <?php
+ }
+ else {
+     include 'auth.php';
+ }
+  ?>
