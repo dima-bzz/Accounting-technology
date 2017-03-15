@@ -2302,11 +2302,8 @@ $('body').on('click', 'button#add_users', function(event) {
           event.preventDefault();
           var er = check_er.login || check_er.email || check_er.user_name;
           var permit_menu = "";
-          if ($("#priv").val() == 0){
-            permit_menu = "3-1,3-2,3-5,3-6,3-7"
-          }
-          if ($("#priv").val() == 2){
-            permit_menu = "1-1,3-1,3-2,3-3,3-4,3-5,3-6,3-7"
+          if ($("#permit_menu").val() != null){
+            permit_menu = $("#permit_menu").val();
           }
           var valid_users_add_edit = function(){
           var valid_result = false;
@@ -2367,6 +2364,10 @@ $('body').on('click', 'button#add_users', function(event) {
 $('body').on('click', 'button#edit_users', function(event) {
           event.preventDefault();
           var er = check_er.login || check_er.email || check_er.account || check_er.user_name;
+          var permit_menu = "";
+          if ($("#permit_menu").val() != null){
+            permit_menu = $("#permit_menu").val();
+          }
           var valid_users_add_edit = function(){
           var valid_result = false;
           if ($('#login').val().length < '3'){
@@ -2408,7 +2409,7 @@ $('body').on('click', 'button#edit_users', function(event) {
         "&fio=" + encodeURIComponent($("#fio").val())+
         "&email=" + encodeURIComponent($("#email").val())+
         "&priv=" + encodeURIComponent($("#priv").val())+
-        "&permit_menu=" + encodeURIComponent($("#permit_menu").val())+
+        "&permit_menu=" + permit_menu +
         "&dostup=" + encodeURIComponent($("#dostup").val())+
         "&user_name=" + encodeURIComponent($("#user_name").val())+
         "&on_off=" + encodeURIComponent($("#on_off").val())+
@@ -8739,6 +8740,27 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               my_select();
               my_select2();
               check_login();
+              if ($('select#priv').val() == '0'){
+                $("#permit_menu").val(['3-1', '3-2', '3-5', '3-6', '3-7']);
+                $("#permit_menu").trigger("chosen:updated");
+              }
+              $('select#priv').on('change', function(){
+                if ($(this).val() == "1"){
+                  $("#permit_menu").val('');
+                  $("#permit_menu").trigger("chosen:updated");
+                  $("#menu_sh").hide();
+                }
+                else if ($(this).val() == "0"){
+                  $("#permit_menu").val(['3-1', '3-2', '3-5', '3-6', '3-7']);
+                  $("#permit_menu").trigger("chosen:updated");
+                  $("#menu_sh").show();
+                }
+                else if ($(this).val() == "2"){
+                  $("#permit_menu").val(['1-1', '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7']);
+                  $("#permit_menu").trigger("chosen:updated");
+                  $("#menu_sh").show();
+                }
+              });
               $('body').on('click', 'button#user_name_gen', function() {
                    var un = str_rand();
                   $("#user_name").val(un);
@@ -8915,6 +8937,26 @@ $('#table_users tbody').on( 'click', 'button#users_edit', function () {
                    onshown: function(){
                      my_select();
                      my_select2();
+                     if ($('select#priv').val() == "1"){
+                       $("#menu_sh").hide();
+                     }
+                     $('select#priv').on('change', function(){
+                       if ($(this).val() == "1"){
+                         $("#permit_menu").val('');
+                         $("#permit_menu").trigger("chosen:updated");
+                         $("#menu_sh").hide();
+                       }
+                       else if ($(this).val() == "0"){
+                         $("#permit_menu").val(['3-1', '3-2', '3-5', '3-6', '3-7']);
+                         $("#permit_menu").trigger("chosen:updated");
+                         $("#menu_sh").show();
+                       }
+                       else if ($(this).val() == "2"){
+                         $("#permit_menu").val(['1-1', '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7']);
+                         $("#permit_menu").trigger("chosen:updated");
+                         $("#menu_sh").show();
+                       }
+                     });
                      $('#on_off').change(function(){
                        if (this.value == '1')  {
                          change(this.selectedIndex);

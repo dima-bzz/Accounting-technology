@@ -3509,6 +3509,31 @@ if ($mode == "dialog_users_add"){
             </select>
           </div>
           </div>
+          <div class="form-group" id="menu_sh">
+            <div class="col-sm-4 text-right" ><label class="control-label"><small>Доступ к меню:</small></label></div>
+          <div class="col-sm-8">
+            <select class="my_select2 select" data-placeholder="Пункты меню" multiple id="permit_menu" name="permit_menu[]">
+              <?php
+                $pm = explode(",",$permit_menu);
+               ?>
+            <option value="1-1"><?=get_lang('Menu_reports');?></option>
+            <option value="1-2"><?=get_lang('Menu_invoice');?></option>
+            <option value="1-3"><?=get_lang('Menu_history_moving');?></option>
+            <option value="1-4"><?=get_lang('Menu_cartridge');?></option>
+            <option value="1-5"><?=get_lang('Menu_license');?></option>
+            <option value="1-6"><?=get_lang('Menu_equipment');?></option>
+            <option value="2-1"><?=get_lang('Menu_ping');?></option>
+            <option value="2-2"><?=get_lang('Menu_printer');?></option>
+            <option value="3-1"><?=get_lang('Menu_news');?></option>
+            <option value="3-2"><?=get_lang('Menu_eqlist');?></option>
+            <option value="3-3"><?=get_lang('Menu_requisites');?></option>
+            <option value="3-4"><?=get_lang('Menu_knt');?></option>
+            <option value="3-5"><?=get_lang('Menu_documents');?></option>
+            <option value="3-6"><?=get_lang('Menu_contact');?></option>
+            <option value="3-7"><?=get_lang('Menu_calendar');?></option>
+          </select>
+          </div>
+          </div>
             <div class="form-group">
             <div class="col-sm-4 text-right" >
             <label class="control-label"><small>Доступ в систему:</small></label>
@@ -3608,10 +3633,7 @@ if ($mode == "dialog_users_edit"){
             </select>
           </div>
           </div>
-          <?php
-          if ($priv != 1){
-           ?>
-          <div class="form-group">
+          <div class="form-group" id="menu_sh">
             <div class="col-sm-4 text-right" ><label class="control-label"><small>Доступ к меню:</small></label></div>
           <div class="col-sm-8">
             <select class="my_select2 select" data-placeholder="Пункты меню" multiple id="permit_menu" name="permit_menu[]">
@@ -3636,9 +3658,6 @@ if ($mode == "dialog_users_edit"){
           </select>
           </div>
           </div>
-          <?php
-        }
-          ?>
             <div class="form-group" id="account_grp">
               <div class="col-sm-4 text-right" >
             <label class="control-label"><small>Аккаунт:</small></label>
