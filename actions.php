@@ -4116,7 +4116,7 @@ if ($mode == "contact_print"){
   <tbody>
 
   <?php
-    $stmt = $dbConnection->prepare ("SELECT users_profile.id AS usprofid,users_profile.homephone AS wphone,places.name AS plname, users.id,users.fio as fio,users.on_off as on_off FROM users RIGHT JOIN users_profile ON users.id=usersid INNER JOIN places_users ON users.id=userid INNER JOIN places ON places.id=placesid where places.id NOT IN (13,41,37,44) and users.on_off=1 and users_profile.homephone !=' ' order by users.fio");
+    $stmt = $dbConnection->prepare ("SELECT users_profile.id AS usprofid,users_profile.homephone AS wphone,places.name AS plname, users.id,users.fio as fio,users.on_off as on_off FROM users RIGHT JOIN users_profile ON users.id=usersid INNER JOIN places_users ON users.id=userid INNER JOIN places ON places.id=placesid where users.on_off=1 and users_profile.homephone !=' ' order by users.fio");
     $stmt->execute();
     $res1 = $stmt->fetchAll();
     foreach($res1 as $row){
