@@ -6185,6 +6185,7 @@ var table_license = $('#table_license').DataTable({
         // $(this).find('td:first').append($('<span />', { 'class': 'group_text' }).append($('<b />', { 'text': ' ' + get_lang_param("Totale_install") +': ' + rowCount })));
             });
             if (Admin !== true ){
+            table_license.buttons('.Action_b').remove();
             table_license.buttons('.License_delete_bt').remove();
           }
   },
@@ -6213,6 +6214,7 @@ var table_license = $('#table_license').DataTable({
 "buttons":[
         {
           extend: 'collection',
+          className: 'Action_b',
           text: function(a){return a.i18n("Action_b","Action button")},
           autoClose: true,
           "buttons":[
