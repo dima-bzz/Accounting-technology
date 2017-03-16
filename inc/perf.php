@@ -71,8 +71,8 @@ include("menus.php");
       <div class="form-group">
     <label for="first_login" class="col-sm-4 control-label"><small><?=get_lang('CONF_f_login');?></small></label>
     <div class="col-sm-8">
-  <select class="form-control input-sm" id="first_login">
-  <option value="true" <?php if (get_conf_param('first_login') == "true") {echo "selected";} ?>><?=get_lang('CONF_f_login_opt_true');?></option>
+  <select class="my_select2 select" id="first_login">
+  <option value="true" <?php if (get_conf_param('first_login') == "true") {echo "selected";} ?>><?=get_lang('CONF_true');?></option>
   <option value="false" <?php if (get_conf_param('first_login') == "false") {echo "selected";} ?>><?=get_lang('CONF_false');?></option>
 </select>
 <p class="help-block"><small>
@@ -389,7 +389,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
     <div class="form-group">
     <label for="mail_active" class="col-sm-4 control-label"><small><?=get_lang('CONF_mail_status');?></small></label>
     <div class="col-sm-8">
-  <select class="form-control input-sm" id="mail_active">
+  <select class="my_select2 select" id="mail_active">
   <option value="true" <?php if (get_conf_param('mail_active') == "true") {echo "selected";} ?>><?=get_lang('CONF_true');?></option>
   <option value="false" <?php if (get_conf_param('mail_active') == "false") {echo "selected";} ?>><?=get_lang('CONF_false');?></option>
 </select>    </div>
@@ -404,7 +404,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
       <div class="form-group">
     <label for="mail_type" class="col-sm-4 control-label"><small><?=get_lang('CONF_mail_type');?></small></label>
     <div class="col-sm-8">
-  <select class="form-control input-sm" id="mail_type">
+  <select class="my_select2 select" id="mail_type">
   <option value="sendmail" <?php if (get_conf_param('mail_type') == "sendmail") {echo "selected";} ?>>sendmail</option>
   <option value="SMTP" <?php if (get_conf_param('mail_type') == "SMTP") {echo "selected";} ?>>SMTP</option>
 </select>    </div>
@@ -429,7 +429,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
   <div class="form-group">
     <label for="auth" class="col-sm-4 control-label"><small><?=get_lang('CONF_mail_auth');?></small></label>
     <div class="col-sm-8">
-  <select class="form-control input-sm" id="auth">
+  <select class="my_select2 select" id="auth">
   <option value="true" <?php if (get_conf_param('mail_auth') == "true") {echo "selected";} ?>><?=get_lang('CONF_true');?></option>
   <option value="false" <?php if (get_conf_param('mail_auth') == "false") {echo "selected";} ?>><?=get_lang('CONF_false');?></option>
 </select>    </div>
@@ -438,7 +438,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
   <div class="form-group">
     <label for="auth_type" class="col-sm-4 control-label"><small><?=get_lang('CONF_mail_type');?></small></label>
     <div class="col-sm-8">
-  <select class="form-control input-sm" id="auth_type">
+  <select class="my_select2 select" id="auth_type">
   <option value="none" <?php if (get_conf_param('mail_auth_type') == "none") {echo "selected";} ?>>no</option>
   <option value="ssl" <?php if (get_conf_param('mail_auth_type') == "ssl") {echo "selected";} ?>>SSL</option>
   <option value="tls" <?php if (get_conf_param('mail_auth_type') == "tls") {echo "selected";} ?>>TLS</option>
