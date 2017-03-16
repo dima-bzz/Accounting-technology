@@ -3863,6 +3863,12 @@ stateLoadCallback: function(){
     }
   });
 },
+drawCallback: function(){
+  if (Admin !== true ){
+    table_eq.buttons('.Action_b_eq').remove();
+    table_eq.buttons('.Eq_delete_bt').remove();
+}
+},
 "aoColumns": [
       { "bSearchable": false,"bSortable":false, "visible": false, "className": "center_table","mRender": render_active },
       { "bSearchable": false, "visible": false },
@@ -3893,6 +3899,7 @@ stateLoadCallback: function(){
         "buttons": [
           {
                   extend: 'collection',
+                  className: 'Action_b_eq',
                   text: function(a){return a.i18n("Action_b","Action button")},
                   autoClose: true,
                   "buttons":[
@@ -4414,6 +4421,7 @@ stateLoadCallback: function(){
           },
             {
               text: function(a){return a.i18n("Repair","Repair")},
+              className: 'Eq_delete_bt',
               action: function ( e, dt, node, config ) {
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length == '1'){
@@ -4504,6 +4512,7 @@ stateLoadCallback: function(){
           },
             {
               text: function(a){return a.i18n("Add_param","Add Param")},
+              className: 'Eq_delete_bt',
               action: function ( e, dt, node, config ) {
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length == '1'){
@@ -5000,6 +5009,11 @@ var table_eq_move = $('#equipment_move').DataTable({
 fnRowCallback: function( nRow ) {
   $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
 },
+drawCallback: function(){
+  if (Admin !== true ){
+  table_eq_move.column( 11 ).visible( false );
+  }
+},
 "aoColumns": [
             {"aTargets": [ 0 ],"visible": false,"bSortable": false},
             null,
@@ -5470,6 +5484,11 @@ var table_eq_repair = $('#equipment_repair').DataTable({
 fnRowCallback: function( nRow ) {
   $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
 },
+drawCallback: function(){
+  if (Admin !== true ){
+  table_eq_repair.column( 7 ).visible( false );
+  }
+},
 "aoColumns": [
               {"className": "center_table"},
               null,
@@ -5755,6 +5774,11 @@ var table_eq_param = $('#equipment_param').DataTable({
 "aaSorting" : [[1,"asc"]],
 fnRowCallback: function( nRow ) {
   $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
+},
+drawCallback: function(){
+  if (Admin !== true ){
+  table_eq_param.column( 4 ).visible( false );
+  }
 },
 "aoColumns": [
               {"bSearchable":false},
@@ -6185,7 +6209,7 @@ var table_license = $('#table_license').DataTable({
         // $(this).find('td:first').append($('<span />', { 'class': 'group_text' }).append($('<b />', { 'text': ' ' + get_lang_param("Totale_install") +': ' + rowCount })));
             });
             if (Admin !== true ){
-            table_license.buttons('.Action_b').remove();
+            table_license.buttons('.Action_b_license').remove();
             table_license.buttons('.License_delete_bt').remove();
           }
   },
@@ -6214,13 +6238,13 @@ var table_license = $('#table_license').DataTable({
 "buttons":[
         {
           extend: 'collection',
-          className: 'Action_b',
+          className: 'Action_b_license',
           text: function(a){return a.i18n("Action_b","Action button")},
           autoClose: true,
           "buttons":[
           {
               text: function(a){return a.i18n("Add","Add")},
-              className: 'License_delete_bt',
+              // className: 'License_delete_bt',
               action: function ( e, dt, node, config ) {
                 window.dialog_license_add = new BootstrapDialog({
                         title: get_lang_param("License_add"),
@@ -6293,7 +6317,7 @@ var table_license = $('#table_license').DataTable({
           },
           {
               text: function(a){return a.i18n("Edit","Edit")},
-              className: 'License_delete_bt',
+              // className: 'License_delete_bt',
               action: function ( e, dt, node, config ) {
                 var $rows = table_license.$('tr.selected');
                   if ($rows.length == '1'){
@@ -6385,7 +6409,7 @@ var table_license = $('#table_license').DataTable({
         },
           {
               text: function(a){return a.i18n("License_antivirus_edit","License antivirus edit")},
-              className: 'License_delete_bt',
+              // className: 'License_delete_bt',
               action: function( e, dt, node, config ){
                 var $rows = table_license.$('tr.selected');
                   if ($rows.length > '0'){
@@ -6454,7 +6478,7 @@ var table_license = $('#table_license').DataTable({
               },
               {
                 text: function(a){return a.i18n("Delete","Delete")},
-                className: 'License_delete_bt',
+                // className: 'License_delete_bt',
                 action: function( e, dt, node, config ){
                   var $rows = table_license.$('tr.selected');
                     if ($rows.length > '0'){
