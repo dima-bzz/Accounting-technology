@@ -277,6 +277,93 @@ if ($val== $row['value']) {$opt_sel="selected";}
 </div>
 </div>
   </div>
+  <div class="form-group">
+    <label for="what_cartridge" class="col-sm-4 control-label"><small><?=get_lang('CONF_cartridge');?></small></label>
+    <div class="col-sm-8">
+      <select data-placeholder="<?=get_lang('Select_group');?>" class="my_select2 select" multiple id="what_cartridge" name="what_cartridge[]">
+      <?php
+      $us = get_conf_param('what_cartridge');
+      $u=explode(",", $us);
+
+            $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM group_nome where active =1');
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+
+            foreach($res1 as $row) {
+                                $row['name']=$row['name'];
+                                $row['value']=(int)$row['value'];
+      $opt_sel='';
+      foreach ($u as $val) {
+      if ($val== $row['value']) {$opt_sel="selected";}
+      }
+                                ?>
+                                <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=$row['name']?></option>
+                            <?php
+                            }
+
+                            ?>
+        </select>
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="what_print_test" class="col-sm-4 control-label"><small><?=get_lang('CONF_print_test');?></small></label>
+    <div class="col-sm-8">
+      <select data-placeholder="<?=get_lang('Select_group');?>" class="my_select2 select" multiple id="what_print_test" name="what_print_test[]">
+      <?php
+      $us = get_conf_param('what_print_test');
+      $u=explode(",", $us);
+
+            $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM group_nome where active =1');
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+
+            foreach($res1 as $row) {
+                                $row['name']=$row['name'];
+                                $row['value']=(int)$row['value'];
+      $opt_sel='';
+      foreach ($u as $val) {
+      if ($val== $row['value']) {$opt_sel="selected";}
+      }
+                                ?>
+                                <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=$row['name']?></option>
+                            <?php
+                            }
+
+                            ?>
+        </select>
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="what_license" class="col-sm-4 control-label"><small><?=get_lang('CONF_license');?></small></label>
+    <div class="col-sm-8">
+      <select data-placeholder="<?=get_lang('Select_group');?>" class="my_select2 select" multiple id="what_license" name="what_license[]">
+      <?php
+      $us = get_conf_param('what_license');
+      $u=explode(",", $us);
+
+            $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM group_nome where active =1');
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+
+            foreach($res1 as $row) {
+                                $row['name']=$row['name'];
+                                $row['value']=(int)$row['value'];
+      $opt_sel='';
+      foreach ($u as $val) {
+      if ($val== $row['value']) {$opt_sel="selected";}
+      }
+                                ?>
+                                <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=$row['name']?></option>
+                            <?php
+                            }
+
+                            ?>
+        </select>
+
+    </div>
+  </div>
   <div class="col-md-offset-3 col-md-6">
 <center>
     <button type="submit" id="conf_edit_main" class="btn btn-success"><i class="fa fa-pencil"></i> <?=get_lang('CONF_act_edit');?></button>

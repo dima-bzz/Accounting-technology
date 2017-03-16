@@ -2309,10 +2309,11 @@ if ($mode == "print_test"){
   $placesid=$_POST['splaces'];
   $userid=$_POST['suserid'];
   $where="";
+  $what_print_test = get_conf_param('what_print_test');
   if ($placesid!='') {$where=$where." and equipment.placesid=$placesid";}
   if ($userid!='') {$where=$where." and equipment.usersid=$userid";}
   include_once 'inc/Printer.php';
-  $stmt = $dbConnection->prepare ("SELECT places.name as pname,eq3.fio as fio,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT * FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where.") as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id where eq1.groupid IN (7,9)) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
+  $stmt = $dbConnection->prepare ("SELECT places.name as pname,eq3.fio as fio,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT * FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where.") as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id where eq1.groupid IN (".$what_print_test.")) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $myrow => $key) {
@@ -2395,7 +2396,8 @@ if ($mode == "dialog_cartridge_add"){
    <select data-placeholder="Выберите оборудование" class='my_select select' name="nomeid" id="nomeid">
   	<option value=""></option>
   <?php
-    $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (7,9) order by name;");
+    $cartridge = get_conf_param('what_cartridge');
+    $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (".$cartridge.") order by name;");
     $stmt->execute();
     $res1 = $stmt->fetchAll();
     foreach($res1 as $myrow)
@@ -2524,7 +2526,8 @@ $zapr=$myrow['zapr'];
    <select data-placeholder="Выберите оборудование" class='my_select select' name="nomeid" id="nomeid">
   	<option value=""></option>
   <?php
-    $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (7,9) order by name;");
+    $cartridge = get_conf_param('what_cartridge');
+    $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (".$cartridge.") order by name;");
     $stmt->execute();
     $res1 = $stmt->fetchAll();
     foreach($res1 as $myrow)
@@ -5250,7 +5253,8 @@ if ($mode == "select_print"){
   <select data-placeholder="Быстрый переход к принтеру" style="width:230px;" class='my_select' name="printid_fast" id="printid_fast">
   <option value=""></option>
   <?php
-  $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (7,9) order by name;");
+  $cartridge = get_conf_param('what_cartridge');
+  $stmt= $dbConnection->prepare("SELECT * FROM nome WHERE active=1 and groupid IN (".$cartridge.") order by name;");
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $myrow)

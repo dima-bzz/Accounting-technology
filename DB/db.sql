@@ -316,7 +316,10 @@ VALUES
   (23, 'permit_users_documents', ''),
   (24, 'permit_users_news', ''),
   (25, 'permit_users_license', ''),
-  (26, 'default_org', '');
+  (26, 'default_org', ''),
+  (27, 'what_cartridge', 'null'),
+  (28, 'what_print_test', 'null'),
+  (29, 'what_license', 'null');
 
 UNLOCK TABLES;
 -- --------------------------------------------------------

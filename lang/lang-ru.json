@@ -68,6 +68,9 @@
   "CONF_mail_from":"Оправитель",
   "CONF_mail_debug":"Режим отладки",
   "CONF_mail_type":"Тип",
+  "CONF_cartridge":"Группа(ы) ТМЦ для учета картриджей",
+  "CONF_print_test":"Группа(ы) ТМЦ для анализа принтера",
+  "CONF_license":"Группа(ы) ТМЦ для лицензирования",
 
   "menu": "Файл",
   "processing": "Подождите...",
@@ -418,9 +421,8 @@
 "Color_event" : "Цвет события",
 "Color_text" : "Цвет текста",
 "Clear_select":"Очистить поле",
-"Access_denied": "Доступ закрыт!"
-
-
+"Access_denied": "Доступ закрыт!",
+"Select_group": "Выберите группу(ы) ТМЦ"
 
 
 }

@@ -782,7 +782,8 @@ function GetArrayNome_users($in){ // Возврат - массив тмц лиц
     global $dbConnection;
 		$cnt=0;
 		$mOrgs = array();
-		$stmt = $dbConnection->prepare('SELECT nome.name as name, nome.id as nomeid, equipment.id as id FROM equipment INNER JOIN nome ON equipment.nomeid = nome.id WHERE equipment.usersid = :in and nome.groupid IN (1,8,15,22,27) and equipment.util=0 and equipment.sale=0 order by nome.name');
+    $wlicense = get_conf_param('what_license');
+		$stmt = $dbConnection->prepare("SELECT nome.name as name, nome.id as nomeid, equipment.id as id FROM equipment INNER JOIN nome ON equipment.nomeid = nome.id WHERE equipment.usersid = :in and nome.groupid IN (".$wlicense.") and equipment.util=0 and equipment.sale=0 order by nome.name");
     $stmt->execute(array(':in' => $in));
     $res1 = $stmt->fetchAll();
     foreach($res1 as $myrow) {
