@@ -706,6 +706,25 @@ function GetArrayUsers(){ // Возврат - массив активных по
                     }
 };
 
+function GetArrayUsers_Ping_Test(){ // Возврат - массив активных пользователей
+		global $dbConnection;
+		$cnt=0;
+    $what_print_test = get_conf_param('what_print_test');
+		$mOrgs = array();
+  		$stmt = $dbConnection->prepare("SELECT users.id as id, users.fio as fio, users.active as active FROM users INNER JOIN equipment ON equipment.usersid = users.id WHERE users.active = 1 and users.on_off = 1 and equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' group by users.fio order by users.fio");
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+  		if ($res1!='') {
+        foreach($res1 as $myrow) {
+				   $mOrgs[$cnt]["id"]=$myrow["id"];
+				   $mOrgs[$cnt]["fio"]= nameshort($myrow["fio"]);
+                                   $mOrgs[$cnt]["active"]=$myrow["active"];
+				   $cnt++;
+				  };
+				return $mOrgs;
+                    }
+};
+
 function GetArrayUsers_Print_Test(){ // Возврат - массив активных пользователей
 		global $dbConnection;
 		$cnt=0;
@@ -718,6 +737,25 @@ function GetArrayUsers_Print_Test(){ // Возврат - массив актив
         foreach($res1 as $myrow) {
 				   $mOrgs[$cnt]["id"]=$myrow["id"];
 				   $mOrgs[$cnt]["fio"]= nameshort($myrow["fio"]);
+                                   $mOrgs[$cnt]["active"]=$myrow["active"];
+				   $cnt++;
+				  };
+				return $mOrgs;
+                    }
+};
+
+function GetArrayPlaces_Ping_Test(){ // Возврат - массив активных помещений
+		global $dbConnection;
+		$cnt=0;
+    $what_print_test = get_conf_param('what_print_test');
+		$mOrgs = array();
+  		$stmt = $dbConnection->prepare("SELECT places.id as id, places.name as name, places.active as active FROM places INNER JOIN equipment ON equipment.placesid = places.id WHERE places.active=1 and equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' group by places.name order by places.name");
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+  		if ($res1!='') {
+        foreach($res1 as $myrow) {
+				   $mOrgs[$cnt]["id"]=$myrow["id"];
+				   $mOrgs[$cnt]["name"]=$myrow["name"];
                                    $mOrgs[$cnt]["active"]=$myrow["active"];
 				   $cnt++;
 				  };
