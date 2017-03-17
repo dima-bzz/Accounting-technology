@@ -21,7 +21,7 @@ include("menus.php");
            <select data-placeholder="Выберите помещение" class='my_select select' name=splaces id=splaces>
                   <option value=""></option>
                   <?php
-                  $morgs=GetArrayPlaces();
+                  $morgs=GetArrayPlaces_Print_Test();
                   for ($i = 0; $i < count($morgs); $i++) {
                       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
                       if ($nid==$placesid){$sl=" selected";} else {$sl="";};
@@ -36,7 +36,7 @@ include("menus.php");
          <select data-placeholder="Выберите Мат.отв." class='my_select select' name=suserid id=suserid>
                <option value=""></option>
                <?php
-               $morgs=GetArrayUsers();
+               $morgs=GetArrayUsers_Print_Test();
                for ($i = 0; $i < count($morgs); $i++) {
                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
                    if ($nid==$userid){$sl=" selected";} else {$sl="";};
