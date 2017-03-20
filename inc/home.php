@@ -160,7 +160,7 @@ if ($d < 20) {
           }
         }
           if ($remind == '1'){
-            if (($ev_month==$remind_month) or ($ev_month==$remind_month2) && ($ev_day != $day_event)){
+            if (($ev_month==$remind_month) or ($ev_month==$remind_month2) && ($ev_day != $day_event) && ($remind_year != '0')){
             array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
           }
         }
@@ -276,7 +276,7 @@ if ($row['event_repeat'] == '0'){
     }
   }
     if ($remind == '1'){
-      if (($event_month==$remind_month) or ($event_month==$remind_month2) && ($event_start != $day_event)  && ($event_start>$day_event)){
+      if (($event_month==$remind_month) or ($event_month==$remind_month2) && ($event_start != $day_event) && ($event_start>$day_event)){
       array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$event_start."</a>");
     }
   }
