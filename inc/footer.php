@@ -1,7 +1,7 @@
 <?php
 
 $time_end = microtime(true);
-$time = $time_end - $time_start;
+$time = round(($time_end - $time_start) * 1000)/1000;
 ?>
 
       <div id="footer" style="padding-bottom: 70px;">
@@ -9,7 +9,7 @@ $time = $time_end - $time_start;
             <div class="col-md-8">
               <p class="text-muted credit">
                 <small>
-                  <p>All rights reserved <i class="fa fa-copyright"></i> 2014-2017. Собрано за <?php echo "$time";?>сек.</p>
+                  <p>All rights reserved <i class="fa fa-copyright"></i> 2014-2017. Собрано за <?php echo "$time";?> сек.</p>
                 </small>
               </p>
             </div>

@@ -1,4 +1,5 @@
 <?php
+$time_start = microtime(true);
 session_start();
 include_once("config.php");
 if (isset($CONF_DB)) {
