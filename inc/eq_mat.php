@@ -37,7 +37,7 @@ include("menus.php");
           </thead>
       </table>
     </div>
-
+  </div>
     <div class="panel panel-default">
     <div class="panel-heading">
       <i class="fa fa-random"></i>&nbsp;<?=get_lang('Equipment_move');?>
