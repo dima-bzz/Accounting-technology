@@ -91,7 +91,7 @@ color: #555;
 
    if ($CONF['first_login'] == "true") { ?>
   <small>
-      <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=get_lang('first_in_auth');?>.</a>
+      <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=get_lang('first_in_auth');?></a>
       </center>
   </small>
 <?php } ?>
