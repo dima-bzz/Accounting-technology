@@ -59,6 +59,7 @@ if ($count <> 0){
   <div class="panel-heading">
     <i class="fa fa-smile-o"></i>&nbsp;<?=get_lang('Info');?>
   </div>
+  <div style="max-height: 375px;scroll-behavior: initial;overflow-y: auto;">
   <div class="panel-body" id="inf">
   <!-- <div class="well"> -->
     <?php
@@ -224,7 +225,7 @@ if ($d < 20) {
         }
       }
         if ($remind == '1'){
-          if (($month==$remind_month) or ($month==$remind_month2) && ($ev_day != $day_event)){
+          if (($month==$remind_month) or ($month==$remind_month2) && ($ev_day != $day_event) && ($remind_month_c != '0')){
           array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
         }
       }
@@ -330,6 +331,7 @@ if ($row['event_repeat'] == '0'){
       }
     };
     ?>
+</div>
 </div>
 </div>
 </div>
