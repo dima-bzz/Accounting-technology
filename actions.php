@@ -10,6 +10,113 @@ if ( isset($_POST['mode']) ) {
         $r=lang($p);
         print($r);
     }
+
+    if ($mode == "activate_login") {
+    $mailadr=($_POST['mailadress']);
+
+
+    $stmt = $dbConnection->prepare('SELECT id, fio,login,on_off FROM users where email=:mailadr');
+    $stmt->execute(array(':mailadr' => $mailadr));
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!empty($r)) {
+
+        if ($r['on_off'] == "0") {
+
+            $l=$r['login'];
+            $fio=$r['fio'];
+            $id=$r['id'];
+
+            $pass=randomPassword();
+
+            mailtoactivate($l, $mailadr, $pass);
+            mailtoactivate_admin($l, $mailadr, $pass);
+
+            // $npass=$pass;
+            $stmt = $dbConnection->prepare("UPDATE users SET pass=:pass, on_off=1 where id=:id");
+            $stmt->execute(array(':pass' => $pass, ':id' => $id));
+
+            ?>
+            <div class="alert alert-success">
+                <center><?=get_lang('CREATE_ACC_success');?>
+                </center>
+            </div>
+        <?php
+        }
+        else if ($r['on_off'] == "1") {
+
+            ?>
+            <div class="alert alert-danger">
+                <center><?=get_lang('CREATE_ACC_already');?>
+                </center>
+            </div>
+        <?php
+
+        }
+
+    }
+    else {
+        ?>
+        <div class="alert alert-danger">
+            <center><?=get_lang('CREATE_ACC_error');?>
+            </center>
+        </div>
+    <?php
+    }
+    ?>
+    <center>
+  <i class="fa fa-slideshare fa-5x"></i>
+  <h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-muted"><?=get_lang('AUTH_USER');?></small></center><br>
+  <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="<?=get_lang('CONF_mail_login');?>">
+  <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?=get_lang('CONF_mail_pass');?>">
+    <div style="padding-left:75px;">
+        <div class="checkbox">
+            <label>
+                <input id="mc" name="remember_me" value="1" type="checkbox"> <?=get_lang('remember_me');?>
+            </label>
+        </div>
+    </div>
+        <?php if ($va == 'error') { ?>
+            <div class="alert alert-danger">
+                <center><?=get_lang('error_auth');?></center>
+            </div> <?php } ?>
+            <input type="hidden" name="req_url" value="/index.php">
+  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;<?=get_lang('log_in');?></button>
+  <?php
+
+   if ($CONF['first_login'] == "true") { ?>
+  <small>
+      <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=get_lang('first_in_auth');?>.</a>
+      </center>
+  </small>
+<?php } ?>
+
+  <small>
+            <center style=" margin-bottom: -20px; "><br><a href="/hd/index.php">Система Заявок</a>
+            </center>
+        </small>
+
+<?php
+
+}
+if ($mode == "activate_login_form") {
+    ?>
+    <center><i class="fa fa-slideshare fa-5x"></i><h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-danger"><?=get_lang('user_auth');?></small></center><br>
+    <input type="text" id="mailadress" name="login" autocomplete="off" class="form-control" placeholder="<?=get_lang('work_mail');?>">
+    <p class="help-block"><small><?=get_lang('work_mail_ph');?></small></p>
+    <div style="padding-left:75px;">
+    </div>
+    <br>
+    <button id="do_activate" type="submit" class="btn btn-lg btn-success btn-block"> <i class="fa fa-check-circle-o"></i>  <?=get_lang('action_auth');?></button>
+
+
+
+
+
+
+<?php
+}
+
     if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
     if ($mode == "show") {
 if (isset($_POST['query'])) {
@@ -69,6 +176,25 @@ update_val_by_key("default_org", $_POST['default_org']);
 </div>
 <?php
 }
+
+if ($mode == "conf_edit_mail") {
+update_val_by_key("mail_type", $_POST['type']);
+update_val_by_key("mail_active", $_POST['mail_active']);
+update_val_by_key("mail_host", $_POST['host']);
+update_val_by_key("mail_port", $_POST['port']);
+update_val_by_key("mail_auth", $_POST['auth']);
+update_val_by_key("mail_auth_type", $_POST['auth_type']);
+update_val_by_key("mail_username", $_POST['username']);
+update_val_by_key("mail_password", $_POST['password']);
+update_val_by_key("mail_from", $_POST['from']);
+//update_val_by_key("mail_debug", $_POST['debug']);
+?>
+<div class="alert alert-success">
+<?=get_lang('PROFILE_msg_ok');?>
+</div>
+<?php
+}
+
 if ($mode == "delete_all"){
 
   echo "<button class=\"btn btn-primary\" type=\"button\" name=\"delete_update\" id=\"delete_update\">".get_lang('Update')."</button></p>";
@@ -5975,6 +6101,57 @@ if ($mode == "news_list_content_next"){
       ?>
   </table>
   <?php
+}
+if ($mode == "conf_test_mail") {
+
+if (get_conf_param('mail_type') == "sendmail") {
+$mail = new PHPMailer(true);
+$mail->IsSendmail(); // telling the class to use SendMail transport
+try {
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddAddress($CONF['mail'], 'admin at');
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->Subject = 'test message';
+$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+$mail->MsgHTML('Test message via sendmail');
+$mail->Send();
+echo "Message Sent OK<p></p>\n";
+} catch (phpmailerException $e) {
+echo $e->errorMessage(); //Pretty error messages from PHPMailer
+} catch (Exception $e) {
+echo $e->getMessage(); //Boring error messages from anything else!
+}
+}
+else if (get_conf_param('mail_type') == "SMTP") {
+$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+$mail->IsSMTP(); // telling the class to use SMTP
+try {
+$mail->SMTPDebug = 2; // enables SMTP debug information (for testing)
+$mail->SMTPAuth = $CONF_MAIL['auth']; // enable SMTP authentication
+if (get_conf_param('mail_auth_type') != "none")
+{
+$mail->SMTPSecure = $CONF_MAIL['auth_type'];
+}
+$mail->Host = $CONF_MAIL['host'];
+$mail->Port = $CONF_MAIL['port'];
+$mail->Username = $CONF_MAIL['username'];
+$mail->Password = $CONF_MAIL['password'];
+
+
+$mail->AddReplyTo($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->AddAddress($CONF['mail'], 'admin at');
+$mail->SetFrom($CONF_MAIL['from'], $CONF['name_of_firm']);
+$mail->Subject = 'test message via smtp';
+$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!'; // optional - MsgHTML will create an alternate automatically
+$mail->MsgHTML("test message");
+$mail->Send();
+echo "Message Sent OK<p></p>\n";
+} catch (phpmailerException $e) {
+echo $e->errorMessage(); //Pretty error messages from PHPMailer
+} catch (Exception $e) {
+echo $e->getMessage(); //Boring error messages from anything else!
+}
+}
 }
 }
 }

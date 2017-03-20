@@ -3,6 +3,7 @@ include_once("config.php");
 define("DIR_ROOT", __DIR__);
 define("DS", DIRECTORY_SEPARATOR);
 include_once('sys/Parsedown.php');
+include_once('sys/class.phpmailer.php');
 require 'library/HTMLPurifier.auto.php';
 date_default_timezone_set('Europe/Moscow');
 $dbConnection = new PDO(
@@ -33,10 +34,24 @@ $CONF = array (
 'default_org' => get_conf_param('default_org')
 );
 
+$CONF_MAIL = array (
+'active'	=> get_conf_param('mail_active'),
+'host'	=> get_conf_param('mail_host'),
+'port'	=> get_conf_param('mail_port'),
+'auth'	=> get_conf_param('mail_auth'),
+'auth_type' => get_conf_param('mail_auth_type'),
+'username'	=> get_conf_param('mail_username'),
+'password'	=> get_conf_param('mail_password'),
+'from'	=> get_conf_param('mail_from'),
+'debug' => 'false'
+);
+
 if ($CONF_AT['debug_mode'] == true) {
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 }
+
+include_once('inc/mail.php');
 
 function get_user_lang(){
     global $dbConnection;
@@ -225,6 +240,18 @@ function cutstr_news_home_ret($input) {
     if($result!=$input)$r.='...';
     return $r;
 }
+
+function randomPassword() {
+    $alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
+    $pass = array();
+    $alphaLength = strlen($alphabet) - 1;
+    for ($i = 0; $i < 5; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass);
+}
+
 function get_news(){
   global $dbConnection;
 

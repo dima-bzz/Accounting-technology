@@ -1092,6 +1092,67 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         });
 });
 
+// ******Тестирование настроек почты******
+
+$('body').on('click', 'button#conf_test_mail', function(event) {
+ event.preventDefault();
+ $.ajax({
+ type: "POST",
+ url: ACTIONPATH,
+ data: "mode=conf_edit_mail"+
+ "&mail_active="+encodeURIComponent($("#mail_active").val())+
+ "&host="+encodeURIComponent($("#host").val())+
+ "&port="+encodeURIComponent($("#port").val())+
+ "&auth="+encodeURIComponent($("#auth").val())+
+ "&auth_type="+encodeURIComponent($("#auth_type").val())+
+ "&username="+encodeURIComponent($("#username").val())+
+ "&password="+encodeURIComponent($("#password").val())+
+ "&from="+encodeURIComponent($("#from").val())+
+ "&type="+encodeURIComponent($("#mail_type").val()),
+ success: function(html) {
+
+ $("#conf_edit_mail_res").hide().html(html).fadeIn(500);
+ setTimeout(function() {$('#conf_edit_mail_res').children('.alert').fadeOut(500);}, 3000);
+ $.ajax({
+ type: "POST",
+ url: ACTIONPATH,
+ data: "mode=conf_test_mail",
+ success: function(html) {
+  $('#conf_test_mail_res').html(html);
+ }
+ });
+
+
+ }
+ });
+
+
+
+ });
+
+// ******Сохранение настроек почты******
+$('body').on('click', 'button#conf_edit_mail', function(event) {
+event.preventDefault();
+$.ajax({
+type: "POST",
+url: ACTIONPATH,
+data: "mode=conf_edit_mail"+
+"&mail_active="+encodeURIComponent($("#mail_active").val())+
+"&host="+encodeURIComponent($("#host").val())+
+"&port="+encodeURIComponent($("#port").val())+
+"&auth="+encodeURIComponent($("#auth").val())+
+"&auth_type="+encodeURIComponent($("#auth_type").val())+
+"&username="+encodeURIComponent($("#username").val())+
+"&password="+encodeURIComponent($("#password").val())+
+"&from="+encodeURIComponent($("#from").val())+
+"&type="+encodeURIComponent($("#mail_type").val()),
+success: function(html) {
+$("#conf_edit_mail_res").hide().html(html).fadeIn(500);
+setTimeout(function() {$('#conf_edit_mail_res').children('.alert').fadeOut(500);}, 3000);
+}
+});
+});
+
 // ******Добавление ТМЦ******
 function img_equipment(){
 var options =

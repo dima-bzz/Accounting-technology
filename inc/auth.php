@@ -71,9 +71,9 @@ color: #555;
 <form class="form-signin" action="<?=$CONF['hostname']?>index.php" method="post" autocomplete="off">
     <center>
 	<i class="fa fa-slideshare fa-5x"></i>
-	<h2 class="text-muted">Система учета техники</h2><small class="text-muted">Авторизация пользователя</small></center><br>
-  <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="Логин">
-  <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="Пароль">
+	<h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-muted"><?=get_lang('AUTH_USER');?></small></center><br>
+  <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="<?=get_lang('CONF_mail_login');?>">
+  <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?=get_lang('CONF_mail_pass');?>">
     <div style="padding-left:75px;">
         <div class="checkbox">
             <label>
@@ -83,11 +83,71 @@ color: #555;
     </div>
         <?php if ($va == 'error') { ?>
             <div class="alert alert-danger">
-                <center>Ошибка авторизации.<br>Проверьте логин и пароль.</center>
+                <center><?=get_lang('error_auth');?></center>
             </div> <?php } ?>
             <input type="hidden" name="req_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
-  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;Войти</button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;<?=get_lang('log_in');?></button>
+  <?php
+
+   if ($CONF['first_login'] == "true") { ?>
+  <small>
+      <center style=" margin-bottom: -20px; "><br><a href="#" id="show_activate_form"><?=get_lang('first_in_auth');?>.</a>
+      </center>
+  </small>
+<?php } ?>
 
 
 </form>
 </div>
+<script src="<?=$CONF['hostname']?>js/jquery-1.12.4.min.js"></script>
+<script src="<?=$CONF['hostname']?>js/bootstrap.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#main_login").hide().fadeIn(500);
+        $('body').on('click', 'a#show_activate_form', function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "<?=$CONF['hostname']?>actions.php",
+                data: "mode=activate_login_form",
+                success: function(html){
+                    //alert(html);
+                    $(".form-signin").hide().html(html).fadeIn(500);
+
+
+
+                    $('body').on('click', 'button#do_activate', function(event) {
+                        event.preventDefault();
+                        var m=$("#mailadress").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "<?=$CONF['hostname']?>actions.php",
+                            data: "mode=activate_login"+
+                                "&mailadress="+m,
+                            success: function(html){
+                                //alert(html);
+                                $(".form-signin").hide().html(html).fadeIn(500);
+                            }
+                        });
+
+
+
+
+
+                    });
+
+
+
+
+                }
+            });
+
+
+
+        });
+
+
+
+    });
+</script>
