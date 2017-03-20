@@ -15,13 +15,13 @@ if ( isset($_POST['mode']) ) {
     $mailadr=($_POST['mailadress']);
 
 
-    $stmt = $dbConnection->prepare('SELECT id, fio,login,on_off FROM users where email=:mailadr');
+    $stmt = $dbConnection->prepare('SELECT id, fio,login,dostup FROM users where email=:mailadr');
     $stmt->execute(array(':mailadr' => $mailadr));
     $r = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!empty($r)) {
 
-        if ($r['on_off'] == "0") {
+        if ($r['dostup'] == "0") {
 
             $l=$r['login'];
             $fio=$r['fio'];
@@ -33,7 +33,7 @@ if ( isset($_POST['mode']) ) {
             mailtoactivate_admin($l, $mailadr, $pass);
 
             // $npass=$pass;
-            $stmt = $dbConnection->prepare("UPDATE users SET pass=:pass, on_off=1 where id=:id");
+            $stmt = $dbConnection->prepare("UPDATE users SET pass=:pass, dostup=1 where id=:id");
             $stmt->execute(array(':pass' => $pass, ':id' => $id));
 
             ?>
@@ -43,7 +43,7 @@ if ( isset($_POST['mode']) ) {
             </div>
         <?php
         }
-        else if ($r['on_off'] == "1") {
+        else if ($r['dostup'] == "1") {
 
             ?>
             <div class="alert alert-danger">
