@@ -7806,7 +7806,7 @@ window.table_report = $('#report').DataTable({
 "aoColumnDefs":[
               { "sType": 'de_date', "aTargets": 11 }
 ],
-"sDom": "<'row'<'col-sm-8'B><'col-sm-4'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+"sDom": "<'row'<'col-sm-12'f><'col-sm-12'B>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
 "buttons":[
   {
     text: function(a){return a.i18n("Grouping_group","Grouping Group")},
