@@ -118,21 +118,48 @@ if ($mode == "activate_login_form") {
 }
 
     if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
-    if ($mode == "show") {
-if (isset($_POST['query'])) {
-  $query = $_POST['query'];
-$stmt = $dbConnection->prepare('SELECT fio FROM users WHERE fio LIKE :query and on_off = 1');
-$stmt->execute(array(':query' => '%'.$query.'%'));
-$res1 = $stmt->fetchAll();
-$array  = array();
-foreach($res1 as $row) {
+      if ($mode == "show") {
+  if (isset($_POST['query'])) {
+    $query = $_POST['query'];
+    if ($query != 'online' || 'offline'){
+  $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE fio LIKE :query and on_off = 1');
+  $stmt->execute(array(':query' => '%'.$query.'%'));
+  $res1 = $stmt->fetchAll();
+  $array  = array();
+  foreach($res1 as $row) {
+    $s = get_user_status_home($row['id']);
 
-  $array[]=$row['fio'];
+    $array[]=$s."#".$row['fio'];
 
-}
-echo json_encode($array);
-}
-}
+  }
+  }
+  if ($query == 'online') {
+    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)>UNIX_TIMESTAMP(NOW())-20 and on_off = 1');
+    $stmt->execute();
+    $res1 = $stmt->fetchAll();
+    $array  = array();
+    foreach($res1 as $row) {
+      $s = get_user_status_home($row['id']);
+
+      $array[]=$s."#".$row['fio'];
+
+    }
+  }
+  if ($query == 'offline') {
+    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)<UNIX_TIMESTAMP(NOW())-20 and on_off = 1');
+    $stmt->execute();
+    $res1 = $stmt->fetchAll();
+    $array  = array();
+    foreach($res1 as $row) {
+      $s = get_user_status_home($row['id']);
+
+      $array[]=$s."#".$row['fio'];
+
+    }
+  }
+  echo json_encode($array);
+  }
+  }
 if ($mode == "search") {
   if (isset($_POST['search'])) {
       // никогда не доверяйте входящим данным! Фильтруйте всё!

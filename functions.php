@@ -194,6 +194,24 @@ function get_user_status($in) {
 	return $res;
 }
 
+function get_user_status_home($in) {
+	    global $dbConnection;
+
+      $stmt = $dbConnection->prepare('select lastdt from users where id=:in');
+      $stmt->execute(array(':in' => $in));
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  	$lt=$row['lastdt'];
+          $d = time()-strtotime($lt);
+  	if ($d > 20) {
+    $res = "<span class=\"label label-default\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-down\"></i> offline</span>";
+  }
+	else {
+    $res = "<span class=\"label label-success\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-up\"></i> online</span>";
+  }
+
+	return $res;
+}
+
 function update_val_by_key($key,$val) {
  global $dbConnection;
 $stmt = $dbConnection->prepare('update perf set value=:value where param=:param');

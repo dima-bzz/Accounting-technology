@@ -10,7 +10,7 @@
 <style>
 .typeahead {
   width: 100%;
-  position: static;
+  position: absolute;
   max-height: 100px;
   overflow-y: auto;
 }
@@ -21,7 +21,22 @@
       <a href="contact"><i class="fa fa-child"></i>&nbsp;<?=get_lang('Contact');?></a>
   	</div>
     <div class="panel-body">
-      <input type="text" class="form-control search_button" name="search" id="search_box"  data-provide="typeahead" autocomplete="off" placeholder="<?=get_lang('Contact_info');?>">
+      <div class="form-group">
+<div class="input-group ">
+<input type="text" class="form-control search_button" name="search" id="search_box"  data-provide="typeahead" autocomplete="off" placeholder="<?=get_lang('Contact_info');?>">
+<span class="input-group-btn">
+<button type = "button" id="users_online" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Users_online');?>" data-html="true">
+ <i class="fa fa-thumbs-up"></i>
+</button>
+<button type = "button" id="users_offline" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Users_offline');?>" data-html="true">
+ <i class="fa fa-thumbs-down"></i>
+</button>
+<button type = "button" id="input_empty" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Clear_select');?>" data-html="true">
+ <i class="fa fa-eraser"></i>
+</button>
+</span>
+</div>
+</div>
 			<div id="results"></div>
 </div>
 </div>

@@ -898,6 +898,25 @@ $('body').on('click', 'button#event_delete', function(event) {
         });
 });
 // ******автокомплит******
+$('body').on('click', 'button#users_online', function(event) {
+  $('#search_box').empty().val('');
+  $('#results').html('');
+  $('#search_box').text('online');
+  $('#search_box').trigger('keyup').focus().change();
+  $(this).tooltip('hide').blur();
+});
+$('body').on('click', 'button#users_offline', function(event) {
+  $('#search_box').empty().val('');
+  $('#results').html('');
+  $('#search_box').text('offline');
+  $('#search_box').trigger('keyup').focus().change();
+  $(this).tooltip('hide').blur();
+});
+$('body').on('click', 'button#input_empty', function(event) {
+  $('#search_box').empty().val('');
+  $('#results').html('');
+  $(this).tooltip('hide').blur();
+});
  $('#search_box').typeahead({
 	 items: 100,
 	 minLength: 1,
@@ -917,13 +936,33 @@ $('body').on('click', 'button#event_delete', function(event) {
 
  			});
  		},
+    highlighter: function(item) {
+        var parts = item.split('#'),
+          html = '<div>' + parts[0] + parts[1] + '</div>';
+
+        var query = this.query;
+            if(!query) {
+                return '<div> ' + item + '</div>';
+            }
+        var reEscQuery = query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+        var reQuery = new RegExp('(' + reEscQuery + ')', "gi");
+        var jElem = $(html);
+        var textNodes = $(jElem.find('*')).add(jElem).contents().filter(function() {
+          return this.nodeType === 3;
+        });
+        textNodes.replaceWith(function() {
+          return $(this).text().replace(reQuery, '<strong>$1</strong>');
+        });
+
+        return jElem.html();
+      },
     updater: function(item){
-      $("#search_box").val(item);
+      var name = item.split('#')[1];
+      $("#search_box").val(name);
       search_result_contact('click');
-      return item;
+      return name;
     }
  });
-
  // ******показ результата******
 function search_result_contact() {
 // получаем то, что написал пользователь
@@ -955,7 +994,7 @@ return false;
 $('.search_button').keydown(function(e) { //******очищаем поле и выходные данные******
 if (e.keyCode === 8)
 {
-	this.value ='';
+	$(this).empty().val('');
 	$('#results').html('');
 }
 });
