@@ -122,7 +122,7 @@ if ($mode == "activate_login_form") {
   if (isset($_POST['query'])) {
     $query = $_POST['query'];
     if ($query != 'online' || 'offline'){
-  $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE fio LIKE :query and on_off = 1');
+  $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE fio LIKE :query and on_off = 1 order by fio asc');
   $stmt->execute(array(':query' => '%'.$query.'%'));
   $res1 = $stmt->fetchAll();
   $array  = array();
@@ -134,7 +134,7 @@ if ($mode == "activate_login_form") {
   }
   }
   if ($query == 'online') {
-    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)>UNIX_TIMESTAMP(NOW())-20 and on_off = 1');
+    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)>UNIX_TIMESTAMP(NOW())-20 and on_off = 1 order by fio asc');
     $stmt->execute();
     $res1 = $stmt->fetchAll();
     $array  = array();
@@ -146,7 +146,7 @@ if ($mode == "activate_login_form") {
     }
   }
   if ($query == 'offline') {
-    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)<UNIX_TIMESTAMP(NOW())-20 and on_off = 1');
+    $stmt = $dbConnection->prepare('SELECT fio, id FROM users WHERE UNIX_TIMESTAMP(lastdt)<UNIX_TIMESTAMP(NOW())-20 and on_off = 1 order by fio asc');
     $stmt->execute();
     $res1 = $stmt->fetchAll();
     $array  = array();
