@@ -160,25 +160,34 @@ if ($mode == "activate_login_form") {
   echo json_encode($array);
   }
   }
-if ($mode == "search") {
-  if (isset($_POST['search'])) {
-      // никогда не доверяйте входящим данным! Фильтруйте всё!
-      $word = mysql_real_escape_string($_POST['search']);
-      // Строим запрос
-      $stmt = $dbConnection->prepare("SELECT users_profile.homephone as homephone, users_profile.telephonenumber as telephonenumber, users.email as email, users_profile.emaildop as emaildop, users.fio, places.name as plname FROM users_profile INNER JOIN users ON users.id = users_profile.usersid INNER JOIN places_users ON users.id=userid INNER JOIN places ON places.id=placesid WHERE users.fio = :word and users.on_off = 1");
-      $stmt->execute(array(':word' => $word));
-      $res1 = $stmt->fetchAll();
+  if ($mode == "search") {
+    if (isset($_POST['search'])) {
+        // никогда не доверяйте входящим данным! Фильтруйте всё!
+        $word = mysql_real_escape_string($_POST['search']);
+        // Строим запрос
+        $stmt = $dbConnection->prepare("SELECT users_profile.homephone as homephone, users_profile.telephonenumber as telephonenumber, users.email asemail, users_profile.emaildop as emaildop, users.fio, places.name as plname FROM users_profile INNER JOIN users ON users.id =users_profile.usersid INNER JOIN places_users ON users.id=userid INNER JOIN places ON places.id=placesid WHERE users.fio = :word andusers.on_off = 1");
+        $stmt->execute(array(':word' => $word));
+        $res1 = $stmt->fetchAll();
 
-      foreach($res1 as $row) {
-                    if ($row['plname'] != ''){echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Кабинет:</small></strong></div><div class=\"col-sm-6\"><small>". $row['plname']."</small></div></div>";}
-                   if ($row['homephone'] != ''){echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Рабочий телефон:</small></strong></div><div class=\"col-sm-6\"><small>". $row['homephone']."</small></div></div>";}
-                   if ($row['telephonenumber'] != ''){echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Сотовый телефон:</strong></small></div><div class=\"col-sm-6\"><small>". $row['telephonenumber']."</small></div></div>";}
-                   if ($row['email'] != ''){echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Основной E-mail:</strong></small></div><div class=\"col-sm-6\"><small>". $row['email']."</small></div></div>";}
-                   if ($row['emaildop'] != ''){echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Дополнительный E-mail:</strong></small></div><div class=\"col-sm-6\"><small>". $row['emaildop']."</small></div></div>";}
-
-  }
-  }
-}
+        foreach($res1 as $row) {
+                      if ($row['plname'] != ''){
+                        echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Кабинет:</small></strong></div><div class=\"col-sm-6\"><small>". $row['plname']."</small></div></div>";
+                      }
+                     if ($row['homephone'] != ''){
+                       echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Рабочий телефон:</small></strong></div><div class=\"col-sm-6\"><small>". $row['homephone']."</small></div></div>";
+                     }
+                     if ($row['telephonenumber'] != ''){
+                       echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Сотовый телефон:</strong></small></div><div class=\"col-sm-6\"><small>". $row['telephonenumber']."</small></div></div>";
+                     }
+                     if ($row['email'] != ''){
+                       echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Основной E-mail:</strong></small></div><div class=\"col-sm-6\"><small>". $row['email']."</small></div></div>";
+                     }
+                     if ($row['emaildop'] != ''){
+                       echo "<div class=\"form-group\"><div class=\"col-sm-6 text-right\"><strong><small>Дополнительный E-mail:</strong></small></div><div class=\"col-sm-6\"><small>". $row['emaildop']."</small></div></div>";
+                     }
+          }
+    }
+    }
 if ($mode == "conf_edit_main") {
 update_val_by_key("name_of_firm", $_POST['name_of_firm']);
 update_val_by_key("title_header", $_POST['title_header']);
@@ -1064,36 +1073,6 @@ if ($mode == "license"){
 			break;
 	    };
 		$antinames = array("0" => "", "1" => "Dr.Web", "2" => "Касперский");
-		// 	switch($key["orggid"]){
-		// case 0: $col_lic=" ";
-		// 	break;
-		// case 1: $col_lic="<font color=\"red\">(всего купленно лицензий 10)</font>";
-		// 	break;
-		// case 2: $col_lic="<font color=\"red\">(всего купленно лицензий 5)</font>";
-		// 	break;
-		// 	case 3: $col_lic="<font color=\"red\">(всего купленно лицензий ".$key['anti_col'].")</font>";
-		// 		break;
-		// 		case 4: $col_lic="<font color=\"red\">(всего купленно лицензий 5)</font>";
-		// 			break;
-		// 			case 5: $col_lic="<font color=\"red\">(всего купленно лицензий 5)</font>";
-		// 				break;
-		// 				case 6: $col_lic=" ";
-		// 					break;
-		// 					case 7: $col_lic="<font color=\"red\">(всего купленно лицензий 2)</font>";
-		// 						break;
-		// 						case 8: $col_lic=" ";
-		// 							break;
-		// 							case 9: $col_lic="<font color=\"red\">(всего купленно лицензий 1?)</font>";
-		// 								break;
-		// 								case 10: $col_lic="<font color=\"red\">(всего купленно лицензий 1?)</font>";
-		// 									break;
-		// 									case 11: $col_lic="<font color=\"red\">(всего купленно лицензий 3?)</font>";
-		// 										break;
-		// 										case 12: $col_lic="<font color=\"red\">(всего купленно лицензий 1?)</font>";
-		// 											break;
-		// 											case 13: $col_lic=" ";
-		// 												break;
-	  //   };
 
 	    $antivirus=MySQLDateToDate($key['antivirus']);
 		if ($antivirus == "00.00.0000"){
