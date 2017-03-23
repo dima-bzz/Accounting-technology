@@ -165,7 +165,7 @@ if ($mode == "activate_login_form") {
         // никогда не доверяйте входящим данным! Фильтруйте всё!
         $word = mysql_real_escape_string($_POST['search']);
         // Строим запрос
-      $stmt = $dbConnection->prepare("SELECT users_profile.homephone as homephone, users_profile.telephonenumber as telephonenumber, users.email as email, users_profile.emaildop as emaildop, users.fio, places.name as plname FROM users_profile INNER JOIN users ON users.id =users_profile.usersid INNER JOIN places_users ON users.id=userid INNER JOIN places ON places.id=placesid WHERE users.fio = :word and users.on_off = 1");
+      $stmt = $dbConnection->prepare("SELECT users_profile.homephone as homephone, users_profile.telephonenumber as telephonenumber, users.email as email, users_profile.emaildop as emaildop, users.fio, places.name as plname FROM users_profile INNER JOIN users ON users.id =users_profile.usersid LEFT JOIN places_users ON users.id=userid LEFT JOIN places ON places.id=placesid WHERE users.fio = :word and users.on_off = 1");
         $stmt->execute(array(':word' => $word));
         $res1 = $stmt->fetchAll();
 
