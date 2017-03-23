@@ -27,7 +27,7 @@ if (isset($_GET['logout'])) {
   unset($_COOKIE['lang_cookie']);
   unset($_COOKIE['on_off_cookie']);
   unset($_COOKIE['date']);
-  session_regenerate_id();
+  // session_regenerate_id();
   header("Location: ".$CONF['hostname']);
   //setcookie('id', '', 0, "/");
   //setcookie('ps', '', 0, "/");
@@ -56,7 +56,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
     	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-		session_regenerate_id(true);
+		// session_regenerate_id(true);
         UpdateLastdt($row['id']);
         $_SESSION['dilema_user_id'] = $row['id'];
         $_SESSION['dilena_user_login'] = $row['login'];

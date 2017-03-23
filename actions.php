@@ -5372,8 +5372,7 @@ if ($mode == "check_update") {
 $stmt = $dbConnection->prepare('update users set lastdt=now() where id=:cid');
 $stmt->execute(array(':cid' => $uid ));
 
-// $stmt = $dbConnection->prepare('update equipment set ip=:ip where usersid=:cid');
-// $stmt->execute(array(':cid' => $uid, ':ip' => $ip ));
+  echo 'ok';
  }
 if ($mode == "select_print"){
   ?>
