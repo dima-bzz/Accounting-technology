@@ -9,7 +9,7 @@ $time = round(($time_end - $time_start) * 1000)/1000;
             <div class="col-md-8">
               <p class="text-muted credit">
                 <small>
-                  <p>All rights reserved <i class="fa fa-copyright"></i> 2014-2017. Собрано за <?php echo "$time";?> сек.</p>
+                  <p class="text-muted credit"><small>2014-2017 All rights reserved <i class="fa fa-copyright"></i>, Designed by <a href="https://github.com/dima-bzz/">DM</a>. Собрано за <?php echo "$time";?> сек.</small></p>
                 </small>
               </p>
             </div>
