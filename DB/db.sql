@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `org` (
 CREATE TABLE IF NOT EXISTS `perf` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `param` varchar(512) NOT NULL DEFAULT '',
-  `value` varchar(512) NOT NULL DEFAULT '',
+  `value` longtext NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
@@ -320,6 +320,7 @@ VALUES
   (27, 'what_cartridge', 'null'),
   (28, 'what_print_test', 'null'),
   (29, 'what_license', 'null');
+  (29, 'home_text', 'приветствуем Вас на внутреннем сайте! Здесь вы сможете посмотреть какие ТМЦ за вами закреплены, что находиться в кабинте в котором вы работаете. Так же можно посмотреть контактную информацию пользователей, реквизиты организаций.');
 
 UNLOCK TABLES;
 -- --------------------------------------------------------

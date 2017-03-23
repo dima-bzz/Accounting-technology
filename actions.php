@@ -204,6 +204,10 @@ update_val_by_key("permit_users_documents", $_POST['permit_users_documents']);
 update_val_by_key("permit_users_news", $_POST['permit_users_news']);
 update_val_by_key("permit_users_license", $_POST['permit_users_license']);
 update_val_by_key("default_org", $_POST['default_org']);
+update_val_by_key("what_cartridge", $_POST['what_cartridge']);
+update_val_by_key("what_print_test", $_POST['what_print_test']);
+update_val_by_key("what_license", $_POST['what_license']);
+update_val_by_key("home_text", $_POST['home_text']);
 
 
 ?>

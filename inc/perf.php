@@ -67,7 +67,12 @@ include("menus.php");
       echo "http://".$_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 0, $pos + 1);?>" value="<?=get_conf_param('hostname'); ?>">
     </div>
   </div>
-
+  <div class="form-group">
+    <label for="hostname" class="col-sm-4 control-label"><small><?=get_lang('CONF_home_text');?></small></label>
+    <div class="col-sm-8">
+      <textarea type="text" class="form-control input-sm" rows="3" id="home_text" placeholder="<?=get_lang('CONF_title_home_text');?>"><?=get_conf_param('home_text'); ?></textarea>
+    </div>
+  </div>
       <div class="form-group">
     <label for="first_login" class="col-sm-4 control-label"><small><?=get_lang('CONF_f_login');?></small></label>
     <div class="col-sm-8">

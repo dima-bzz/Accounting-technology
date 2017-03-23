@@ -31,7 +31,11 @@ $CONF = array (
 'permit_users_documents' => get_conf_param('permit_users_documents'),
 'permit_users_news' => get_conf_param('permit_users_news'),
 'permit_users_license' => get_conf_param('permit_users_license'),
-'default_org' => get_conf_param('default_org')
+'default_org' => get_conf_param('default_org'),
+'what_cartridge' => get_conf_param('what_cartridge'),
+'what_print_test' => get_conf_param('what_print_test'),
+'what_license' => get_conf_param('what_license'),
+'home_text' => get_conf_param('home_text')
 );
 
 $CONF_MAIL = array (

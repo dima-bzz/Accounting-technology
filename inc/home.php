@@ -2,7 +2,7 @@
 <div class="row">
 
 <div class="col-md-12">
-            <div class="alert alert-info alert-dismissable"><i class="fa fa-feed"></i>&nbsp;<?=get_myname() .get_lang('Privet_msg');?>
+            <div class="alert alert-info alert-dismissable"><i class="fa fa-feed"></i>&nbsp;<?=get_myname().', '.get_conf_param('home_text');?>
             </div>
 
 </div>

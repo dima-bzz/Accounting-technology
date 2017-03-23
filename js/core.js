@@ -1121,7 +1121,8 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&default_org="+encodeURIComponent($("#default_org").val())+
         "&what_cartridge="+encodeURIComponent($("#what_cartridge").val())+
         "&what_print_test="+encodeURIComponent($("#what_print_test").val())+
-        "&what_license="+encodeURIComponent($("#what_license").val()),
+        "&what_license="+encodeURIComponent($("#what_license").val())+
+        "&home_text="+encodeURIComponent($("#home_text").val()),
         success: function(html) {
         $.cookie('cookieorgid',$("#default_org").val());
         $("#conf_edit_main").blur();
