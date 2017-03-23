@@ -3778,7 +3778,7 @@ var table_eq_mat = $('#eq_mat').DataTable({
     "type": "POST",
     "data":{mode: "eq_mat"}
   },
-	"pading":false,
+
 "deferRender":true,
 "scrollY": 210,
 "scrollCollapse": true,
@@ -3879,7 +3879,7 @@ var table_eq = $('#equipment_table').DataTable({
       mode: "eq"
     },
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 // "scrollY": 350,
@@ -5091,7 +5091,7 @@ var table_eq_move = $('#equipment_move').DataTable({
       "move_eqid": function(){return eq_one_id;}
     }
   },
-	"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -5320,7 +5320,7 @@ $('#equipment_move tbody').on( 'click', 'button#move_eq_delete', function () {
               "move_eqid": function(){return eq_one_id;}
             }
           },
-        	"pading":false,
+
         "deferRender":true,
         "responsive":false,
         "scrollY": 200,
@@ -5388,7 +5388,7 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
 "mode": "eq_table_move_show_all"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -5567,7 +5567,7 @@ var table_eq_repair = $('#equipment_repair').DataTable({
 "repair_eqid": function(){return eq_one_id;}
     }
   },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -5860,7 +5860,7 @@ var table_eq_param = $('#equipment_param').DataTable({
 "id": function(){return eq_one_id;}
     }
   },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -6050,7 +6050,7 @@ window.table_ping = $('#ping').DataTable({
   "splaces" : function(){return $("#splaces").val();}
       }
     },
-  "pading":false,
+
   "bDeferRender":true,
   "responsive":false,
   "bPaginate": false,
@@ -6130,7 +6130,7 @@ $("#print_test").on('click', function(){
   "suserid" : function(){return $("#suserid").val();},
       }
     },
-  "pading":false,
+
   "deferRender":true,
   "responsive":false,
   "bPaginate": true,
@@ -6210,7 +6210,7 @@ var table_eq_list = $('#eq_list').DataTable({
 "mode": "eq_list"
     }
   },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 300,
@@ -6278,7 +6278,7 @@ var table_license = $('#table_license').DataTable({
 "mode": "license"
     }
   },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "sScrollX": "100%",
@@ -6836,7 +6836,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
 "mode": "cartridge"
     }
   },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "sScrollX": "100%",
@@ -7365,7 +7365,7 @@ var table_cartridge_uchet = $('#table_cartridge_uchet').DataTable({
 "id": function(){return eq_one_id;}
        }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -7546,7 +7546,7 @@ window.table_invoice = $('#invoice').DataTable({
 "userid" : function(){return $("#userid").val();}
 }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "bPaginate": false,
@@ -7832,15 +7832,15 @@ window.table_report = $('#report').DataTable({
 "dtpost_report" : function(){return $("#dtpost_report").val();},
 }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
-"bPaginate": false,
+// "bPaginate": false,
 "scrollY": 400,
 "sScrollX": "100%",
 "sScrollXInner": "100%",
 "scrollCollapse":true,
-"scroll":true,
+"scroller":true,
 "bAutoWidth": true,
 "stateSave":true,
 "searching":true,
@@ -8221,7 +8221,7 @@ window.table_eq_move_show_rep = $('#report_move_show_rep').DataTable({
 "move_eqid": function(){return eq_one_id;}
 }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -8296,7 +8296,7 @@ var table_org = $('#table_org').DataTable({
 "mode": "org_table"
         }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "sScrollX": "100%",
@@ -8493,7 +8493,7 @@ var table_places = $('#table_places').DataTable({
 "mode": "places_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -8703,7 +8703,7 @@ var table_places_sub = $('#table_places_sub').DataTable({
 "id": function(){return eq_one_id;}
         }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -8790,7 +8790,7 @@ var table_users = $('#table_users').DataTable({
 "mode": "users_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -9247,7 +9247,7 @@ var table_contact = $('#table_contact').DataTable({
 "mode": "contact_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -9509,7 +9509,7 @@ var table_vendors = $('#table_vendors').DataTable({
 "mode": "vendors_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -9710,7 +9710,7 @@ var table_group_nome = $('#table_group_nome').DataTable({
 "mode": "group_nome_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -9911,7 +9911,7 @@ var table_nome = $('#table_nome').DataTable({
 "mode": "nome_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -10191,7 +10191,7 @@ var table_requisites = $('#table_requisites').DataTable({
 "mode": "requisites_table"
         }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -10407,7 +10407,7 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
 "id": function(){return eq_one_id;}
         }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -10585,7 +10585,7 @@ var table_knt = $('#table_knt').DataTable({
 "mode": "knt_table"
        }
 },
-"pading":false,
+
 "pagingType": "full_numbers",
 "deferRender":true,
 "responsive":false,
@@ -10800,7 +10800,7 @@ var table_knt_files = $('#table_knt_files').DataTable({
 "id": function(){return eq_one_id;}
         }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
@@ -10977,7 +10977,7 @@ var table_documents = $('#table_documents').DataTable({
 "mode": "documents_table",
         }
 },
-"pading":false,
+
 "deferRender":true,
 "responsive":false,
 "scrollY": 200,
