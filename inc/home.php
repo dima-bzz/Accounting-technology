@@ -40,7 +40,6 @@
 			<div id="results"></div>
 </div>
 </div>
-<br>
 <div class="panel panel-default">
 <div class="panel-heading">
   <a href="news"><i class="fa fa-newspaper-o"></i>&nbsp;<?=get_lang('News');?></a>
@@ -74,7 +73,7 @@ if ($count <> 0){
   <div class="panel-heading">
     <i class="fa fa-smile-o"></i>&nbsp;<?=get_lang('Info');?>
   </div>
-  <div style="max-height: 375px;scroll-behavior: initial;overflow-y: auto;">
+  <div style="max-height: 370px;scroll-behavior: initial;overflow-y: auto;">
   <div class="panel-body" id="inf">
   <!-- <div class="well"> -->
     <?php
