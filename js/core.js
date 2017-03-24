@@ -406,16 +406,7 @@ NewYear();
 setInterval(NewYear,1000);
 }
 // *****Генератор имен пользователей******
-    // function str_rand() {
-    //     var result       = '';
-    //     var words        = 'qwertyuiopasdfghjklzxcvbnm';
-    //     var max_position = words.length - 1;
-    //         for( i = 0; i < 8; ++i ) {
-    //             position = Math.floor ( Math.random() * max_position );
-    //             result = result + words.substring(position, position + 1);
-    //         }
-    //     return result;
-    // }
+
     function str_rand(){
         var rndType = Math.floor(Math.random() * 3) + 1;
         var nickname = "";
@@ -649,26 +640,7 @@ $("#calendar").fullCalendar({
 
  },
   displayEventTime: false,
-// events:[
-//   {
-//   title: '123',
-//   start: '2016-02-29 00:00:00',
-//   end: '2016-02-29 23:59:00',
-//   // allDay:true
-// },
-// {
-// title: '123',
-// start: '2016-03-29 00:00:00',
-// end: '2016-03-29 23:59:00',
-// // allDay:true
-// },
-// {
-// title: '123',
-// start: '2017-03-29 00:00:00',
-// end: '2017-03-29 23:59:00',
-// // allDay:true
-// },
-// ],
+
 eventRender: function(event, element, view){
   if (event.description == 'birthday'){
   element.find('.fc-title').prepend('<i class=\"fa fa-birthday-cake\"></i>&nbsp;');
@@ -2287,35 +2259,7 @@ function check_user_name(){
     }
 
 });
-// $("#user_name_gen").click(function() {
-//   console.log(this.value);
-    // check_er.user_name = false;
-  //   $.ajax({
-  //   type: "POST",
-  //   dataType: "json",
-  //   url: ACTIONPATH,
-  //   data: "mode=check_user_name"+
-  //   "&user_name="+$(this).val(),
-  //   success: function(html) {
-  //   $.each(html, function(i, item) {
-  //   if (item.check_user_name_status === true) {
-  //   $("#user_name_grp").removeClass('has-error').addClass('has-success');
-  //   check_er.user_name = false;
-   //
-  //   }
-  //   else if (item.check_user_name_status === false) {
-  //     $('#user_name').popover('show');
-  //     $("#user_name_grp").removeClass('has-success').addClass('has-error');
-  //     setTimeout(function(){$("#user_name").popover('hide');},2000);
-  //     check_er.user_name = true;
-  //   }
-  //   }
-  //   );
-  //  }
-   //
-  //   });
 
-// });
 }
 function check_login(){
   $("input#login").keyup(function() {
@@ -3718,58 +3662,7 @@ $('body').on('click', 'a#next', function(event) {
              }
          });
 });
-// $("#bdel").click(function(){
-// $("#infoblock").load("controller/server/delete/delete.php");
-// return false;
-// });
- //        $('#equipment_add').on('shown.bs.modal', function(){
- //        $(".my_select", this).chosen({
- //        disable_search_threshold: 10,
- //        no_results_text: "Ничего не найдено",
- //        search_contains: true,
- //        allow_single_deselect: true
- //        });
- //        $(".my_select2", this).chosen({
- //        disable_search_threshold: 10,
- //        search_contains: true,
- //        no_results_text: "Ничего не найдено",
- //        });
- //        if ($("#equipment_add #suserid").val() == ''){
- //          $('button#equipment_add').addClass('disabled');
- //        }else {
- //          $('button#equipment_add').removeClass('disabled');
- //        }
- //        $("#ip").mask("999.999.999.999", {placeholder: " "});
- //        setTimeout(function() {
- //          $('#myForm_add').validator('validate');
- //        }, 100);
- //      });
- //      $('#equipment_add').on('hide.bs.modal', function () {
- //      $(this).find('form')[0].reset();
- //      $('#myForm_add').validator('destroy');
- // });
 
-//  $('#equipment_edit').on('shown.bs.modal', function(){
-//  $(".my_select", this).chosen({
-//  disable_search_threshold: 10,
-//  no_results_text: "Ничего не найдено",
-//  search_contains: true,
-//  allow_single_deselect: true
-//  });
-//  $(".my_select2", this).chosen({
-//  disable_search_threshold: 10,
-//  search_contains: true,
-//  no_results_text: "Ничего не найдено",
-//  });
-//  $("#ip").mask("999.999.999.999", {placeholder: " "});
-//  setTimeout(function() {
-// $('#myForm_add').validator('validate');
-// }, 100);
-// });
-// $('#equipment_edit').on('hide.bs.modal', function () {
-// $(this).find('form')[0].reset();
-// $('#myForm_edit').validator('destroy');
-// });
 // ******ТМЦ под ответсвенностью на главной странице******
 var table_eq_mat = $('#eq_mat').DataTable({
   "aServerSide": true,
@@ -4051,13 +3944,6 @@ drawCallback: function(){
                             inv_typehead();
                             $("#ip").mask("999.999.999.999", {placeholder: " "});
                             check_ip();
-                          //   $('#invoice').on('keyup',function(e) {
-                          //     var code = e.which;
-                          //   if (code === 32 && this.value.indexOf('от') === -1 && this.value.length > 0 && this.value.indexOf(" ") != 0)
-                          //   {
-                          //     $(this).val(this.value + 'от ' + $("#dtpost").val());
-                          //   }
-                          // });
                           $("#invoice_date").datepicker({
                           format: 'dd.mm.yyyy',
                           autoclose: true,
@@ -4228,13 +4114,6 @@ drawCallback: function(){
                                 inv_typehead();
                                 $("#ip").mask("999.999.999.999", {placeholder: " "});
                                 check_ip();
-                              //   $('#invoice').on('keyup',function(e) {
-                              //     var code = e.which;
-                              //   if (code === 32 && this.value.indexOf('от') === -1 && this.value.length > 0 && this.value.indexOf(" ") != 0)
-                              //   {
-                              //     $(this).val(this.value + 'от ' + $("#dtpost").val());
-                              //   }
-                              // });
                               $("#invoice_date").datepicker({
                               format: 'dd.mm.yyyy',
                               autoclose: true,
@@ -5004,14 +4883,6 @@ $('#equipment_table tbody').on( 'click', 'tr', function () {
   }
 } );
 
-// var Copy_to_clipboard_dialog = new BootstrapDialog({
-//   title: get_lang_param("Copy_ok"),
-//   message: get_lang_param("Copy_to_clipboard"),
-//   type: BootstrapDialog.TYPE_SUCCESS,
-//   draggable: false,
-//   closable:false
-// });
-
 function selectText(containerid) {
   var check_copy=false;
     if (document.selection) {
@@ -5133,104 +5004,6 @@ drawCallback: function(){
 "aoColumnDefs":[
         { "sType": 'de_datetime', "aTargets": 1 }
     ],
-// "fnDrawCallback": function (){
-//   if (Admin === false){
-//     table_eq_move.buttons('.Edit_move').remove();
-//     table_eq_move.buttons('.Delete_move').remove();
-//     // table_eq_move.buttons().destroy();
-//     // table_eq_move.button(0).remove();
-// console.log(Admin);
-//
-//   }
-// },
-// "sDom" : "<'row'<'col-sm-12'f><'col-sm-12'B>r><'scroll-x't><'row'<'col-sm-6'i><'col-sm-6'p>>",
-//         "buttons": [
-//               {
-//                 text: function(a){return a.i18n("Edit","Edit")},
-//                 className: 'Edit_move',
-//                 action: function ( e, dt, node, config ) {
-//                   var $rows = table_eq_move.$('tr.selected');
-//                     if ($rows.length > '0'){
-//                   window.dialog_move_edit = new BootstrapDialog({
-//                           title: get_lang_param("Equipment_move_title"),
-//                           // message: $('<div></div>').load('inc/equipment.inc.php?step=move_edit&id=' + arrList_m),
-//                           message: function(dialogRef) {
-//                 var $message = $('<div></div>');
-//                 var data = $.ajax({
-//                 url: ACTIONPATH,
-//                 type: 'POST',
-//                 data: "mode=dialog_move_edit" +
-//                 "&id=" + arrList_m,
-//                 context: {
-//                     theDialogWeAreUsing: dialogRef
-//                 },
-//                 success: function(content) {
-//                 this.theDialogWeAreUsing.setMessage(content);
-//                 }
-//                 });
-//                 return $message;
-//                 },
-//                           nl2br: false,
-//                           closable: true,
-//                           draggable: true,
-//                           closeByBackdrop: false,
-//                           closeByKeyboard: false,
-//                         onhidden: function(){
-//                           table_eq_move.rows().deselect();
-//                           arrList_m=[];
-//                         }
-//                       });
-//                       dialog_move_edit.realize();
-//                       dialog_move_edit.open();
-//                     }
-//                     else {
-//                       BootstrapDialog.alert({
-//                       title: get_lang_param("Er_title"),
-//                       message: get_lang_param("Er_msg2"),
-//                       type: BootstrapDialog.TYPE_WARNING,
-//                       draggable: true
-//                       });
-//                     }
-//                 }
-//             },
-            // {
-            //   text: function(a){return a.i18n("Delete","Delete")},
-            //   className: 'Delete_move',
-            //   action: function( e, dt, node, config ){
-            //     var $rows = table_eq_move.$('tr.selected');
-            //       if ($rows.length > '0'){
-            //         window.dialog_move_del = new BootstrapDialog({
-            //                 title: get_lang_param("Equipment_del_move"),
-            //                 message: get_lang_param("Info_del"),
-            //                 cssClass: 'del-dialog',
-            //                 closable: true,
-            //                 draggable: true,
-            //                 closeByBackdrop: false,
-            //                 closeByKeyboard: false,
-            //                 buttons:[{
-            //                   id: "equipment_move_delete",
-            //                   label: get_lang_param("Delete"),
-            //                   cssClass: "btn-sm btn-danger",
-            //                 }],
-            //                 onhidden: function(){
-            //                   table_eq_move.rows().deselect();
-            //                   arrList_m=[];
-            //                 }
-            //               });
-            //         dialog_move_del.open();
-            //       }
-            //       else {
-            //         BootstrapDialog.alert({
-            //         title: get_lang_param("Er_title"),
-            //         message: get_lang_param("Er_msg2"),
-            //         type: BootstrapDialog.TYPE_WARNING,
-            //         draggable: true
-            //         });
-            //       }
-            //   }
-            //
-            // },
-          // ],
 "language": {
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
         }
@@ -5603,115 +5376,6 @@ drawCallback: function(){
 "aoColumnDefs":[
               { "sType": 'de_date', "aTargets": [1,2] }
 ],
-// "sDom": "<'row'<'col-sm-12'f><'col-sm-12'B>r><'scroll-x't><'row'<'col-sm-6'i><'col-sm-6'p>>",
-//         "buttons": [
-//               {
-//                 text: function(a){return a.i18n("Edit","Edit")},
-//                 action: function ( e, dt, node, config ) {
-//                   var $rows = table_eq_repair.$('tr.selected');
-//                     if ($rows.length > '0'){
-//                   window.dialog_repair_edit = new BootstrapDialog({
-//                           title: get_lang_param("Equipment_repair_title"),
-//                           message: function(dialogRef) {
-//                 var $message = $('<div></div>');
-//                 var data = $.ajax({
-//                 url: ACTIONPATH,
-//                 type: 'POST',
-//                 data: "mode=dialog_repair_edit" +
-//                 "&id=" + arrList_r,
-//                 context: {
-//                     theDialogWeAreUsing: dialogRef
-//                 },
-//                 success: function(content) {
-//                 this.theDialogWeAreUsing.setMessage(content);
-//                 }
-//                 });
-//                 return $message;
-//                 },
-//                           nl2br: false,
-//                           // cssClass: 'repair-dialog',
-//                           closable: true,
-//                           draggable: true,
-//                           closeByBackdrop: false,
-//                           closeByKeyboard: false,
-//                             onshown: function(){
-//                             my_select();
-//                             my_select2();
-//                             $("#dt").datepicker({
-//                               format: 'dd.mm.yyyy',
-//                               autoclose: true,
-//                               language: lang,
-//                               todayBtn: "linked",
-//                               clearBtn: false,
-//                             });
-//                             $("#dtend").datepicker({
-//                               format: 'dd.mm.yyyy',
-//                               autoclose: true,
-//                               language: lang,
-//                               todayBtn: "linked",
-//                               clearBtn: false,
-//                             });
-//                             $('#kntid').change(function(){
-//                               if ($(this).val().length > 0){
-//                                 $('#knt_grp').removeClass('has-error');
-//                               }
-//                             });
-//                         },
-//                         onhidden: function(){
-//                           table_eq_repair.rows().deselect();
-//                           arrList_r=[];
-//                         }
-//                       });
-//                       dialog_repair_edit.realize();
-//                       dialog_repair_edit.open();
-//                     }
-//                     else {
-//                       BootstrapDialog.alert({
-//                       title: get_lang_param("Er_title"),
-//                       message: get_lang_param("Er_msg2"),
-//                       type: BootstrapDialog.TYPE_WARNING,
-//                       draggable: true
-//                       });
-//                     }
-//                 }
-//             },
-//             {
-//               text: function(a){return a.i18n("Delete","Delete")},
-//               action: function( e, dt, node, config ){
-//                 var $rows = table_eq_repair.$('tr.selected');
-//                   if ($rows.length > '0'){
-//                     window.dialog_repair_del = new BootstrapDialog({
-//                             title: get_lang_param("Equipment_del_repair"),
-//                             message: get_lang_param("Info_del"),
-//                             cssClass: 'del-dialog',
-//                             closable: true,
-//                             draggable: true,
-//                             closeByBackdrop: false,
-//                             closeByKeyboard: false,
-//                             buttons:[{
-//                               id: "equipment_repair_delete",
-//                               label: get_lang_param("Delete"),
-//                               cssClass: "btn-sm btn-danger",
-//                             }],
-//                             onhidden: function(){
-//                               table_eq_repair.rows().deselect();
-//                               arrList_r=[];
-//                             }
-//                           });
-//                     dialog_repair_del.open();
-//                   }
-//                   else {
-//                     BootstrapDialog.alert({
-//                     title: get_lang_param("Er_title"),
-//                     message: get_lang_param("Er_msg2"),
-//                     type: BootstrapDialog.TYPE_WARNING,
-//                     draggable: true
-//                     });
-//                   }
-//               }
-//
-//             },
-//           ],
 "language": {
         "url": MyHOSTNAME + "lang/lang-" + lang +".json"
             }
@@ -5815,39 +5479,6 @@ $('#equipment_repair tbody').on( 'click', 'button#repair_eq_delete', function ()
       });
 dialog_repair_del.open();
 });
-// var arrList_r = new Array();
-//   table_eq_repair.on('select', function(e, dt, type, indexes ){
-//        var data = table_eq_repair.row( indexes ).data();
-//       //  var result = data[0].replace(/<[^>]+>/g,'');
-//         arrList_r.push(data[0]);
-//
-// // console.log(arrList_r);
-//    }).on( 'deselect', function ( e, dt, type, indexes ) {
-//       var data = table_eq_repair.row( indexes ).data();
-//         arrList_r = $.grep(arrList_r, function(value){
-//           return value != data[0];
-//         })
-//     //  console.log(arrList);
-//     //  console.log(eq_one_id);
-//
-//       })
-
-      // var arrList_m = new Array();
-      //   table_eq_move.on('select', function(e, dt, type, indexes ){
-      //        var data = table_eq_move.row( indexes ).data();
-      //       //  var result = data[0].replace(/<[^>]+>/g,'');
-      //         arrList_m.push(data[0]);
-      //
-      // // console.log(arrList_m);
-      //    }).on( 'deselect', function ( e, dt, type, indexes ) {
-      //       var data = table_eq_move.row( indexes ).data();
-      //         arrList_m = $.grep(arrList_m, function(value){
-      //           return value != data[0];
-      //         })
-      //     //  console.log(arrList);
-      //     //  console.log(eq_one_id);
-      //
-      //       })
 
 // ***** Параметры имущества *****
 var table_eq_param = $('#equipment_param').DataTable({
@@ -7107,93 +6738,6 @@ var table_cartridge = $('#table_cartridge').DataTable({
               }
 
             },
-            // {
-            //     text: function(a){return a.i18n("Cartridge_fast_edit","Cartridge fast edit")},
-            //     action: function( e, dt, node, config ){
-            //       var $rows = table_cartridge.$('tr.selected');
-            //         if ($rows.length > '0'){
-            //           window.dialog_cartridge_fast_edit = new BootstrapDialog({
-            //                   title: get_lang_param("Cartridge_fast_edit_title"),
-            //                   message: function(dialogRef) {
-            //                   var $message = $('<div></div>');
-            //                   var data = $.ajax({
-            //                   url: ACTIONPATH,
-            //                   type: 'POST',
-            //                   data: "mode=dialog_cartridge_fast_edit" +
-            //                   "&id=" + eq_one_id,
-            //                   context: {
-            //                   theDialogWeAreUsing: dialogRef
-            //                   },
-            //                   success: function(content) {
-            //                   this.theDialogWeAreUsing.setMessage(content);
-            //                   }
-            //                   });
-            //                   return $message;
-            //                   },
-            //                   nl2br: false,
-            //                   closable: true,
-            //                   draggable: true,
-            //                   closeByBackdrop: false,
-            //                   closeByKeyboard: false,
-            //                   onshown: function(){
-            //                     my_select();
-            //                     my_select2();
-            //                   },
-            //                   onhidden: function(){
-            //                     table_cartridge.rows().deselect();
-            //                     eq_one_id=[];
-            //                   }
-            //                 });
-            //                 dialog_cartridge_fast_edit.realize();
-            //           dialog_cartridge_fast_edit.open();
-            //         }
-            //         else {
-            //           BootstrapDialog.alert({
-            //           title: get_lang_param("Er_title"),
-            //           message: get_lang_param("Er_msg2"),
-            //           type: BootstrapDialog.TYPE_WARNING,
-            //           draggable: true
-            //           });
-            //         }
-            //     }
-            //
-            //   },
-          // {
-          //   text: function(a){return a.i18n("Delete","Delete")},
-          //   action: function( e, dt, node, config ){
-          //     var $rows = table_cartridge.$('tr.selected');
-          //       if ($rows.length > '0'){
-          //         window.dialog_cartridge_del = new BootstrapDialog({
-          //                 title: get_lang_param("License_delete"),
-          //                 message: get_lang_param("Info_del"),
-          //                 cssClass: 'del-dialog',
-          //                 closable: true,
-          //                 draggable: true,
-          //                 closeByBackdrop: false,
-          //                 closeByKeyboard: false,
-          //                 buttons:[{
-          //                   id: "cartridge_delete",
-          //                   label: get_lang_param("Delete"),
-          //                   cssClass: "btn-sm btn-danger",
-          //                 }],
-          //                 onhidden: function(){
-          //                   table_cartridge.rows().deselect();
-          //                   eq_one_id=[];
-          //                 }
-          //               });
-          //         dialog_cartridge_del.open();
-          //       }
-          //       else {
-          //         BootstrapDialog.alert({
-          //         title: get_lang_param("Er_title"),
-          //         message: get_lang_param("Er_msg2"),
-          //         type: BootstrapDialog.TYPE_WARNING,
-          //         draggable: true
-          //         });
-          //       }
-          //   }
-          //
-          // },
           {
                 extend: 'collection',
                 text: function(a){return a.i18n("Print","Print")},
@@ -7426,42 +6970,6 @@ fnRowCallback: function( nRow ) {
          }
            ]
      },
-    //  {
-    //    text: function(a){return a.i18n("Delete","Delete")},
-    //    action: function( e, dt, node, config ){
-    //      var $rows = table_cartridge_uchet.$('tr.selected');
-    //        if ($rows.length > '0'){
-    //          window.dialog_cartridge_uchet_del = new BootstrapDialog({
-    //                  title: get_lang_param("License_delete"),
-    //                  message: get_lang_param("Info_del"),
-    //                  cssClass: 'del-dialog',
-    //                  closable: true,
-    //                  draggable: true,
-    //                  closeByBackdrop: false,
-    //                  closeByKeyboard: false,
-    //                  buttons:[{
-    //                    id: "cartridge_uchet_delete",
-    //                    label: get_lang_param("Delete"),
-    //                    cssClass: "btn-sm btn-danger",
-    //                  }],
-    //                  onhidden: function(){
-    //                    table_cartridge_uchet.rows().deselect();
-    //                    uchet_one_id=[];
-    //                  }
-    //                });
-    //          dialog_cartridge_uchet_del.open();
-    //        }
-    //        else {
-    //          BootstrapDialog.alert({
-    //          title: get_lang_param("Er_title"),
-    //          message: get_lang_param("Er_msg2"),
-    //          type: BootstrapDialog.TYPE_WARNING,
-    //          draggable: true
-    //          });
-    //        }
-    //    }
-     //
-    //  },
      {
      text: function(a){return a.i18n("Update","Update")},
      action: function () {
@@ -7705,12 +7213,6 @@ window.table_invoice = $('#invoice').DataTable({
           }
 });
 // ***** Отчеты *****
-// $('#us').on('click',function(){
-//   document.getElementById('gr').disabled=(this.checked)?1:0;
-// });
-// $('#gr').on('click',function(){
-//   document.getElementById('us').disabled=(this.checked)?1:0;
-// });
 $('#clear_user').on('click',function(){
   $("#userid").val('null').trigger("chosen:updated");
 });
@@ -7779,13 +7281,6 @@ $('#nakl').on('click',function(){
   // console.log($('.dop').is(":visible"));    
   $('.dop').toggle('slow');
   });
-// function Clear() {
-//     name_poisk.value=''
-//     shtr.value='';
-//     buhn.value='';
-//     ser.value='';
-//     nakl.value='';
-// };
 window.check_gr = {gr:false, us:false};
 var arrList_shtr = new Array();
 $("#report_table").on('click', function(){
@@ -7793,20 +7288,6 @@ $("#report_table").on('click', function(){
             $('#report_move_show').show("slow");
             $("#report_table").blur();
             arrList_shtr = [];
-// var sel_rep = $("#sel_rep").val();
-// var userid_rep = $("#userid").val();
-// var placesid = $("#placesid").val();
-// var orgid = $("#orgid").val();
-// var shtr = $("#shtr").val();
-// var buhn = $("#buhn").val();
-// var ser = $("#ser").val();
-// var name_poisk = $("#name_poisk").val();
-// var nakl = $("#nakl").val();
-// var repair = $("#repair").prop('checked');
-// var os = $("#os").prop('checked');
-// var mode = $("#mode").prop('checked');
-// var bum = $("#bum").prop('checked');
-// console.log(userid_rep);
 if (! $.fn.DataTable.isDataTable('#report')){
 window.table_report = $('#report').DataTable({
 "aServerSide": true,
