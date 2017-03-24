@@ -36,7 +36,7 @@ $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 function get_lang_param(par) {
     var result="";
     var zcode="";
-    var url = "lang/lang-" + lang + ".json";
+    var url = MyHOSTNAME + "lang/lang-" + lang + ".json";
 
 if (url.search("inc") >= 0) {
 zcode="../";
