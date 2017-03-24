@@ -3528,12 +3528,12 @@ else {
 if ($mode == "places_sub_table"){
   if ($_POST['id'] !=''){
   $placesid = $_POST['id'];
-  $stmt = $dbConnection->prepare ("SELECT places_users.id AS plid,placesid,userid,users.login as name,users.fio AS fio FROM places_users INNER JOIN users ON users.id=userid WHERE placesid=:placesid and users.on_off = 1 ");
+  $stmt = $dbConnection->prepare ("SELECT places_users.id AS plid,placesid,userid,users.login as name,users.fio AS fio, users.id as id FROM places_users INNER JOIN users ON users.id=userid WHERE placesid=:placesid and users.on_off = 1 ");
   $stmt->execute(array(':placesid' => $placesid));
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
 
-    $data = array($key['plid'],$key['fio'],$key['name']);
+    $data = array($key['id'],$key['fio'],$key['name']);
     $output['aaData'][] = $data;
   }
     if ($output != ''){
@@ -4051,6 +4051,10 @@ else {
 if ($_POST['placesid'] != ''){
   $stmt2 = $dbConnection->prepare ('INSERT INTO places_users (id,placesid,userid) VALUES (null,:placesid,:userid) ON DUPLICATE KEY UPDATE placesid= :placesid2');
   $stmt2->execute(array(':placesid' => $placesid, ':placesid2' => $placesid, ':userid' => $id));
+}
+else {
+  $stmt2 = $dbConnection->prepare ('DELETE FROM places_users WHERE userid=:userid');
+  $stmt2->execute(array(':userid' => $id));
 }
 }
 if ($mode == "check_login") {
