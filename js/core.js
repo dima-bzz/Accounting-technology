@@ -10,7 +10,6 @@ if (($.cookie('lang_cookie') !== '') && ($.cookie('lang_cookie') !== undefined))
 if (($.cookie('lang_cookie') === '') || ($.cookie('lang_cookie') === undefined)){
   lang = 'ru';
 }
-var userid = $.cookie('authhash_usid');
 
 
 function ispath(p1) {

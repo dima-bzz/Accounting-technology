@@ -63,7 +63,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
         $_SESSION['dilema_user_fio'] = $row['fio'];
         setcookie ('lang_cookie',$row['lang']);
         setcookie ('on_off_cookie',$row['on_off']);
-        setcookie('authhash_usid', $_SESSION['dilema_user_id']);
         setcookie('cookieorgid',get_conf_param('default_org'));
         setcookie('cookie_eq_util','0');
         setcookie('cookie_eq_sale','0');
