@@ -3633,8 +3633,6 @@ if ($mode == "dialog_users_add"){
                   <span class="input-group-btn">
                     <button type = "button" id="user_name_gen" class="btn btn-default btn-sm allwidht">Генерировать</button>
                   </span>
-                  <div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -3755,8 +3753,6 @@ if ($mode == "dialog_users_edit"){
             <span class="input-group-btn">
               <button type = "button" id="user_name_gen" class="btn btn-default btn-sm allwidht">Генерировать</button>
             </span>
-            <div>
-            </div>
           </div>
         </div>
       </div>
