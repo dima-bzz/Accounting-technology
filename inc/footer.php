@@ -33,6 +33,7 @@ else {
  ?>
       <script type="text/javascript">
           var MyHOSTNAME = "<?php echo $CONF['hostname']; ?>";
+          var userid = "<?php echo $_SESSION['dilema_user_id']; ?>";
       </script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery-1.12.4.min.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery.cookie.js'></script>
