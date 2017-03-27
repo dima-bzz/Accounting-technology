@@ -2256,6 +2256,11 @@ function check_user_name(){
 
       });
     }
+    else {
+        $("#user_name_grp").removeClass('has-error');
+        $("#user_name_grp").removeClass('has-success');
+        check_er.user_name = false;
+      }
 
 });
 
