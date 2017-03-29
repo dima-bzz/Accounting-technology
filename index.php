@@ -27,14 +27,11 @@ if (isset($_GET['logout'])) {
   unset($_COOKIE['date']);
   // session_regenerate_id();
   header("Location: ".$CONF['hostname']);
-  //setcookie('id', '', 0, "/");
-  //setcookie('ps', '', 0, "/");
   // ТУТ УДАЛИТЬ КУКИ
 
 
 }
 
-//echo($_COOKIE['authhash_code']);
 $rq=0;
 if (isset($_POST['login']) && isset($_POST['password']))
 {
