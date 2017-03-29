@@ -3,15 +3,6 @@ $(document).ready(function() {
 
 var ACTIONPATH=MyHOSTNAME+"actions.php";
 
-var lang = [];
-if (($.cookie('lang_cookie') !== '') && ($.cookie('lang_cookie') !== undefined)){
-  lang = $.cookie('lang_cookie');
-}
-if (($.cookie('lang_cookie') === '') || ($.cookie('lang_cookie') === undefined)){
-  lang = 'ru';
-}
-
-
 function ispath(p1) {
 var url = window.location.href;
 var zzz=false;
@@ -20,15 +11,7 @@ if (url.search(p1) >= 0) {
 }
 return zzz;
 };
-// console.log(cookieorgid);
-// $(function(){
-//   var opts = { language: lang_l, pathPrefix: MyHOSTNAME + "lang/" };
-//   opts.callback = function(data, defaultCallback) {
-//     // console.log(data);
-//     defaultCallback(data);
-//   }
-//   $.localize("lang", opts);
-// });
+
 window.check_er = {login: false, email: false, account: false, save: false, user_name: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 
@@ -2469,7 +2452,6 @@ $('body').on('click', 'button#edit_users', function(event) {
         success: function() {
           dialog_users_edit.close();
           table_users.ajax.reload(null, false);
-          $.cookie('lang_cookie',$("#lang").val());
         }
         });
       }
@@ -3018,7 +3000,6 @@ $('body').on('click', 'button#edit_profile_user', function(event) {
               }
             });
             $("#m_info").hide().html(html).fadeIn(500);
-            $.cookie('lang_cookie',$("select#lang").val());
             check_er.save = false;
         }
     });
@@ -6327,6 +6308,7 @@ var table_license = $('#table_license').DataTable({
                 text: function(a){return a.i18n("PrintSelected","Print Selected")},
                 exportOptions: {
                   stripHtml: false,
+                  columns: ':visible',
                     modifier:{
                     selected: true
                   }

@@ -607,7 +607,7 @@ function validate_user($user_id, $input) {
     }
 
 
-    $stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
+    $stmt = $dbConnection->prepare('SELECT pass,login,fio,lang from users where id=:user_id LIMIT 1');
     $stmt->execute(array(':user_id' => $user_id));
 
 
@@ -624,6 +624,7 @@ function validate_user($user_id, $input) {
         $dbpass=$row['pass'];
         $_SESSION['dilema_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
+        $_SESSION['dilema_user_lang'] = $row['lang'];
         //$_SESSION['helpdesk_sort_prio'] == "none";
         if ($dbpass == $input) {return true;}
         else { return false;}
