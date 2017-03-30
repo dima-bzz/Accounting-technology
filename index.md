@@ -1,7 +1,7 @@
 Учёт Техники
 ======
 Учёт Техники веб-система, созданная для учёта техники в организации, а так же является внутренним ресурсом компании(й).
-<img src="https://habrastorage.org/files/a2b/aac/c7d/a2baacc7d0324aaeb62b3c44e5f82424.png"/>
+<img src="https://habrastorage.org/files/0ec/4b3/4ba/0ec4b34baac24f60b0587177e9e5c6bc.png"/>
 
 <h4>Функционал</h4>
 <ul>
