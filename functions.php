@@ -1026,12 +1026,14 @@ class Tequipment
     var $active;        // помечено на удаление?  1 - да, 0 - нет
     var $ip;            // Ip адрес
     var $kntid;        // поставщик
+    var $util;        // утилизировано? 1 - да, 0 - нет
+    var $sale;        // продано? 1 - да, 0 - нет
 
 function GetById($in){ // обновляем профиль работника с текущими данными (все что заполнено)
 	global $dbConnection;
 	$stmt = $dbConnection->prepare ('SELECT equipment.comment,equipment.ip,equipment.photo,equipment.nomeid,getvendorandgroup.grnomeid,equipment.id AS eqid,equipment.orgid AS eqorgid, org.name AS orgname, getvendorandgroup.vendorname AS vname,
             getvendorandgroup.groupname AS grnome,places.id as placesid,knt.id as kntid, places.name AS placesname, users.login AS userslogin, users.id AS usersid,
-            getvendorandgroup.nomename AS nomename, buhname, sernum, invnum, invoice, datepost,dtendgar, cost, currentcost, os, equipment.mode AS eqmode,bum,equipment.comment AS eqcomment, equipment.active AS eqactive,equipment.repair AS eqrepair
+            getvendorandgroup.nomename AS nomename, buhname, sernum, invnum, invoice, datepost,dtendgar, cost, currentcost, os, equipment.mode AS eqmode,bum,equipment.comment AS eqcomment, equipment.active AS eqactive,equipment.repair AS eqrepair,equipment.util AS equtil,equipment.sale AS eqsale
 	FROM equipment
 	INNER JOIN (
 	SELECT nome.groupid AS grnomeid,nome.id AS nomeid, vendor.name AS vendorname, group_nome.name AS groupname, nome.name AS nomename
@@ -1070,6 +1072,8 @@ function GetById($in){ // обновляем профиль работника �
                         $this->ip=$myrow["ip"];
                         $this->tmcname=$myrow["nomename"];
                         $this->kntid=$myrow["kntid"];
+                        $this->util=$myrow["equtil"];
+                        $this->sale=$myrow["eqsale"];
                 };};
               }
             };
