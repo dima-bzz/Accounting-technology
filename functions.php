@@ -593,9 +593,17 @@ function validate_user($user_id, $input) {
     if ($stmt -> rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
+
+
+
+
+        //$row = mysql_fetch_assoc($sql);
         $dbpass=$row['pass'];
         $_SESSION['dilema_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
+        //$_SESSION['helpdesk_sort_prio'] == "none";
         if ($dbpass == $input) {return true;}
         else { return false;}
     }
