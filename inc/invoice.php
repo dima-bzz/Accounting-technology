@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-paperclip"></i>&nbsp;<?=get_lang('Menu_invoice');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_invoice');?></h3>
             </div>
    </div>
     </div>
@@ -65,7 +65,7 @@ include("menus.php");
           </select>
 </div>
 <div class="col-md-4">
-  <button type="submit" id="invoice_table" class="btn btn-primary allwidht" name="invoice_table" style="margin-top: 10px;"><i class="fa fa-file-text-o"></i>&nbsp;<?=get_lang('Sfrom');?></button>
+  <button type="submit" id="invoice_table" class="btn btn-primary allwidht" name="invoice_table" style="margin-top: 10px;"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;<?=get_lang('Sfrom');?></button>
 </div>
 </div>
 </div>

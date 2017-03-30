@@ -625,10 +625,10 @@ $("#calendar").fullCalendar({
 
 eventRender: function(event, element, view){
   if (event.description == 'birthday'){
-  element.find('.fc-title').prepend('<i class=\"fa fa-birthday-cake\"></i>&nbsp;');
+  element.find('.fc-title').prepend('<i class=\"fa fa-birthday-cake\" aria-hidden=\"true\"></i>&nbsp;');
 }
 if (event.description == 'antivirus'){
-element.find('.fc-title').prepend('<i class=\"fa fa-key\"></i>&nbsp;');
+element.find('.fc-title').prepend('<i class=\"fa fa-key\" aria-hidden=\"true\"></i>&nbsp;');
 }
 },
 eventSources: [
@@ -4845,7 +4845,7 @@ function render_tooltip(data, type, full) {
 };
 function render_active(data, type, full) {
     var active = "";
-          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\"></i>'} else if (data == "not_active") { active = '<i class=\"btn-danger fa fa-trash-o fa-lg\"></i>'} else if (data == "repair") { active = '<i class=\"btn-info fa fa-gavel fa-lg\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\"></i>'} else if (data == "sale") { active = '<i class=\"fa fa-ruble\"></i>'};
+          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "not_active") { active = '<i class=\"btn-danger fa fa-trash-o fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "repair") { active = '<i class=\"btn-info fa fa-gavel fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\" aria-hidden=\"true\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\" aria-hidden=\"true\"></i>'} else if (data == "sale") { active = '<i class=\"fa fa-ruble\" aria-hidden=\"true\"></i>'};
               return active;
 };
 $('#equipment_table tbody').on( 'click', 'tr', function () {
@@ -5812,7 +5812,7 @@ $("#print_test").on('click', function(){
 
 function render_check_icon(data, type, full) {
     var ping = "";
-          if (data == true) { ping = '<i class=\"fa fa-check\"></i>'} else { ping = '<i class=\"fa fa-remove\"></i>'};
+          if (data == true) { ping = '<i class=\"fa fa-check\" aria-hidden=\"true\"></i>'} else { ping = '<i class=\"fa fa-remove\" aria-hidden=\"true\"></i>'};
               return ping;
 };
 

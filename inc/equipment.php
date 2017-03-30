@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-table"></i>&nbsp;<?=get_lang('Menu_equipment');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-table" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_equipment');?></h3>
             </div>
    </div>
     </div>
@@ -16,7 +16,7 @@ include("menus.php");
       <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-heading">
-          <i class="fa fa-info-circle"></i>&nbsp;<?=get_lang('Equipment_title');?>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<?=get_lang('Equipment_title');?>
 
       	</div>
       <div class="panel-body">
@@ -54,7 +54,7 @@ include("menus.php");
     </div>
     <div class="panel panel-default">
     <div class="panel-heading">
-      <i class="fa fa-list"></i>&nbsp;<?=get_lang('Equipment_param');?>
+      <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<?=get_lang('Equipment_param');?>
 
     </div>
     <div class="panel-body">
@@ -74,7 +74,7 @@ include("menus.php");
 
     <div class="panel panel-default">
     <div class="panel-heading">
-      <i class="fa fa-random"></i>&nbsp;<?=get_lang('Equipment_move');?>
+      <i class="fa fa-random" aria-hidden="true"></i>&nbsp;<?=get_lang('Equipment_move');?>
 
     </div>
   <div class="panel-body">
@@ -106,7 +106,7 @@ include("menus.php");
 
 <div class="panel panel-default">
 <div class="panel-heading">
-  <i class="fa fa-gavel"></i>&nbsp;<?=get_lang('Equipment_repair');?>
+  <i class="fa fa-gavel" aria-hidden="true"></i>&nbsp;<?=get_lang('Equipment_repair');?>
 
 </div>
 <div class="panel-body">

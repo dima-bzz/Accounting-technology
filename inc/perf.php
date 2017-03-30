@@ -8,7 +8,7 @@ include("menus.php");
 <div class="container">
 <div class="page-header" style="margin-top: -15px;">
 <div class="row">
-         <div class="col-md-6"> <h3><i class="fa fa-cog"></i>  <?=get_lang('CONF_title');?></h3></div><div class="col-md-6">
+         <div class="col-md-6"> <h3><i class="fa fa-cog" aria-hidden="true"></i>  <?=get_lang('CONF_title');?></h3></div><div class="col-md-6">
 
 </div>
 
@@ -37,7 +37,7 @@ include("menus.php");
 
 
       <div class="panel panel-default">
-  <div class="panel-heading"><i class="fa fa-cog"></i> <?=get_lang('CONF_mains');?></div>
+  <div class="panel-heading"><i class="fa fa-cog" aria-hidden="true"></i> <?=get_lang('CONF_mains');?></div>
   <div class="panel-body">
 
     <form class="form-horizontal" role="form">
@@ -375,7 +375,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
   </div>
   <div class="col-md-offset-3 col-md-6">
 <center>
-    <button type="submit" id="conf_edit_main" class="btn btn-success"><i class="fa fa-pencil"></i> <?=get_lang('CONF_act_edit');?></button>
+    <button type="submit" id="conf_edit_main" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> <?=get_lang('CONF_act_edit');?></button>
 
 </center>
 
@@ -389,7 +389,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
   </div>
 </div>
             <div class="panel panel-default">
-  <div class="panel-heading"><i class="fa fa-bell"></i> <?=get_lang('CONF_mail_name');?></div>
+  <div class="panel-heading"><i class="fa fa-bell" aria-hidden="true"></i> <?=get_lang('CONF_mail_name');?></div>
   <div class="panel-body">
 
 
@@ -473,7 +473,7 @@ if ($val== $row['value']) {$opt_sel="selected";}
 
     <div class="col-md-offset-3 col-md-6">
 <center>
-    <button type="submit" id="conf_edit_mail" class="btn btn-success"><i class="fa fa-pencil"></i> <?=get_lang('CONF_act_edit');?></button>
+    <button type="submit" id="conf_edit_mail" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> <?=get_lang('CONF_act_edit');?></button>
 
 </center>
 </div>

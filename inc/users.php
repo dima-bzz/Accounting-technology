@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-user-plus"></i>&nbsp;<?=get_lang('Menu_users');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_users');?></h3>
             </div>
    </div>
     </div>
@@ -16,7 +16,7 @@ include("menus.php");
   <div class="col-md-12">
     <div class="panel panel-default">
     <div class="panel-heading">
-      <i class="fa fa-info-circle"></i>&nbsp;<?=get_lang('Users_title');?>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<?=get_lang('Users_title');?>
     </div>
     <div class="panel-body">
       <table id="table_users" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">

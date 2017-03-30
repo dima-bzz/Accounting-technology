@@ -58,7 +58,7 @@ error_reporting(0);
 include_once('inc/mail.php');
 
 function get_version(){
-  $v = '1.0';
+  $v = '1.01';
   return $v;
 }
 
@@ -176,8 +176,8 @@ function get_user_status($in) {
 	$lt_tooltip="";
 	if ($lt != '0000-00-00 00:00:00') {$lt_tooltip=get_lang('stats_last_time')."<br>".$lt;}
   else{$lt_tooltip=get_lang('stats_last_time')."<br>".get_lang('login_never');}
-  $res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\"><i class=\"fa fa-thumbs-down\"></i> offline</span>";}
-	else {$res="<span class=\"label label-success\"><i class=\"fa fa-thumbs-up\"></i> online</span>";}
+  $res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";}
+	else {$res="<span class=\"label label-success\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";}
 
 	return $res;
 }
@@ -191,10 +191,10 @@ function get_user_status_home($in) {
   	$lt=$row['lastdt'];
           $d = time()-strtotime($lt);
   	if ($d > 20) {
-    $res = "<span class=\"label label-default\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-down\"></i> offline</span>";
+    $res = "<span class=\"label label-default\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";
   }
 	else {
-    $res = "<span class=\"label label-success\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-up\"></i> online</span>";
+    $res = "<span class=\"label label-success\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";
   }
 
 	return $res;
@@ -297,9 +297,9 @@ function get_news(){
             <?php
           }
                   ?>
-                  <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
+                  <tr><td><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
                   <tr>
-                  <td colspan="2"><small><i class="fa fa-file-text-o"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
+                  <td colspan="2"><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
                   </tr>
                   <input type="hidden" id="news_dt" value="<?php echo $dt; ?>">
               <?php

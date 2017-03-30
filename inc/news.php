@@ -21,14 +21,14 @@ $h=($_GET['h']);
     <div class="page-header" style="margin-top: -15px;">
     <div class="row">
     <div class="col-md-10">
-<h3><i class="fa fa-globe"></i> <?=get_lang('Menu_news');?></h3>
+<h3><i class="fa fa-globe" aria-hidden="true"></i> <?=get_lang('Menu_news');?></h3>
     </div>
 
     </div>
      </div>
      <div class="row" id="content_notes" style="padding-bottom: 25px;">
 <div class="col-md-1">
-<a id="go_back" class="btn btn-primary btn-sm"><i class="fa fa-reply"></i> <?=get_lang('News_back');?></a>
+<a id="go_back" class="btn btn-primary btn-sm"><i class="fa fa-reply" aria-hidden="true"></i> <?=get_lang('News_back');?></a>
 <div><br></div>
 </div>
 <div class="col-md-11" id="">
@@ -62,13 +62,13 @@ else if (!isset($_GET['h'])) {
     <div class="page-header" style="margin-top: -15px;">
     <div class="row">
     <div class="col-md-3">
-<h3><i class="fa fa-globe"></i> <?=get_lang('Menu_news');?></h3>
+<h3><i class="fa fa-globe" aria-hidden="true"></i> <?=get_lang('Menu_news');?></h3>
     </div>
     <div class="col-md-3" style="padding-top: 25px; float: right;">
       <?php
       if ($priv_h == "yes"){
        ?>
-    <button id="create_new_news" type="submit" class="btn btn-success btn-sm btn-block"><i class="fa fa-file-o"></i> <?=get_lang('News_create');?></button>
+    <button id="create_new_news" type="submit" class="btn btn-success btn-sm btn-block"><i class="fa fa-file-o" aria-hidden="true"></i> <?=get_lang('News_create');?></button>
     <?php
 }
     ?>
@@ -81,7 +81,7 @@ else if (!isset($_GET['h'])) {
  <div class="col-md-3">
  <div class="alert alert-info" role="alert">
  <small>
- <i class="fa fa-info-circle"></i>
+ <i class="fa fa-info-circle" aria-hidden="true"></i>
 
 <?=get_lang('News_info');?>
  </small>

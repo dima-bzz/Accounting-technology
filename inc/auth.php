@@ -70,7 +70,7 @@ color: #555;
 <div class="container" id='main_login'>
 <form class="form-signin" action="<?=$CONF['hostname']?>index.php" method="post" autocomplete="off">
     <center>
-	<i class="fa fa-slideshare fa-5x"></i>
+	<i class="fa fa-slideshare fa-5x" aria-hidden="true"></i>
 	<h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-muted"><?=get_lang('AUTH_USER');?></small></center><br>
   <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="<?=get_lang('CONF_mail_login');?>">
   <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?=get_lang('CONF_mail_pass');?>">
@@ -86,7 +86,7 @@ color: #555;
                 <center><?=get_lang('error_auth');?></center>
             </div> <?php } ?>
             <input type="hidden" name="req_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
-  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;<?=get_lang('log_in');?></button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;<?=get_lang('log_in');?></button>
   <?php
 
    if ($CONF['first_login'] == "true") { ?>

@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-binoculars"></i>&nbsp;<?=get_lang('Menu_reports');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-binoculars" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_reports');?></h3>
             </div>
    </div>
     </div>
@@ -43,7 +43,7 @@ for ($i = 0; $i < count($morgs); $i++) {
 };
 ?>
 </select>
-<button type="submit" id="clear_user" class="btn btn-danger btn-xs allwidht" name="clear_user" style="margin-top: 5px;"><i class="fa fa-eraser"></i>&nbsp;<?=get_lang('Clear_select');?></button>
+<button type="submit" id="clear_user" class="btn btn-danger btn-xs allwidht" name="clear_user" style="margin-top: 5px;"><i class="fa fa-eraser" aria-hidden="true"></i>&nbsp;<?=get_lang('Clear_select');?></button>
     <input type="checkbox" name="us" id="us" hidden="hidden">
             </div>
 
@@ -61,7 +61,7 @@ for ($i = 0; $i < count($morgs); $i++) {
          };
          ?>
           </select>
-          <button type="submit" id="clear_org" class="btn btn-danger btn-xs allwidht" name="clear_org" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser"></i>&nbsp;<?=get_lang('Clear_select');?></button>
+          <button type="submit" id="clear_org" class="btn btn-danger btn-xs allwidht" name="clear_org" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser" aria-hidden="true"></i>&nbsp;<?=get_lang('Clear_select');?></button>
           <label class="checkbox-inline">
   <input type="checkbox" name="os" id="os" value="1"><b><small>Основные</small></b>
 </label><br>
@@ -88,7 +88,7 @@ for ($i = 0; $i < count($morgs); $i++) {
          };
          ?>
        </select>
-       <button type="submit" id="clear_places" class="btn btn-danger btn-xs allwidht" name="clear_places" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser"></i>&nbsp;<?=get_lang('Clear_select');?></button>
+       <button type="submit" id="clear_places" class="btn btn-danger btn-xs allwidht" name="clear_places" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser" aria-hidden="true"></i>&nbsp;<?=get_lang('Clear_select');?></button>
        <label class="checkbox-inline">
   <input type="checkbox" name="repair" id="repair" value="1"><b><small>В ремонте</small></b>
 </label><br>
@@ -109,7 +109,7 @@ for ($i = 0; $i < count($morgs); $i++) {
          };
          ?>
        </select>
-              <button type="submit" id="clear_group" class="btn btn-danger btn-xs allwidht" name="clear_group" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser"></i>&nbsp;<?=get_lang('Clear_select');?></button>
+              <button type="submit" id="clear_group" class="btn btn-danger btn-xs allwidht" name="clear_group" style="margin-top: 5px; margin-bottom: 5px;"><i class="fa fa-eraser" aria-hidden="true"></i>&nbsp;<?=get_lang('Clear_select');?></button>
      </div>
 </div>
 </div>
@@ -117,7 +117,7 @@ for ($i = 0; $i < count($morgs); $i++) {
   <div class="col-md-8">
   <div class="col-md-4">
 <div id="view-source">
-<label class="control-label view-source"><small>Дополнительный поиск <i class="fa fa-plus"></i></small></label>
+<label class="control-label view-source"><small>Дополнительный поиск <i class="fa fa-plus" aria-hidden="true"></i></small></label>
 </div>
 </div>
 </div>
@@ -148,7 +148,7 @@ for ($i = 0; $i < count($morgs); $i++) {
 </div>
   <div class="col-md-8">
 <div class="col-md-4">
-  <button type="submit" id="report_table" class="btn btn-primary allwidht" name="report_table" style="margin-top: 10px;"><i class="fa fa-file-text-o"></i>&nbsp;<?=get_lang('Sfrom');?></button>
+  <button type="submit" id="report_table" class="btn btn-primary allwidht" name="report_table" style="margin-top: 10px;"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;<?=get_lang('Sfrom');?></button>
 </div>
 </div>
 </div>
@@ -187,7 +187,7 @@ for ($i = 0; $i < count($morgs); $i++) {
  <div id="report_move_show">
  <div class="panel panel-default">
  <div class="panel-heading">
-   <i class="fa fa-random"></i>&nbsp;<?=get_lang('Equipment_move');?>
+   <i class="fa fa-random" aria-hidden="true"></i>&nbsp;<?=get_lang('Equipment_move');?>
 
  </div>
 <div class="panel-body">

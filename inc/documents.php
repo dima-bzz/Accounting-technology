@@ -7,14 +7,14 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-file-text"></i>&nbsp;<?=get_lang('Menu_documents');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_documents');?></h3>
             </div>
    </div>
     </div>
  <div class="row">
  <div class="panel panel-default">
  <div class="panel-heading">
-   <i class="fa fa-file"></i>&nbsp;<?=get_lang('Files_title');?>
+   <i class="fa fa-file" aria-hidden="true"></i>&nbsp;<?=get_lang('Files_title');?>
  </div>
  <div class="panel-body">
    <input type="file" id="file_documents">

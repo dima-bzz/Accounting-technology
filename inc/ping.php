@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-sitemap"></i>&nbsp;<?=get_lang('Menu_ping');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-sitemap" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_ping');?></h3>
             </div>
    </div>
     </div>
@@ -63,7 +63,7 @@ include("menus.php");
   </div>
 
     <div class="col-md-4">
-      <button type="submit" id="test_ping" class="btn btn-primary allwidht" name="test_ping" style="margin-top: 10px;"><i class="fa fa-hand-o-up"></i>&nbsp;<?=get_lang('Test_ping')?></button>
+      <button type="submit" id="test_ping" class="btn btn-primary allwidht" name="test_ping" style="margin-top: 10px;"><i class="fa fa-hand-o-up" aria-hidden="true"></i>&nbsp;<?=get_lang('Test_ping')?></button>
   </div>
 </div>
 </div>

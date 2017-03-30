@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-hourglass-half"></i>&nbsp;<?=get_lang('Menu_cartridge');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-hourglass-half" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_cartridge');?></h3>
             </div>
    </div>
     </div>
@@ -16,7 +16,7 @@ include("menus.php");
       <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-heading">
-          <i class="fa fa-info-circle"></i>&nbsp;<?=get_lang('Cartridge_title');?>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<?=get_lang('Cartridge_title');?>
         </div>
    <div class="panel-body">
      <table id="table_cartridge" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
@@ -42,7 +42,7 @@ include("menus.php");
 
 <div class="panel panel-default">
 <div class="panel-heading">
-  <i class="fa fa-database"></i>&nbsp;<?=get_lang('Cartridge_uchet_title');?>
+  <i class="fa fa-database" aria-hidden="true"></i>&nbsp;<?=get_lang('Cartridge_uchet_title');?>
 
 </div>
 <div class="panel-body">

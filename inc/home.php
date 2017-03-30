@@ -2,7 +2,7 @@
 <div class="row">
 
 <div class="col-md-12">
-            <div class="alert alert-info alert-dismissable"><i class="fa fa-feed"></i>&nbsp;<?=get_myname().', '.get_conf_param('home_text');?>
+            <div class="alert alert-info alert-dismissable"><i class="fa fa-feed" aria-hidden="true"></i>&nbsp;<?=get_myname().', '.get_conf_param('home_text');?>
             </div>
 
 </div>
@@ -18,7 +18,7 @@
 <div class="col-md-4">
     <div class="panel panel-default">
     <div class="panel-heading">
-      <a href="contact"><i class="fa fa-child"></i>&nbsp;<?=get_lang('Contact');?></a>
+      <a href="contact"><i class="fa fa-child" aria-hidden="true"></i>&nbsp;<?=get_lang('Contact');?></a>
   	</div>
     <div class="panel-body">
       <div class="form-group">
@@ -26,13 +26,13 @@
 <input type="text" class="form-control search_button" name="search" id="search_box"  data-provide="typeahead" autocomplete="off" placeholder="<?=get_lang('Contact_info');?>">
 <span class="input-group-btn">
 <button type = "button" id="users_online" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Users_online');?>" data-html="true">
- <i class="fa fa-thumbs-up"></i>
+ <i class="fa fa-thumbs-up" aria-hidden="true"></i>
 </button>
 <button type = "button" id="users_offline" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Users_offline');?>" data-html="true">
- <i class="fa fa-thumbs-down"></i>
+ <i class="fa fa-thumbs-down" aria-hidden="true"></i>
 </button>
 <button type = "button" id="input_empty" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" data-original-title="<?=get_lang('Clear_select');?>" data-html="true">
- <i class="fa fa-eraser"></i>
+ <i class="fa fa-eraser" aria-hidden="true"></i>
 </button>
 </span>
 </div>
@@ -42,7 +42,7 @@
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
-  <a href="news"><i class="fa fa-newspaper-o"></i>&nbsp;<?=get_lang('News');?></a>
+  <a href="news"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;<?=get_lang('News');?></a>
 </div>
 <div class="panel-body">
 <div id="news_home_content">
@@ -71,7 +71,7 @@ if ($count <> 0){
 <div class="col-md-8">
   <div class="panel panel-default">
   <div class="panel-heading">
-    <i class="fa fa-smile-o"></i>&nbsp;<?=get_lang('Info');?>
+    <i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;<?=get_lang('Info');?>
   </div>
   <div style="max-height: 370px;scroll-behavior: initial;overflow-y: auto;">
   <div class="panel-body" id="inf">
@@ -114,13 +114,13 @@ if ($d < 20) {
                       $birthday=$row['birthday'];
                       $god=$year-$bi_year;
                       if ($bi==$date_today){
-                        array_push($bd_list[0], "<span class=\"text-danger\"><i class=\"fa fa-birthday-cake\"></i><i>&nbsp; ".$fio."</i></span>");
+                        array_push($bd_list[0], "<span class=\"text-danger\"><i class=\"fa fa-birthday-cake\" aria-hidden=\"true\"></i><i>&nbsp; ".$fio."</i></span>");
                       };
                       if ($bi==$date_today2){
-                        array_push($bd_list[1], "<span class=\"text-success\"><i class=\"fa fa-birthday-cake\"></i><i>&nbsp; ".$fio."</i></span>");
+                        array_push($bd_list[1], "<span class=\"text-success\"><i class=\"fa fa-birthday-cake\" aria-hidden=\"true\"></i><i>&nbsp; ".$fio."</i></span>");
                       }
                       if ($bi==$date_today3){
-                        array_push($bd_list[2], "<span class=\"text-primary\"><i class=\"fa fa-birthday-cake\"></i><i>&nbsp; ".$fio."</i></span>");
+                        array_push($bd_list[2], "<span class=\"text-primary\"><i class=\"fa fa-birthday-cake\" aria-hidden=\"true\"></i><i>&nbsp; ".$fio."</i></span>");
                       }
 
                      };
@@ -161,21 +161,21 @@ if ($d < 20) {
                 $ev_month = $ev_day1[1].".".$year;
           $remind_year = count_week_days(strtotime($day_event),strtotime($ev_day));
           if ($day_event==$ev_day){
-          array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+          array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
         }
         if ($remind == '3'){
             if ($remind_day==$ev_day){
-            array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+            array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
           }
         }
           if ($remind == '2'){
             if ($remind_year != '0' && $remind_year <= '7'){
-            array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
+            array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
           }
         }
           if ($remind == '1'){
             if (($ev_month==$remind_month) or ($ev_month==$remind_month2) && ($ev_day != $day_event) && ($remind_year != '0')){
-            array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
+            array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
           }
         }
       }
@@ -226,21 +226,21 @@ if ($d < 20) {
       }
       $remind_month_c = count_week_days(strtotime($day_event),strtotime($ev_day));
         if ($day_event==$ev_day){
-        array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+        array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
       }
       if ($remind == '3'){
           if ($remind_day==$ev_day){
-          array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+          array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
         }
       }
         if ($remind == '2'){
           if ($remind_month_c != '0' && $remind_month_c <= '7'){
-          array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
+          array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
         }
       }
         if ($remind == '1'){
           if (($month==$remind_month) or ($month==$remind_month2) && ($ev_day != $day_event) && ($remind_month_c != '0')){
-          array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
+          array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$ev_day."</a>");
         }
       }
     }
@@ -256,42 +256,42 @@ if ($d < 20) {
       $remind_week = count_week_days(strtotime($day_event),strtotime($week));
       // echo $remind_week.">>>".$week.">>>>".$event_name."<br>";
       if ($day_event==$week){
-      array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+      array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
     }
     if ($remind == '3'){
         if ($remind_day==$week){
-        array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+        array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
       }
     }
       if ($remind == '2'){
         if ($remind_week != '0' && $remind_week <= '7'){
-        array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$week."</a>");
+        array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$week."</a>");
       }
     }
       if ($remind == '1'){
         if (($week_m==$remind_month) or ($week_m==$remind_month2) && ($week != $day_event) && ($week>$day_event)){
-        array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$week."</a>");
+        array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$week."</a>");
       }
     }
   }
 }
 if ($row['event_repeat'] == '0'){
       if ($event_start==$day_event){
-      array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+      array_push($event_list[0], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
     }
     if ($remind == '3'){
       if ($event_start==$remind_day){
-      array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
+      array_push($event_list[1], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name."</a>");
     }
   }
     if ($remind == '2'){
       if ($remind_weeks != '0' && $remind_weeks <= '7'){
-      array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$event_start."</a>");
+      array_push($event_list[2], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$event_start."</a>");
     }
   }
     if ($remind == '1'){
       if (($event_month==$remind_month) or ($event_month==$remind_month2) && ($event_start != $day_event) && ($event_start>$day_event)){
-      array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$event_start."</a>");
+      array_push($event_list[3], "<span class=\"text-warning\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i>&nbsp; <a href=\"calendar\"style=\"text-decoration:underline; color:#8a6d3b;\">".$event_name." - ".$event_start."</a>");
     }
   }
   }
@@ -352,7 +352,7 @@ if ($row['event_repeat'] == '0'){
 <div class="col-md-12">
 	<div class="panel panel-default">
   <div class="panel-heading">
-    <a href="eq_mat"><i class="fa fa-list-ol"></i>&nbsp; <?=get_lang('Eqmat');?></a>
+    <a href="eq_mat"><i class="fa fa-list-ol" aria-hidden="true"></i>&nbsp; <?=get_lang('Eqmat');?></a>
 	</div>
 <div class="panel-body">
 <table id="eq_mat" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">

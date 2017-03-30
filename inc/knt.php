@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
    <div class="page-header" style="margin-top: -15px;">
    <div class="row">
-            <div class="col-md-6"> <h3><i class="fa fa-server"></i>&nbsp;<?=get_lang('Menu_knt');?></h3>
+            <div class="col-md-6"> <h3><i class="fa fa-server" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_knt');?></h3>
             </div>
    </div>
     </div>
@@ -16,7 +16,7 @@ include("menus.php");
   <div class="col-md-12">
     <div class="panel panel-default">
     <div class="panel-heading">
-      <i class="fa fa-info-circle"></i>&nbsp;<?=get_lang('Knt_title');?>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<?=get_lang('Knt_title');?>
 
     </div>
     <div class="panel-body">
@@ -38,7 +38,7 @@ include("menus.php");
  <div class="col-md-8">
  <div class="panel panel-default">
  <div class="panel-heading">
-   <i class="fa fa-file"></i>&nbsp;<?=get_lang('Files_title');?>
+   <i class="fa fa-file" aria-hidden="true"></i>&nbsp;<?=get_lang('Files_title');?>
  </div>
  <div class="panel-body">
    <input type="file" id="file_knt">

@@ -8,7 +8,7 @@ include("menus.php");
  <div class="container-fluid">
      <div class="page-header" style="margin-top: -15px;">
      <div class="row">
-              <div class="col-md-6"> <h3><i class="fa fa-info"></i>&nbsp;<?=get_lang('Menu_printer');?></h3>
+              <div class="col-md-6"> <h3><i class="fa fa-info" aria-hidden="true"></i>&nbsp;<?=get_lang('Menu_printer');?></h3>
               </div>
      </div>
       </div>
@@ -45,7 +45,7 @@ include("menus.php");
                ?>
              </select>
          </div>
-           <button type="submit" id="print_test" class="btn btn-primary btn-block" name="print_test"><i class="fa fa-hand-o-up"></i>&nbsp;<?=get_lang('Button_print_test');?></button>
+           <button type="submit" id="print_test" class="btn btn-primary btn-block" name="print_test"><i class="fa fa-hand-o-up" aria-hidden="true"></i>&nbsp;<?=get_lang('Button_print_test');?></button>
          </div>
 
          <div class="panel-body">

@@ -41,7 +41,7 @@ $photo_new = $photo."?".time();
 
       <div class="col-md-offset-2 col-md-8">
       <div class="panel panel-default">
-      <div class="panel-heading"><i class="fa fa-user"></i> <?=get_lang('P_main');?></div>
+      <div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> <?=get_lang('P_main');?></div>
       <div class="panel-body">
       <form class="form-horizontal" role="form">
       <div class="form-group">
@@ -74,16 +74,16 @@ $photo_new = $photo."?".time();
             <input type="file" id="file">
             <div class="btn-group btn-group-justified">
               <div class="btn-group">
-              <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload"></i>
+              <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload" aria-hidden="true"></i>
           </div>
           <div class="btn-group">
-            <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus"></i></button>
+            <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
           </div>
           <div class="btn-group">
-            <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus" aria-hidden="true"></i></button>
           </div>
           <div class="btn-group">
-            <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right"></i></button>
+            <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right" aria-hidden="true"></i></button>
           </div>
 
           </div>
@@ -140,7 +140,7 @@ $photo_new = $photo."?".time();
       </div>
       <div id="m_info"></div>
       <div class="panel panel-danger">
-      <div class="panel-heading"><i class="fa fa-key"></i> <?=get_lang('P_passedit');?></div>
+      <div class="panel-heading"><i class="fa fa-key" aria-hidden="true"></i> <?=get_lang('P_passedit');?></div>
       <div class="panel-body">
       <form class="form-horizontal" role="form">
 
@@ -167,7 +167,7 @@ $photo_new = $photo."?".time();
   </div>
   <div class="col-md-offset-3 col-md-6">
 <center>
-    <button type="submit" id="edit_profile_pass" value="<?=$usid?>" class="btn btn-success"><i class="fa fa-pencil"></i> <?=get_lang('P_do_edit_pass');?></button>
+    <button type="submit" id="edit_profile_pass" value="<?=$usid?>" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i> <?=get_lang('P_do_edit_pass');?></button>
 </center>
 </div>
 

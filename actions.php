@@ -65,7 +65,7 @@ if ( isset($_POST['mode']) ) {
     }
     ?>
     <center>
-  <i class="fa fa-slideshare fa-5x"></i>
+  <i class="fa fa-slideshare fa-5x" aria-hidden="true"></i>
   <h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-muted"><?=get_lang('AUTH_USER');?></small></center><br>
   <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="<?=get_lang('CONF_mail_login');?>">
   <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?=get_lang('CONF_mail_pass');?>">
@@ -81,7 +81,7 @@ if ( isset($_POST['mode']) ) {
                 <center><?=get_lang('error_auth');?></center>
             </div> <?php } ?>
             <input type="hidden" name="req_url" value="/index.php">
-  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in"></i>&nbsp;<?=get_lang('log_in');?></button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;<?=get_lang('log_in');?></button>
   <?php
 
    if ($CONF['first_login'] == "true") { ?>
@@ -101,13 +101,13 @@ if ( isset($_POST['mode']) ) {
 }
 if ($mode == "activate_login_form") {
     ?>
-    <center><i class="fa fa-slideshare fa-5x"></i><h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-danger"><?=get_lang('user_auth');?></small></center><br>
+    <center><i class="fa fa-slideshare fa-5x" aria-hidden="true"></i><h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-danger"><?=get_lang('user_auth');?></small></center><br>
     <input type="text" id="mailadress" name="login" autocomplete="off" class="form-control" placeholder="<?=get_lang('work_mail');?>">
     <p class="help-block"><small><?=get_lang('work_mail_ph');?></small></p>
     <div style="padding-left:75px;">
     </div>
     <br>
-    <button id="do_activate" type="submit" class="btn btn-lg btn-success btn-block"> <i class="fa fa-check-circle-o"></i>  <?=get_lang('action_auth');?></button>
+    <button id="do_activate" type="submit" class="btn btn-lg btn-success btn-block"> <i class="fa fa-check-circle-o" aria-hidden="true"></i>  <?=get_lang('action_auth');?></button>
 
 
 
@@ -242,13 +242,13 @@ if ($mode == "delete_all"){
   $mfiles1=GetArrayFilesInDir("deleterules");
   foreach ($mfiles1 as &$fname1) {
       if (strripos($fname1,".xml")!=FALSE){
-      echo "<i class=\"fa fa-undo fa-flip-horizontal fa-fw\"></i>&nbsp;".get_lang('Update_pravil')." $fname1</br>";
+      echo "<i class=\"fa fa-undo fa-flip-horizontal fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Update_pravil')." $fname1</br>";
       $xml = simplexml_load_file("deleterules/$fname1");
        foreach($xml->entertable as $data){
               $entertable_name=$data["name"];
               $entertable_comment = lang_delete($entertable_name);
               $entertable_key=$data["key"];
-              echo "&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\"></i>&nbsp;".get_lang('Table2')." $entertable_name ($entertable_comment). ".get_lang('Poisk')." $entertable_key</br>";
+              echo "&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Table2')." $entertable_name ($entertable_comment). ".get_lang('Poisk')." $entertable_key</br>";
               $stmt = $dbConnection->prepare("SELECT * FROM $entertable_name where active=0");
               $stmt->execute();
               $res1 = $stmt->fetchall();
@@ -256,7 +256,7 @@ if ($mode == "delete_all"){
                   // листаем все записи таблицы помеченные на удаление
                   foreach($res1 as $myrow) {
                       $entertable_id=$myrow["$entertable_key"];
-                      echo "&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\"></i>&nbsp;".get_lang('Check')." $entertable_name ".get_lang('C')." $entertable_key = $entertable_id</br>";
+                      echo "&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Check')." $entertable_name ".get_lang('C')." $entertable_key = $entertable_id</br>";
                       foreach($data->reqtable as $data_req){
                           $data_req_name=$data_req["name"];
                           $data_req_comment = lang_delete($data_req_name);
@@ -264,7 +264,7 @@ if ($mode == "delete_all"){
                           $data_req_is_delete=$data_req["is_delete"];
                           $data_req_is_delete_lang = lang_is_delete($data_req_is_delete);
                           $yet=false;
-                          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\"></i>&nbsp;".get_lang('Table3')." $data_req_name ($data_req_comment). ".get_lang('Poisk')." $data_req_key. ".get_lang('Del_zavis').": $data_req_is_delete_lang</br>";
+                          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-arrow-down fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Table3')." $data_req_name ($data_req_comment). ".get_lang('Poisk')." $data_req_key. ".get_lang('Del_zavis').": $data_req_is_delete_lang</br>";
                           // если удаляем безоговорочно, то удаляем. Иначе - если записи есть в таблице зависимые, то прерываем выполнение скрипта
                           if ($data_req_is_delete=="yes") {
                             $stmt = $dbConnection->prepare("SELECT * FROM $data_req_name WHERE $data_req_key=$entertable_id");
@@ -289,7 +289,7 @@ if ($mode == "delete_all"){
                               unlink(realpath(dirname(__FILE__))."/images/avatar/".$photo);
                             }
                             }
-                             echo "<div class=\"text-success\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-trash fa-fw\"></i>&nbsp;".get_lang('Del_row')."<br></div>";
+                             echo "<div class=\"text-success\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-trash fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Del_row')."<br></div>";
                             }
                             $stmt = $dbConnection->prepare("DELETE FROM $data_req_name WHERE $data_req_key=$entertable_id");
                             $stmt->execute();
@@ -299,7 +299,7 @@ if ($mode == "delete_all"){
                             // проверяем наличие записей
                             $stmt->execute();
                             $res1 = $stmt->fetchall();
-                            foreach($res1 as $myrow) {$yet=true;echo "<div class=\"text-danger\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-exclamation fa-fw\"></i>&nbsp;".get_lang('Find_zavis')."<br></div>";};
+                            foreach($res1 as $myrow) {$yet=true;echo "<div class=\"text-danger\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fa fa-exclamation fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Find_zavis')."<br></div>";};
                           };
                           if (($yet==true) and ($data_req_is_delete=="no")) {break;};
                       };
@@ -320,7 +320,7 @@ if ($mode == "delete_all"){
                             $stmt = $dbConnection->prepare("DELETE FROM approve WHERE $entertable_name=$entertable_id");
                             $stmt->execute();
                              // удаляем содержимое таблицы
-                            echo "<div class=\"text-success\"><i class=\"fa fa-trash fa-fw\"></i>&nbsp;".get_lang('Del_row2')." $entertable_name ".get_lang('C')." $entertable_key = $entertable_id<br></div>";
+                            echo "<div class=\"text-success\"><i class=\"fa fa-trash fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Del_row2')." $entertable_name ".get_lang('C')." $entertable_key = $entertable_id<br></div>";
                       };
                   };
               //var_dump($data);
@@ -328,7 +328,7 @@ if ($mode == "delete_all"){
 
       }
   }
-  echo "<br><i class=\"fa fa-check fa-fw\"></i>&nbsp;".get_lang('Search_delete')."<br>";
+  echo "<br><i class=\"fa fa-check fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Search_delete')."<br>";
   unset($fname1);
 }
 if ($mode == "otmena_delete"){
@@ -359,7 +359,7 @@ if ($mode == "otmena_delete"){
               foreach($res1 as $myrow) {
                   $entertable_id=$myrow["$entertable_key"];
 
-                  echo "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;".get_lang('Table')." <b>$entertable_name ($entertable_comment)</b> ".get_lang('Metka')." $entertable_key = $entertable_id <button id=\"otmena\" class=\"btn btn-xs btn-primary\" id_del=\"$entertable_id\" name=\"$entertable_name\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Otmena')."\"><i class=\"fa fa-remove fa-fw\"></i></button></br>";
+                  echo "<i class=\"fa fa-trash fa-fw\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Table')." <b>$entertable_name ($entertable_comment)</b> ".get_lang('Metka')." $entertable_key = $entertable_id <button id=\"otmena\" class=\"btn btn-xs btn-primary\" id_del=\"$entertable_id\" name=\"$entertable_name\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Otmena')."\"><i class=\"fa fa-remove fa-fw\" aria-hidden=\"true\"></i></button></br>";
                 }
                 }
 
@@ -373,7 +373,7 @@ if ($mode == "otmena_delete"){
 <div id="delete_ok">
 <?php
 if ($entertable_id != ''){
-echo "<br><b>".get_lang('Delete_ok')."</b> <button class=\"btn btn-danger\" type=\"button\" name=\"dell_all\" id=\"dell_all\"><i class=\"fa fa-trash-o\"></i>&nbsp;".get_lang('Delete_button')."</button></p>";
+echo "<br><b>".get_lang('Delete_ok')."</b> <button class=\"btn btn-danger\" type=\"button\" name=\"dell_all\" id=\"dell_all\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Delete_button')."</button></p>";
 }
  ?>
 </div>
@@ -799,7 +799,7 @@ if ($mode == "eq_table_move"){
               $dt=MySQLDateTimeToDateTime($key['dt']);
               $user1 = nameshort($key["user1"]);
               $user2 = nameshort($key["user2"]);
-              $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"move_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"></i></button><button type=\"button\" id=\"move_eq_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+              $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"move_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"move_eq_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
 
               $data = array($key['mvid'],$dt,$key["orgname1"],$key["place1"],$user1,$key["kntfrom"],$key["invoicefrom"],$key["orgname2"],$key["place2"],$user2,$key["comment"],$act);
               $output['aaData'][] = $data;
@@ -865,7 +865,7 @@ if ($mode == "eq_table_repair"){
   foreach($res1 as $row => $key) {
     $dt=MySQLDateToDate($key['dt']);
     $dtend=MySQLDateToDate($key['dtend']);
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"repair_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"></i></button><button type=\"button\" id=\"repair_eq_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"repair_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"repair_eq_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
 
     if ($key["status"]=="1"){$st="Ремонт";} else {$st="Сделано";};
   $data = array($key["id"],$dt,$dtend,$key["name"],$key["cost"],$key["comment"],$st,$act);
@@ -936,7 +936,7 @@ if ($mode == "paramlist"){
   $res1 = $stmt->fetchall();
 
   foreach($res1 as $row => $key) {
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"param_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\"></i></button><button type=\"button\" id=\"param_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"param_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"param_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
 
     $data = array($key["id"],$key["pname"],$key["param"],$key["comment"],$act);
     $output['aaData'][] = $data;
@@ -1320,14 +1320,14 @@ if ($status == '1'){
       if ($status == '1'){
        ?>
        <div class="center_submit">
-          <button type="submit" id="equipment_repair" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;Забрать из ремонта</button>
+          <button type="submit" id="equipment_repair" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Забрать из ремонта</button>
        </div>
        <?php
      }
      else {
         ?>
       <div class="center_submit">
-         <button type="submit" id="equipment_repair" class="btn btn-primary"><i class="fa fa-floppy-o"></i>&nbsp;Отдать в ремонт</button>
+         <button type="submit" id="equipment_repair" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Отдать в ремонт</button>
       </div>
       <?php
     }
@@ -1709,16 +1709,16 @@ if ($mode == "dialog_equipment_edit"){
       <input type="file" id="file">
       <div class="btn-group btn-group-justified">
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload"></i>
+          <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload" aria-hidden="true"></i>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus"></i></button>
+      <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus"></i></button>
+      <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus" aria-hidden="true"></i></button>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right"></i></button>
+      <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right" aria-hidden="true"></i></button>
     </div>
     </div>
   </div>
@@ -1913,16 +1913,16 @@ if ($mode == "dialog_equipment_add"){
       <input type="file" id="file">
       <div class="btn-group btn-group-justified">
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload"></i>
+          <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload" aria-hidden="true"></i>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus"></i></button>
+      <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus"></i></button>
+      <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus" aria-hidden="true"></i></button>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right"></i></button>
+      <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right" aria-hidden="true"></i></button>
     </div>
     </div>
   </div>
@@ -2506,7 +2506,7 @@ if ($mode == "cartridge"){
   foreach($res1 as $myrow => $key) {
     if ($key['printactive']=="1") {$active="active";} else {$active="not_active";};
     $fiopol=nameshort($key['fio']);
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"fast_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_fast_toggle')."\"></i></button><button type=\"button\" id=\"cart_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"fast_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_fast_toggle')."\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"cart_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
 
   $data = array($active,$key['printid'],$key['nomename'],$key['namep'],$key['plname'],$key['orgname'],$fiopol,$key['coll'],$key['newk'],$key['zapr'],$key['comment'],$act);
   $output['aaData'][] = $data;
@@ -2846,7 +2846,7 @@ if ($mode == "cartridge_uchet"){
   $stmt->execute(array(':id' => $id));
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
-    $act = "<button type=\"button\" id=\"history_cart_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button>";
+    $act = "<button type=\"button\" id=\"history_cart_delete\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button>";
 
     $data = array($key['id'],MySQLDateToDate($key['dt']),$key['fio'],$key['coll2'],$key['comment'],$act);
     $output['aaData'][] = $data;
@@ -3356,7 +3356,7 @@ if ($mode == "org_table"){
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"org_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"></i></button><button type=\"button\" id=\"org_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"org_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"org_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
 
     if ($key['active']=="1") {$active="active";} else {$active="not_active";};
     $data = array($active,$key['id'],$key['name'],$act);
@@ -3430,7 +3430,7 @@ if ($mode == "places_table"){
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"places_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"></i></button><button type=\"button\" id=\"places_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"places_edit\" class=\"btn btn-xs btn-success\"><i class=\"fa fa-edit\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"places_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
     if ($key['active']=="1") {$active="active";} else {$active="not_active";};
     $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
@@ -3581,7 +3581,7 @@ if ($mode == "users_table"){
     if (($key['active']=="1") && ($key['on_off']=="1")) {$active="active";} else {$active="not_active";};
     if (($key['active']=="1") && ($key['on_off']=="0")) {$active="off";};
     $s = get_user_status($key['id']);
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
     $data = array($active,$key['id'],$key['login'],$key['fio'],'скрыто',$key['user_name'],$key['email'],$priv,$dostup,$lang,$s,$act);
     $output['aaData'][] = $data;
   }
@@ -3608,7 +3608,7 @@ if ($mode == "dialog_users_add"){
         <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
          <span class="input-group-btn">
         <button type = "button" id="show_pass" class="btn btn-default btn-sm allwidht">
-          <i id="show" class="fa fa-eye"></i>
+          <i id="show" class="fa fa-eye" aria-hidden="true"></i>
         </button>
       </span>
     </div>
@@ -3728,7 +3728,7 @@ if ($mode == "dialog_users_edit"){
         <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD value="<?php echo "$pass";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
          <span class="input-group-btn">
         <button type = "button" id="show_pass" class="btn btn-default btn-sm allwidht">
-          <i id="show" class="fa fa-eye"></i>
+          <i id="show" class="fa fa-eye" aria-hidden="true"></i>
         </button>
       </span>
       </div>
@@ -3921,16 +3921,16 @@ if ($mode == "dialog_users_profile"){
   <input type="file" id="file">
   <div class="btn-group btn-group-justified">
     <div class="btn-group">
-      <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload"></i>
+      <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload" aria-hidden="true"></i>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus"></i></button>
+  <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus"></i></button>
+  <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus" aria-hidden="true"></i></button>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right"></i></button>
+  <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right" aria-hidden="true"></i></button>
 </div>
 
 </div>
@@ -4229,16 +4229,16 @@ if (validate_priv($_SESSION['dilema_user_id']) == 1) {
   <input type="file" id="file">
   <div class="btn-group btn-group-justified">
     <div class="btn-group">
-      <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload"></i>
+      <button type="button" class="btn btn-primary" id="btn_file" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_upload');?>"><i class="fa fa-upload" aria-hidden="true"></i>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus"></i></button>
+  <button class="btn btn-primary" type="button" id="btnZoomIn" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomin');?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus"></i></button>
+  <button class="btn btn-primary" type="button" id="btnZoomOut" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_zoomout');?>"><i class="fa fa-minus" aria-hidden="true"></i></button>
 </div>
 <div class="btn-group">
-  <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right"></i></button>
+  <button class="btn btn-primary" type="button" id="btnRotate" data-toggle="tooltip" data-placement="bottom" title="<?=get_lang('Img_rotate');?>"><i class="fa fa-rotate-right" aria-hidden="true"></i></button>
 </div>
 
 </div>
@@ -4301,7 +4301,7 @@ if ($mode == "vendors_table"){
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
     if ($key['active']=="1") {$active="active";} else {$active="not_active";};
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"vendors_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\"></i></button><button type=\"button\" id=\"vendors_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"vendors_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"vendors_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
   $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
@@ -4400,7 +4400,7 @@ if ($mode == "nome_table"){
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
     if ($key['nomeactive']=="1") {$active="active";} else {$active="not_active";};
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"nome_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\"></i></button><button type=\"button\" id=\"nome_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"nome_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"nome_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
   $data = array($active,$key['nomeid'],$key['groupname'],$key['vendorname'],$key['nomename'],$act);
   $output['aaData'][] = $data;
 }
@@ -5193,7 +5193,7 @@ if ($mode == "show_input"){
   <div class="form-group" id="eq_param_comment_grp_<?php echo $total_input?>">
     <input type="text" class="form-control input-sm" name="eq_param_comment_<?php echo $total_input?>" placeholder="Комментарий" style="width:230px;margin: 0 auto;" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="right" data-content="<?= get_lang('Toggle_title'); ?>"/>
   </div>
-    <button type="button" id="remove_field" class="btn_del btn btn-sm btn-primary" name="remove_field" data-toggle="tooltip" data-placement="bottom" title="<?= get_lang('Delete_toggle')?>"><i class="fa fa-remove fa-fw"></i></button>
+    <button type="button" id="remove_field" class="btn_del btn btn-sm btn-primary" name="remove_field" data-toggle="tooltip" data-placement="bottom" title="<?= get_lang('Delete_toggle')?>"><i class="fa fa-remove fa-fw" aria-hidden="true"></i></button>
   </div>
   <?php
 }
@@ -5275,7 +5275,7 @@ if ($mode == "group_nome_table"){
   $res1 = $stmt->fetchAll();
   foreach($res1 as $row => $key){
     if ($key['active']=="1") {$active="active";} else {$active="not_active";};
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"group_nome_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\"></i></button><button type=\"button\" id=\"group_nome_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"group_nome_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"group_nome_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
   $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
@@ -5886,10 +5886,10 @@ if ($mode == "create_news") {
                 <div class="col-md-12">
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                            <button id="do_create_news" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o"></i> <?=get_lang('News_create');?></button>
+                            <button id="do_create_news" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o" aria-hidden="true"></i> <?=get_lang('News_create');?></button>
                         </div>
                         <div class="btn-group">
-                            <a href="news" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=get_lang('News_back');?></a>
+                            <a href="news" class="btn btn-default" type="submit"><i class="fa fa-reply" aria-hidden="true"></i> <?=get_lang('News_back');?></a>
                         </div>
                     </div>
 
@@ -5949,11 +5949,11 @@ foreach($result as $row)
 {
                 ?>
 
-                <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o"></i> <a href="news?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=get_lang('News_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)
+                <h5 style=" margin-bottom: 5px; "><i class="fa fa-file-text-o" aria-hidden="true"></i> <a href="news?h=<?=$row['hashname'];?>"><?=$row['title'];?></a> <small>(<?=get_lang('News_author');?>: <?=nameshort(name_of_user_ret($row['user_init_id']));?>)
                   <?php if (($priv_h== "yes") || ($priv == 1)) { echo "
     <div class=\"btn-group\">
-    <button id=\"edit_news\" value=\"".$row['hashname']."\" type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-pencil\"></i></button>
-    <button id=\"del_news\" value=\"".$row['hashname']."\"type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-trash-o\"></i></button>
+    <button id=\"edit_news\" value=\"".$row['hashname']."\" type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></button>
+    <button id=\"del_news\" value=\"".$row['hashname']."\"type=\"button\" class=\"btn btn-default btn-xs\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button>
     </div>
     "; } ?></small></h5>
                 <p style=" margin-bottom: 30px; "><small><?=cutstr_news_ret(strip_tags($row['message']));?>
@@ -6001,10 +6001,10 @@ if ($mode == "edit_news") {
                 <div class="col-md-12">
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                            <button id="do_save_news" value="<?=$hn?>" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o"></i> <?=get_lang('News_save');?></button>
+                            <button id="do_save_news" value="<?=$hn?>" class="btn btn-success" type="submit"><i class="fa fa-check-circle-o" aria-hidden="true"></i> <?=get_lang('News_save');?></button>
                         </div>
                         <div class="btn-group">
-                            <a href="news" class="btn btn-default" type="submit"><i class="fa fa-reply"></i> <?=get_lang('News_back');?></a>
+                            <a href="news" class="btn btn-default" type="submit"><i class="fa fa-reply" aria-hidden="true"></i> <?=get_lang('News_back');?></a>
                         </div>
                     </div>
 
@@ -6063,9 +6063,9 @@ if ($mode == "news_list_content_previous"){
             <?php
           }
                   ?>
-                  <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
+                  <tr><td><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
                   <tr>
-                  <td colspan="2"><small><i class="fa fa-file-text-o"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
+                  <td colspan="2"><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
                   </tr>
                   <input type="hidden" id="news_dt" value="<?php echo $dt; ?>">
               <?php
@@ -6100,9 +6100,9 @@ if ($mode == "news_list_content_next"){
             <?php
           }
                   ?>
-                  <tr><td><small><i class="fa fa-file-text-o"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
+                  <tr><td><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><a href="news?h=<?= $row['hashname']; ?>"><small><?= cutstr_news2_ret($row['title']); ?></small></a></td><td><small style="float:right;" class="text-muted">(<?= get_lang('News_author'); ?>: <?= nameshort(name_of_user_ret($row['user_init_id'])); ?>)<br>(<?= get_lang('News_date'); ?>: <?= ($row['dt']); ?>)</small></td></tr>
                   <tr>
-                  <td colspan="2"><small><i class="fa fa-file-text-o"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
+                  <td colspan="2"><small><i class="fa fa-file-text-o" aria-hidden="true"></i> </small><small><?= cutstr_news_home_ret(strip_tags($row['message'])); ?></small></td>
                   </tr>
                   <input type="hidden" id="news_dt" value="<?php echo $dt; ?>">
               <?php
