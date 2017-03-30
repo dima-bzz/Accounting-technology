@@ -448,17 +448,7 @@ function count_week_days($__date_from, $__date_to) {
    $total_days_count = $__date_to > $__date_from ? round(($__date_to - $__date_from)/(24*3600)) : 0;
    return $total_days_count;
 }
-// function dateRange($first) {
-//   $dates = array();
-//   $weekEnd = new DateTime(date('Y-m-d',strtotime('+1 year')));
-//   $interval_week = new DateInterval('P7D');
-//   $period_week = new DatePeriod(new DateTime($first),$interval_week,$weekEnd);
-//   foreach ($period_week as $weeks) {
-//     $format = $weeks->format('Y-m-d');
-//         $dates[] = $format;
-//   }
-//                 return $dates;
-//         }
+
 function name_of_user_ret($input) {
     global $dbConnection;
 
