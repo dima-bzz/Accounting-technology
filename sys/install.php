@@ -145,18 +145,18 @@ $sys_url= "http://".$_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 0, $po
 
 // Connect to MySQL server
 mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error() . '<br><br><center>
-<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
+<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Назад</a>
 </center>');
 if (isset($_POST['mode_delete'])){
   if ($_POST['mode_delete'] == 'true'){
     mysql_query("DROP Database `$mysql_database`") or die ('Error delete database to MySQL server: ' . mysql_error() . '<br><br><center>
-    <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
+    <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Назад</a>
     </center>');
   }
 }
   // Create database
 mysql_query("Create Database `$mysql_database` Character Set utf8 Collate utf8_general_ci") or die('Error creating database to MySQL server: ' . mysql_error() . '<br><br><center>
-<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button" style="width:49%;"><i class="fa fa-chevron-circle-left"></i>  Выбрать другую базу данных</a>
+<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button" style="width:49%;"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Выбрать другую базу данных</a>
 <form class="form-horizontal" role="form" action="index.php" method="post" style="display:inline;">
 <input type="hidden" id="host" name="host" value='.$mysql_host.'>
 <input type="hidden" id="username" name="username" value='.$mysql_username.'>
@@ -164,11 +164,11 @@ mysql_query("Create Database `$mysql_database` Character Set utf8 Collate utf8_g
 <input type="hidden" id="db" name="db" value='.$mysql_database.'>
 <input type="hidden" name="mode" value="1">
 <input type="hidden" id="mode_delete" name="mode_delete" value="true">
-<button class="btn btn-lg btn-danger" href="" role="button" style="width:49%;"><i class="fa fa-trash"></i>  Перезаписать базу данных</button></form>
+<button class="btn btn-lg btn-danger" href="" role="button" style="width:49%;"><i class="fa fa-trash" aria-hidden="true"></i>  Перезаписать базу данных</button></form>
 </center>');
   // Select database
   mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error() . '<br><br><center>
-  <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
+  <a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Назад</a>
   </center>');
 
 // Temporary variable, used to store current query
@@ -196,9 +196,9 @@ if (substr(trim($line), -1, 1) == ';')
     <input type="hidden" id="db" name="db" value='.$mysql_database.'>
     <input type="hidden" name="mode" value="1">
     <input type="hidden" id="mode_delete" name="mode_delete" value="true">
-    <button class="btn btn-lg btn-danger" href="" role="button"><i class="fa fa-trash"></i>  Удалить базу данных и начать сначала</button></form>
+    <button class="btn btn-lg btn-danger" href="" role="button"><i class="fa fa-trash" aria-hidden="true"></i>  Удалить базу данных и начать сначала</button></form>
     </center>');
-        // <a class="btn btn-lg btn-danger" href="'.$sys_url.'index.php?mode=db_install&mode_delete=true" role="button"><i class="fa fa-trash"></i>  Удалить базу данных и начать сначала</a>
+        // <a class="btn btn-lg btn-danger" href="'.$sys_url.'index.php?mode=db_install&mode_delete=true" role="button"><i class="fa fa-trash" aria-hidden="true"></i>  Удалить базу данных и начать сначала</a>
     // Reset temp variable to empty
     $templine = '';
 }
@@ -225,7 +225,7 @@ file_put_contents($fileconf, $current);
 
 
 mysql_query("update perf set value='$sys_url' where param='hostname'")or die("Invalid query: " . mysql_error() . '<br><br><center>
-<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left"></i>  Назад</a>
+<a class="btn btn-lg btn-success" href="'.$sys_url.'index.php?mode=db_install" role="button"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Назад</a>
 </center>');
 ?>
 <h2>Поздравляем Вас с успешной установкой!</h2>
@@ -310,7 +310,7 @@ if (isset($_GET['mode'])) {
 
 <center>
 <input type="hidden" name="mode" value="1">
-<button class="btn btn-lg btn-success" href="" role="button" style="width:30%"><i class="fa fa-chevron-circle-right"></i>  Установить</button>
+<button class="btn btn-lg btn-success" href="" role="button" style="width:30%"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>  Установить</button>
 </center>
 </form>
 
@@ -429,13 +429,13 @@ RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?page=$1  [QSA,L]
 if ($error != false){
   ?>
 <center>
-<a class="btn btn-lg btn-success" href="index.php?mode=db_install" role="button" style="width:30%"><i class="fa fa-chevron-circle-right"></i>  Далее</a>
+<a class="btn btn-lg btn-success" href="index.php?mode=db_install" role="button" style="width:30%"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>  Далее</a>
 </center>
 <?php
 } else{
   ?>
   <center>
-  <a class="btn btn-lg btn-success" href="index.php?mode=check_install" role="button" style="width:30%"><i class="fa fa-refresh"></i>  Обновить</a>
+  <a class="btn btn-lg btn-success" href="index.php?mode=check_install" role="button" style="width:30%"><i class="fa fa-refresh" aria-hidden="true"></i>  Обновить</a>
   </center>
 <?php
 }
