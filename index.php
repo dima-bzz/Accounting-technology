@@ -44,7 +44,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
     $login = ($_POST['login']);
     $password = $_POST['password'];
 
-    $stmt = $dbConnection->prepare('SELECT id,login,fio,lang,on_off from users where login=:login AND pass=:pass AND on_off=1 AND dostup=1');
+    $stmt = $dbConnection->prepare('SELECT id,login,fio,on_off from users where login=:login AND pass=:pass AND on_off=1 AND dostup=1');
     $stmt->execute(array(':login' => $login, ':pass' => $password));
 
     if ($stmt -> rowCount() == 1) {
@@ -56,7 +56,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
         $_SESSION['dilema_user_id'] = $row['id'];
         $_SESSION['dilena_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
-        $_SESSION['dilema_user_lang'] = $row['lang'];
         setcookie ('on_off_cookie',$row['on_off']);
         setcookie('cookieorgid',get_conf_param('default_org'));
         setcookie('cookie_eq_util','0');

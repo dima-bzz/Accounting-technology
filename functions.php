@@ -72,27 +72,6 @@ function get_user_lang(){
     return $ress;
 }
 
-// $lang=get_user_lang();
-// switch ($lang) {
-//     case 'ua':
-//         $lang_file = 'lang.ua.php';
-//         break;
-//
-//     case 'ru':
-//         $lang_file = 'lang.ru.php';
-//         break;
-//
-//     case 'en':
-//         $lang_file = 'lang.en.php';
-//         break;
-//
-//     default:
-//         $lang_file = 'lang.ru.php';
-//
-// }
-//
-// include_once 'lang/'.$lang_file;
-
 function get_lang($in){
 
   $lang2 = get_user_lang();
@@ -607,7 +586,7 @@ function validate_user($user_id, $input) {
     }
 
 
-    $stmt = $dbConnection->prepare('SELECT pass,login,fio,lang from users where id=:user_id LIMIT 1');
+    $stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
     $stmt->execute(array(':user_id' => $user_id));
 
 
@@ -624,7 +603,6 @@ function validate_user($user_id, $input) {
         $dbpass=$row['pass'];
         $_SESSION['dilema_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
-        $_SESSION['dilema_user_lang'] = $row['lang'];
         //$_SESSION['helpdesk_sort_prio'] == "none";
         if ($dbpass == $input) {return true;}
         else { return false;}
