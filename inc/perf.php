@@ -20,9 +20,13 @@ include("menus.php");
 <div class="col-md-3">
       <div class="alert alert-info" role="alert">
       <small>
-      <i class="fa fa-info-circle"></i>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
 
 <?=get_lang('CONF_info');?>
+<hr>
+<?=get_lang('CONF_version')." ".get_version()?>
+<br>
+<?=get_lang('CONF_version_1');?>
       </small>
       </div>
 

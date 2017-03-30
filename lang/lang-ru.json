@@ -85,6 +85,8 @@
   "CONF_license":"Группа(-ы) ТМЦ для лицензирования",
   "CONF_home_text":"Приветсвенное сообщение на главной странице",
   "CONF_title_home_text":"Введите сообщение",
+  "CONF_version":"Версия вашей программы:",
+"CONF_version_1":"Актуальная версия ПО: <a href=\"https://github.com/dima-bzz/Accounting-technology\" target=\"blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i>&nbsp;GitHub</a>",
 
   "MAIL_active"  :  "Учетная запись активирована",
   "MAIL_adr"  :  "Адрес",

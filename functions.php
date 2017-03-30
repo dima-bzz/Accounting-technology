@@ -57,6 +57,11 @@ error_reporting(0);
 
 include_once('inc/mail.php');
 
+function get_version(){
+  $v = '1.0';
+  return $v;
+}
+
 function get_user_lang(){
     global $dbConnection;
 
