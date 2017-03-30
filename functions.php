@@ -596,6 +596,7 @@ function validate_user($user_id, $input) {
         $dbpass=$row['pass'];
         $_SESSION['dilema_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
+
         if ($dbpass == $input) {return true;}
         else { return false;}
     }
