@@ -58,7 +58,7 @@ error_reporting(0);
 include_once('inc/mail.php');
 
 function get_version(){
-  $v = '1.03';
+  $v = '1.04';
   return $v;
 }
 
@@ -176,26 +176,8 @@ function get_user_status($in) {
 	$lt_tooltip="";
 	if ($lt != '0000-00-00 00:00:00') {$lt_tooltip=get_lang('stats_last_time')."<br>".$lt;}
   else{$lt_tooltip=get_lang('stats_last_time')."<br>".get_lang('login_never');}
-  $res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";}
-	else {$res="<span class=\"label label-success\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";}
-
-	return $res;
-}
-
-function get_user_status_home($in) {
-	    global $dbConnection;
-
-      $stmt = $dbConnection->prepare('select lastdt from users where id=:in');
-      $stmt->execute(array(':in' => $in));
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-  	$lt=$row['lastdt'];
-          $d = time()-strtotime($lt);
-  	if ($d > 20) {
-    $res = "<span class=\"label label-default\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";
-  }
-	else {
-    $res = "<span class=\"label label-success\" style=\"margin-right:20px;\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";
-  }
+  $res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default margin\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";}
+	else {$res="<span class=\"label label-success margin\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";}
 
 	return $res;
 }

@@ -885,6 +885,7 @@ $('body').on('click', 'button#input_empty', function(event) {
  				success: function(data){
  				// 	console.log(data);
  					process(data);
+          $('.margin').tooltip({container: 'body', html:true}).css({'margin-right':'20px'});
 
  				}
 

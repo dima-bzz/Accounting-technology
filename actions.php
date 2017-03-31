@@ -127,7 +127,7 @@ if ($mode == "activate_login_form") {
   $res1 = $stmt->fetchAll();
   $array  = array();
   foreach($res1 as $row) {
-    $s = get_user_status_home($row['id']);
+    $s = get_user_status($row['id']);
 
     $array[]=$s."#".$row['fio'];
 
@@ -139,7 +139,7 @@ if ($mode == "activate_login_form") {
     $res1 = $stmt->fetchAll();
     $array  = array();
     foreach($res1 as $row) {
-      $s = get_user_status_home($row['id']);
+      $s = get_user_status($row['id']);
 
       $array[]=$s."#".$row['fio'];
 
@@ -151,7 +151,7 @@ if ($mode == "activate_login_form") {
     $res1 = $stmt->fetchAll();
     $array  = array();
     foreach($res1 as $row) {
-      $s = get_user_status_home($row['id']);
+      $s = get_user_status($row['id']);
 
       $array[]=$s."#".$row['fio'];
 
