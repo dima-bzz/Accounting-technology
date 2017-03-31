@@ -174,7 +174,7 @@ function get_user_status($in) {
         $d = time()-strtotime($lt);
 	if ($d > 20) {
 	$lt_tooltip="";
-	if ($lt != '0000-00-00 00:00:00') {$lt_tooltip=get_lang('stats_last_time')."<br>".$lt;}
+	if ($lt != '0000-00-00 00:00:00') {$lt_tooltip=get_lang('stats_last_time')."<br>".MySQLDateTimeToDateTime($lt);}
   else{$lt_tooltip=get_lang('stats_last_time')."<br>".get_lang('login_never');}
   $res="<span data-toggle=\"tooltip\" data-placement=\"bottom\" class=\"label label-default margin\" data-original-title=\"".$lt_tooltip."\" data-html=\"true\"><i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> offline</span>";}
 	else {$res="<span class=\"label label-success margin\"><i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> online</span>";}
@@ -339,7 +339,7 @@ function DateToMySQLDateBirthday($dt)
    return $dtt;
 };
 
-// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.2012 00:00:00
+// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.2012 00:00
 function MySQLDateTimeToDateTime($dt)
 {
 
@@ -349,7 +349,7 @@ function MySQLDateTimeToDateTime($dt)
    $dtt=$str2[0].".".$str1[1].".".$str1[0]." ".$str3[0].":".$str3[1];
    return $dtt;
 };
-// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.2012 00:00:00
+// Преобразует дату MySQL 2012-01-01 00:00:00 в mm-dd 00:00:00
 function MySQLYearDateTimeToDateTime($dt)
 {
 
@@ -358,7 +358,7 @@ function MySQLYearDateTimeToDateTime($dt)
    return $dtt;
 };
 
-// Преобразует дату MySQL 2012-01-01 в dd.mm.2012
+// Преобразует дату MySQL 2012-01-01 в dd.mm.YYYY
 function MySQLDateToDate($dt)
 {
 
@@ -366,7 +366,7 @@ function MySQLDateToDate($dt)
    $dtt=$str1[2].".".$str1[1].".".$str1[0];
    return $dtt;
 };
-// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.2012
+// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.YYYY
 function MySQLDateTimeToDateCal($dt)
 {
    $str = explode(" ",$dt);
@@ -374,7 +374,7 @@ function MySQLDateTimeToDateCal($dt)
    $dtt=$str1[2].".".$str1[1].".".$str1[0];
    return $dtt;
 };
-// Преобразует дату MySQL 2012-01-01 00:00:00 в mm.2012
+// Преобразует дату MySQL 2012-01-01 00:00:00 в mm.YYYY
 function MySQLDateTimeToDateRemindMonth($dt)
 {
    $str = explode(" ",$dt);
@@ -414,13 +414,14 @@ function MySQLDateTimeToDateNoTime($dt)
    $dtt=$str1[0]."-".$str1[1]."-".$str1[2];
    return $dtt;
 };
+// Преобразует дату MySQL 2012-01-01 в mm.YYYY
 function MySQLDateToMonth($dt)
 {
    $str1 = explode("-", $dt);
    $dtt=$str1[1].".".$str1[0];
    return $dtt;
 };
-// Преобразует дату MySQL 2012-01 в mm.2012
+// Преобразует дату MySQL 2012-01-01 00:00:00 в dd.mm.YYYY
 function MySQLDateTimeToDateTimeNoTime($dt)
 {
 
