@@ -203,6 +203,10 @@ padding-right:  10px;
 }
 td.fc-sun, td.fc-sat{
   background: rgba(205,205,205,.15);
+  color: rgb(190,52,34) !important;
+}
+.fc-sun, .fc-sat{
+  color: rgb(190,52,34) !important;
 }
 .view-source{
   cursor: pointer;
