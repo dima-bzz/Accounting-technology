@@ -58,7 +58,7 @@ error_reporting(0);
 include_once('inc/mail.php');
 
 function get_version(){
-  $v = '1.04';
+  $v = '1.05';
   return $v;
 }
 

@@ -2,5 +2,6 @@
 <tables>
     <entertable name="knt" key="id">
         <reqtable name="files_contractor" is_delete="no" key="idcontract"></reqtable>
+        <reqtable name="equipment" is_delete="no" key="kntid"></reqtable>
     </entertable>
 </tables>

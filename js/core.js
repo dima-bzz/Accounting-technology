@@ -3809,17 +3809,17 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                     if ( aData[0] == 'not_active' )
                     {
-                        $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                        $(nRow).addClass('not_active');
                     }
                     if ( aData[19] == true )
                     {
-                        $(nRow).css({'background-color': '#5bc0de', 'color': '#fff'});
+                        $(nRow).addClass('repair');
                     }
                     if ($.cookie('cookie_eq_util') == '1'){
-                    $(nRow).addClass('users_not_active');
+                    $(nRow).addClass('sale_util');
                     }
                     if ($.cookie('cookie_eq_sale') == '1'){
-                    $(nRow).addClass('users_not_active');
+                    $(nRow).addClass('sale_util');
                     }
                   },
 stateLoadCallback: function(){
@@ -3847,7 +3847,13 @@ drawCallback: function(){
   if (Admin !== true ){
     table_eq.buttons('.Action_b_eq').remove();
     table_eq.buttons('.Eq_delete_bt').remove();
-}
+  }
+  if ($.cookie('cookie_eq_util') == '1'){
+    table_eq.buttons('.Sale_b').disable();
+  }
+  if ($.cookie('cookie_eq_sale') == '1'){
+    table_eq.buttons('.Util_b').disable();
+  }
 },
 "aoColumns": [
       { "bSearchable": false,"bSortable":false, "visible": false, "className": "center_table","mRender": render_active },
@@ -4348,7 +4354,9 @@ drawCallback: function(){
               text: function(a){return a.i18n("Delete","Delete")},
               action: function( e, dt, node, config ){
                 var $rows = table_eq.$('tr.selected');
+                var act_d = dt.row($('tr.selected')).data()[0];
                   if ($rows.length > '0'){
+                    if (act_d != 'not_active') {
                     window.dialog_del = new BootstrapDialog({
                             title: get_lang_param("Equipment_del"),
                             message: get_lang_param("Info_del"),
@@ -4371,6 +4379,31 @@ drawCallback: function(){
                             }
                           });
                     dialog_del.open();
+                  }
+                  else{
+                    window.dialog_del = new BootstrapDialog({
+                            title: get_lang_param("Equipment_del"),
+                            message: get_lang_param("Info_del5"),
+                            type: BootstrapDialog.TYPE_DANGER,
+                            cssClass: 'del-dialog',
+                            closable: true,
+                            draggable: true,
+                            closeByBackdrop: false,
+                            closeByKeyboard: false,
+                            buttons:[{
+                              id: "equipment_delete",
+                              label: get_lang_param("No_Delete"),
+                              cssClass: " btn-danger",
+                            }],
+                            onhidden: function(){
+                              table_eq.rows().deselect();
+                              $('#photoid').fadeOut(500);
+                              arrList=[];
+                              eq_one_id=[];
+                            }
+                          });
+                    dialog_del.open();
+                  }
                   }
                   else {
                     BootstrapDialog.alert({
@@ -4768,14 +4801,17 @@ drawCallback: function(){
                 return a.i18n("Util_no","Util no")
               }
             },
+            className: 'Util_b',
             action: function () {
               if ($.cookie('cookie_eq_util') == '0'){
               this.text(function(a){return a.i18n("Util_no","Util no");});
+              table_eq.buttons('.Sale_b').disable();
               $.cookie('cookie_eq_util','1');
               table_eq.ajax.reload();
             }
             else {
               this.text(function(a){return a.i18n("Util","Util");});
+              table_eq.buttons('.Sale_b').enable();
               $.cookie('cookie_eq_util','0');
               table_eq.ajax.reload();
             }
@@ -4790,14 +4826,17 @@ drawCallback: function(){
                 return a.i18n("Sale_no","Sale no")
               }
             },
+            className: 'Sale_b',
             action: function () {
               if ($.cookie('cookie_eq_sale') == '0'){
               this.text(function(a){return a.i18n("Sale_no","Sale no");});
+              table_eq.buttons('.Util_b').disable();
               $.cookie('cookie_eq_sale','1');
               table_eq.ajax.reload();
             }
             else {
               this.text(function(a){return a.i18n("Sale","Sale");});
+              table_eq.buttons('.Util_b').enable();
               $.cookie('cookie_eq_sale','0');
               table_eq.ajax.reload();
             }
@@ -4846,26 +4885,15 @@ function render_tooltip(data, type, full) {
 };
 function render_active(data, type, full) {
     var active = "";
-          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "not_active") { active = '<i class=\"btn-danger fa fa-trash-o fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "repair") { active = '<i class=\"btn-info fa fa-gavel fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\" aria-hidden=\"true\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\" aria-hidden=\"true\"></i>'} else if (data == "sale") { active = '<i class=\"fa fa-ruble\" aria-hidden=\"true\"></i>'};
+          if (data == "active") { active = '<i class=\"text-success fa fa-check-circle fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "not_active") { active = '<i class=\"fa fa-trash-o fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "repair") { active = '<i class=\"fa fa-gavel fa-lg\" aria-hidden=\"true\"></i>'} else if (data == "off") { active = '<i class=\"fa fa-close\" aria-hidden=\"true\"></i>'} else if (data == "util") { active = '<i class=\"fa fa-recycle\" aria-hidden=\"true\"></i>'} else if (data == "sale") { active = '<i class=\"fa fa-ruble\" aria-hidden=\"true\"></i>'};
               return active;
 };
 $('#equipment_table tbody').on( 'click', 'tr', function () {
-  var data = table_eq.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_eq.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    $('i.fa-check-circle', this).removeClass('text-success');
   }
-  if (data[0] === 'repair'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_repair');
-    }
-    else {
-        table_eq.$('tr.row_repair').removeClass('row_repair');
-    }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 } );
 
@@ -5159,6 +5187,14 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
 "select":{
 "style": "os"
           },
+fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+              if ($.cookie('cookie_eq_util') == '1'){
+                  $(nRow).addClass('sale_util');
+              }
+              if ($.cookie('cookie_eq_sale') == '1'){
+                  $(nRow).addClass('sale_util');
+              }
+},
 "drawCallback": function ( settings ) {
   var api = this.api();
   var rows = api.rows( {page:'current'} ).nodes();
@@ -5172,6 +5208,12 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
       last = group;
     }
   } );
+  if ($.cookie('cookie_eq_util') == '1'){
+    table_eq_move_show_all.buttons('.Sale_b').disable();
+  }
+  if ($.cookie('cookie_eq_sale') == '1'){
+    table_eq_move_show_all.buttons('.Util_b').disable();
+  }
 },
 "aaSorting" : [[3,"asc"],[1,"desc"]],
 "aoColumns": [
@@ -5235,14 +5277,17 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
       return a.i18n("Util_no","Util no")
     }
   },
+  className: 'Util_b',
   action: function () {
     if ($.cookie('cookie_eq_util') == '0'){
     this.text(function(a){return a.i18n("Util_no","Util no");});
+    table_eq_move_show_all.buttons('.Sale_b').disable();
     $.cookie('cookie_eq_util','1');
     table_eq_move_show_all.ajax.reload();
   }
   else {
     this.text(function(a){return a.i18n("Util","Util");});
+    table_eq_move_show_all.buttons('.Sale_b').enable();
     $.cookie('cookie_eq_util','0');
     table_eq_move_show_all.ajax.reload();
   }
@@ -5257,14 +5302,17 @@ var table_eq_move_show_all = $('#equipment_move_show_all').DataTable({
       return a.i18n("Sale_no","Sale no")
     }
   },
+  className: 'Sale_b',
   action: function () {
     if ($.cookie('cookie_eq_sale') == '0'){
     this.text(function(a){return a.i18n("Sale_no","Sale no");});
+    table_eq_move_show_all.buttons('.Util_b').disable();
     $.cookie('cookie_eq_sale','1');
     table_eq_move_show_all.ajax.reload();
   }
   else {
     this.text(function(a){return a.i18n("Sale","Sale");});
+    table_eq_move_show_all.buttons('.Util_b').enable();
     $.cookie('cookie_eq_sale','0');
     table_eq_move_show_all.ajax.reload();
   }
@@ -5909,6 +5957,14 @@ var table_license = $('#table_license').DataTable({
     "style": "multi"
         },
 "aaSorting" : [[0,"asc"]],
+fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                              if ($.cookie('cookie_eq_util') == '1'){
+                              $(nRow).addClass('sale_util');
+                              }
+                              if ($.cookie('cookie_eq_sale') == '1'){
+                              $(nRow).addClass('sale_util');
+                              }
+                            },
 "drawCallback": function ( settings ) {
       var api = this.api();
       var rows = api.rows( {page:'current'} ).nodes();
@@ -5927,9 +5983,15 @@ var table_license = $('#table_license').DataTable({
         // $(this).find('td:first').append($('<span />', { 'class': 'group_text' }).append($('<b />', { 'text': ' ' + get_lang_param("Totale_install") +': ' + rowCount })));
             });
             if (Admin !== true ){
-            table_license.buttons('.Action_b_license').remove();
-            table_license.buttons('.License_delete_bt').remove();
-          }
+              table_license.buttons('.Action_b_license').remove();
+              table_license.buttons('.License_delete_bt').remove();
+            }
+            if ($.cookie('cookie_eq_util') == '1'){
+              table_license.buttons('.Sale_b').disable();
+            }
+            if ($.cookie('cookie_eq_sale') == '1'){
+              table_license.buttons('.Util_b').disable();
+            }
   },
 "aoColumns": [
             {"visible":false},
@@ -6201,7 +6263,7 @@ var table_license = $('#table_license').DataTable({
                   var $rows = table_license.$('tr.selected');
                     if ($rows.length > '0'){
                       window.dialog_license_del = new BootstrapDialog({
-                              title: get_lang_param("License_delete"),
+                              title: get_lang_param("Record_Delete"),
                               message: get_lang_param("Info_del"),
                               type: BootstrapDialog.TYPE_DANGER,
                               cssClass: 'del-dialog',
@@ -6348,14 +6410,17 @@ var table_license = $('#table_license').DataTable({
                     return a.i18n("Util_no","Util no")
                   }
                 },
+                className: 'Util_b',
                 action: function () {
                   if ($.cookie('cookie_eq_util') == '0'){
                   this.text(function(a){return a.i18n("Util_no","Util no");});
+                  table_license.buttons('.Sale_b').disable();
                   $.cookie('cookie_eq_util','1');
                   table_license.ajax.reload();
                 }
                 else {
                   this.text(function(a){return a.i18n("Util","Util");});
+                  table_license.buttons('.Sale_b').enable();
                   $.cookie('cookie_eq_util','0');
                   table_license.ajax.reload();
                 }
@@ -6370,18 +6435,21 @@ var table_license = $('#table_license').DataTable({
                       return a.i18n("Sale_no","Sale no")
                     }
                   },
+                  className: 'Sale_b',
                   action: function () {
                     if ($.cookie('cookie_eq_sale') == '0'){
-                      this.text(function(a){return a.i18n("Sale_no","Sale no");});
-                      $.cookie('cookie_eq_sale','1');
-                      table_license.ajax.reload();
-                    }
-                    else {
-                      this.text(function(a){return a.i18n("Sale","Sale");});
-                      $.cookie('cookie_eq_sale','0');
-                      table_license.ajax.reload();
-                    }
+                    this.text(function(a){return a.i18n("Sale_no","Sale no");});
+                    table_license.buttons('.Util_b').disable();
+                    $.cookie('cookie_eq_sale','1');
+                    table_license.ajax.reload();
                   }
+                  else {
+                    this.text(function(a){return a.i18n("Sale","Sale");});
+                    table_license.buttons('.Util_b').enable();
+                    $.cookie('cookie_eq_sale','0');
+                    table_license.ajax.reload();
+                  }
+                    }
                 }
         ],
 "language": {
@@ -6489,7 +6557,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
       $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                   if ( aData[0] == 'not_active' )
                   {
-                    $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                    $(nRow).addClass('not_active');
                   }
   },
   stateLoadCallback: function(){
@@ -6842,8 +6910,9 @@ $('#table_cartridge tbody').on( 'click', 'button#fast_edit', function () {
 $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
         var data = table_cartridge.row( $(this).parents('tr') ).data();
         window.id_del = data[1];
+        if (data[0] != 'not_active'){
         window.dialog_cartridge_del = new BootstrapDialog({
-                title: get_lang_param("License_delete"),
+                title: get_lang_param("Record_Delete"),
                 message: get_lang_param("Info_del2"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
@@ -6858,6 +6927,25 @@ $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
                 }],
               });
         dialog_cartridge_del.open();
+      }
+      else{
+        window.dialog_cartridge_del = new BootstrapDialog({
+                title: get_lang_param("Record_Delete"),
+                message: get_lang_param("Info_del4"),
+                type: BootstrapDialog.TYPE_DANGER,
+                cssClass: 'del-dialog',
+                closable: true,
+                draggable: true,
+                closeByBackdrop: false,
+                closeByKeyboard: false,
+                buttons:[{
+                  id: "cartridge_delete",
+                  label: get_lang_param("No_Delete"),
+                  cssClass: " btn-danger",
+                }],
+              });
+        dialog_cartridge_del.open();
+      }
 });
 $('#table_cartridge tbody').on( 'click', 'tr.group', function () {
        var currentOrder = table_cartridge.order()[0];
@@ -6868,17 +6956,15 @@ $('#table_cartridge tbody').on( 'click', 'tr.group', function () {
            table_cartridge.order( [ 2, 'asc' ] ).draw();
        }
    } );
-$('#table_cartridge tbody').on( 'click', 'tr', function () {
-     var data = table_cartridge.row( this ).data();
-     if (data[0] === 'not_active'){
-       if ( $(this).hasClass('selected') ) {
-           $(this).addClass('row_active');
-       }
-       else {
-          table_cartridge.$('tr.row_active').removeClass('row_active');
-       }
+   $('#table_cartridge tbody').on( 'click', 'tr', function () {
+     if ( $(this).hasClass('selected') ) {
+       table_cartridge.$('i.fa-check-circle').addClass('text-success');
+       $('i.fa-check-circle', this).removeClass('text-success');
      }
-   } );
+     else{
+       $('i.fa-check-circle', this).addClass('text-success');
+     }
+      } );
   table_cartridge.on('select', function(e, dt, type, indexes ){
        var data = table_cartridge.row( indexes ).data();
         eq_one_id=data[1];
@@ -6995,7 +7081,7 @@ $('#table_cartridge_uchet tbody').on( 'click', 'button#history_cart_delete', fun
            var data = table_cartridge_uchet.row( $(this).parents('tr') ).data();
            window.id_uchet = data[0];
            window.dialog_cartridge_uchet_del = new BootstrapDialog({
-                   title: get_lang_param("License_delete"),
+                   title: get_lang_param("Record_Delete"),
                    message: get_lang_param("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
@@ -7779,7 +7865,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
 },
 "aaSorting" : [[1, 'asc']],
@@ -7922,8 +8008,9 @@ $('#table_org tbody').on( 'click', 'button#org_edit', function () {
 $('#table_org tbody').on( 'click', 'button#org_del', function () {
            var data = table_org.row( $(this).parents('tr') ).data();
            window.id_org_delete = data[1];
+           if (data[0] != 'not_active'){
            window.dialog_org_del = new BootstrapDialog({
-                   title: get_lang_param("License_delete"),
+                   title: get_lang_param("Record_Delete"),
                    message: get_lang_param("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
@@ -7938,16 +8025,33 @@ $('#table_org tbody').on( 'click', 'button#org_del', function () {
                    }],
                  });
            dialog_org_del.open();
+         }
+         else{
+           window.dialog_org_del = new BootstrapDialog({
+                   title: get_lang_param("Record_Delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "org_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_org_del.open();
+         }
 });
 $('#table_org tbody').on( 'click', 'tr', function () {
-  var data = table_org.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_org.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    table_org.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 } );
 
@@ -7979,7 +8083,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
 },
 "aaSorting" : [[1, 'asc']],
@@ -8126,8 +8230,9 @@ $('#table_places tbody').on( 'click', 'button#places_edit', function () {
 $('#table_places tbody').on( 'click', 'button#places_del', function () {
            var data = table_places.row( $(this).parents('tr') ).data();
            window.id_places_delete = data[1];
+           if (data[0] != 'not_active'){
            window.dialog_places_del = new BootstrapDialog({
-                   title: get_lang_param("License_delete"),
+                   title: get_lang_param("Record_Delete"),
                    message: get_lang_param("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
@@ -8142,16 +8247,33 @@ $('#table_places tbody').on( 'click', 'button#places_del', function () {
                    }],
                  });
            dialog_places_del.open();
+         }
+         else{
+           window.dialog_places_del = new BootstrapDialog({
+                   title: get_lang_param("Record_Delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "places_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_places_del.open();
+         }
 });
 $('#table_places tbody').on( 'click', 'tr', function () {
-  var data = table_places.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_places.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    table_places.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 } );
 table_places.on('select', function(e, dt, type, indexes ){
@@ -8667,6 +8789,7 @@ $('#table_users tbody').on( 'click', 'button#users_profile', function () {
 $('#table_users tbody').on( 'click', 'button#users_del', function () {
            var data = table_users.row( $(this).parents('tr') ).data();
            window.id_users_delete = data[1];
+           if(data[0] != 'not_active'){
            window.dialog_users_del = new BootstrapDialog({
                    title: get_lang_param("Users_delete"),
                    message: get_lang_param("Info_del2"),
@@ -8683,26 +8806,34 @@ $('#table_users tbody').on( 'click', 'button#users_del', function () {
                    }],
                  });
            dialog_users_del.open();
+         }
+         else{
+           window.dialog_users_del = new BootstrapDialog({
+                   title: get_lang_param("Users_delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "users_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_users_del.open();
+         }
 });
 $('#table_users tbody').on( 'click', 'tr', function () {
-  var data = table_users.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_users.$('tr.row_active').removeClass('row_active');
-    }
-  }
-  if ( $.cookie('on_off_cookie') == '0' ){
-  if ($(this).is('.selected')){
-    $(this).removeClass('users_not_active').addClass('row_active');
+  if ( $(this).hasClass('selected') ) {
+    table_users.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
   }
   else{
-    $(this).removeClass('row_active').addClass('users_not_active');
+    $('i.fa-check-circle', this).addClass('text-success');
   }
-}
-
 });
 
 // ***** Список контактов *****
@@ -8732,13 +8863,8 @@ var table_contact = $('#table_contact').DataTable({
           },
 "fnDrawCallback": function (nRow){
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
-  // if ((userid != 1) && (userid != 60) && (userid != 79)){
   if ((Admin !== true) && (permit_users_cont.indexOf(userid) == -1)){
     table_contact.buttons('.Edit_profile').remove();
-    // table_eq_move.buttons().destroy();
-    // table_eq_move.button(0).remove();
-// console.log(Admin);
-
   }
 },
 "aaSorting" : [[2, 'asc']],
@@ -8995,7 +9121,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
 },
 "aaSorting" : [[2, 'asc']],
@@ -9139,8 +9265,9 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_edit', function () {
 $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
            var data = table_vendors.row( $(this).parents('tr') ).data();
            window.id_vendors_delete = data[1];
+           if (data[0] != 'not_active'){
            window.dialog_vendors_del = new BootstrapDialog({
-                   title: get_lang_param("License_delete"),
+                   title: get_lang_param("Record_Delete"),
                    message: get_lang_param("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
@@ -9155,16 +9282,33 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
                    }],
                  });
            dialog_vendors_del.open();
+         }
+         else{
+           window.dialog_vendors_del = new BootstrapDialog({
+                   title: get_lang_param("Record_Delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "vendors_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_vendors_del.open();
+         }
 });
 $('#table_vendors tbody').on( 'click', 'tr', function () {
-  var data = table_vendors.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_vendors.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    table_vendors.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 });
 
@@ -9196,7 +9340,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
 },
 "aaSorting" : [[2, 'asc']],
@@ -9340,6 +9484,7 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_edit', function () 
 $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
            var data = table_group_nome.row( $(this).parents('tr') ).data();
            window.id_group_nome_delete = data[1];
+           if (data[0] != 'not_active'){
            window.dialog_group_nome_del = new BootstrapDialog({
                    title: get_lang_param("Group_delete"),
                    message: get_lang_param("Info_del2"),
@@ -9356,16 +9501,33 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
                    }],
                  });
            dialog_group_nome_del.open();
+         }
+         else{
+           window.dialog_group_nome_del = new BootstrapDialog({
+                   title: get_lang_param("Group_delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "group_nome_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_group_nome_del.open();
+         }
 });
 $('#table_group_nome tbody').on( 'click', 'tr', function () {
-  var data = table_group_nome.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_group_nome.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    table_group_nome.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 });
 
@@ -9397,7 +9559,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     $('[data-toggle="tooltip"]', nRow).tooltip({container: 'body', html:true});
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
 },
 "aaSorting" : [[2, 'asc']],
@@ -9611,8 +9773,9 @@ $('#table_nome tbody').on( 'click', 'button#nome_edit', function () {
 $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
            var data = table_nome.row( $(this).parents('tr') ).data();
            window.id_nome_delete = data[1];
+           if (data[0] != 'not_active'){
            window.dialog_nome_del = new BootstrapDialog({
-                   title: get_lang_param("License_delete"),
+                   title: get_lang_param("Record_Delete"),
                    message: get_lang_param("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
@@ -9627,6 +9790,25 @@ $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
                    }],
                  });
            dialog_nome_del.open();
+         }
+         else{
+           window.dialog_nome_del = new BootstrapDialog({
+                   title: get_lang_param("Record_Delete"),
+                   message: get_lang_param("Info_del4"),
+                   type: BootstrapDialog.TYPE_DANGER,
+                   cssClass: 'del-dialog',
+                   closable: true,
+                   draggable: true,
+                   closeByBackdrop: false,
+                   closeByKeyboard: false,
+                   buttons:[{
+                     id: "nome_delete",
+                     label: get_lang_param("No_Delete"),
+                     cssClass: "btn-danger",
+                   }],
+                 });
+           dialog_nome_del.open();
+         }
 });
 $('#table_nome tbody').on( 'click', 'tr.group', function () {
        var currentOrder = table_nome.order()[0];
@@ -9638,14 +9820,12 @@ $('#table_nome tbody').on( 'click', 'tr.group', function () {
        }
    } );
 $('#table_nome tbody').on( 'click', 'tr', function () {
-  var data = table_nome.row( this ).data();
-  if (data[0] === 'not_active'){
-    if ( $(this).hasClass('selected') ) {
-        $(this).addClass('row_active');
-    }
-    else {
-        table_nome.$('tr.row_active').removeClass('row_active');
-    }
+  if ( $(this).hasClass('selected') ) {
+    table_nome.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
   }
 } );
 
@@ -9676,9 +9856,8 @@ var table_requisites = $('#table_requisites').DataTable({
 fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 if ( aData[0] == 'not_active' )
                 {
-                  $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                  $(nRow).addClass('not_active');
                 }
-                // if ((userid != 1) && (userid != 60) && (userid != 79) && (userid != 22)){
                 if ((Admin !== true) && (permit_users_req.indexOf(userid) == -1)){
                   table_requisites.buttons().destroy();
             }
@@ -9789,7 +9968,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     text:function(a){return a.i18n("Delete","Delete")},
     action: function ( e, dt, node, config ) {
       var $rows = table_requisites.$('tr.selected');
+      var act_d = dt.row($('tr.selected')).data()[0];
         if ($rows.length == '1'){
+          if (act_d != 'not_active') {
       window.dialog_requisites_del = new BootstrapDialog({
               title: get_lang_param("Requisites_delete"),
               message: get_lang_param("Info_del2"),
@@ -9806,6 +9987,25 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               }],
             });
       dialog_requisites_del.open();
+    }
+    else {
+      window.dialog_requisites_del = new BootstrapDialog({
+              title: get_lang_param("Requisites_delete"),
+              message: get_lang_param("Info_del4"),
+              type: BootstrapDialog.TYPE_DANGER,
+              cssClass: 'del-dialog',
+              closable: true,
+              draggable: true,
+              closeByBackdrop: false,
+              closeByKeyboard: false,
+              buttons:[{
+                id: "requisites_delete",
+                label: get_lang_param("No_Delete"),
+                cssClass: "btn-danger",
+              }],
+            });
+      dialog_requisites_del.open();
+    }
     }
     else {
       BootstrapDialog.alert({
@@ -9863,7 +10063,15 @@ table_requisites.on('select', function(e, dt, type, indexes ){
   eq_one_id=data[1];
   table_requisites_files.ajax.reload();
 })
-
+$('#table_requisites tbody').on( 'click', 'tr', function () {
+  if ( $(this).hasClass('selected') ) {
+    table_requisites.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
+  }
+} );
 // ***** Список файлов реквизитов *****
 var table_requisites_files = $('#table_requisites_files').DataTable({
 "aServerSide": true,
@@ -9890,7 +10098,6 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
 "style": "multi"
       },
 "fnDrawCallback": function (){
-        // if ((userid != 1) && (userid != 60) && (userid != 79) && (userid != 22)){
         if ((Admin !== true) && (permit_users_req.indexOf(userid) == -1)){
           table_requisites_files.buttons().destroy();
     }
@@ -10070,9 +10277,8 @@ var table_knt = $('#table_knt').DataTable({
 fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                   if ( aData[0] == 'not_active' )
                   {
-                    $(nRow).css({'background-color': '#d9534f', 'color': '#fff'});
+                    $(nRow).addClass('not_active');
                   }
-                  // if ((userid != 1) && (userid != 63) && (userid != 22)){
                   if ((Admin !== true) && (permit_users_knt.indexOf(userid) == -1)){
                     table_knt.buttons().destroy();
               }
@@ -10181,7 +10387,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       text:function(a){return a.i18n("Delete","Delete")},
       action: function ( e, dt, node, config ) {
         var $rows = table_knt.$('tr.selected');
+        var act_d = dt.row($('tr.selected')).data()[0];
           if ($rows.length == '1'){
+            if (act_d != 'not_active') {
         window.dialog_knt_del = new BootstrapDialog({
                 title: get_lang_param("Knt_delete"),
                 message: get_lang_param("Info_del2"),
@@ -10198,6 +10406,25 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 }],
               });
         dialog_knt_del.open();
+      }
+      else {
+        window.dialog_knt_del = new BootstrapDialog({
+                title: get_lang_param("Knt_delete"),
+                message: get_lang_param("Info_del4"),
+                type: BootstrapDialog.TYPE_DANGER,
+                cssClass: 'del-dialog',
+                closable: true,
+                draggable: true,
+                closeByBackdrop: false,
+                closeByKeyboard: false,
+                buttons:[{
+                  id: "knt_delete",
+                  label: get_lang_param("No_Delete"),
+                  cssClass: "btn-danger",
+                }],
+              });
+        dialog_knt_del.open();
+      }
       }
       else {
         BootstrapDialog.alert({
@@ -10256,7 +10483,15 @@ table_knt.on('select', function(e, dt, type, indexes ){
     eq_one_id=data[1];
     table_knt_files.ajax.reload();
 })
-
+$('#table_knt tbody').on( 'click', 'tr', function () {
+  if ( $(this).hasClass('selected') ) {
+    table_knt.$('i.fa-check-circle').addClass('text-success');
+    $('i.fa-check-circle', this).removeClass('text-success');
+  }
+  else{
+    $('i.fa-check-circle', this).addClass('text-success');
+  }
+} );
 // ***** Список файлов контрагентов *****
 var table_knt_files = $('#table_knt_files').DataTable({
 "aServerSide": true,
@@ -10283,7 +10518,6 @@ var table_knt_files = $('#table_knt_files').DataTable({
 "style": "multi"
         },
 "fnDrawCallback": function (){
-          // if ((userid != 1) && (userid != 63) && (userid != 22)){
           if ((Admin !== true) && (permit_users_knt.indexOf(userid) == -1)){
             table_knt_files.buttons().destroy();
       }
@@ -10460,7 +10694,6 @@ var table_documents = $('#table_documents').DataTable({
 "style": "multi"
         },
 "fnDrawCallback": function (){
-          // if ((userid != 1) && (userid != 63) && (userid != 22)){
           if ((Admin !== true) && (permit_users_documents.indexOf(userid) == -1)){
             table_documents.buttons().destroy();
       }

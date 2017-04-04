@@ -162,18 +162,16 @@
 padding-left: 10px;
 padding-right:  10px;
 }
-.row_active {
-  background-color: #08C!important;
-}
-.users_not_active {
-  background-color: #fcf8e3!important;
+.users_not_active, .sale_util {
+  background-color: #fcf8e3 !important;
 }
 .not_active{
   background-color: #d9534f!important;
   color: #fff;
 }
-.row_repair{
-  background-color: #08C !important;
+.repair{
+  background-color: #5bc0de !important;
+  color: #fff;
 }
 .fc-day-grid-event > .fc-content {
   white-space: nowrap !important;
@@ -230,7 +228,7 @@ td.fc-sun, td.fc-sat{
                 width: 700px;
 }*/
 .del-dialog .modal-dialog {
-                width: 500px;
+                width: 650px;
 }
 .license_col-dialog .modal-dialog {
                 width: 500px;
