@@ -5793,6 +5793,7 @@ $("#print_test").on('click', function(){
   "mode": "print_test",
   "splaces" : function(){return $("#splaces").val();},
   "suserid" : function(){return $("#suserid").val();},
+  "sprintid" : function(){return $("#sprintid").val();},
       }
     },
 

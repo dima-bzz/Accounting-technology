@@ -45,6 +45,26 @@ include("menus.php");
                ?>
              </select>
          </div>
+            <div class="col-md-3" style="margin-bottom:20px;">
+            <label class="control-label"><small><?=get_lang('Printer')?>:</small></label>
+
+            <select data-placeholder="Выберите принтер" class='my_select select' name="sprintid" id="sprintid">
+            <option value=""></option>
+            <?php
+            $cartridge = get_conf_param('what_cartridge');
+            $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome INNER JOIN equipment ON equipment.nomeid = nome.id WHERE nome.active=1 and nome.groupid IN (".$cartridge.") and equipment.ip<>'' and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
+            $stmt->execute();
+            $res1 = $stmt->fetchAll();
+            foreach($res1 as $myrow)
+              {$vl=$myrow['id'];
+                echo "<option value=$vl";
+                if ($myrow["id"]==$nomeid){echo " selected";};
+                $nm=$myrow['name'];
+                echo ">$nm</option>";
+              };
+              ?>
+            </select>
+            </div>
            <button type="submit" id="print_test" class="btn btn-primary btn-block" name="print_test"><i class="fa fa-hand-o-up" aria-hidden="true"></i>&nbsp;<?=get_lang('Button_print_test');?></button>
          </div>
 
