@@ -4355,7 +4355,7 @@ drawCallback: function(){
               action: function( e, dt, node, config ){
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length > '0'){
-                    var act_d = dt.row($('tr.selected')).data()[0];
+                    var act_d = dt.row($rows).data()[0];
                     if (act_d != 'not_active') {
                     window.dialog_del = new BootstrapDialog({
                             title: get_lang_param("Equipment_del"),
@@ -9970,7 +9970,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     action: function ( e, dt, node, config ) {
       var $rows = table_requisites.$('tr.selected');
         if ($rows.length == '1'){
-          var act_d = dt.row($('tr.selected')).data()[0];
+          var act_d = dt.row($rows).data()[0];
           if (act_d != 'not_active') {
       window.dialog_requisites_del = new BootstrapDialog({
               title: get_lang_param("Requisites_delete"),
@@ -10389,7 +10389,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       action: function ( e, dt, node, config ) {
         var $rows = table_knt.$('tr.selected');
           if ($rows.length == '1'){
-            var act_d = dt.row($('tr.selected')).data()[0];
+            var act_d = dt.row($rows).data()[0];
             if (act_d != 'not_active') {
         window.dialog_knt_del = new BootstrapDialog({
                 title: get_lang_param("Knt_delete"),
