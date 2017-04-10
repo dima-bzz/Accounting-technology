@@ -2599,18 +2599,22 @@ $('body').on('click', 'a#img_del_users', function(event) {
 $('body').on('click', 'button#edit_profile_cont', function(event) {
           event.preventDefault();
           d = new Date();
+          if (Admin === true){
           if (check_er.save == true){
           var data_img = cropper.getDataURL();
-        }
+          }
         else{
           var data_img = '';
         }
+      } else {
+        var data_img = '0';
+      }
         if (Admin === true){
           var pl = encodeURIComponent($("#placesid").val());
         }
         else {
-          var pl = '';
-        }
+          var pl = '0';
+        {}
         var valid_email = function(){
         var valid_result = false;
         if ($('#email').val().length < '1'){
@@ -3219,7 +3223,7 @@ $('body').on('click', 'button#knt_delete', function(event) {
 // ****** Добавление параметров ******
 $('body').on('click', 'button#add_param', function(event) {
   event.preventDefault();
-  // console.log(total_input);
+
   var postdata = $('#myForm_eq_param_add').serialize();
 
   var valid_param_add = function(){
@@ -8912,7 +8916,9 @@ var table_contact = $('#table_contact').DataTable({
                 closeByBackdrop: false,
                 closeByKeyboard: false,
                 onshown: function(){
-                  img_users();
+                  if (Admin === true){
+                    img_users();
+                  }
                   my_select();
                   check_email();
                   $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
