@@ -4018,7 +4018,7 @@ if ($mode == "edit_profile_users"){
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   $photo = $row['jpegphoto'];
 
-  if ($_POST['img'] != ''){
+  if (($_POST['img'] != '') && ($_POST['img'] != '0')){
   $img = str_replace('data:image/png;base64,', '', $img);
   $img = str_replace(' ', '+', $img);
   $data = base64_decode($img);
@@ -4046,14 +4046,14 @@ else {
 }
   $stmt = $dbConnection->prepare ('UPDATE users_profile, users SET users_profile.jpegphoto = :jpegphoto, users_profile.post = :post, users_profile.emaildop = :emaildop, users_profile.birthday = :birthday, users_profile.homephone = :homephone, users_profile.telephonenumber = :telephonenumber, users.email = :email WHERE users.id = users_profile.usersid AND users.id = :id');
   $stmt->execute(array(':id' => $id, ':jpegphoto' => $file, ':post' => $post, ':emaildop' => $emaildop, ':birthday' => $birthday, ':homephone' => $homephone, ':telephonenumber' => $telephonenumber, ':email' => $email));
-if ($_POST['placesid'] != ''){
-  $stmt2 = $dbConnection->prepare ('INSERT INTO places_users (id,placesid,userid) VALUES (null,:placesid,:userid) ON DUPLICATE KEY UPDATE placesid= :placesid2');
-  $stmt2->execute(array(':placesid' => $placesid, ':placesid2' => $placesid, ':userid' => $id));
-}
-else {
-  $stmt2 = $dbConnection->prepare ('DELETE FROM places_users WHERE userid=:userid');
-  $stmt2->execute(array(':userid' => $id));
-}
+  if (($_POST['placesid'] != '') && ($_POST['placesid'] != '0')){
+    $stmt2 = $dbConnection->prepare ('INSERT INTO places_users (id,placesid,userid) VALUES (null,:placesid,:userid) ON DUPLICATE KEY UPDATE placesid= :placesid2');
+    $stmt2->execute(array(':placesid' => $placesid, ':placesid2' => $placesid, ':userid' => $id));
+  }
+  if ($_POST['placesid'] == ''){
+    $stmt2 = $dbConnection->prepare ('DELETE FROM places_users WHERE userid=:userid');
+    $stmt2->execute(array(':userid' => $id));
+  }
 }
 if ($mode == "check_login") {
 
@@ -4126,22 +4126,7 @@ if ($mode == "dialog_users_profile_cont"){
       var Avatar = "images/avatar/<?php echo "$photo";?>";
       var Fio = "<?php echo "$fio";?>";
   </script>
-  <?php
-  if (validate_priv($_SESSION['dilema_user_id']) == 1){
-  ?>
-  <script type="text/javascript">
-      var Admin = true;
-  </script>
-  <?php
-  }
-  else {
-    ?>
-    <script type="text/javascript">
-        var Admin = false;
-    </script>
-    <?php
-  }
-   ?>
+
   <form id="myForm_edit_profile" class="well form-inline" method="post" >
 <div class="row">
   <?php
