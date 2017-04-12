@@ -5420,7 +5420,7 @@ if ($mode == "select_org"){
       $res1 = $stmt->fetchAll();
       foreach($res1 as $myrow) {
           echo "<option value=".$myrow["id"];
-          if ($myrow["id"]==$_COOKIE['cookieorgid']){echo " selected";};
+          if ($myrow["id"]==$_SESSION['dilema_org']){echo " selected";};
           echo ">$myrow[name]</option>";
          };
   ?>
