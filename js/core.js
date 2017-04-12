@@ -3837,12 +3837,19 @@ stateLoadCallback: function(){
       // ***** Обновление организации *****
       $("#org_equipment").on("change",function(){
         // console.log(this.value);
-        $.cookie('cookieorgid',this.value);
-        table_eq.ajax.reload();
-        table_eq_move.clear().draw();
-        table_eq_repair.clear().draw();
-        table_eq_param.clear().draw();
-        $('#photoid').fadeOut(500);
+        $.ajax({
+          url:  ACTIONPATH,
+          type: "POST",
+          data:"mode=update_ssesion" +
+          "&id_org=" + this.value,
+          success: function(){
+            table_eq.ajax.reload();
+            table_eq_move.clear().draw();
+            table_eq_repair.clear().draw();
+            table_eq_param.clear().draw();
+            $('#photoid').fadeOut(500);
+          }
+        })
       });
     }
   });

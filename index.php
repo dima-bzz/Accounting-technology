@@ -8,19 +8,17 @@ include_once("functions.php");
 if (isset($_GET['logout'])) {
 
   // session_destroy();
-  // unset($_SESSION);
-  // session_unset();
   $_SESSION['dilema_user_id'] = null;
+  unset($_SESSION);
+  session_unset();
   setcookie('authhash_usid', "");
   setcookie('authhash_uscode', "");
-  setcookie('cookieorgid', "");
   setcookie('cookie_eq_util', "");
   setcookie('cookie_eq_sale', "");
   setcookie('on_off_cookie', "");
   setcookie('date', "");
   unset($_COOKIE['authhash_usid']);
   unset($_COOKIE['authhash_uscode']);
-  unset($_COOKIE['cookieorgid']);
   unset($_COOKIE['cookie_eq_util']);
   unset($_COOKIE['cookie_eq_sale']);
   unset($_COOKIE['on_off_cookie']);
@@ -56,8 +54,8 @@ if (isset($_POST['login']) && isset($_POST['password']))
         $_SESSION['dilema_user_id'] = $row['id'];
         $_SESSION['dilena_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
+        $_SESSION['dilema_org'] = get_conf_param('default_org');
         setcookie ('on_off_cookie',$row['on_off']);
-        setcookie('cookieorgid',get_conf_param('default_org'));
         setcookie('cookie_eq_util','0');
         setcookie('cookie_eq_sale','0');
         setcookie ('date',date('Y-m-d'));
@@ -66,7 +64,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
 
             setcookie('authhash_usid', $_SESSION['dilema_user_id'], time()+60*60*24*7);
             setcookie('authhash_uscode', $_SESSION['us_code'], time()+60*60*24*7);
-            setcookie('cookieorgid', get_conf_param('default_org'), time()+60*60*24*7);
             setcookie('cookie_eq_util', '0', time()+60*60*24*7);
             setcookie('cookie_eq_sale', '0', time()+60*60*24*7);
             setcookie ('on_off_cookie',$row['on_off'], time()+60*60*24*7);

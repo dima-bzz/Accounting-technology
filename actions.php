@@ -726,7 +726,7 @@ if ($mode == "eq_mat"){
                 }
 }
 if ($mode == "eq"){
-    $orid = $_COOKIE['cookieorgid'];
+    $orid = $_SESSION['dilema_org'];
     $util_eq= $_COOKIE['cookie_eq_util'];
     $sale_eq= $_COOKIE['cookie_eq_sale'];
   $stmt = $dbConnection->prepare("SELECT equipment.dtendgar, knt.name as kntname, getvendorandgroup.grnomeid,equipment.id AS eqid,equipment.orgid AS eqorgid, org.name AS orgname, getvendorandgroup.vendorname AS vname,
@@ -6148,6 +6148,12 @@ echo $e->errorMessage(); //Pretty error messages from PHPMailer
 echo $e->getMessage(); //Boring error messages from anything else!
 }
 }
+}
+if ($mode == "update_ssesion"){
+  $id_org = $_POST['id_org'];
+  if ($id_org != ''){
+    $_SESSION['dilema_org'] = $id_org;
+  }
 }
 }
 }
