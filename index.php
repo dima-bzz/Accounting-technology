@@ -7,8 +7,8 @@ include_once("functions.php");
 
 if (isset($_GET['logout'])) {
 
-  // session_destroy();
-  $_SESSION['dilema_user_id'] = null;
+  session_destroy();
+  // $_SESSION['dilema_user_id'] = null;
   unset($_SESSION);
   session_unset();
   setcookie('authhash_usid', "");

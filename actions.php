@@ -4728,14 +4728,16 @@ if ($mode == "edit_profile_pass") {
         session_unset();
         setcookie('authhash_usid', "");
         setcookie('authhash_uscode', "");
-        setcookie('cookieorgid', "");
-        setcookie('lang_cookie', "");
+        setcookie('cookie_eq_util', "");
+        setcookie('cookie_eq_sale', "");
         setcookie('on_off_cookie', "");
+        setcookie('date', "");
         unset($_COOKIE['authhash_usid']);
         unset($_COOKIE['authhash_uscode']);
-        unset($_COOKIE['cookieorgid']);
-        unset($_COOKIE['lang_cookie']);
+        unset($_COOKIE['cookie_eq_util']);
+        unset($_COOKIE['cookie_eq_sale']);
         unset($_COOKIE['on_off_cookie']);
+        unset($_COOKIE['date']);
 
 
         ?>
