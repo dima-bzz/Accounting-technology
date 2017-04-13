@@ -1379,6 +1379,7 @@ $('body').on('click', 'button#equipment_edit', function(event) {
           dialog_edit.close();
           table_eq.ajax.reload(null, false);
           arrList=[];
+          eq_one_id=[];
           check_er.save = false;
         }
         });
@@ -1430,6 +1431,7 @@ $('body').on('click', 'button#equipment_move', function(event) {
           table_eq_repair.clear().draw();
           table_eq_param.clear().draw();
           arrList=[];
+          eq_one_id=[];
         }
         });
         }
@@ -1481,6 +1483,7 @@ $('body').on('click', 'button#equipment_copy', function(event) {
           table_eq_repair.clear().draw();
           table_eq_param.clear().draw();
           arrList=[];
+          eq_one_id=[];
         }
         });
         }
@@ -1501,6 +1504,7 @@ $('body').on('click', 'button#equipment_delete', function(event) {
           table_eq_repair.clear().draw();
           table_eq_param.clear().draw();
           arrList=[];
+          eq_one_id=[];
           check_approve();
         }
         });
@@ -1547,6 +1551,7 @@ $('body').on('click', 'button#equipment_repair', function(event) {
           table_eq_repair.clear().draw();
           table_eq_param.clear().draw();
           arrList=[];
+          eq_one_id=[];
         }
         });
       }
@@ -1602,6 +1607,7 @@ $('body').on('click', 'button#equipment_repair_delete', function(event) {
           table_eq_repair.ajax.reload(null, false);
           table_eq.ajax.reload(null, false);
           arrList=[];
+          eq_one_id=[];
         }
         });
 });
@@ -1635,6 +1641,7 @@ $('body').on('click', 'button#equipment_move_delete', function(event) {
           table_eq_move.ajax.reload(null, false);
           table_eq.ajax.reload(null, false);
           arrList=[];
+          eq_one_id=[];
         }
         });
 });
@@ -1900,6 +1907,7 @@ $('body').on('click', 'button#cartridge_edit', function(event) {
         success: function() {
           dialog_cartridge_edit.close();
           table_cartridge.ajax.reload(null, false);
+          eq_one_id=[];
         }
         });
       }
@@ -1994,7 +2002,7 @@ $('body').on('click', 'button#cartridge_uchet_delete', function(event) {
         success: function() {
           dialog_cartridge_uchet_del.close();
           table_cartridge_uchet.ajax.reload(null, false);
-          uchet_one_id=[];
+          eq_one_id=[];
         }
         });
 });
@@ -2172,6 +2180,7 @@ $('body').on('click', 'button#add_places', function(event) {
         success: function() {
           dialog_places_add.close();
           table_places.ajax.reload();
+          eq_one_id=[];
         }
         });
       }
@@ -3108,6 +3117,7 @@ $('body').on('click', 'button#edit_requisites', function(event) {
         success: function() {
           dialog_requisites_edit.close();
           table_requisites.ajax.reload(null, false);
+          eq_one_id=[];
         }
         });
       }
@@ -3123,6 +3133,7 @@ $('body').on('click', 'button#requisites_delete', function(event) {
         success: function() {
           dialog_requisites_del.close();
           table_requisites.ajax.reload(null, false);
+          eq_one_id=[];
           check_approve();
         }
         });
@@ -3201,6 +3212,7 @@ $('body').on('click', 'button#edit_knt', function(event) {
         success: function() {
           dialog_knt_edit.close();
           table_knt.ajax.reload(null, false);
+          eq_one_id=[];
         }
         });
       }
@@ -3216,6 +3228,7 @@ $('body').on('click', 'button#knt_delete', function(event) {
         success: function() {
           dialog_knt_del.close();
           table_knt.ajax.reload(null, false);
+          eq_one_id=[];
           check_approve();
         }
         });
@@ -4058,8 +4071,6 @@ drawCallback: function(){
                           table_eq_param.clear().draw();
                           $('#photoid').fadeOut(500);
                           arrList = [];
-                          arrList_r = [];
-                          arrList_m = [];
                           eq_one_id = [];
                         }
                       });
@@ -4210,8 +4221,6 @@ drawCallback: function(){
                                 table_eq_param.clear().draw();
                                 $('#photoid').fadeOut(500);
                                 arrList = [];
-                                arrList_r = [];
-                                arrList_m = [];
                                 eq_one_id = [];
                               }
                       });
@@ -4290,8 +4299,6 @@ drawCallback: function(){
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
                         arrList = [];
-                        arrList_r = [];
-                        arrList_m = [];
                         eq_one_id = [];
                       }
                     });
@@ -4362,8 +4369,6 @@ drawCallback: function(){
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
                         arrList = [];
-                        arrList_r = [];
-                        arrList_m = [];
                         eq_one_id = [];
                       }
                     });
@@ -4409,8 +4414,6 @@ drawCallback: function(){
                               table_eq_param.clear().draw();
                               $('#photoid').fadeOut(500);
                               arrList = [];
-                              arrList_r = [];
-                              arrList_m = [];
                               eq_one_id = [];
                             }
                           });
@@ -4524,8 +4527,6 @@ drawCallback: function(){
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
                         arrList = [];
-                        arrList_r = [];
-                        arrList_m = [];
                         eq_one_id = [];
                       }
                     });
@@ -4819,8 +4820,6 @@ drawCallback: function(){
                     table_eq_param.clear().draw();
                     $('#photoid').fadeOut(500);
                     arrList = [];
-                    arrList_r = [];
-                    arrList_m = [];
                     eq_one_id = [];
                 }
             },
@@ -4833,8 +4832,6 @@ drawCallback: function(){
             table_eq_param.clear().draw();
             $('#photoid').fadeOut(500);
             arrList = [];
-            arrList_r = [];
-            arrList_m = [];
             eq_one_id = [];
               }
             },
@@ -4859,8 +4856,6 @@ drawCallback: function(){
               table_eq_param.clear().draw();
               $('#photoid').fadeOut(500);
               arrList = [];
-              arrList_r = [];
-              arrList_m = [];
               eq_one_id = [];
             }
             else {
@@ -4873,8 +4868,6 @@ drawCallback: function(){
               table_eq_param.clear().draw();
               $('#photoid').fadeOut(500);
               arrList = [];
-              arrList_r = [];
-              arrList_m = [];
               eq_one_id = [];
             }
               }
@@ -4900,8 +4893,6 @@ drawCallback: function(){
               table_eq_param.clear().draw();
               $('#photoid').fadeOut(500);
               arrList = [];
-              arrList_r = [];
-              arrList_m = [];
               eq_one_id = [];
             }
             else {
@@ -4914,8 +4905,6 @@ drawCallback: function(){
               table_eq_param.clear().draw();
               $('#photoid').fadeOut(500);
               arrList = [];
-              arrList_r = [];
-              arrList_m = [];
               eq_one_id = [];
             }
               }
@@ -4944,8 +4933,6 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
                   $('#photoid').fadeOut(500);
                   arrList = [];
                   eq_one_id = [];
-                  arrList_r = [];
-                  arrList_m = [];
                 });
                 if (table_eq.search() !== ''){
                 table_eq.search('').draw();
@@ -5050,13 +5037,15 @@ var eq_one_id = [];
         arrList = $.grep(arrList, function(value){
           return value != data[1];
         })
+        eq_one_id = $.grep(eq_one_id, function(value){
+          return value != data[1];
+        })
+        if (eq_one_id == ''){
         table_eq_move.clear().draw();
         table_eq_repair.clear().draw();
         table_eq_param.clear().draw();
         $('#photoid').fadeOut(500);
-        eq_one_id = [];
-        arrList_r = [];
-        arrList_m = [];
+      }
       })
 
 // ***** История перемещений *****
@@ -7884,9 +7873,12 @@ $('#report tbody').on( 'click', 'tr.group', function () {
               arrList_shtr = $.grep(arrList_shtr, function(value){
                 return value != data[0];
               })
+              eq_one_id = $.grep(eq_one_id, function(value){
+                return value != data[0];
+              })
+              if (eq_one_id == ''){
               table_eq_move_show_rep.clear().draw();
-              eq_one_id=[];
-              arrList_shtr=[];
+            }
             })
           }
           else {
@@ -10906,7 +10898,7 @@ var arrList_documents = new Array();
           // console.log(arrList_knt);
      }).on( 'deselect', function ( e, dt, type, indexes ) {
         var data = table_documents.row( indexes ).data();
-          arrList_knt = $.grep(arrList_knt, function(value){
+          arrList_documents = $.grep(arrList_documents, function(value){
             return value != data[0];
           })
         })
