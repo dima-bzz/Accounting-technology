@@ -1857,6 +1857,16 @@ $('body').on('click', 'button#cartridge_add', function(event) {
         success: function() {
           dialog_cartridge_add.close();
           table_cartridge.ajax.reload();
+          $.ajax({
+            url: ACTIONPATH,
+            async: false,
+            type: 'POST',
+            data: 'mode=print_update',
+            success: function(res){
+              $("#printid_fast").html(res);
+              $("select#printid_fast").trigger("chosen:updated");
+            }
+          });
         }
         });
       }
@@ -1993,6 +2003,16 @@ $('body').on('click', 'button#cartridge_delete', function(event) {
           table_cartridge.ajax.reload(null, false);
           eq_one_id=[];
           check_approve();
+          $.ajax({
+            url: ACTIONPATH,
+            async: false,
+            type: 'POST',
+            data: 'mode=print_update',
+            success: function(res){
+              $("#printid_fast").html(res);
+              $("select#printid_fast").trigger("chosen:updated");
+            }
+          });
         }
         });
 });

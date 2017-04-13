@@ -669,6 +669,25 @@ function GetArrayOrg(){ // Возврат - массив активных орг
                     }
 };
 
+function GetArrayPrint(){ // Возврат - массив принтеров
+		global $dbConnection;
+		$cnt=0;
+    $cartridge = get_conf_param('what_cartridge');
+		$mOrgs = array();
+    $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome LEFT JOIN equipment ON equipment.nomeid = nome.id INNER JOIN print ON print.nomeid=nome.id WHERE nome.active=1 and print.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+  		if ($res1!='') {
+        foreach($res1 as $myrow) {
+				   $mOrgs[$cnt]["id"]=$myrow["id"];
+				   $mOrgs[$cnt]["name"]=$myrow["name"];
+                                   $mOrgs[$cnt]["active"]=$myrow["active"];
+				   $cnt++;
+				  };
+				return $mOrgs;
+                    }
+};
+
 function GetArrayPlaces(){ // Возврат - массив активных помещений
 		global $dbConnection;
 		$cnt=0;

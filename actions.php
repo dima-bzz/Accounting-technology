@@ -5377,20 +5377,25 @@ if ($mode == "select_print"){
   <select data-placeholder="Быстрый переход к принтеру" style="width:230px;" class='my_select' name="printid_fast" id="printid_fast">
   <option value=""></option>
   <?php
-  $cartridge = get_conf_param('what_cartridge');
-  $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome LEFT JOIN equipment ON equipment.nomeid = nome.id INNER JOIN print ON print.nomeid=nome.id WHERE nome.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
-  $stmt->execute();
-  $res1 = $stmt->fetchAll();
-  foreach($res1 as $myrow)
-    {$vl=$myrow['id'];
-      echo "<option value=$vl";
-      if ($myrow["id"]==$nomeid){echo " selected";};
-      $nm=$myrow['name'];
-      echo ">$nm</option>";
-    };
+  $morgs=GetArrayPrint();
+  for ($i = 0; $i < count($morgs); $i++) {
+      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+      // if ($nid==$orgidprint){$sl=" selected";} else {$sl="";};
+      echo "<option value=$nid $sl>$nm</option>";
+  };
     ?>
   </select>
   <?php
+}
+if ($mode == "print_update"){
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+  $morgs=GetArrayPrint();
+  echo "<option value\"\"></option>";
+  for ($i = 0; $i < count($morgs); $i++) {
+      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+      echo "<option value=$nid>$nm</option>";
+      };
 }
 if ($mode == "select_group"){
   ?>
@@ -5405,7 +5410,7 @@ if ($mode == "select_group"){
                  $morgs=GetArrayGroup();
                  for ($i = 0; $i < count($morgs); $i++) {
                      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                     if ($nid==$groupid_fast){$sl=" selected";} else {$sl="";};
+                    //  if ($nid==$groupid_fast){$sl=" selected";} else {$sl="";};
                      echo "<option value=$nid $sl>$nm</option>";
                  };
              ?>
@@ -5417,14 +5422,12 @@ if ($mode == "select_org"){
   <lable><?=get_lang('Select_org');?>: <label>
   <select class='my_select' style="width:200px;" name="org_equipment" id="org_equipment">
   <?php
-      $stmt = $dbConnection->prepare("SELECT * FROM org WHERE active=1 order by name;");
-      $stmt->execute();
-      $res1 = $stmt->fetchAll();
-      foreach($res1 as $myrow) {
-          echo "<option value=".$myrow["id"];
-          if ($myrow["id"]==$_SESSION['dilema_org']){echo " selected";};
-          echo ">$myrow[name]</option>";
-         };
+  $morgs=GetArrayOrg();
+  for ($i = 0; $i < count($morgs); $i++) {
+      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+      if ($nid==$_SESSION['dilema_org']){$sl=" selected";} else {$sl="";};
+      echo "<option value=$nid $sl>$nm</option>";
+  };
   ?>
   </select>
   <?php
