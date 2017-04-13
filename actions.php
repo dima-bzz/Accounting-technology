@@ -5378,7 +5378,7 @@ if ($mode == "select_print"){
   <option value=""></option>
   <?php
   $cartridge = get_conf_param('what_cartridge');
-  $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome INNER JOIN equipment ON equipment.nomeid = nome.id WHERE nome.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
+  $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome LEFT JOIN equipment ON equipment.nomeid = nome.id INNER JOIN print ON print.nomeid=nome.id WHERE nome.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   foreach($res1 as $myrow)
