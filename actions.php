@@ -1430,7 +1430,7 @@ if ($mode == "dialog_move"){
   $placesid=$tmptmc->placesid;
   $userid=$tmptmc->usersid;
   ?>
-  <form id="myForm_move" class="well form-inline" onkeypress="return event.keyCode != 13;">
+  <form id="myForm_move" class="well form-inline">
   <div class="row">
     <div class="col-md-4">
       <div class="form-group" id="org_to" style="display:inline;">
@@ -1542,7 +1542,7 @@ if ($mode == "dialog_equipment_edit"){
   <script type="text/javascript">
         var Equipment_img = "images/equipment/<?php echo "$photo";?>";
   </script>
-  <form id="myForm_edit" class="well form-inline"  method="post" onkeypress="return event.keyCode != 13;">
+  <form id="myForm_edit" class="well form-inline"  method="post">
   <div class="row">
     <div class="col-md-4">
       <div class="form-group" id="dtpost_edit_grp" style="display:inline;">
@@ -1746,7 +1746,7 @@ if ($mode == "dialog_equipment_add"){
   <script type="text/javascript">
         var Equipment_img = "images/equipment/noimage.png";
   </script>
-  <form id="myForm_add" class="well form-inline" onkeypress="return event.keyCode != 13;">
+  <form id="myForm_add" class="well form-inline">
   <div class="row">
     <div class="col-md-4">
       <div class="form-group" id="dtpost_add_grp" style="display:inline;">

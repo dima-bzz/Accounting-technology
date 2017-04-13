@@ -439,6 +439,9 @@ $("#calendar").fullCalendar({
                closeByBackdrop: false,
                closeByKeyboard: false,
                onshown: function(){
+                 $(document).on("keypress", ":input:not(textarea)", function(event) {
+                   return event.keyCode != 13;
+                 });
                  $(function(){
                    var ec = $("#color-event").attr("val");
                    var ect = $("#color-event-text").attr("val");
@@ -523,6 +526,9 @@ $("#calendar").fullCalendar({
              closeByBackdrop: false,
              closeByKeyboard: false,
              onshown: function(){
+               $(document).on("keypress", ":input:not(textarea)", function(event) {
+                 return event.keyCode != 13;
+               });
                $(function(){
                  var ec = $("#color-event").attr("val");
                  var ect = $("#color-event-text").attr("val");
@@ -3940,6 +3946,9 @@ drawCallback: function(){
                           closeByBackdrop: false,
                           closeByKeyboard: false,
                             onshown: function(){
+                              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                return event.keyCode != 13;
+                              });
                               $("#eq_util").on('click', function(){
                                   if ($(this).prop("checked")){
                                     $("#eq_sale").attr('disabled', true);
@@ -4107,6 +4116,9 @@ drawCallback: function(){
                               closeByBackdrop: false,
                               closeByKeyboard: false,
                               onshown: function(){
+                                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                  return event.keyCode != 13;
+                                });
                                 if ($("#eq_util").val() == 1){
                                   $("#eq_sale").attr('disabled', true);
                                 }
@@ -4273,6 +4285,9 @@ drawCallback: function(){
                         closeByBackdrop: false,
                         closeByKeyboard: false,
                           onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
                           my_select();
                           my_select2();
 
@@ -4344,6 +4359,9 @@ drawCallback: function(){
                         closeByBackdrop: false,
                         closeByKeyboard: false,
                           onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
                           my_select();
                           my_select2();
                         $('#suserid').change(function(){
@@ -4487,6 +4505,9 @@ drawCallback: function(){
                         closeByBackdrop: false,
                         closeByKeyboard: false,
                           onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
                           my_select();
                           my_select2();
                           $("#dt").datepicker({
@@ -4581,6 +4602,9 @@ drawCallback: function(){
                             closeByBackdrop: false,
                             closeByKeyboard: false,
                               onshown: function(){
+                                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                  return event.keyCode != 13;
+                                });
 
               var max_fields      = 10; //Максимально кол-во добовляемых input
               var wrapper         = $(".input_fields_wrap");
@@ -5548,6 +5572,9 @@ $('#equipment_repair tbody').on( 'click', 'button#repair_edit', function () {
                     closeByBackdrop: false,
                     closeByKeyboard: false,
                     onshown: function(){
+                      $(document).on("keypress", ":input:not(textarea)", function(event) {
+                        return event.keyCode != 13;
+                      });
                     my_select();
                     my_select2();
                     $("#dt").datepicker({
@@ -5732,6 +5759,9 @@ $('#equipment_param tbody').on( 'click', 'button#param_edit', function () {
                     closeByBackdrop: false,
                     closeByKeyboard: false,
                     onshown: function(){
+                      $(document).on("keypress", ":input:not(textarea)", function(event) {
+                        return event.keyCode != 13;
+                      });
                       eq_param_typehead_edit();
                       $("#eq_param_gr").keyup(function(){
                       if($(this).val().length > 0) {
@@ -6136,6 +6166,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                         closeByBackdrop: false,
                         closeByKeyboard: false,
                           onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
                           my_select();
                           my_select2();
                           $("#antivirus").datepicker({
@@ -6212,6 +6245,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             closeByBackdrop: false,
                             closeByKeyboard: false,
                             onshown: function(){
+                              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                return event.keyCode != 13;
+                              });
                               my_select();
                               my_select2();
                               $("#antivirus").datepicker({
@@ -6304,6 +6340,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             closeByBackdrop: false,
                             closeByKeyboard: false,
                             onshown: function(){
+                              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                return event.keyCode != 13;
+                              });
                               my_select();
                               my_select2();
                               $("#antivirus").datepicker({
@@ -6411,6 +6450,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                               closeByBackdrop: false,
                               closeByKeyboard: false,
                               onshown: function(){
+                                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                  return event.keyCode != 13;
+                                });
                                 my_select();
                                 $('#org_name').change(function(){
                                   if ($(this).val().length > 0){
@@ -6706,6 +6748,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                         closeByBackdrop: false,
                         closeByKeyboard: false,
                           onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
                           my_select();
                           my_select2();
                           $('#userid').change(function(){
@@ -6769,6 +6814,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                             closeByBackdrop: false,
                             closeByKeyboard: false,
                             onshown: function(){
+                              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                return event.keyCode != 13;
+                              });
                               my_select();
                               my_select2();
                               $('#userid').change(function(){
@@ -6848,6 +6896,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                             closeByBackdrop: false,
                             closeByKeyboard: false,
                             onshown: function(){
+                              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                return event.keyCode != 13;
+                              });
                               my_select();
                               my_select2();
                               $('#userid').change(function(){
@@ -8024,6 +8075,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#org").keyup(function(){
               if($(this).val().length > 0) {
               $('#org').popover('hide');
@@ -8112,6 +8166,9 @@ $('#table_org tbody').on( 'click', 'button#org_edit', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      $("#org").keyup(function(){
                      if($(this).val().length > 0) {
                      $('#org').popover('hide');
@@ -8244,6 +8301,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#places").keyup(function(){
               if($(this).val().length > 0) {
               $('#places').popover('hide');
@@ -8335,6 +8395,9 @@ $('#table_places tbody').on( 'click', 'button#places_edit', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      $("#places").keyup(function(){
                      if($(this).val().length > 0) {
                      $('#places').popover('hide');
@@ -8579,6 +8642,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               my_select();
               my_select2();
               check_login();
@@ -8778,6 +8844,9 @@ $('#table_users tbody').on( 'click', 'button#users_edit', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      my_select();
                      my_select2();
                      if ($('select#priv').val() == "1"){
@@ -8890,6 +8959,9 @@ $('#table_users tbody').on( 'click', 'button#users_profile', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      img_users();
                      my_select();
                      check_email();
@@ -9034,6 +9106,9 @@ var table_contact = $('#table_contact').DataTable({
                 closeByBackdrop: false,
                 closeByKeyboard: false,
                 onshown: function(){
+                  $(document).on("keypress", ":input:not(textarea)", function(event) {
+                    return event.keyCode != 13;
+                  });
                   if (Admin === true){
                     img_users();
                   }
@@ -9287,6 +9362,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#vendors").keyup(function(){
               if($(this).val().length > 0) {
               $('#vendors').popover('hide');
@@ -9375,6 +9453,9 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_edit', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      $("#vendors").keyup(function(){
                      if($(this).val().length > 0) {
                      $('#vendors').popover('hide');
@@ -9507,6 +9588,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#vendors").keyup(function(){
               if($(this).val().length > 0) {
               $('#vendors').popover('hide');
@@ -9595,6 +9679,9 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_edit', function () 
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      $("#vendors").keyup(function(){
                      if($(this).val().length > 0) {
                      $('#vendors').popover('hide');
@@ -9757,6 +9844,9 @@ stateLoadCallback: function(){
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               my_select();
               $("#vendorid").change(function(){
               if($(this).val().length > 0) {
@@ -9865,6 +9955,9 @@ $('#table_nome tbody').on( 'click', 'button#nome_edit', function () {
                    closeByBackdrop: false,
                    closeByKeyboard: false,
                    onshown: function(){
+                     $(document).on("keypress", ":input:not(textarea)", function(event) {
+                       return event.keyCode != 13;
+                     });
                      my_select();
                      $("#vendorid").change(function(){
                      if($(this).val().length > 0) {
@@ -10030,6 +10123,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#name_org").keyup(function(){
               if($(this).val().length > 3) {
               $('#name_org').popover('hide');
@@ -10075,6 +10171,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             closeByBackdrop: false,
             closeByKeyboard: false,
             onshown: function(){
+              $(document).on("keypress", ":input:not(textarea)", function(event) {
+                return event.keyCode != 13;
+              });
               $("#name_org").keyup(function(){
               if($(this).val().length > 3) {
               $('#name_org').popover('hide');
@@ -10453,6 +10552,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               closeByBackdrop: false,
               closeByKeyboard: false,
               onshown: function(){
+                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                  return event.keyCode != 13;
+                });
                 $("#name_knt").keyup(function(){
                 if($(this).val().length > 3) {
                 $('#name_knt').popover('hide');
@@ -10498,6 +10600,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               closeByBackdrop: false,
               closeByKeyboard: false,
               onshown: function(){
+                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                  return event.keyCode != 13;
+                });
                 $("#name_knt").keyup(function(){
                 if($(this).val().length > 3) {
                 $('#name_knt').popover('hide');
