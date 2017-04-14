@@ -5419,7 +5419,12 @@ if ($mode == "select_group"){
 }
 if ($mode == "select_org"){
   ?>
-  <lable><?=get_lang('Select_org');?>: <label>
+  <style>
+  .chosen-single, .chosen-container-single{
+    text-align:left !important;
+  }
+  </style>
+  <lable><?=get_lang('Select_org');?>: </label>
   <select class='my_select' style="width:200px;" name="org_equipment" id="org_equipment">
   <?php
   $morgs=GetArrayOrg();
