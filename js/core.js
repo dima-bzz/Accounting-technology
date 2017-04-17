@@ -700,9 +700,6 @@ $('.fc-prev-button').click(function(){
   url: ACTIONPATH,
   data: "mode=update_date" +
   "&date="+day,
-  success: function(){
-    $('#calendar').fullCalendar('refresh');
-  }
   });
 });
 $('.fc-today-button').click(function(){
@@ -714,7 +711,7 @@ $('.fc-today-button').click(function(){
   data: "mode=update_date" +
   "&date="+day,
   success: function(){
-    $('#calendar').fullCalendar('refresh');
+    $('#calendar').fullCalendar('refetchEvents');
   }
   });
 });
@@ -727,9 +724,6 @@ $('.fc-next-button').click(function(){
    url: ACTIONPATH,
    data: "mode=update_date" +
    "&date="+day,
-   success: function(){
-     $('#calendar').fullCalendar('refresh');
-   }
    });
 });
 // ***** Перемещение события *****
