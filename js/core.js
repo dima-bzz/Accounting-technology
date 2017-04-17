@@ -695,18 +695,42 @@ eventSources: [
 $('.fc-prev-button').click(function(){
   var b = $('#calendar').fullCalendar('getDate');
   var day = b.format('YYYY-MM-DD');
-  $.cookie('date',day);
+  $.ajax({
+  type: "POST",
+  url: ACTIONPATH,
+  data: "mode=update_date" +
+  "&date="+day,
+  success: function(){
+    $('#calendar').fullCalendar('refresh');
+  }
+  });
 });
 $('.fc-today-button').click(function(){
   var b = $('#calendar').fullCalendar('getDate');
   var day = b.format('YYYY-MM-DD');
-  $.cookie('date',day);
+  $.ajax({
+  type: "POST",
+  url: ACTIONPATH,
+  data: "mode=update_date" +
+  "&date="+day,
+  success: function(){
+    $('#calendar').fullCalendar('refresh');
+  }
+  });
 });
 
 $('.fc-next-button').click(function(){
    var b = $('#calendar').fullCalendar('getDate');
    var day = b.format('YYYY-MM-DD');
-    $.cookie('date',day);
+   $.ajax({
+   type: "POST",
+   url: ACTIONPATH,
+   data: "mode=update_date" +
+   "&date="+day,
+   success: function(){
+     $('#calendar').fullCalendar('refresh');
+   }
+   });
 });
 // ***** Перемещение события *****
 $('body').on('click', 'button#drag_ok', function(event) {

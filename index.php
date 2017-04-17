@@ -16,13 +16,11 @@ if (isset($_GET['logout'])) {
   setcookie('cookie_eq_util', "");
   setcookie('cookie_eq_sale', "");
   setcookie('on_off_cookie', "");
-  setcookie('date', "");
   unset($_COOKIE['authhash_usid']);
   unset($_COOKIE['authhash_uscode']);
   unset($_COOKIE['cookie_eq_util']);
   unset($_COOKIE['cookie_eq_sale']);
   unset($_COOKIE['on_off_cookie']);
-  unset($_COOKIE['date']);
   // session_regenerate_id();
   header("Location: ".$CONF['hostname']);
   // ТУТ УДАЛИТЬ КУКИ
@@ -55,10 +53,10 @@ if (isset($_POST['login']) && isset($_POST['password']))
         $_SESSION['dilena_user_login'] = $row['login'];
         $_SESSION['dilema_user_fio'] = $row['fio'];
         $_SESSION['dilema_org'] = get_conf_param('default_org');
+        $_SESSION['dilema_date'] = date('Y-m-d');
         setcookie ('on_off_cookie',$row['on_off']);
         setcookie('cookie_eq_util','0');
         setcookie('cookie_eq_sale','0');
-        setcookie ('date',date('Y-m-d'));
         $_SESSION['us_code'] = $password;
         if ($rm == "1") {
 
@@ -67,7 +65,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
             setcookie('cookie_eq_util', '0', time()+60*60*24*7);
             setcookie('cookie_eq_sale', '0', time()+60*60*24*7);
             setcookie ('on_off_cookie',$row['on_off'], time()+60*60*24*7);
-            setcookie ('date',date('Y-m-d'), time()+60*60*24*7);
 
 
         }

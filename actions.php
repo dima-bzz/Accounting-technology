@@ -4731,13 +4731,11 @@ if ($mode == "edit_profile_pass") {
         setcookie('cookie_eq_util', "");
         setcookie('cookie_eq_sale', "");
         setcookie('on_off_cookie', "");
-        setcookie('date', "");
         unset($_COOKIE['authhash_usid']);
         unset($_COOKIE['authhash_uscode']);
         unset($_COOKIE['cookie_eq_util']);
         unset($_COOKIE['cookie_eq_sale']);
         unset($_COOKIE['on_off_cookie']);
-        unset($_COOKIE['date']);
 
 
         ?>
@@ -5437,8 +5435,11 @@ if ($mode == "select_org"){
   </select>
   <?php
 }
+if ($mode == "update_date"){
+  $_SESSION['dilema_date'] = $_POST['date'];
+}
 if ($mode == "calendar_birthday"){
-  $day = $_COOKIE['date'];
+  $day = $_SESSION['dilema_date'];
   $day_f = explode("-",$day);
   $events = array();
   $stmt = $dbConnection->prepare("SELECT users.fio as fio, users.id as id, users_profile.birthday as birthday FROM users INNER JOIN users_profile ON users.id = users_profile.usersid  WHERE users_profile.birthday !=' ' and users.on_off = 1");
@@ -5448,8 +5449,8 @@ if ($mode == "calendar_birthday"){
     $e = array();
     $bi_st = explode(".",$myrow['birthday']);
     if ($bi_st[2] <= $day_f[0]){
-    $yearBegin = date("Y",strtotime($day_f[0].'-1 year'));
-    $yearEnd = date("Y",strtotime($day_f[0].'+1 year'));
+    $yearBegin = date("Y",strtotime($day.'-1 year'));
+    $yearEnd = date("Y",strtotime($day.'+1 year'));
     $years = range($yearBegin, $yearEnd, 1);
     foreach ($years as $year) {
     $bi = DateToMySQLDateBirthday($myrow['birthday']);
@@ -5711,7 +5712,7 @@ if ($mode == "event_del"){
 }
 if ($mode == "calendar_users_event"){
   $usid=$_SESSION['dilema_user_id'];
-  $day = $_COOKIE['date'];
+  $day = $_SESSION['dilema_date'];
   $day_f = explode("-",$day);
   $events = array();
   $stmt = $dbConnection->prepare("SELECT id,usersid,event_name,event_start,event_end,event_repeat, color, textcolor FROM calendar WHERE usersid=:usid");

@@ -558,6 +558,7 @@ function validate_user($user_id, $input) {
             $_SESSION['us_code']=$input;
             $_SESSION['dilema_user_id']=$user_id;
             $_SESSION['dilema_org'] = get_conf_param('default_org');
+            $_SESSION['dilema_date'] = date('Y-m-d');
 
         }
 
