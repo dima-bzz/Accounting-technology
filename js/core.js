@@ -4988,6 +4988,7 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
                   event.preventDefault();
                   table_eq.search('').draw();
                   $("#equipment_table_clear").blur();
+                  table_eq.$('i.fa-check-circle').addClass('text-success');
                   table_eq.rows().deselect();
                   table_eq_move.clear().draw();
                   table_eq_repair.clear().draw();
@@ -5001,6 +5002,7 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="equipment_table"]', function(event) {
                 if (this.value.length == '0'){
+                  table_eq.$('i.fa-check-circle').addClass('text-success');
                   table_eq.rows().deselect();
                   table_eq_move.clear().draw();
                   table_eq_repair.clear().draw();
@@ -7080,6 +7082,7 @@ $('body').on('click', 'button#table_cartridge_clear', function(event) {
                   table_cartridge.search('').draw();
                   $('#printid_fast').val('').trigger('chosen:updated');
                   $("#table_cartridge_clear").blur();
+                  table_cartridge.$('i.fa-check-circle').addClass('text-success');
                   table_cartridge.rows().deselect();
                   table_cartridge_uchet.clear().draw();
                   eq_one_id=[];
@@ -7090,6 +7093,7 @@ $('body').on('click', 'button#table_cartridge_clear', function(event) {
               $('body').on('keyup', 'input[aria-controls="table_cartridge"]', function(event) {
                 if (this.value.length == '0'){
                   $('#printid_fast').val('').trigger('chosen:updated');
+                  table_cartridge.$('i.fa-check-circle').addClass('text-success');
                   table_cartridge.rows().deselect();
                   table_cartridge_uchet.clear().draw();
                   eq_one_id=[];
@@ -8219,6 +8223,7 @@ $('body').on('click', 'button#table_org_clear', function(event) {
                   event.preventDefault();
                   table_org.search('').draw();
                   $("#table_org_clear").blur();
+                  table_org.$('i.fa-check-circle').addClass('text-success');
                   table_org.rows().deselect();
                 });
                 if (table_org.search() !== ''){
@@ -8226,6 +8231,7 @@ $('body').on('click', 'button#table_org_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="table_org"]', function(event) {
                 if (this.value.length == '0'){
+                  table_org.$('i.fa-check-circle').addClass('text-success');
                   table_org.rows().deselect();
                 }
               });
@@ -8453,6 +8459,7 @@ $('body').on('click', 'button#table_places_clear', function(event) {
                   table_places.search('').draw();
                   table_places_sub.clear().draw();
                   $("#table_places_clear").blur();
+                  table_places.$('i.fa-check-circle').addClass('text-success');
                   table_places.rows().deselect();
                 });
                 if (table_places.search() !== ''){
@@ -8460,6 +8467,7 @@ $('body').on('click', 'button#table_places_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="table_places"]', function(event) {
                 if (this.value.length == '0'){
+                  table_places.$('i.fa-check-circle').addClass('text-success');
                   table_places.rows().deselect();
                 }
               });
@@ -8907,6 +8915,7 @@ $('body').on('click', 'button#table_users_clear', function(event) {
                   event.preventDefault();
                   table_users.search('').draw();
                   $("#table_users_clear").blur();
+                  table_users.$('i.fa-check-circle').addClass('text-success');
                   table_users.rows().deselect();
                 });
                 if (table_users.search() !== ''){
@@ -8914,6 +8923,7 @@ $('body').on('click', 'button#table_users_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="table_users"]', function(event) {
                 if (this.value.length == '0'){
+                  table_users.$('i.fa-check-circle').addClass('text-success');
                   table_users.rows().deselect();
                 }
               });
@@ -9525,6 +9535,7 @@ $('body').on('click', 'button#table_vendors_clear', function(event) {
                   event.preventDefault();
                   table_vendors.search('').draw();
                   $("#table_vendors_clear").blur();
+                  table_vendors.$('i.fa-check-circle').addClass('text-success');
                   table_vendors.rows().deselect();
                 });
                 if (table_vendors.search() !== ''){
@@ -9532,6 +9543,7 @@ $('body').on('click', 'button#table_vendors_clear', function(event) {
                 }
                 $('body').on('keyup', 'input[aria-controls="table_vendors"]', function(event) {
                   if (this.value.length == '0'){
+                    table_vendors.$('i.fa-check-circle').addClass('text-success');
                     table_vendors.rows().deselect();
                   }
                 });
@@ -9756,6 +9768,7 @@ $('body').on('click', 'button#table_group_nome_clear', function(event) {
                   event.preventDefault();
                   table_group_nome.search('').draw();
                   $("#table_group_nome_clear").blur();
+                  table_group_nome.$('i.fa-check-circle').addClass('text-success');
                   table_group_nome.rows().deselect();
                 });
                 if (table_group_nome.search() !== ''){
@@ -9763,6 +9776,7 @@ $('body').on('click', 'button#table_group_nome_clear', function(event) {
                 }
                 $('body').on('keyup', 'input[aria-controls="table_group_nome"]', function(event) {
                   if (this.value.length == '0'){
+                    table_group_nome.$('i.fa-check-circle').addClass('text-success');
                     table_group_nome.rows().deselect();
                   }
                 });
@@ -10038,6 +10052,7 @@ $('body').on('click', 'button#table_nome_clear', function(event) {
                   table_nome.search('').draw();
                   $('#groupid_fast').val('').trigger('chosen:updated');
                   $("#table_nome_clear").blur();
+                  table_nome.$('i.fa-check-circle').addClass('text-success');
                   table_nome.rows().deselect();
                 });
                 if (table_nome.search() !== ''){
@@ -10046,6 +10061,7 @@ $('body').on('click', 'button#table_nome_clear', function(event) {
               $('body').on('keyup', 'input[aria-controls="table_nome"]', function(event) {
                 if (this.value.length == '0'){
                   $('#groupid_fast').val('').trigger('chosen:updated');
+                  table_nome.$('i.fa-check-circle').addClass('text-success');
                   table_nome.rows().deselect();
                 }
               });
@@ -10404,6 +10420,7 @@ $('body').on('click', 'button#table_requisites_clear', function(event) {
                   event.preventDefault();
                   table_requisites.search('').draw();
                   $("#table_requisites_clear").blur();
+                  table_requisites.$('i.fa-check-circle').addClass('text-success');
                   table_requisites.rows().deselect();
                   table_requisites_files.clear().draw();
                   eq_one_id=[];
@@ -10414,6 +10431,7 @@ $('body').on('click', 'button#table_requisites_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="table_requisites"]', function(event) {
                 if (this.value.length == '0'){
+                  table_requisites.$('i.fa-check-circle').addClass('text-success');
                   table_requisites.rows().deselect();
                   table_requisites_files.clear().draw();
                   eq_one_id=[];
@@ -10841,6 +10859,7 @@ $('body').on('click', 'button#table_knt_clear', function(event) {
                     event.preventDefault();
                     table_knt.search('').draw();
                     $("#table_knt_clear").blur();
+                    table_knt.$('i.fa-check-circle').addClass('text-success');
                     table_knt.rows().deselect();
                     table_knt_files.clear().darw();
                     eq_one_id=[];
@@ -10851,6 +10870,7 @@ $('body').on('click', 'button#table_knt_clear', function(event) {
                 }
                 $('body').on('keyup', 'input[aria-controls="table_knt"]', function(event) {
                   if (this.value.length == '0'){
+                    table_knt.$('i.fa-check-circle').addClass('text-success');
                     table_knt.rows().deselect();
                     table_knt_files.clear().darw();
                     eq_one_id=[];
