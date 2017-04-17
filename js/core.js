@@ -4999,6 +4999,17 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
                 if (table_eq.search() !== ''){
                 table_eq.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="equipment_table"]', function(event) {
+                if (this.value.length == '0'){
+                  table_eq.rows().deselect();
+                  table_eq_move.clear().draw();
+                  table_eq_repair.clear().draw();
+                  table_eq_param.clear().draw();
+                  $('#photoid').fadeOut(500);
+                  arrList = [];
+                  eq_one_id = [];
+                }
+              });
 function render_checkbox(data, type, full) {
   if (type === 'display'){
           var checked = "";
@@ -5508,6 +5519,11 @@ $('body').on('click', 'button#equipment_move_show_all_clear', function(event) {
                 if (table_eq_move_show_all.search() !== ''){
                   table_eq_move_show_all.search('').draw();
                 }
+                $('body').on('keyup', 'input[aria-controls="equipment_move_show_all"]', function(event) {
+                  if (this.value.length == '0'){
+                    table_eq_move_show_all.rows().deselect();
+                  }
+                });
 
 // ***** История ремонта *****
 var table_eq_repair = $('#equipment_repair').DataTable({
@@ -5930,6 +5946,11 @@ window.table_ping = $('#ping').DataTable({
               else {
                 table_ping.ajax.reload();
               }
+              $('body').on('keyup', 'input[aria-controls="ping_clear"]', function(event) {
+                if (this.value.length == '0'){
+                  table_ping.rows().deselect();
+                }
+              });
 });
 
 // ***** Проверка принтеров *****
@@ -6011,6 +6032,11 @@ $("#print_test").on('click', function(){
                     $('#table_print_test').DataTable().search('').draw();
                     $("#table_print_test_clear").blur();
                     $("#table_print_test_clear").DataTable().rows().deselect();
+                  });
+                  $('body').on('keyup', 'input[aria-controls="table_print_test"]', function(event) {
+                    if (this.value.length == '0'){
+                      $("#table_print_test_clear").DataTable().rows().deselect();
+                    }
                   });
 })
 
@@ -6652,6 +6678,12 @@ $('body').on('click', 'button#table_license_clear', function(event) {
                   table_license.rows().deselect();
                   arrList_li=[];
                 });
+                $('body').on('keyup', 'input[aria-controls="table_license"]', function(event) {
+                  if (this.value.length == '0'){
+                    table_license.rows().deselect();
+                    arrList_li=[]
+                  }
+                });
 $('#table_license tbody').on( 'click', 'tr.group', function () {
        var currentOrder = table_license.order()[0];
        if ( currentOrder[0] === 0 && currentOrder[1] === 'asc' ) {
@@ -7055,6 +7087,14 @@ $('body').on('click', 'button#table_cartridge_clear', function(event) {
                 if (table_cartridge.search() !== ''){
                 table_cartridge.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_cartridge"]', function(event) {
+                if (this.value.length == '0'){
+                  $('#printid_fast').val('').trigger('chosen:updated');
+                  table_cartridge.rows().deselect();
+                  table_cartridge_uchet.clear().draw();
+                  eq_one_id=[];
+                }
+              });
 // Быстрое редактирование картриджей диалог
 $('#table_cartridge tbody').on( 'click', 'button#fast_edit', function () {
         var data = table_cartridge.row( $(this).parents('tr') ).data();
@@ -7435,6 +7475,12 @@ window.table_invoice = $('#invoice').DataTable({
                 if (table_invoice.search() !== ''){
                 table_invoice.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_invoice"]', function(event) {
+                      if (this.value.length == '0'){
+                        table_invoice.clear().draw();
+                        arrList_inv=[];
+                      }
+                    });
       $('#table_invoice tbody').on( 'dblclick','td', function () {
         var d = $(this).attr({
           'id':'select_copy',
@@ -7864,15 +7910,6 @@ window.table_report = $('#report').DataTable({
               "url": MyHOSTNAME + "lang/lang-" + lang +".json"
                   }
       });
-      $('body').on('click', 'button#report_clear', function(event) {
-                event.preventDefault();
-                table_report.search('').draw();
-                $("#report_clear").blur();
-                table_report.rows().deselect();
-                table_eq_move_show_rep.clear().draw();
-                eq_one_id=[];
-                arrList_shtr=[];
-          });
       $('#report tbody').on( 'dblclick','td', function () {
         var d = $(this).attr({
           'id':'select_copy',
@@ -7895,14 +7932,26 @@ window.table_report = $('#report').DataTable({
           },800);
           }
       } );
-$('body').on('click', 'button#report_clear', function(event) {
+      $('body').on('click', 'button#report_clear', function(event) {
                 event.preventDefault();
                 table_report.search('').draw();
                 $("#report_clear").blur();
+                table_report.rows().deselect();
+                table_eq_move_show_rep.clear().draw();
+                eq_one_id=[];
+                arrList_shtr=[];
           });
           if (table_report.search() !== ''){
           table_report.search('').draw();
         }
+        $('body').on('keyup', 'input[aria-controls="report"]', function(event) {
+          if (this.value.length == '0'){
+            table_report.rows().deselect();
+            table_eq_move_show_rep.clear().draw();
+            eq_one_id=[];
+            arrList_shtr=[];
+          }
+        });
       $('#us').on('click', function(){
         if ($(this).prop('checked') === true){
           table_report.order( [ 10, 'asc' ] ).draw();
@@ -8175,6 +8224,11 @@ $('body').on('click', 'button#table_org_clear', function(event) {
                 if (table_org.search() !== ''){
                 table_org.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_org"]', function(event) {
+                if (this.value.length == '0'){
+                  table_org.rows().deselect();
+                }
+              });
 // Редактирование организации
 $('#table_org tbody').on( 'click', 'button#org_edit', function () {
            var data = table_org.row( $(this).parents('tr') ).data();
@@ -8404,6 +8458,11 @@ $('body').on('click', 'button#table_places_clear', function(event) {
                 if (table_places.search() !== ''){
                 table_places.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_places"]', function(event) {
+                if (this.value.length == '0'){
+                  table_places.rows().deselect();
+                }
+              });
 // Редактирование помещения диалого
 $('#table_places tbody').on( 'click', 'button#places_edit', function () {
            var data = table_places.row( $(this).parents('tr') ).data();
@@ -8853,7 +8912,11 @@ $('body').on('click', 'button#table_users_clear', function(event) {
                 if (table_users.search() !== ''){
                 table_users.search('').draw();
               }
-
+              $('body').on('keyup', 'input[aria-controls="table_users"]', function(event) {
+                if (this.value.length == '0'){
+                  table_users.rows().deselect();
+                }
+              });
 // Редактирование пользователя
 $('#table_users tbody').on( 'click', 'button#users_edit', function () {
            var data = table_users.row( $(this).parents('tr') ).data();
@@ -9321,6 +9384,11 @@ $('body').on('click', 'button#table_contact_clear', function(event) {
                 if (table_contact.search() !== ''){
                 table_contact.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_contact"]', function(event) {
+                if (this.value.length == '0'){
+                  table_contact.rows().deselect();
+                }
+              });
 var array_cont = new Array();
   table_contact.on('select', function(e, dt, type, indexes ){
     var data = table_contact.row( indexes ).data();
@@ -9462,6 +9530,11 @@ $('body').on('click', 'button#table_vendors_clear', function(event) {
                 if (table_vendors.search() !== ''){
                   table_vendors.search('').draw();
                 }
+                $('body').on('keyup', 'input[aria-controls="table_vendors"]', function(event) {
+                  if (this.value.length == '0'){
+                    table_vendors.rows().deselect();
+                  }
+                });
 // Редактирование производителей диалог
 $('#table_vendors tbody').on( 'click', 'button#vendors_edit', function () {
            var data = table_vendors.row( $(this).parents('tr') ).data();
@@ -9688,6 +9761,11 @@ $('body').on('click', 'button#table_group_nome_clear', function(event) {
                 if (table_group_nome.search() !== ''){
                   table_group_nome.search('').draw();
                 }
+                $('body').on('keyup', 'input[aria-controls="table_group_nome"]', function(event) {
+                  if (this.value.length == '0'){
+                    table_group_nome.rows().deselect();
+                  }
+                });
 // Редактирование производителей диалог
 $('#table_group_nome tbody').on( 'click', 'button#group_nome_edit', function () {
            var data = table_group_nome.row( $(this).parents('tr') ).data();
@@ -9965,6 +10043,12 @@ $('body').on('click', 'button#table_nome_clear', function(event) {
                 if (table_nome.search() !== ''){
                 table_nome.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_nome"]', function(event) {
+                if (this.value.length == '0'){
+                  $('#groupid_fast').val('').trigger('chosen:updated');
+                  table_nome.rows().deselect();
+                }
+              });
 // Редактирование номенклатуры диалог
 $('#table_nome tbody').on( 'click', 'button#nome_edit', function () {
            var data = table_nome.row( $(this).parents('tr') ).data();
@@ -10328,6 +10412,14 @@ $('body').on('click', 'button#table_requisites_clear', function(event) {
                 if (table_requisites.search() !== ''){
                 table_requisites.search('').draw();
               }
+              $('body').on('keyup', 'input[aria-controls="table_requisites"]', function(event) {
+                if (this.value.length == '0'){
+                  table_requisites.rows().deselect();
+                  table_requisites_files.clear().draw();
+                  eq_one_id=[];
+                  arrList_req=[];
+                }
+              });
 table_requisites.on('select', function(e, dt, type, indexes ){
   var data = table_requisites.row( indexes ).data();
   eq_one_id=data[1];
@@ -10757,7 +10849,14 @@ $('body').on('click', 'button#table_knt_clear', function(event) {
                   if (table_knt.search() !== ''){
                   table_knt.search('').draw();
                 }
-
+                $('body').on('keyup', 'input[aria-controls="table_knt"]', function(event) {
+                  if (this.value.length == '0'){
+                    table_knt.rows().deselect();
+                    table_knt_files.clear().darw();
+                    eq_one_id=[];
+                    arrList_knt=[];
+                  }
+                });
 table_knt.on('select', function(e, dt, type, indexes ){
     var data = table_knt.row( indexes ).data();
     eq_one_id=data[1];
