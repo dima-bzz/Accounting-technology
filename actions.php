@@ -5449,8 +5449,8 @@ if ($mode == "calendar_birthday"){
     $e = array();
     $bi_st = explode(".",$myrow['birthday']);
     if ($bi_st[2] <= $day_f[0]){
-    $yearBegin = date("Y",strtotime($day.'-1 year'));
-    $yearEnd = date("Y",strtotime($day.'+1 year'));
+      $yearBegin = date("Y",strtotime($day.'-2 month'));
+      $yearEnd = date("Y",strtotime($day.'+2 month'));
     $years = range($yearBegin, $yearEnd, 1);
     foreach ($years as $year) {
     $bi = DateToMySQLDateBirthday($myrow['birthday']);
