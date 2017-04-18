@@ -47,7 +47,7 @@ include("menus.php");
               <th class="center_header"><?=get_lang('Kntname')?></th>
               <th class="center_header"><?=get_lang('Invoice')?></th>
             </tr>
-            <thead>
+          </thead>
         </table>
             <div id="photoid" class="center_all"></div>
       </div>
