@@ -3781,11 +3781,6 @@ return data ?
             "url": MyHOSTNAME + "lang/lang-" + lang + ".json"
         }
         });
-        table_eq_mat.on('select', function(e, dt, type, indexes ){
-               var data = table_eq_mat.row( indexes ).data();
-                eq_one_id = data[0];
-                table_eq_move_show.ajax.reload();
-           })
 
            $('#eq_mat tbody').on( 'dblclick','td', function () {
              var d = $(this).attr({
@@ -5112,10 +5107,12 @@ var eq_one_id = [];
         arrList = $.grep(arrList, function(value){
           return value != data[1];
         })
-        eq_one_id = $.grep(eq_one_id, function(value){
-          return value != data[1];
-        })
-        if (eq_one_id == ''){
+        eq_one_id = arrList[arrList.length-1];
+        table_eq_move.ajax.reload();
+        table_eq_repair.ajax.reload();
+        table_eq_param.ajax.reload();
+        equipment_photo();
+        if ((eq_one_id == '') || (eq_one_id == 'undefined')){
         table_eq_move.clear().draw();
         table_eq_repair.clear().draw();
         table_eq_param.clear().draw();
@@ -6114,7 +6111,10 @@ table_eq_list.on('select', function(e, dt, type, indexes ){
        var data = table_eq_list.row( indexes ).data();
         eq_one_id = data[0];
         table_eq_move_show.ajax.reload();
-   })
+   }).on( 'deselect', function () {
+        eq_one_id=[];
+        table_eq_move_show.clear().draw();
+      })
 
 // ***** Лицензии *****
 var table_license = $('#table_license').DataTable({
@@ -7197,7 +7197,10 @@ $('#table_cartridge tbody').on( 'click', 'tr.group', function () {
        var data = table_cartridge.row( indexes ).data();
         eq_one_id=data[1];
         table_cartridge_uchet.ajax.reload();
-   })
+   }).on( 'deselect', function () {
+        eq_one_id=[];
+        table_cartridge_uchet.clear().draw();
+      })
 
 // ***** История выдачи картриджей*****
 var table_cartridge_uchet = $('#table_cartridge_uchet').DataTable({
@@ -8015,11 +8018,12 @@ $('#report tbody').on( 'click', 'tr.group', function () {
               arrList_shtr = $.grep(arrList_shtr, function(value){
                 return value != data[0];
               })
-              eq_one_id = $.grep(eq_one_id, function(value){
-                return value != data[0];
-              })
-              if (eq_one_id == ''){
+              eq_one_id = arrList_shtr[arrList_shtr.length-1];
+              table_eq_move_show_rep.ajax.reload();
+              if ((eq_one_id == '') || (eq_one_id == 'undefined')){
               table_eq_move_show_rep.clear().draw();
+              eq_one_id=[];
+              arrList_shtr=[];
             }
             })
           }
@@ -8570,7 +8574,10 @@ table_places.on('select', function(e, dt, type, indexes ){
      var data = table_places.row( indexes ).data();
       eq_one_id=data[1];
       table_places_sub.ajax.reload();
- })
+ }).on( 'deselect', function () {
+      eq_one_id=[];
+      table_places_sub.clear().draw();
+    })
 
 // ***** Список кто сидит в помещении *****
 var table_places_sub = $('#table_places_sub').DataTable({
@@ -10285,6 +10292,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 {
   text: function(a){return a.i18n("Edit","Edit")},
   action: function ( e, dt, node, config ) {
+    var $rows = table_requisites.$('tr.selected');
+  if ($rows.length == '1'){
     window.dialog_requisites_edit = new BootstrapDialog({
             title: get_lang_param("Requisites_edit"),
             message: function(dialogRef) {
@@ -10328,7 +10337,16 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
         });
         dialog_requisites_edit.realize();
         dialog_requisites_edit.open();
-  }
+        }
+        else {
+        BootstrapDialog.alert({
+        title: get_lang_param("Er_title"),
+        message: get_lang_param("Er_msg2"),
+        type: BootstrapDialog.TYPE_WARNING,
+        draggable: true
+        });
+      }
+}
 },
 {
     text:function(a){return a.i18n("Delete","Delete")},
@@ -10442,7 +10460,10 @@ table_requisites.on('select', function(e, dt, type, indexes ){
   var data = table_requisites.row( indexes ).data();
   eq_one_id=data[1];
   table_requisites_files.ajax.reload();
-})
+}).on( 'deselect', function () {
+     eq_one_id=[];
+     table_requisites_files.clear().draw();
+   })
 $('#table_requisites tbody').on( 'click', 'tr', function () {
   if ( $(this).hasClass('selected') ) {
     table_requisites.$('i.fa-check-circle').addClass('text-success');
@@ -10724,6 +10745,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   {
     text: function(a){return a.i18n("Edit","Edit")},
     action: function ( e, dt, node, config ) {
+        var $rows = table_knt.$('tr.selected');
+          if ($rows.length == '1'){
       window.dialog_knt_edit = new BootstrapDialog({
               title: get_lang_param("Knt_edit"),
               message: function(dialogRef) {
@@ -10768,6 +10791,15 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           dialog_knt_edit.realize();
           dialog_knt_edit.open();
     }
+          else {
+        BootstrapDialog.alert({
+        title: get_lang_param("Er_title"),
+        message: get_lang_param("Er_msg2"),
+        type: BootstrapDialog.TYPE_WARNING,
+        draggable: true
+        });
+      }
+      }
   },
   {
       text:function(a){return a.i18n("Delete","Delete")},
@@ -10881,7 +10913,10 @@ table_knt.on('select', function(e, dt, type, indexes ){
     var data = table_knt.row( indexes ).data();
     eq_one_id=data[1];
     table_knt_files.ajax.reload();
-})
+}).on( 'deselect', function () {
+     eq_one_id=[];
+     table_knt_files.clear().draw();
+   })
 $('#table_knt tbody').on( 'click', 'tr', function () {
   if ( $(this).hasClass('selected') ) {
     table_knt.$('i.fa-check-circle').addClass('text-success');
