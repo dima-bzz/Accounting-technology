@@ -450,7 +450,8 @@
 "Access_denied": "Доступ закрыт!",
 "Select_group": "Выберите группу(-ы) ТМЦ",
 "Users_online" : "Показать пользователей Online",
-"Users_offline" : "Показать пользователей Offline"
+"Users_offline" : "Показать пользователей Offline",
+"All" : "Все"
 
 
 }

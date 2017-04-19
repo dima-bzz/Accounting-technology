@@ -6132,7 +6132,7 @@ var table_license = $('#table_license').DataTable({
 "sScrollX": "100%",
 "sScrollXInner": "100%",
 "iDisplayLength": 10,
-"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, get_lang_param("All")]],
 "stateSave":true,
 "searching":true,
 "bLengthChange": true,
@@ -6733,7 +6733,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
 "stateSave":true,
 "searching":true,
 "iDisplayLength": 10,
-"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, get_lang_param("All")]],
 "bLengthChange": true,
 "select":{
     "style": "os"
@@ -8351,7 +8351,7 @@ var table_places = $('#table_places').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -8681,7 +8681,7 @@ var table_users = $('#table_users').DataTable({
 "bAutoWidth": true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -9163,7 +9163,7 @@ var table_contact = $('#table_contact').DataTable({
 "bAutoWidth": true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "multi"
           },
@@ -9430,7 +9430,7 @@ var table_vendors = $('#table_vendors').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -9663,7 +9663,7 @@ var table_group_nome = $('#table_group_nome').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -9896,7 +9896,7 @@ var table_nome = $('#table_nome').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -10209,7 +10209,7 @@ var table_requisites = $('#table_requisites').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
           },
@@ -10650,7 +10650,7 @@ var table_knt = $('#table_knt').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
 "select":{
 "style": "os"
             },
