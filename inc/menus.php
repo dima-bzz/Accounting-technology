@@ -17,7 +17,7 @@ if (validate_priv($_SESSION['dilema_user_id']) == 1){
 }
 // echo sizeof(preg_grep("/^(1+)?\-\d+$/", $permit)) || ($admin == true));
 ?>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default  navbar-static-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
