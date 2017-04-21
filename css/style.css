@@ -36,6 +36,12 @@
   text-align: center;
   vertical-align:middle !important;
 }
+.header_nowrap{
+  white-space: nowrap !important;
+}
+.wr{
+  white-space: pre-wrap !important;
+}
 .class{
   background-color: white !important;
 }
@@ -232,6 +238,9 @@ td.fc-sun, td.fc-sat{
 }
 .license_col-dialog .modal-dialog {
                 width: 500px;
+}
+.programming-dialog .modal-dialog {
+                width: 400px;
 }
 .param-dialog .modal-dialog {
                 width: 820px;

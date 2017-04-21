@@ -12,7 +12,7 @@ if (url.search(p1) >= 0) {
 return zzz;
 };
 
-window.check_er = {login: false, email: false, account: false, save: false, user_name: false};
+window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 
 function get_lang_param(par) {
@@ -1704,11 +1704,7 @@ $('body').on('click', 'button#license_add', function(event) {
         "&system=" +encodeURIComponent($("#system").val())+
         "&organti=" +encodeURIComponent($("#organti").val())+
         "&antiname=" +encodeURIComponent($("#antiname").val())+
-        "&visio=" +encodeURIComponent($("#visio").prop('checked'))+
-        "&adobe=" +encodeURIComponent($("#adobe").prop('checked'))+
-        "&winrar=" +encodeURIComponent($("#winrar").prop('checked'))+
-        "&visual=" +encodeURIComponent($("#visual").prop('checked'))+
-        "&lingvo=" +encodeURIComponent($("#lingvo").prop('checked'))+
+        "&programming=" +encodeURIComponent($("#what_programming").val())+
         "&comment=" +encodeURIComponent($("#comment").val()),
         success: function() {
           dialog_license_add.close();
@@ -1754,11 +1750,7 @@ $('body').on('click', 'button#license_edit', function(event) {
         "&system=" +encodeURIComponent($("#system").val())+
         "&organti=" +encodeURIComponent($("#organti").val())+
         "&antiname=" +encodeURIComponent($("#antiname").val())+
-        "&visio=" +encodeURIComponent($("#visio").prop('checked'))+
-        "&adobe=" +encodeURIComponent($("#adobe").prop('checked'))+
-        "&winrar=" +encodeURIComponent($("#winrar").prop('checked'))+
-        "&visual=" +encodeURIComponent($("#visual").prop('checked'))+
-        "&lingvo=" +encodeURIComponent($("#lingvo").prop('checked'))+
+        "&programming=" +encodeURIComponent($("#what_programming").val())+
         "&comment=" +encodeURIComponent($("#comment").val()),
         success: function() {
           dialog_license_edit.close();
@@ -2339,7 +2331,43 @@ function check_login(){
 
 });
 }
+function check_programming(){
+  $("input#programming").keyup(function() {
+  if($(this).val().length >= 2) {
 
+      $("#programming_grp").removeClass('has-error').addClass('has-success');
+      check_er.programming = false;
+      $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: ACTIONPATH,
+      data: "mode=check_programming"+
+      "&programming="+$(this).val(),
+      success: function(html) {
+      $.each(html, function(i, item) {
+      if (item.check_programming_status === true) {
+      $("#programming_grp").removeClass('has-error').addClass('has-success');
+      check_er.programming = false;
+
+      }
+      else if (item.check_programming_status === false) {
+      $("#programming_grp").removeClass('has-success').addClass('has-error');
+      check_er.programming = true;
+      }
+      }
+      );
+     }
+
+      });
+} else {
+
+    $("#programming_grp").removeClass('has-success').addClass('has-error');
+    check_er.programming = true;
+
+}
+
+});
+}
 function check_email(){
   $('#email').keyup(function(){
     var val = $(this).val();
@@ -3709,7 +3737,278 @@ $('body').on('click', 'a#next', function(event) {
              }
          });
 });
+// ****** Добавление ПО ******
+$('body').on('click', 'button#add_programming', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
 
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=add_programming"+
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_programming.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+
+        }
+        });
+      }
+});
+// ****** Редактирование ПО ******
+$('body').on('click', 'button#edit_programming', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          if ($('#programmingid').val().length == '0'){
+            $('#programming_p').popover('show').css('z-index', 1060);
+            $('#programming_p').addClass('has-error');
+            setTimeout(function(){$("#programming_p").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=edit_programming"+
+        "&id=" + $("#programmingid").val() +
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_programming.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+        }
+        });
+      }
+});
+// ****** Добавление Операционной системы ******
+$('body').on('click', 'button#add_system', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=add_system"+
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_system.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+
+        }
+        });
+      }
+});
+// ****** Редактирование Операционной системы ******
+$('body').on('click', 'button#edit_system', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          if ($('#programmingid').val().length == '0'){
+            $('#programming_p').popover('show').css('z-index', 1060);
+            $('#programming_p').addClass('has-error');
+            setTimeout(function(){$("#programming_p").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=edit_system"+
+        "&id=" + $("#programmingid").val() +
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_system.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+        }
+        });
+      }
+});
+// ****** Добавление Офиса ******
+$('body').on('click', 'button#add_office', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=add_office"+
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_office.close();
+          ttable_license.ajax.reload(null, false);
+          arrList_li=[];
+
+        }
+        });
+      }
+});
+// ****** Редактирование Офиса ******
+$('body').on('click', 'button#edit_office', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          if ($('#programmingid').val().length == '0'){
+            $('#programming_p').popover('show').css('z-index', 1060);
+            $('#programming_p').addClass('has-error');
+            setTimeout(function(){$("#programming_p").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=edit_office"+
+        "&id=" + $("#programmingid").val() +
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_office.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+        }
+        });
+      }
+});
+// ****** Добавление Антивируса ******
+$('body').on('click', 'button#add_antivirus', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=add_anti"+
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_anti.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+
+        }
+        });
+      }
+});
+// ****** Редактирование Антивируса ******
+$('body').on('click', 'button#edit_antivirus', function(event) {
+          event.preventDefault();
+          var er = check_er.programming;
+          var valid_programming_add_edit = function(){
+          var valid_result = false;
+          if ($('#programming').val().length == '0'){
+            $('#programming').popover('show').css('z-index', 1060);
+            $('#programming_grp').addClass('has-error');
+            setTimeout(function(){$("#programming").popover('hide');},2000);
+            valid_result = true;
+          }
+          if ($('#programmingid').val().length == '0'){
+            $('#programming_p').popover('show').css('z-index', 1060);
+            $('#programming_p').addClass('has-error');
+            setTimeout(function(){$("#programming_p").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+
+
+        if ((valid_programming_add_edit() == false) && (er == false)){
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=edit_anti"+
+        "&id=" + $("#programmingid").val() +
+        "&name=" +encodeURIComponent($("#programming").val()),
+        success: function() {
+          dialog_anti.close();
+          table_license.ajax.reload(null, false);
+          arrList_li=[];
+        }
+        });
+      }
+});
 // ******ТМЦ под ответсвенностью на главной странице******
 var table_eq_mat = $('#eq_mat').DataTable({
   "aServerSide": true,
@@ -3996,6 +4295,8 @@ drawCallback: function(){
                                   $("#eq_util").attr('disabled', false);
                                 }
                               })
+                              $('#cost').zeninput();
+                                $('#currentcost').zeninput();
                             my_select();
                             my_select2();
                             img_equipment();
@@ -4172,6 +4473,8 @@ drawCallback: function(){
                                     $("#eq_util").attr('disabled', false);
                                   }
                                 })
+                                $('#cost').zeninput();
+                                $('#currentcost').zeninput();
                                 my_select();
                                 my_select2();
                                 img_equipment();
@@ -6168,6 +6471,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             if (Admin !== true ){
               table_license.buttons('.Action_b_license').remove();
               table_license.buttons('.License_delete_bt').remove();
+              table_license.buttons('.Action_b_PO').remove();
             }
             if ($.cookie('cookie_eq_util') == '1'){
               table_license.buttons('.Sale_b').disable();
@@ -6178,7 +6482,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   },
 "aoColumns": [
             {"visible":false},
-            {"bSearchable":false,"className": "center_table"},
+            {"className": "center_table"},
             null,
             {"visible":false},
             null,
@@ -6187,11 +6491,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             null,
             null,
             null,
-            {"bSearchable":false,"mRender": render_checkbox, "className": "center_table"},
-            {"bSearchable":false,"mRender": render_checkbox, "className": "center_table"},
-            {"bSearchable":false,"mRender": render_checkbox, "className": "center_table"},
-            {"bSearchable":false,"mRender": render_checkbox, "className": "center_table"},
-            {"bSearchable":false,"mRender": render_checkbox, "className": "center_table"},
+            {"className": "wr"},
             null,
         ],
 "aoColumnDefs":[
@@ -6545,6 +6845,234 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 }
 
               },
+              {
+                extend: 'collection',
+                className: 'Action_b_PO',
+                text: function(a){return a.i18n("Action_PO","Action button")},
+                autoClose: true,
+                "buttons":[
+                  {
+                  text: function(a){return a.i18n("System","Operating System")},
+                  action: function( e, dt, node, config ){
+                      window.dialog_system = new BootstrapDialog({
+                              title: get_lang_param("System"),
+                              message: function(dialogRef) {
+                              var $message = $('<div></div>');
+                              var data = $.ajax({
+                              url: ACTIONPATH,
+                              type: 'POST',
+                              data: "mode=dialog_system",
+                              context: {
+                              theDialogWeAreUsing: dialogRef
+                              },
+                              success: function(content) {
+                              this.theDialogWeAreUsing.setMessage(content);
+                              }
+                              });
+                              return $message;
+                              },
+                              cssClass: 'programming-dialog',
+                              nl2br: false,
+                              closable: true,
+                              draggable: true,
+                              closeByBackdrop: false,
+                              closeByKeyboard: false,
+                              onshown: function(){
+                                $(document).on("keypress", ":input:not(textarea)", function(event) {
+                                  return event.keyCode != 13;
+                                });
+                                $('[data-toggle="popover"]').popover({container: 'body', html:true});
+                                check_programming();
+                                my_select2();
+                                $('#programmingid').change(function(){
+                                  if ($(this).val().length > 0){
+                                    $('#programming_p').removeClass('has-error');
+                                    $('#programming_edit_grp').popover('show');
+                                    setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                                  }
+                                });
+                                $('#programming').keyup(function(){
+                                  if ($(this).val().length >= 2){
+                                    $('#programming_grp').removeClass('has-error');
+                                  }
+                                });
+                              },
+                              onhidden: function(){
+                                table_license.rows().deselect();
+                                arrList_li=[];
+                              }
+                            });
+                      dialog_system.open();
+                }
+              },
+              {
+              text: function(a){return a.i18n("Office","Office")},
+              action: function( e, dt, node, config ){
+                  window.dialog_office = new BootstrapDialog({
+                          title: get_lang_param("Office"),
+                          message: function(dialogRef) {
+                          var $message = $('<div></div>');
+                          var data = $.ajax({
+                          url: ACTIONPATH,
+                          type: 'POST',
+                          data: "mode=dialog_office",
+                          context: {
+                          theDialogWeAreUsing: dialogRef
+                          },
+                          success: function(content) {
+                          this.theDialogWeAreUsing.setMessage(content);
+                          }
+                          });
+                          return $message;
+                          },
+                          cssClass: 'programming-dialog',
+                          nl2br: false,
+                          closable: true,
+                          draggable: true,
+                          closeByBackdrop: false,
+                          closeByKeyboard: false,
+                          onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
+                            $('[data-toggle="popover"]').popover({container: 'body', html:true});
+                            check_programming();
+                            my_select2();
+                            $('#programmingid').change(function(){
+                              if ($(this).val().length > 0){
+                                $('#programming_p').removeClass('has-error');
+                                $('#programming_edit_grp').popover('show');
+                                setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                              }
+                            });
+                            $('#programming').keyup(function(){
+                              if ($(this).val().length >= 2){
+                                $('#programming_grp').removeClass('has-error');
+                              }
+                            });
+                          },
+                          onhidden: function(){
+                            table_license.rows().deselect();
+                            arrList_li=[];
+                          }
+                        });
+                  dialog_office.open();
+            }
+          },
+          {
+          text: function(a){return a.i18n("Antivirus","Antivirus")},
+          action: function( e, dt, node, config ){
+              window.dialog_anti = new BootstrapDialog({
+                      title: get_lang_param("Antivirus"),
+                      message: function(dialogRef) {
+                      var $message = $('<div></div>');
+                      var data = $.ajax({
+                      url: ACTIONPATH,
+                      type: 'POST',
+                      data: "mode=dialog_anti",
+                      context: {
+                      theDialogWeAreUsing: dialogRef
+                      },
+                      success: function(content) {
+                      this.theDialogWeAreUsing.setMessage(content);
+                      }
+                      });
+                      return $message;
+                      },
+                      cssClass: 'programming-dialog',
+                      nl2br: false,
+                      closable: true,
+                      draggable: true,
+                      closeByBackdrop: false,
+                      closeByKeyboard: false,
+                      onshown: function(){
+                        $(document).on("keypress", ":input:not(textarea)", function(event) {
+                          return event.keyCode != 13;
+                        });
+                        $('[data-toggle="popover"]').popover({container: 'body', html:true});
+                        check_programming();
+                        my_select2();
+                        $('#programmingid').change(function(){
+                          if ($(this).val().length > 0){
+                            $('#programming_p').removeClass('has-error');
+                            $('#programming_edit_grp').popover('show');
+                            setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                          }
+                        });
+                        $('#programming').keyup(function(){
+                          if ($(this).val().length >= 2){
+                            $('#programming_grp').removeClass('has-error');
+                          }
+                        });
+                      },
+                      onhidden: function(){
+                        table_license.rows().deselect();
+                        arrList_li=[];
+                      }
+                    });
+              dialog_anti.open();
+        }
+      },
+              {
+              text: function(a){return a.i18n("Programming","Programming")},
+              className: 'Programming_delete_bt',
+              action: function( e, dt, node, config ){
+                  window.dialog_programming = new BootstrapDialog({
+                          title: get_lang_param("Programming"),
+                          message: function(dialogRef) {
+                          var $message = $('<div></div>');
+                          var data = $.ajax({
+                          url: ACTIONPATH,
+                          type: 'POST',
+                          data: "mode=dialog_programming",
+                          context: {
+                          theDialogWeAreUsing: dialogRef
+                          },
+                          success: function(content) {
+                          this.theDialogWeAreUsing.setMessage(content);
+                          }
+                          });
+                          return $message;
+                          },
+                          cssClass: 'programming-dialog',
+                          nl2br: false,
+                          closable: true,
+                          draggable: true,
+                          closeByBackdrop: false,
+                          closeByKeyboard: false,
+                          onshown: function(){
+                            $(document).on("keypress", ":input:not(textarea)", function(event) {
+                              return event.keyCode != 13;
+                            });
+                            $('[data-toggle="popover"]').popover({container: 'body', html:true});
+                            check_programming();
+                            my_select2();
+                            $('#programmingid').change(function(){
+                              if ($(this).val().length > 0){
+                                $('#programming_p').removeClass('has-error');
+                                $('#programming_edit_grp').popover('show');
+                                setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                              }
+                            });
+                            $('#programming').keyup(function(){
+                              if ($(this).val().length >= 2){
+                                $('#programming_grp').removeClass('has-error');
+                              }
+                            });
+                          },
+                          onhidden: function(){
+                            table_license.rows().deselect();
+                            arrList_li=[];
+                          }
+                        });
+                  dialog_programming.open();
+            }
+          }
+
+          ]
+
+
+          },
           {
                 extend: 'collection',
                 text: function(a){return a.i18n("Print","Print")},

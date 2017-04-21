@@ -142,6 +142,7 @@
       }
     },
   "Action_b" : "<i class=\"fa fa-hand-o-up fa-fw\" aria-hidden=\"true\"></i>&nbsp;Действие",
+  "Action_PO" : "<i class=\"fa fa-hand-o-up fa-fw\" aria-hidden=\"true\"></i>&nbsp;ПО",
   "Add": "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i>&nbsp;Добавить",
   "Edit": "<i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Редактировать",
   "Id": "Id",
@@ -451,7 +452,14 @@
 "Select_group": "Выберите группу(-ы) ТМЦ",
 "Users_online" : "Показать пользователей Online",
 "Users_offline" : "Показать пользователей Offline",
-"All" : "Все"
+"All" : "Все",
+"Select_programming" : "Выберите ПО для редактирования",
+"Name_programming" : "Наименование ПО",
+"Toggle_edit_programming" : "<center>Введите новое наименование<br>ПО для изменения!</center>",
+"Programming" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Другое ПО",
+"System" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Операционная система",
+"Antivirus" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Антивирус",
+"Office" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Офис"
 
 
 }

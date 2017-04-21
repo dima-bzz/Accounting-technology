@@ -1035,48 +1035,16 @@ if ($mode == "license"){
   $util_eq= $_COOKIE['cookie_eq_util'];
   $sale_eq= $_COOKIE['cookie_eq_sale'];
 
-  $stmt = $dbConnection->prepare ("SELECT license.id as licenseid,license.system as system, license.office as office,license.antiname as antiname,license.antivirus as antivirus,license.visio as visio,license.adobe as adobe,license.lingvo as lingvo,license.winrar as winrar,license.visual as visual,users.fio as fio,license.comment as comment,license.active as active,nome.name as nomename, orgg.orgname as orname,orgg.orgid as orggid, orgg2.name as organti, orgg.anti_col as anti_col FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.name as orgname, org.antivirus_col as anti_col, org.id as orgid, equipment.usersid as equsersid, equipment.id as eqid, equipment.nomeid as eqnomeid FROM equipment INNER JOIN org ON org.id = equipment.orgid  WHERE equipment.util=:util_eq and equipment.sale=:sale_eq) AS orgg ON orgg.equsersid = license.usersid and orgg.eqid = license.eqid INNER JOIN users ON license.usersid=users.id INNER JOIN nome ON orgg.eqnomeid = nome.id LEFT JOIN org as orgg2 ON orgg2.id = license.organti  GROUP BY license.id");
+  $stmt = $dbConnection->prepare ("SELECT license.id as licenseid,license.system as system, license.office as office,license.antiname as antiname,license.antivirus as antivirus,license.programming as programming,users.fio as fio,license.comment as comment,license.active as active,nome.name as nomename, orgg.orgname as orname,orgg.orgid as orggid, orgg2.name as organti, orgg.anti_col as anti_col FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.name as orgname, org.antivirus_col as anti_col, org.id as orgid, equipment.usersid as equsersid, equipment.id as eqid, equipment.nomeid as eqnomeid FROM equipment INNER JOIN org ON org.id = equipment.orgid  WHERE equipment.util=:util_eq and equipment.sale=:sale_eq) AS orgg ON orgg.equsersid = license.usersid and orgg.eqid = license.eqid INNER JOIN users ON license.usersid=users.id INNER JOIN nome ON orgg.eqnomeid = nome.id LEFT JOIN org as orgg2 ON orgg2.id = license.organti  GROUP BY license.id");
   $stmt->execute(array(':util_eq' => $util_eq, ':sale_eq' => $sale_eq));
   $res1 = $stmt->fetchAll();
 
   foreach($res1 as $row => $key) {
 
 	    $fiopol=nameshort($key['fio']);
-	    switch($key["system"]){
-		case 0: $sys="";
-			break;
-		case 1: $sys="Windows XP Professional";
-			break;
-		case 2: $sys="Windows 7 Professional";
-			break;
-		case 3: $sys="Windows 7 Home Basic";
-			break;
-		case 4: $sys="Windows XP Home";
-			break;
-		case 5: $sys="Windows 8 Single Language";
-			break;
-		case 6: $sys="Windows 8.1 Professional";
-			break;
-		case 7: $sys="Windows 8.1 Single Language";
-			break;
-    case 8: $sys="Windows 10 Single Language";
-  		break;
-    case 9: $sys="Windows 10 Home Single Language";
-    	break;
-	    };
-	    switch($key["office"]){
-		case 0: $off="";
-			break;
-		case 1: $off="Microsoft Office 2007";
-			break;
-		case 2: $off="Microsoft Office 2010";
-			break;
-		case 3: $off="Microsoft Office 2013";
-			break;
-    case 4: $off="Microsoft Office 2016";
-			break;
-	    };
-		$antinames = array("0" => "", "1" => "Dr.Web", "2" => "Касперский");
+	    $sys = ProgrammingNameReturn($key['system']);
+	    $off = ProgrammingNameReturn($key['office']);
+		  $antinames = ProgrammingNameReturn($key['antiname']);
 
 	    $antivirus=MySQLDateToDate($key['antivirus']);
 		if ($antivirus == "00.00.0000"){
@@ -1085,8 +1053,9 @@ if ($mode == "license"){
 		else {
 				$antivir = $antivirus;
 		}
+    $programming = ProgrammingNameReturn($key['programming']);
 
-    $stmt = $dbConnection->prepare ("SELECT license.organti, license.antiname, equipment.util, equipment.sale, Count(*) as count FROM license INNER JOIN equipment ON equipment.id = license.eqid WHERE license.antiname IN (1,2) and license.organti =:organti and equipment.util=0 and equipment.sale=0 Group by license.antiname,license.organti");
+    $stmt = $dbConnection->prepare ("SELECT license.organti, license.antiname, equipment.util, equipment.sale, Count(*) as count FROM license INNER JOIN equipment ON equipment.id = license.eqid WHERE license.organti =:organti and equipment.util=0 and equipment.sale=0 Group by license.antiname,license.organti");
     $stmt->execute(array(':organti' => $key['orggid']));
 
     $res1 = $stmt->fetchAll();
@@ -1095,7 +1064,7 @@ if ($mode == "license"){
     foreach($res1 as $row) {
     $licid = $row['antiname'];
     // if (!array_key_exists($counts[$licid], $counts)) {
-      $counts_str = $counts_str."".$antinames[$licid]." = ".$row['count']."; ";
+      $counts_str = $counts_str."".ProgrammingNameReturn($licid)." = ".$row['count']."; ";
     // }
   }
   $stmt = $dbConnection->prepare ("SELECT Count(*) as count,orgg.orgid as orggid FROM license INNER JOIN(SELECT equipment.orgid as eqorgid, org.id as orgid, equipment.id as eqid FROM equipment INNER JOIN org ON org.id = equipment.orgid WHERE org.id = :orgid and equipment.util=0 and equipment.sale=0) AS orgg ON  orgg.eqid = license.eqid GROUP BY orggid");
@@ -1119,7 +1088,7 @@ if ($mode == "license"){
   }
 
 
-		$data = array($or,$key['licenseid'],$fiopol,$key['orname'],$key['nomename'],$sys,$off,$key['organti'],$antinames[$key['antiname']],$antivir,$key['visio'],$key['adobe'],$key['lingvo'],$key['winrar'],$key['visual'],$key['comment']);
+		$data = array($or,$key['licenseid'],$fiopol,$key['orname'],$key['nomename'],$sys,$off,$key['organti'],$antinames,$antivir,$programming,$key['comment']);
     $output['aaData'][] = $data;
   }
     if ($output != ''){
@@ -1665,8 +1634,8 @@ if ($mode == "dialog_equipment_edit"){
   <input class="form-control input-sm allwidht" name=dtendgar id=dtendgar type="text" maxlength="10" value="<?php echo "$dtendgar"; ?>">
   <label class="control-label"><small>Имя по бухгалтерии:</small></label>
   <input class="form-control input-sm allwidht" name=buhname id=buhname type="text" value="<?php $buhname=htmlspecialchars($buhname);echo "$buhname";?>">
-  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" value="<?php echo "$cost";?>"placeholder="Начальная стоимость"   >
-  <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" value="<?php echo "$currentcost";?>" placeholder="Текущая стоимость">
+  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" value="<?php echo "$cost";?>"placeholder="Начальная стоимость" autocomplete="off">
+  <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" value="<?php echo "$currentcost";?>" placeholder="Текущая стоимость" autocomplete="off">
   <label class="control-label"><small>Номер накладной: </small></label>
   <!-- <input class="form-control input-sm allwidht" id=invoice name=invoice type="text" value="<?php echo "$invoice";?>" placeholder="РкТ-123 от 04.02.2016"> -->
   <div class="invoice">
@@ -1877,8 +1846,8 @@ if ($mode == "dialog_equipment_add"){
   <input class="form-control input-sm allwidht" name="dtendgar" id="dtendgar" type="text" maxlength="10">
   <label class="control-label"><small>Имя по бухгалтерии:</small></label>
   <input class="form-control input-sm allwidht" name="buhname" id="buhname" type="text">
-  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" placeholder="Начальная стоимость"   >
-  <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" placeholder="Текущая стоимость">
+  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" placeholder="Начальная стоимость" autocomplete="off">
+  <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" placeholder="Текущая стоимость" autocomplete="off">
   <label class="control-label"><small>Номер накладной: </small></label>
   <!-- <input class="form-control input-sm allwidht" id="invoice" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="РкТ-123 от 04.02.2016"> -->
   <div class="invoice">
@@ -1981,60 +1950,56 @@ if ($mode == "dialog_license_add"){
    </select>
    </div>
  </div>
- </div><br>
+ </div>
+ <p></p>
  <div class="row">
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="visio" id="visio" ><b><small>Visio</small></b>
-  </label>
-</div>
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="lingvo" id="lingvo" ><b><small>Lingvo</small></b>
-  </label>
-</div>
-<div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="winrar" id="winrar" ><b><small>Winrar</small></b>
-  </label>
-</div>
-</div><br>
-<div class="row">
-<div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="adobe" id="adobe" ><b><small>Adobe Finereader</small></b>
-    </label>
-  </div>
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="visual" id="visual" ><b><small>Visual Studio</small></b>
-      </label>
-  </div>
-</div><br>
+   <div class="col-md-12">
+       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?></small></label>
+         <select data-placeholder="<?=get_lang('Select_programming');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
+         <?php
+
+               $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM programming where groupid=4 and active =1');
+         $stmt->execute();
+         $res1 = $stmt->fetchAll();
+
+               foreach($res1 as $row) {
+                                   $row['name']=$row['name'];
+                                   $row['value']=(int)$row['value'];
+                                   ?>
+                                   <option value="<?=$row['value']?>"><?=$row['name']?></option>
+                               <?php
+                               }
+
+                               ?>
+           </select>
+   </div>
+ </div>
+ <p></p>
   <div class="row">
   <div class="col-md-6">
   <label class="control-label"><small>Операционная система:</small></label>
   <select data-placeholder="Выберите операционную систему" class='my_select select' name="system" id="system">
   	<option value=""></option>
-       <option value="1">Windows XP Professional</option>
-       <option value="2">Windows 7 Professional</option>
-       <option value="3">Windows 7 Home Basic</option>
-       <option value="4">Windows XP Home</option>
-       <option value="5">Windows 8 Single Language</option>
-       <option value="6">Windows 8.1 Professional</option>
-       <option value="7">Windows 8.1 Single Language</option>
-       <option value="8">Windows 10 Single Language</option>
-       <option value="9">Windows 10 Home Single Language</option>
+    <?php
+                        $morgs=GetArrayProgramming('1');
+                        for ($i = 0; $i < count($morgs); $i++) {
+                            $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                            echo "<option value=$nid $sl>$nm</option>";
+                        };
+                    ?>
       </select>
   </div>
   <div class="col-md-6">
   <label class="control-label"><small>Офис:</small></label>
   <select data-placeholder="Выберите офис" class='my_select select' name="office" id="office">
   	<option value=""></option>
-       <option value="1">Microsoft Office 2007</option>
-       <option value="2">Microsoft Office 2010</option>
-       <option value="3">Microsoft Office 2013</option>
-       <option value="4">Microsoft Office 2016</option>
+    <?php
+                        $morgs=GetArrayProgramming('2');
+                        for ($i = 0; $i < count($morgs); $i++) {
+                            $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                            echo "<option value=$nid $sl>$nm</option>";
+                        };
+                    ?>
       </select>
   </div>
   </div>
@@ -2058,8 +2023,13 @@ if ($mode == "dialog_license_add"){
       <label class="control-label"><small>Наименование антивируса:</small></label>
       <select data-placeholder="Выберите антивирус" class='my_select select' name="antiname" id="antiname">
         <option value=""></option>
-           <option value="1">Dr.Web</option>
-           <option value="2">Касперский</option>
+        <?php
+                            $morgs=GetArrayProgramming('3');
+                            for ($i = 0; $i < count($morgs); $i++) {
+                                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                                echo "<option value=$nid $sl>$nm</option>";
+                            };
+                        ?>
           </select>
   </div>
   </div><br>
@@ -2089,14 +2059,10 @@ $usersid=$myrow['usersid'];
 $eqid=$myrow['eqid'];
 $system=$myrow['system'];
 $office=$myrow['office'];
-$visio=$myrow['visio'];
-$visual=$myrow['visual'];
+$programming=$myrow['programming'];
 $organti=$myrow['organti'];
 $antiname=$myrow['antiname'];
 $antivirus=MySQLDateToDate($myrow["antivirus"]);
-$adobe=$myrow['adobe'];
-$lingvo=$myrow['lingvo'];
-$winrar=$myrow['winrar'];
 $comment=$myrow['comment'];
 };
   ?>
@@ -2140,60 +2106,62 @@ $comment=$myrow['comment'];
    </select>
    </div>
  </div>
- </div><br>
+ </div>
  <div class="row">
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="visio" id="visio"  <?php if ($visio=="1") {echo "checked";};?>><b><small>Visio</small></b>
-  </label>
-</div>
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="lingvo" id="lingvo"  <?php if ($lingvo=="1") {echo "checked";};?>><b><small>Lingvo</small></b>
-  </label>
-</div>
-<div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="winrar" id="winrar"  <?php if ($winrar=="1") {echo "checked";};?>><b><small>Winrar</small></b>
-  </label>
-</div>
-</div><br>
-<div class="row">
-<div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="adobe" id="adobe"  <?php if ($adobe=="1") {echo "checked";};?>><b><small>Adobe Finereader</small></b>
-    </label>
-  </div>
-  <div class="col-md-4">
-  <label class="checkbox-inline">
-  <input type="checkbox" name="visual" id="visual"  <?php if ($visual=="1") {echo "checked";};?>><b><small>Visual Studio</small></b>
-      </label>
-  </div>
-</div><br>
+   <div class="col-md-12">
+       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?></small></label>
+         <select data-placeholder="<?=get_lang('Select_programming');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
+         <?php
+         $u=explode(",", $programming);
+
+               $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM programming where groupid=4 and active =1');
+         $stmt->execute();
+         $res1 = $stmt->fetchAll();
+
+               foreach($res1 as $row) {
+                                   $row['name']=$row['name'];
+                                   $row['value']=(int)$row['value'];
+         $opt_sel='';
+         foreach ($u as $val) {
+         if ($val== $row['value']) {$opt_sel="selected";}
+         }
+                                   ?>
+                                   <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=$row['name']?></option>
+                               <?php
+                               }
+
+                               ?>
+           </select>
+   </div>
+ </div>
+ <p></p>
   <div class="row">
   <div class="col-md-6">
   <label class="control-label"><small>Операционная система:</small></label>
   <select data-placeholder="Выберите операционную систему" class='my_select select' name="system" id="system">
   	<option value=""></option>
-       <option value="1" <?php if ($system == 1) echo 'selected="selected"'; ?>>Windows XP Professional</option>
-       <option value="2" <?php if ($system == 2) echo 'selected="selected"'; ?>>Windows 7 Professional</option>
-       <option value="3" <?php if ($system == 3) echo 'selected="selected"'; ?>>Windows 7 Home Basic</option>
-       <option value="4" <?php if ($system == 4) echo 'selected="selected"'; ?>>Windows XP Home</option>
-       <option value="5" <?php if ($system == 5) echo 'selected="selected"'; ?>>Windows 8 Single Language</option>
-       <option value="6" <?php if ($system == 6) echo 'selected="selected"'; ?>>Windows 8.1 Professional</option>
-       <option value="7" <?php if ($system == 7) echo 'selected="selected"'; ?>>Windows 8.1 Single Language</option>
-       <option value="8" <?php if ($system == 8) echo 'selected="selected"'; ?>>Windows 10 Single Language</option>
-       <option value="9" <?php if ($system == 8) echo 'selected="selected"'; ?>>Windows 10 Home Single Language</option>
+    <?php
+                        $morgs=GetArrayProgramming('1');
+                        for ($i = 0; $i < count($morgs); $i++) {
+                            $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                            if ($nid==$system){$sl=" selected";} else {$sl="";};
+                            echo "<option value=$nid $sl>$nm</option>";
+                        };
+                    ?>
       </select>
   </div>
   <div class="col-md-6">
   <label class="control-label"><small>Офис:</small></label>
   <select data-placeholder="Выберите офис" class='my_select select' name="office" id="office">
   	<option value=""></option>
-       <option value="1" <?php if ($office == 1) echo 'selected="selected"'; ?>>Microsoft Office 2007</option>
-       <option value="2" <?php if ($office == 2) echo 'selected="selected"'; ?>>Microsoft Office 2010</option>
-       <option value="3" <?php if ($office == 3) echo 'selected="selected"'; ?>>Microsoft Office 2013</option>
-       <option value="4" <?php if ($office == 4) echo 'selected="selected"'; ?>>Microsoft Office 2016</option>
+    <?php
+                        $morgs=GetArrayProgramming('2');
+                        for ($i = 0; $i < count($morgs); $i++) {
+                            $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                            if ($nid==$office){$sl=" selected";} else {$sl="";};
+                            echo "<option value=$nid $sl>$nm</option>";
+                        };
+                    ?>
       </select>
   </div>
   </div>
@@ -2217,8 +2185,14 @@ $comment=$myrow['comment'];
       <label class="control-label" style="display: inline;"><small>Наименование антивируса:</small></label>
       <select data-placeholder="Выберите антивирус" class='my_select select' name="antiname" id="antiname">
         <option value=""></option>
-           <option value="1" <?php if ($antiname == 1) echo 'selected="selected"'; ?>>Dr.Web</option>
-           <option value="2" <?php if ($antiname == 2) echo 'selected="selected"'; ?>>Касперский</option>
+        <?php
+                            $morgs=GetArrayProgramming('3');
+                            for ($i = 0; $i < count($morgs); $i++) {
+                                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                                if ($nid==$antiname){$sl=" selected";} else {$sl="";};
+                                echo "<option value=$nid $sl>$nm</option>";
+                            };
+                        ?>
           </select>
   </div>
   </div><br>
@@ -2243,37 +2217,24 @@ if ($mode =="license_add"){
   $office= $_POST['office'];
   $organti=$_POST['organti'];
   $antiname=$_POST['antiname'];
+  $programming=$_POST['programming'];
   $antivirus=DateToMySQLDateTime2($_POST['antivirus']);
   $comment= $_POST['comment'];
-  $visio=($_POST['visio']);
-  if ($visio == "true") {$visio=1;} else {$visio=0;}
-  $adobe=($_POST['adobe']);
-  if ($adobe == "true") {$adobe=1;} else {$adobe=0;}
-  $lingvo=($_POST['lingvo']);
-  if ($lingvo == "true") {$lingvo=1;} else {$lingvo=0;}
-  $winrar=($_POST['winrar']);
-  if ($winrar == "true") {$winrar=1;} else {$winrar=0;}
-  $visual=($_POST['visual']);
-  if ($visual == "true") {$visual=1;} else {$visual=0;}
       $usersid=$_POST["usersid"];
       $eqid=$_POST["eqid"];
 
-  $stmt = $dbConnection->prepare ('INSERT INTO license (id,usersid,eqid,system,office,organti,antiname,antivirus,visio,adobe,lingvo,winrar,visual,comment,active) VALUES (NULL,:usersid,:eqid,:system,:office,:organti,:antiname,:antivirus,:visio,:adobe,:lingvo,:winrar,:visual,:comment,1)');
-  $stmt->execute(array(
-    ':usersid' => $usersid,
-    ':eqid' => $eqid,
-    ':system' => $system,
-    ':office' => $office,
-    ':organti' => $organti,
-    ':antiname' => $antiname,
-    ':antivirus' => $antivirus,
-    ':visio' => $visio,
-    ':adobe' => $adobe,
-    ':lingvo' => $lingvo,
-    ':winrar' => $winrar,
-    ':visual' => $visual,
-    ':comment' => $comment));
-    echo "ok";
+      $stmt = $dbConnection->prepare ('INSERT INTO license (id,usersid,eqid,system,office,organti,antiname,antivirus,programming,comment,active) VALUES (NULL,:usersid,:eqid,:system,:office,:organti,:antiname,:antivirus,:programming,:comment,1)');
+      $stmt->execute(array(
+        ':usersid' => $usersid,
+        ':eqid' => $eqid,
+        ':system' => $system,
+        ':office' => $office,
+        ':organti' => $organti,
+        ':antiname' => $antiname,
+        ':antivirus' => $antivirus,
+        ':programming' => $programming,
+        ':comment' => $comment));
+        echo "ok";
 }
 if ($mode == "license_edit"){
   $id = $_POST['id'];
@@ -2283,20 +2244,10 @@ if ($mode == "license_edit"){
   $antiname=$_POST['antiname'];
   $antivirus=DateToMySQLDateTime2($_POST['antivirus']);
   $comment= $_POST['comment'];
-  $visio=($_POST['visio']);
-  if ($visio == "true") {$visio=1;} else {$visio=0;}
-  $adobe=($_POST['adobe']);
-  if ($adobe == "true") {$adobe=1;} else {$adobe=0;}
-  $lingvo=($_POST['lingvo']);
-  if ($lingvo == "true") {$lingvo=1;} else {$lingvo=0;}
-  $winrar=($_POST['winrar']);
-  if ($winrar == "true") {$winrar=1;} else {$winrar=0;}
-  $visual=($_POST['visual']);
-  if ($visual == "true") {$visual=1;} else {$visual=0;}
       $usersid=$_POST["usersid"];
       $eqid=$_POST["eqid"];
 
-      $stmt = $dbConnection->prepare ('UPDATE license SET usersid=:usersid,eqid=:eqid,system=:system,office=:office,organti=:organti,antiname=:antiname,antivirus=:antivirus,visio=:visio,adobe=:adobe,lingvo=:lingvo,winrar=:winrar,visual=:visual,comment=:comment WHERE id=:id');
+      $stmt = $dbConnection->prepare ('UPDATE license SET usersid=:usersid,eqid=:eqid,system=:system,office=:office,organti=:organti,antiname=:antiname,antivirus=:antivirus,programming=:programming,comment=:comment WHERE id=:id');
       $stmt->execute(array(
         ':usersid' => $usersid,
         ':eqid' => $eqid,
@@ -2305,11 +2256,7 @@ if ($mode == "license_edit"){
         ':organti' => $organti,
         ':antiname' => $antiname,
         ':antivirus' => $antivirus,
-        ':visio' => $visio,
-        ':adobe' => $adobe,
-        ':lingvo' => $lingvo,
-        ':winrar' => $winrar,
-        ':visual' => $visual,
+        ':programming' => $programming,
         ':comment' => $comment,
         ':id' => $id));
         echo "ok";
@@ -4078,6 +4025,15 @@ $l=$_POST['login'];
 if (validate_login_equipment($l) == true) {$u['check_account_status']=true;}
 else if (validate_login_equipment($l) == false) {$u['check_account_status']=false;}
 $row_set[] = $u;
+echo json_encode($row_set);
+}
+if ($mode == "check_programming") {
+
+$po=$_POST['programming'];
+
+if (validate_exist_programming($po) == true) {$r['check_programming_status']=true;}
+else if (validate_exist_programming($po) == false) {$r['check_programming_status']=false;}
+$row_set[] = $r;
 echo json_encode($row_set);
 }
 if ($mode =="contact_table"){
@@ -6165,6 +6121,194 @@ if ($mode == "update_ssesion"){
   if ($id_org != ''){
     $_SESSION['dilema_org'] = $id_org;
   }
+}
+if ($mode == "dialog_programming"){
+  ?>
+  <form id="myForm_programming_add_edit" class="well form-inline" method="post">
+  <div class="row">
+    <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
+    <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+     <option value=""></option>
+    <?php
+           $morgs=GetArrayProgramming('4');
+           for ($i = 0; $i < count($morgs); $i++) {
+               $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
+               echo "<option value=$nid $sl>$nm</option>";
+           };
+    ?>
+    </select>
+  </div>
+      <div class="center_all">
+        <div class="form-group" id="programming_grp" style="display:inline;">
+      <label class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+    <div id="programming_edit_grp" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<?= get_lang('Toggle_edit_programming'); ?>">
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_programming');?>" name="programming" id="programming" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+</div>
+  </div>
+</div>
+  </div>
+  <div class="row">
+    <div class="btn-group" style="width:100%; margin-top:20px;">
+  <button type="submit" id="add_programming" style="width:50%;" class="btn btn-success"><?=get_lang('Add');?></button>
+  <button type="submit" id="edit_programming" style="width:50%;" class="btn btn-primary"><?=get_lang('Edit');?></button>
+  </div>
+</div>
+  </form>
+  <?php
+}
+if ($mode == "dialog_system"){
+  ?>
+  <form id="myForm_system_add_edit" class="well form-inline" method="post">
+  <div class="row">
+    <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
+    <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+     <option value=""></option>
+    <?php
+           $morgs=GetArrayProgramming('1');
+           for ($i = 0; $i < count($morgs); $i++) {
+               $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
+               echo "<option value=$nid $sl>$nm</option>";
+           };
+    ?>
+    </select>
+  </div>
+      <div class="center_all">
+        <div class="form-group" id="programming_grp" style="display:inline;">
+      <label class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+    <div id="programming_edit_grp" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<?= get_lang('Toggle_edit_programming'); ?>">
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_programming');?>" name="programming" id="programming" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+</div>
+  </div>
+</div>
+  </div>
+  <div class="row">
+    <div class="btn-group" style="width:100%; margin-top:20px;">
+  <button type="submit" id="add_system" style="width:50%;" class="btn btn-success"><?=get_lang('Add');?></button>
+  <button type="submit" id="edit_system" style="width:50%;" class="btn btn-primary"><?=get_lang('Edit');?></button>
+  </div>
+</div>
+  </form>
+  <?php
+}
+if ($mode == "dialog_office"){
+  ?>
+  <form id="myForm_office_add_edit" class="well form-inline" method="post">
+  <div class="row">
+    <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
+    <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+     <option value=""></option>
+    <?php
+           $morgs=GetArrayProgramming('2');
+           for ($i = 0; $i < count($morgs); $i++) {
+               $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
+               echo "<option value=$nid $sl>$nm</option>";
+           };
+    ?>
+    </select>
+  </div>
+      <div class="center_all">
+        <div class="form-group" id="programming_grp" style="display:inline;">
+      <label class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+    <div id="programming_edit_grp" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<?= get_lang('Toggle_edit_programming'); ?>">
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_programming');?>" name="programming" id="programming" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+</div>
+  </div>
+</div>
+  </div>
+  <div class="row">
+    <div class="btn-group" style="width:100%; margin-top:20px;">
+  <button type="submit" id="add_office" style="width:50%;" class="btn btn-success"><?=get_lang('Add');?></button>
+  <button type="submit" id="edit_office" style="width:50%;" class="btn btn-primary"><?=get_lang('Edit');?></button>
+  </div>
+</div>
+  </form>
+  <?php
+}
+if ($mode == "dialog_anti"){
+  ?>
+  <form id="myForm_anti_add_edit" class="well form-inline" method="post">
+  <div class="row">
+    <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
+    <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+     <option value=""></option>
+    <?php
+           $morgs=GetArrayProgramming('3');
+           for ($i = 0; $i < count($morgs); $i++) {
+               $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
+               echo "<option value=$nid $sl>$nm</option>";
+           };
+    ?>
+    </select>
+  </div>
+      <div class="center_all">
+        <div class="form-group" id="programming_grp" style="display:inline;">
+      <label class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+    <div id="programming_edit_grp" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="right" data-content="<?= get_lang('Toggle_edit_programming'); ?>">
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_programming');?>" name="programming" id="programming" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+</div>
+  </div>
+</div>
+  </div>
+  <div class="row">
+    <div class="btn-group" style="width:100%; margin-top:20px;">
+  <button type="submit" id="add_antivirus" style="width:50%;" class="btn btn-success"><?=get_lang('Add');?></button>
+  <button type="submit" id="edit_antivirus" style="width:50%;" class="btn btn-primary"><?=get_lang('Edit');?></button>
+  </div>
+</div>
+  </form>
+  <?php
+}
+if ($mode == "add_programming"){
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('INSERT INTO programming (id,groupid,name,active) VALUES (null,4,:name,1)');
+  $stmt->execute(array(':name' => $name));
+}
+if ($mode == "edit_programming"){
+  $id = ($_POST['id']);
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('UPDATE programming SET name = :name WHERE id = :id');
+  $stmt->execute(array(':name' => $name, ':id' => $id));
+}
+if ($mode == "add_system"){
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('INSERT INTO programming (id,groupid,name,active) VALUES (null,1,:name,1)');
+  $stmt->execute(array(':name' => $name));
+}
+if ($mode == "edit_system"){
+  $id = ($_POST['id']);
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('UPDATE programming SET name = :name WHERE id = :id');
+  $stmt->execute(array(':name' => $name, ':id' => $id));
+}
+if ($mode == "add_office"){
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('INSERT INTO programming (id,groupid,name,active) VALUES (null,2,:name,1)');
+  $stmt->execute(array(':name' => $name));
+}
+if ($mode == "edit_office"){
+  $id = ($_POST['id']);
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('UPDATE programming SET name = :name WHERE id = :id');
+  $stmt->execute(array(':name' => $name, ':id' => $id));
+}
+if ($mode == "add_anti"){
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('INSERT INTO programming (id,groupid,name,active) VALUES (null,3,:name,1)');
+  $stmt->execute(array(':name' => $name));
+}
+if ($mode == "edit_anti"){
+  $id = ($_POST['id']);
+  $name = ($_POST['name']);
+  $stmt = $dbConnection->prepare ('UPDATE programming SET name = :name WHERE id = :id');
+  $stmt->execute(array(':name' => $name, ':id' => $id));
 }
 }
 }

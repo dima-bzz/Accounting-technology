@@ -68,6 +68,7 @@ else {
       <script type='text/javascript' src='<?=$CONF['hostname']?>lang/ru.js'></script>
       <script type='text/javascript' src="<?=$CONF['hostname']?>js/summernote.js"></script>
       <script type='text/javascript' src="<?=$CONF['hostname']?>js/summernote-ru-Ru.js"></script>
+      <script type='text/javascript' src="<?=$CONF['hostname']?>js/jquery.zeninput.js"></script>
 
 
 

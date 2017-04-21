@@ -58,7 +58,7 @@ error_reporting(0);
 include_once('inc/mail.php');
 
 function get_version(){
-  $v = '1.07';
+  $v = '1.08';
   return $v;
 }
 
@@ -544,7 +544,20 @@ function validate_menu_lang($user_id) {
     return implode("<br>",$menu_lang);
 
 }
+function ProgrammingNameReturn($id) {
+    global $dbConnection;
+    $name_po = array();
+    $id = explode(",", $id);
+    foreach ($id as $key) {
 
+    $stmt = $dbConnection->prepare('SELECT name from programming where id=:id LIMIT 1');
+    $stmt->execute(array(':id' => $key));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $name_po[]=$row['name'];
+  }
+    return implode(", ",$name_po);
+
+}
 function validate_user($user_id, $input) {
 
     global $dbConnection;
@@ -605,6 +618,17 @@ global $dbConnection;
 $uid=$_SESSION['dilema_user_id'];
 
 $stmt = $dbConnection->prepare('SELECT count(login) as n from users where login=:str');
+$stmt->execute(array(':str' => $str));
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($row['n'] > 0) {$r=false;}
+else if ($row['n'] == 0) {$r=true;}
+
+return $r;
+}
+function validate_exist_programming($str) {
+global $dbConnection;
+
+$stmt = $dbConnection->prepare('SELECT count(name) as n from programming where name=:str');
 $stmt->execute(array(':str' => $str));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row['n'] > 0) {$r=false;}
@@ -801,7 +825,23 @@ function GetArrayPlaces_Print_Test(){ // Возврат - массив акти�
 				return $mOrgs;
                     }
 };
-
+function GetArrayProgramming($gr){ // Возврат - массив активного программного обеспечения
+  global $dbConnection;
+  $cnt=0;
+  $mOrgs = array();
+    $stmt = $dbConnection->prepare('SELECT * FROM programming WHERE active=1 and groupid=:gr order by name');
+    $stmt->execute(array(':gr' => $gr));
+    $res1 = $stmt->fetchAll();
+    if ($res1!='') {
+      foreach($res1 as $myrow) {
+         $mOrgs[$cnt]["id"]=$myrow["id"];
+         $mOrgs[$cnt]["name"]=$myrow["name"];
+                      $mOrgs[$cnt]["active"]=$myrow["active"];
+         $cnt++;
+        };
+      return $mOrgs;
+                  }
+};
 function GetArrayGroup(){ // Возврат - массив групп номенклатуры..
 global $dbConnection;
 $cnt=0;

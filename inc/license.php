@@ -23,25 +23,21 @@ include("menus.php");
       <table id="table_license" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th rowspan="2" class="center_header">Группирование</th>
-              <th rowspan="2" class="center_header"><?=get_lang('Id')?></th>
-              <th rowspan="2" class="center_header">Пользователь</th>
-              <th rowspan="2" class="center_header"><?=get_lang('Orgname')?></th>
-              <th rowspan="2" class="center_header">Устройство</th>
-              <th rowspan="2" class="center_header">Операционная система</th>
-              <th rowspan="2" class="center_header">Офис</th>
-              <th colspan="3" class="center_header">Антивирус</th>
-              <th rowspan="2" class="center_header">Visio</th>
-              <th rowspan="2" class="center_header">Adobe Finereader</th>
-              <th rowspan="2" class="center_header">Lingvo</th>
-              <th rowspan="2" class="center_header">Winrar</th>
-              <th rowspan="2" class="center_header">Visual Studio</th>
-              <th rowspan="2" class="center_header">Комментарий</th>
+              <th rowspan="2" class="center_header header_nowrap">Группирование</th>
+              <th rowspan="2" class="center_header header_nowrap"><?=get_lang('Id')?></th>
+              <th rowspan="2" class="center_header header_nowrap">Пользователь</th>
+              <th rowspan="2" class="center_header header_nowrap"><?=get_lang('Orgname')?></th>
+              <th rowspan="2" class="center_header header_nowrap">Устройство</th>
+              <th rowspan="2" class="center_header header_nowrap">Операционная система</th>
+              <th rowspan="2" class="center_header header_nowrap">Офис</th>
+              <th colspan="3" class="center_header header_nowrap">Антивирус</th>
+              <th rowspan="2" class="center_header header_nowrap">Программное обеспечение</th>
+              <th rowspan="2" class="center_header header_nowrap">Комментарий</th>
             </tr>
             <tr>
-              <th class="center_header">Чей установлен</th>
-              <th class="center_header">Наименование</th>
-              <th class="center_header">Дата окончания</th>
+              <th class="center_header header_nowrap">Чей установлен</th>
+              <th class="center_header header_nowrap">Наименование</th>
+              <th class="center_header header_nowrap">Дата окончания</th>
             </tr>
           </thead>
       </table>
