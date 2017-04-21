@@ -1954,8 +1954,8 @@ if ($mode == "dialog_license_add"){
  <p></p>
  <div class="row">
    <div class="col-md-12">
-       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?></small></label>
-         <select data-placeholder="<?=get_lang('Select_programming');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
+       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+         <select data-placeholder="<?=get_lang('Select_programming_add_edit');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
          <?php
 
                $stmt = $dbConnection->prepare('SELECT name as name, id as value FROM programming where groupid=4 and active =1');
@@ -2109,8 +2109,8 @@ $comment=$myrow['comment'];
  </div>
  <div class="row">
    <div class="col-md-12">
-       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?></small></label>
-         <select data-placeholder="<?=get_lang('Select_programming');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
+       <label for="programming" class="control-label"><small><?=get_lang('Name_programming');?>:</small></label>
+         <select data-placeholder="<?=get_lang('Select_programming_add_edit');?>" class="my_select2 select" multiple id="what_programming" name="what_programming[]">
          <?php
          $u=explode(",", $programming);
 
