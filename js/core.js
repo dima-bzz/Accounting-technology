@@ -6883,12 +6883,14 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                                 });
                                 $('[data-toggle="popover"]').popover({container: 'body', html:true});
                                 check_programming();
-                                my_select2();
+                                my_select();
                                 $('#programmingid').change(function(){
                                   if ($(this).val().length > 0){
                                     $('#programming_p').removeClass('has-error');
+                                    if ($('#programming').val().length == 0){
                                     $('#programming_edit_grp').popover('show');
                                     setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                                  }
                                   }
                                 });
                                 $('#programming').keyup(function(){
@@ -6937,12 +6939,14 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             });
                             $('[data-toggle="popover"]').popover({container: 'body', html:true});
                             check_programming();
-                            my_select2();
+                            my_select();
                             $('#programmingid').change(function(){
                               if ($(this).val().length > 0){
                                 $('#programming_p').removeClass('has-error');
+                                if ($('#programming').val().length == 0){
                                 $('#programming_edit_grp').popover('show');
                                 setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                              }
                               }
                             });
                             $('#programming').keyup(function(){
@@ -6995,8 +6999,10 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                         $('#programmingid').change(function(){
                           if ($(this).val().length > 0){
                             $('#programming_p').removeClass('has-error');
+                            if ($('#programming').val().length == 0){
                             $('#programming_edit_grp').popover('show');
                             setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                          }
                           }
                         });
                         $('#programming').keyup(function(){
@@ -7050,8 +7056,10 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             $('#programmingid').change(function(){
                               if ($(this).val().length > 0){
                                 $('#programming_p').removeClass('has-error');
+                                if ($('#programming').val().length == 0){
                                 $('#programming_edit_grp').popover('show');
                                 setTimeout(function(){$("#programming_edit_grp").popover('hide');},2000);
+                              }
                               }
                             });
                             $('#programming').keyup(function(){

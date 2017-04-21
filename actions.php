@@ -6128,7 +6128,7 @@ if ($mode == "dialog_programming"){
   <div class="row">
     <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
     <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
-    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select select' name="programmingid" id="programmingid">
      <option value=""></option>
     <?php
            $morgs=GetArrayProgramming('4');
@@ -6164,7 +6164,7 @@ if ($mode == "dialog_system"){
   <div class="row">
     <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
     <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
-    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select select' name="programmingid" id="programmingid">
      <option value=""></option>
     <?php
            $morgs=GetArrayProgramming('1');
@@ -6200,7 +6200,7 @@ if ($mode == "dialog_office"){
   <div class="row">
     <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
     <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
-    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select select' name="programmingid" id="programmingid">
      <option value=""></option>
     <?php
            $morgs=GetArrayProgramming('2');
@@ -6236,7 +6236,7 @@ if ($mode == "dialog_anti"){
   <div class="row">
     <div id="programming_p" data-toggle="popover" data-html="true" data-trigger="manual" data-placement="left" data-content="<?= get_lang('Toggle_title_select'); ?>">
     <label class="control-label"><small><?=get_lang('Select_programming');?>:</small></label>
-    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select2 select' name="programmingid" id="programmingid">
+    <select data-placeholder="<?=get_lang('Select_programming');?>" class='my_select select' name="programmingid" id="programmingid">
      <option value=""></option>
     <?php
            $morgs=GetArrayProgramming('3');
