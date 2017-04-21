@@ -394,6 +394,20 @@ CREATE TABLE IF NOT EXISTS `print_param` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `programming`
+--
+
+CREATE TABLE IF NOT EXISTS `programming` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `groupid` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `repair`
 --
 
