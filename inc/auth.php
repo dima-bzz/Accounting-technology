@@ -70,7 +70,7 @@ color: #555;
 <div class="container" id='main_login'>
 <form class="form-signin" action="<?=$CONF['hostname']?>index.php" method="post" autocomplete="off">
     <center>
-	<img src="<?=$CONF['hostname']?>images/logo2.png">
+	<img src="<?=$CONF['hostname']?>images/logo128.png">
 	<h2 class="text-muted"><?=get_lang('MAIN_TITLE');?></h2><small class="text-muted"><?=get_lang('AUTH_USER');?></small></center><br>
   <input type="text" class="form-control" autocomplete="off"  id="login" name="login" placeholder="<?=get_lang('CONF_mail_login');?>">
   <input type="password" class="form-control" autocomplete="off" id="password" name="password" placeholder="<?=get_lang('CONF_mail_pass');?>">
