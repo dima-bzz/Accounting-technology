@@ -29,7 +29,7 @@ if (validate_priv($_SESSION['dilema_user_id']) == 1){
         <a class="navbar-brand" href="<?=$CONF['hostname']?>index.php"><img src="<?=$CONF['hostname']?>images/logo.png"> <?=$CONF['name_of_firm']?></a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav nav-pills">
+    <ul class="nav navbar-nav">
 
       <?php
       // if (validate_priv($_SESSION['dilema_user_id']) != 0) {
