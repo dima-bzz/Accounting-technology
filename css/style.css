@@ -403,3 +403,7 @@ td.fc-sun, td.fc-sat{
 
 	100%{}
 }
+.input-group {
+    display: block;
+    }
+}
