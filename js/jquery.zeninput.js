@@ -64,7 +64,6 @@ return this.each(function(){
 	var aripm = new RegExp(/[\+\-\*\/]/);
 	var aripmSt = new RegExp(/^[\+\-\*\/]/);
 	var toOldVal = false;
-  console.log(parseInt(jQuery(inObj).css('marginLeft'),10) - 4 );
 	/* Создаем не указанные элементы */
 	if(!options.calculatewrapper){
 		options.calculatewrapper = jQuery('<div class="calculatewrapper"></div>');
@@ -94,7 +93,6 @@ return this.each(function(){
 		newVal = oldVal;
 		// jQuery(inObj).css({'position':'relative', 'zIndex':2});
 		t = jQuery(inObj).position();
-    console.log(t);
 		absT = t.top - 4;
 		var mL = jQuery(inObj).css('marginLeft');
 		mL = isNaN( parseInt(mL,10) )?( 0 ):( parseInt(mL,10) );
