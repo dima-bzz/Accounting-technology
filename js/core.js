@@ -4408,13 +4408,13 @@ drawCallback: function(){
                           }
                         },
                         onhidden: function(){
+                          arrList = [];
+                          eq_one_id = [];
                           table_eq.rows().deselect();
                           table_eq_move.clear().draw();
                           table_eq_repair.clear().draw();
                           table_eq_param.clear().draw();
                           $('#photoid').fadeOut(500);
-                          arrList = [];
-                          eq_one_id = [];
                         }
                       });
                   dialog_add.open();
@@ -4563,13 +4563,13 @@ drawCallback: function(){
 
                               },
                               onhidden: function(){
+                                arrList = [];
+                                eq_one_id = [];
                                 table_eq.rows().deselect();
                                 table_eq_move.clear().draw();
                                 table_eq_repair.clear().draw();
                                 table_eq_param.clear().draw();
                                 $('#photoid').fadeOut(500);
-                                arrList = [];
-                                eq_one_id = [];
                               }
                       });
                     dialog_edit.open();
@@ -4644,13 +4644,13 @@ drawCallback: function(){
                         });
                       },
                       onhidden: function(){
+                        arrList = [];
+                        eq_one_id = [];
                         table_eq.rows().deselect();
                         table_eq_move.clear().draw();
                         table_eq_repair.clear().draw();
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
-                        arrList = [];
-                        eq_one_id = [];
                       }
                     });
                     dialog_move.realize();
@@ -4717,13 +4717,13 @@ drawCallback: function(){
                         });
                       },
                       onhidden: function(){
+                        arrList = [];
+                        eq_one_id = [];
                         table_eq.rows().deselect();
                         table_eq_move.clear().draw();
                         table_eq_repair.clear().draw();
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
-                        arrList = [];
-                        eq_one_id = [];
                       }
                     });
                     dialog_copy.realize();
@@ -4762,13 +4762,13 @@ drawCallback: function(){
                               cssClass: " btn-danger",
                             }],
                             onhidden: function(){
+                              arrList = [];
+                              eq_one_id = [];
                               table_eq.rows().deselect();
                               table_eq_move.clear().draw();
                               table_eq_repair.clear().draw();
                               table_eq_param.clear().draw();
                               $('#photoid').fadeOut(500);
-                              arrList = [];
-                              eq_one_id = [];
                             }
                           });
                     dialog_del.open();
@@ -4789,10 +4789,13 @@ drawCallback: function(){
                               cssClass: " btn-danger",
                             }],
                             onhidden: function(){
+                              arrList = [];
+                              eq_one_id = [];
                               table_eq.rows().deselect();
+                              table_eq_move.clear().draw();
+                              table_eq_repair.clear().draw();
+                              table_eq_param.clear().draw();
                               $('#photoid').fadeOut(500);
-                              arrList=[];
-                              eq_one_id=[];
                             }
                           });
                     dialog_del.open();
@@ -4878,13 +4881,13 @@ drawCallback: function(){
                           });
                       },
                       onhidden: function(){
+                        arrList = [];
+                        eq_one_id = [];
                         table_eq.rows().deselect();
                         table_eq_move.clear().draw();
                         table_eq_repair.clear().draw();
                         table_eq_param.clear().draw();
                         $('#photoid').fadeOut(500);
-                        arrList = [];
-                        eq_one_id = [];
                       }
                     });
                     dialog_repair.realize();
@@ -5174,25 +5177,25 @@ drawCallback: function(){
             {
                 text: function(a){return a.i18n("Deselect","Deselect")},
                 action: function () {
-                    table_eq.rows().deselect();
-                    table_eq_move.clear().draw();
-                    table_eq_repair.clear().draw();
-                    table_eq_param.clear().draw();
-                    $('#photoid').fadeOut(500);
-                    arrList = [];
-                    eq_one_id = [];
+                  arrList = [];
+                  eq_one_id = [];
+                  table_eq.rows().deselect();
+                  table_eq_move.clear().draw();
+                  table_eq_repair.clear().draw();
+                  table_eq_param.clear().draw();
+                  $('#photoid').fadeOut(500);
                 }
             },
             {
             text: function(a){return a.i18n("Update","Update")},
             action: function () {
+            arrList = [];
+            eq_one_id = [];
             table_eq.ajax.reload();
             table_eq_move.clear().draw();
             table_eq_repair.clear().draw();
             table_eq_param.clear().draw();
             $('#photoid').fadeOut(500);
-            arrList = [];
-            eq_one_id = [];
               }
             },
             {
@@ -5287,13 +5290,13 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
                   table_eq.search('').draw();
                   $("#equipment_table_clear").blur();
                   table_eq.$('i.fa-check-circle').addClass('text-success');
+                  arrList = [];
+                  eq_one_id = [];
                   table_eq.rows().deselect();
                   table_eq_move.clear().draw();
                   table_eq_repair.clear().draw();
                   table_eq_param.clear().draw();
                   $('#photoid').fadeOut(500);
-                  arrList = [];
-                  eq_one_id = [];
                 });
                 if (table_eq.search() !== ''){
                 table_eq.search('').draw();
@@ -5301,13 +5304,13 @@ $('body').on('click', 'button#equipment_table_clear', function(event) {
               $('body').on('keyup', 'input[aria-controls="equipment_table"]', function(event) {
                 if (this.value.length == '0'){
                   table_eq.$('i.fa-check-circle').addClass('text-success');
+                  arrList = [];
+                  eq_one_id = [];
                   table_eq.rows().deselect();
                   table_eq_move.clear().draw();
                   table_eq_repair.clear().draw();
                   table_eq_param.clear().draw();
                   $('#photoid').fadeOut(500);
-                  arrList = [];
-                  eq_one_id = [];
                 }
               });
 function render_checkbox(data, type, full) {
@@ -6572,8 +6575,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                           }
                       },
                       onhidden: function(){
-                        table_license.rows().deselect();
                         arrList_li=[];
+                        table_license.rows().deselect();
                       }
                     });
                     dialog_license_add.realize();
@@ -6651,8 +6654,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                               }
                             },
                             onhidden: function(){
-                              table_license.rows().deselect();
                               arrList_li=[];
+                              table_license.rows().deselect();
                             }
                     });
                     dialog_license_edit.realize();
@@ -6731,8 +6734,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                               });
                             },
                             onhidden: function(){
-                              table_license.rows().deselect();
                               arrList_li=[];
+                              table_license.rows().deselect();
                             }
                           });
                           dialog_antivirus.realize();
@@ -6769,8 +6772,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                                 cssClass: " btn-danger",
                               }],
                               onhidden: function(){
-                                table_license.rows().deselect();
                                 arrList_li=[];
+                                table_license.rows().deselect();
                               }
                             });
                       dialog_license_del.open();
@@ -6837,8 +6840,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                                 });
                               },
                               onhidden: function(){
-                                table_license.rows().deselect();
                                 arrList_li=[];
+                                table_license.rows().deselect();
                               }
                             });
                       dialog_license_col.open();
@@ -6900,8 +6903,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                                 });
                               },
                               onhidden: function(){
-                                table_license.rows().deselect();
                                 arrList_li=[];
+                                table_license.rows().deselect();
                               }
                             });
                       dialog_system.open();
@@ -6956,8 +6959,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             });
                           },
                           onhidden: function(){
-                            table_license.rows().deselect();
                             arrList_li=[];
+                            table_license.rows().deselect();
                           }
                         });
                   dialog_office.open();
@@ -7012,8 +7015,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                         });
                       },
                       onhidden: function(){
-                        table_license.rows().deselect();
                         arrList_li=[];
+                        table_license.rows().deselect();
                       }
                     });
               dialog_anti.open();
@@ -7069,8 +7072,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             });
                           },
                           onhidden: function(){
-                            table_license.rows().deselect();
                             arrList_li=[];
+                            table_license.rows().deselect();
                           }
                         });
                   dialog_programming.open();
@@ -7128,8 +7131,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 {
                     text: function(a){return a.i18n("Deselect","Deselect")},
                     action: function () {
+                        arrList_li=[];
                         table_license.rows().deselect();
-                        arrList_li = [];
                     }
                 },
                 {
@@ -7213,13 +7216,13 @@ $('body').on('click', 'button#table_license_clear', function(event) {
                   event.preventDefault();
                   table_license.search('').draw();
                   $("#table_license_clear").blur();
-                  table_license.rows().deselect();
                   arrList_li=[];
+                  table_license.rows().deselect();
                 });
                 $('body').on('keyup', 'input[aria-controls="table_license"]', function(event) {
                   if (this.value.length == '0'){
+                    arrList_li=[];
                     table_license.rows().deselect();
-                    arrList_li=[]
                   }
                 });
 $('#table_license tbody').on( 'click', 'tr.group', function () {
@@ -7383,9 +7386,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                           });
                       },
                       onhidden: function(){
+                        eq_one_id=[];
                         table_cartridge.rows().deselect();
                         table_cartridge_uchet.clear().draw();
-                        eq_one_id=[];
                       }
                     });
                     dialog_cartridge_add.realize();
@@ -7449,9 +7452,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                               });
                             },
                             onhidden: function(){
+                              eq_one_id=[];
                               table_cartridge.rows().deselect();
                               table_cartridge_uchet.clear().draw();
-                              eq_one_id=[];
                             }
                     });
                     dialog_cartridge_edit.realize();
@@ -7525,9 +7528,9 @@ var table_cartridge = $('#table_cartridge').DataTable({
                               });
                             },
                             onhidden: function(){
+                              eq_one_id=[];
                               table_cartridge.rows().deselect();
                               table_cartridge_uchet.clear().draw();
-                              eq_one_id=[];
                             }
                           });
                           dialog_cartridge_out.realize();
@@ -7619,9 +7622,9 @@ $('body').on('click', 'button#table_cartridge_clear', function(event) {
                   $('#printid_fast').val('').trigger('chosen:updated');
                   $("#table_cartridge_clear").blur();
                   table_cartridge.$('i.fa-check-circle').addClass('text-success');
+                  eq_one_id=[];
                   table_cartridge.rows().deselect();
                   table_cartridge_uchet.clear().draw();
-                  eq_one_id=[];
                 });
                 if (table_cartridge.search() !== ''){
                 table_cartridge.search('').draw();
@@ -7630,9 +7633,9 @@ $('body').on('click', 'button#table_cartridge_clear', function(event) {
                 if (this.value.length == '0'){
                   $('#printid_fast').val('').trigger('chosen:updated');
                   table_cartridge.$('i.fa-check-circle').addClass('text-success');
+                  eq_one_id=[];
                   table_cartridge.rows().deselect();
                   table_cartridge_uchet.clear().draw();
-                  eq_one_id=[];
                 }
               });
 // Быстрое редактирование картриджей диалог
@@ -7862,8 +7865,8 @@ $('#table_cartridge_uchet tbody').on( 'click', 'button#history_cart_delete', fun
                      cssClass: " btn-danger",
                    }],
                    onhidden: function(){
-                     table_cartridge_uchet.rows().deselect();
                      uchet_one_id=[];
+                     table_cartridge_uchet.rows().deselect();
                    }
                  });
            dialog_cartridge_uchet_del.open();
@@ -7999,8 +8002,8 @@ window.table_invoice = $('#invoice').DataTable({
   {
       text: function(a){return a.i18n("Deselect","Deselect")},
       action: function () {
-          table_invoice.rows().deselect();
           arrList_inv = [];
+          table_invoice.rows().deselect();
       }
   }
 ],
@@ -8444,8 +8447,8 @@ window.table_report = $('#report').DataTable({
   {
       text: function(a){return a.i18n("Deselect","Deselect")},
       action: function () {
-          table_report.rows().deselect();
           arrList_shtr = [];
+          table_report.rows().deselect();
       }
   }
 ],
@@ -8479,20 +8482,20 @@ window.table_report = $('#report').DataTable({
                 event.preventDefault();
                 table_report.search('').draw();
                 $("#report_clear").blur();
-                table_report.rows().deselect();
-                table_eq_move_show_rep.clear().draw();
                 eq_one_id=[];
                 arrList_shtr=[];
+                table_report.rows().deselect();
+                table_eq_move_show_rep.clear().draw();
           });
           if (table_report.search() !== ''){
           table_report.search('').draw();
         }
         $('body').on('keyup', 'input[aria-controls="report"]', function(event) {
           if (this.value.length == '0'){
-            table_report.rows().deselect();
-            table_eq_move_show_rep.clear().draw();
             eq_one_id=[];
             arrList_shtr=[];
+            table_report.rows().deselect();
+            table_eq_move_show_rep.clear().draw();
           }
         });
       $('#us').on('click', function(){
@@ -8962,9 +8965,9 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   {
   text: function(a){return a.i18n("Update","Update")},
   action: function () {
+  eq_one_id=[];
   table_places.ajax.reload();
   table_places_sub.clear().draw();
-  eq_one_id=[];
     }
   }
 ],
@@ -9780,8 +9783,8 @@ var table_contact = $('#table_contact').DataTable({
                   $("#mobile").mask("+7 (999) 999-99-99");
                 },
                 onhidden: function(){
-                  table_contact.rows().deselect();
                   array_cont=[];
+                  table_contact.rows().deselect();
                 }
             });
             dialog_users_profile.realize();
@@ -9897,8 +9900,8 @@ var table_contact = $('#table_contact').DataTable({
   {
       text: function(a){return a.i18n("Deselect","Deselect")},
       action: function () {
+          array_cont=[];
           table_contact.rows().deselect();
-          array_cont = [];
       }
   }
 ],
@@ -9932,6 +9935,7 @@ $('body').on('click', 'button#table_contact_clear', function(event) {
                   event.preventDefault();
                   table_contact.search('').draw();
                   $("#table_contact_clear").blur();
+                  array_cont=[];
                   table_contact.rows().deselect();
                 });
                 if (table_contact.search() !== ''){
@@ -9939,6 +9943,7 @@ $('body').on('click', 'button#table_contact_clear', function(event) {
               }
               $('body').on('keyup', 'input[aria-controls="table_contact"]', function(event) {
                 if (this.value.length == '0'){
+                  array_cont=[];
                   table_contact.rows().deselect();
                 }
               });
@@ -10975,10 +10980,10 @@ $('body').on('click', 'button#table_requisites_clear', function(event) {
                   table_requisites.search('').draw();
                   $("#table_requisites_clear").blur();
                   table_requisites.$('i.fa-check-circle').addClass('text-success');
-                  table_requisites.rows().deselect();
-                  table_requisites_files.clear().draw();
                   eq_one_id=[];
                   arrList_req=[];
+                  table_requisites.rows().deselect();
+                  table_requisites_files.clear().draw();
                 });
                 if (table_requisites.search() !== ''){
                 table_requisites.search('').draw();
@@ -10986,10 +10991,10 @@ $('body').on('click', 'button#table_requisites_clear', function(event) {
               $('body').on('keyup', 'input[aria-controls="table_requisites"]', function(event) {
                 if (this.value.length == '0'){
                   table_requisites.$('i.fa-check-circle').addClass('text-success');
-                  table_requisites.rows().deselect();
-                  table_requisites_files.clear().draw();
                   eq_one_id=[];
                   arrList_req=[];
+                  table_requisites.rows().deselect();
+                  table_requisites_files.clear().draw();
                 }
               });
 table_requisites.on('select', function(e, dt, type, indexes ){
@@ -11428,10 +11433,10 @@ $('body').on('click', 'button#table_knt_clear', function(event) {
                     table_knt.search('').draw();
                     $("#table_knt_clear").blur();
                     table_knt.$('i.fa-check-circle').addClass('text-success');
-                    table_knt.rows().deselect();
-                    table_knt_files.clear().darw();
                     eq_one_id=[];
                     arrList_knt=[];
+                    table_knt.rows().deselect();
+                    table_knt_files.clear().darw();
                   });
                   if (table_knt.search() !== ''){
                   table_knt.search('').draw();
@@ -11439,10 +11444,10 @@ $('body').on('click', 'button#table_knt_clear', function(event) {
                 $('body').on('keyup', 'input[aria-controls="table_knt"]', function(event) {
                   if (this.value.length == '0'){
                     table_knt.$('i.fa-check-circle').addClass('text-success');
-                    table_knt.rows().deselect();
-                    table_knt_files.clear().darw();
                     eq_one_id=[];
                     arrList_knt=[];
+                    table_knt.rows().deselect();
+                    table_knt_files.clear().darw();
                   }
                 });
 table_knt.on('select', function(e, dt, type, indexes ){
