@@ -1182,7 +1182,7 @@ if ($mode == "dialog_move_edit"){
 <form id="myForm_repair_edit" class="well" method="post">
 <div class="row">
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-<textarea rows="5" class="form-control allwidht" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>"><?php echo "$comment";?></textarea>
+<textarea style="height:115px;" class="form-control allwidht" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>"><?php echo "$comment";?></textarea>
 </div>
  <div class="center_submit">
     <button type="submit" id="equipment_move_edit" class="btn btn-success"><?=get_lang('Edit');?></button>
@@ -1284,7 +1284,7 @@ if ($status == '1'){
  </div>
       </div>
       <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-      <textarea class="form-control" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
+      <textarea class="form-control" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
       <?php
       if ($status == '1'){
        ?>
@@ -1453,7 +1453,7 @@ if ($mode == "dialog_move"){
   </div>
     <div class="col-md-8">
       <label class="control-label"><small><?=get_lang('Comment');?>: </small></label>
-      <textarea rows="5" class="form-control comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment"></textarea>
+      <textarea style="height:120px;" class="form-control comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment"></textarea>
     </div>
 </div>
   <div class="center_submit">
@@ -1636,11 +1636,16 @@ if ($mode == "dialog_equipment_edit"){
   <input class="form-control input-sm allwidht" name=buhname id=buhname type="text" value="<?php $buhname=htmlspecialchars($buhname);echo "$buhname";?>">
   <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" value="<?php echo "$cost";?>"placeholder="Начальная стоимость" autocomplete="off">
   <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" value="<?php echo "$currentcost";?>" placeholder="Текущая стоимость" autocomplete="off">
+  <div id="invoice_label">
   <label class="control-label"><small>Номер накладной: </small></label>
-  <!-- <input class="form-control input-sm allwidht" id=invoice name=invoice type="text" value="<?php echo "$invoice";?>" placeholder="РкТ-123 от 04.02.2016"> -->
+  </div>
   <div class="invoice">
-  <input class="form-control input-sm col-md-2" id="invoice" style="width:66%;" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="Номер накладной" value="<?php echo "$invoice_end[0]";?>"><b><small style="float:left;line-height:2.5">от</small></b>
-  <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:29%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата" value="<?php echo "$invoice_end[1]";?>">
+    <div id="invoice_grp" class="form-group" style="display:inline;">
+  <input class="form-control input-sm col-md-2" id="invoice" style="width:66%;" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="Номер накладной" value="<?php echo "$invoice_end[0]";?>" data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>"><b><small style="float:left;line-height:2.5">от</small></b>
+  </div>
+  <div id="invoice_date_grp" class="form-group" style="display:inline;">
+  <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:29%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата" value="<?php echo "$invoice_end[1]";?>" data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="right" data-content="<?= get_lang('Toggle_title'); ?>">
+  </div>
 </div>
   <label class="checkbox-inline">
   <input type="checkbox" name="mode" id="mode_eq"  <?php if ($mode=="1") {echo "checked";};?>><b><small>Списано</small></b>
@@ -1694,7 +1699,7 @@ if ($mode == "dialog_equipment_edit"){
     </div>
   </div>
   <div class="col-md-8">
-  <textarea class="form-control comment" id="comment" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>"  rows="14"><?php echo "$comment";?></textarea>
+  <textarea class="form-control comment" id="comment" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>"  style="height:286px;"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -1848,11 +1853,16 @@ if ($mode == "dialog_equipment_add"){
   <input class="form-control input-sm allwidht" name="buhname" id="buhname" type="text">
   <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" placeholder="Начальная стоимость" autocomplete="off">
   <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" placeholder="Текущая стоимость" autocomplete="off">
+  <div id="invoice_label">
   <label class="control-label"><small>Номер накладной: </small></label>
-  <!-- <input class="form-control input-sm allwidht" id="invoice" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="РкТ-123 от 04.02.2016"> -->
+  </div>
   <div class="invoice">
-  <input class="form-control input-sm col-md-2" id="invoice" style="width:65%;" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="Номер накладной"><b><small style="float:left;line-height:2.5">от</small></b>
-  <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:30%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата">
+    <div id="invoice_grp" class="form-group" style="display:inline;">
+  <input class="form-control input-sm col-md-2" id="invoice" style="width:65%;" name="invoice" type="text" data-provide="typeahead" autocomplete="off" placeholder="Номер накладной" data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>"><b><small style="float:left;line-height:2.5">от</small></b>
+  </div>
+  <div id="invoice_date_grp" class="form-group" style="display:inline;">
+  <input class="form-control input-sm col-md-2" id="invoice_date" readonly='true' maxlength="10" style="width:30%;" name="invoice_date" type="text" autocomplete="off" placeholder="Дата" data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="right" data-content="<?= get_lang('Toggle_title'); ?>">
+  </div>
   </div>
   <label class="checkbox-inline">
   <input type="checkbox" name="mode_eq" id="mode_eq"><b><small>Списано</small></b>
@@ -1898,7 +1908,7 @@ if ($mode == "dialog_equipment_add"){
     </div>
   </div>
   <div class="col-md-8">
-  <textarea class="form-control comment" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" rows="14"><?php echo "$comment";?></textarea>
+  <textarea class="form-control comment" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:286px;"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -2042,7 +2052,7 @@ if ($mode == "dialog_license_add"){
   </div>
   	</div><br>
   	<label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-  <textarea class="form-control allwidht" name="comment" id="comment"  rows="3" placeholder="<?=get_lang('Comment_placeholder');?>"></textarea>
+  <textarea class="form-control allwidht" name="comment" id="comment"  style="height:75px;" placeholder="<?=get_lang('Comment_placeholder');?>"></textarea>
    <div class="center_submit">
   	<button type="submit" id="license_add" class="btn btn-success"><?=get_lang('Add');?></button>
   	</div>
@@ -2205,7 +2215,7 @@ $comment=$myrow['comment'];
   </div>
   	</div><br>
   	<label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-  <textarea class="form-control allwidht" name="comment" id="comment"  rows="3" placeholder="<?=get_lang('Comment_placeholder');?>"><?php echo "$comment";?></textarea>
+  <textarea class="form-control allwidht" name="comment" id="comment"  style="height:75px;" placeholder="<?=get_lang('Comment_placeholder');?>"><?php echo "$comment";?></textarea>
    <div class="center_submit">
   	<button type="submit" id="license_edit" class="btn btn-success"><?=get_lang('Edit');?></button>
   	</div>
@@ -2741,7 +2751,7 @@ if ($mode == "dialog_cartridge_out"){
   </div>
 <div class="col-md-6">
     <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" rows="3" name="comment" id="comment"><?php echo "$comment";?></textarea>
+        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:76px;" name="comment" id="comment"><?php echo "$comment";?></textarea>
     </div>
   </div>
   <div class="center_submit">
@@ -2779,7 +2789,7 @@ $comment=$myrow['comment'];
   </div>
 <div class="col-md-6">
     <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" rows="4" name="comment" id="comment"><?php echo "$comment";?></textarea>
+        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:91px;" name="comment" id="comment"><?php echo "$comment";?></textarea>
     </div>
   </div>
   <div class="center_submit">
@@ -3404,7 +3414,7 @@ if ($mode == "dialog_places_add"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -3432,7 +3442,7 @@ if ($mode == "dialog_places_edit"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -4268,7 +4278,7 @@ if ($mode == "dialog_vendors_add"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -4296,7 +4306,7 @@ if ($mode == "dialog_vendors_edit"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -5003,7 +5013,7 @@ if ($mode == "dialog_knt_add"){
 <label class="control-label"><small><?= get_lang('Comment');?>:</small></label>
 </div>
 <div class="col-sm-6">
-  <textarea class="form-control allwidht" rows="4" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>" id="comment"></textarea>
+  <textarea class="form-control allwidht" style="height:95px;" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>" id="comment"></textarea>
 </div>
 </div>
 </div>
@@ -5057,7 +5067,7 @@ if ($mode == "dialog_knt_edit"){
   <label class="control-label"><small><?= get_lang('Comment');?>:</small></label>
   </div>
   <div class="col-sm-6">
-    <textarea class="form-control allwidht" rows="4" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>" id="comment"><?php echo "$comment";?></textarea>
+    <textarea class="form-control allwidht" style="height:95px;" name="comment" placeholder="<?=get_lang('Comment_placeholder');?>" id="comment"><?php echo "$comment";?></textarea>
   </div>
   </div>
   </div>
@@ -5242,7 +5252,7 @@ if ($mode == "dialog_group_nome_add"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -5270,7 +5280,7 @@ if ($mode == "dialog_group_nome_edit"){
 </div>
 <p></p>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -5547,7 +5557,7 @@ if ($mode == "dialog_event_add"){
 <div class="center_all">
 <br>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -5625,7 +5635,7 @@ if ($mode == "dialog_event_edit_del"){
 <div class="center_all">
 <br>
 <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-    <textarea class="form-control allwidht" rows="2" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
+    <textarea class="form-control allwidht" style="height:55px;" placeholder="<?=get_lang('Comment_placeholder');?>" name="comment" id="comment"><?php echo "$comment";?></textarea>
   </div>
   </div>
   <div class="center_submit">

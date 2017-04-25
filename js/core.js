@@ -1270,6 +1270,24 @@ $('body').on('click', 'button#equipment_add', function(event) {
             setTimeout(function(){$("#dtpost").popover('hide');},2000);
             valid_result = true;
           }
+          if ($('#invoice').val().length > '0'){
+            if ($('#invoice_date').val().length == '0'){
+              $('#invoice_date').popover('show');
+              $('#invoice_date_grp').addClass('has-error');
+              $('#invoice_label').addClass('has-error');
+              setTimeout(function(){$("#invoice_date").popover('hide');},2000);
+              valid_result = true;
+            }
+          }
+          if ($('#invoice_date').val().length > '0'){
+            if ($('#invoice').val().length == '0'){
+              $('#invoice').popover('show');
+              $('#invoice_grp').addClass('has-error');
+              $('#invoice_label').addClass('has-error');
+              setTimeout(function(){$("#invoice").popover('hide');},2000);
+              valid_result = true;
+            }
+          }
           return valid_result;
           };
 
@@ -1369,6 +1387,24 @@ $('body').on('click', 'button#equipment_edit', function(event) {
             $('#dtpost_edit_grp').addClass('has-error');
             setTimeout(function(){$("#dtpost").popover('hide');},2000);
             valid_result = true;
+          }
+          if ($('#invoice').val().length > '0'){
+            if ($('#invoice_date').val().length == '0'){
+              $('#invoice_date').popover('show');
+              $('#invoice_date_grp').addClass('has-error');
+              $('#invoice_label').addClass('has-error');
+              setTimeout(function(){$("#invoice_date").popover('hide');},2000);
+              valid_result = true;
+            }
+          }
+          if ($('#invoice_date').val().length > '0'){
+            if ($('#invoice').val().length == '0'){
+              $('#invoice').popover('show');
+              $('#invoice_grp').addClass('has-error');
+              $('#invoice_label').addClass('has-error');
+              setTimeout(function(){$("#invoice").popover('hide');},2000);
+              valid_result = true;
+            }
           }
           return valid_result;
           };
@@ -4308,7 +4344,7 @@ drawCallback: function(){
                           autoclose: true,
                           language: lang,
                           todayBtn: "linked",
-                          clearBtn: false,
+                          clearBtn: true,
                           todayHighlight: true
                           });
                             $("#dtpost").datepicker({
@@ -4319,6 +4355,22 @@ drawCallback: function(){
                             clearBtn: false,
                             todayHighlight: true
                             });
+                            $('#invoice_date').change(function(){
+                                  if ($('#invoice').val().length > 0){
+                                  if ($(this).val().length > 0){
+                                    $('#invoice_date_grp').removeClass('has-error');
+                                    $('#invoice_label').removeClass('has-error');
+                                  }
+                                }
+                              });
+                              $('#invoice').keyup(function(){
+                                if ($('#invoice_date').val().length > 0){
+                                  if ($(this).val().length > 0){
+                                    $('#invoice_grp').removeClass('has-error');
+                                    $('#invoice_label').removeClass('has-error');
+                                  }
+                                }
+                              });
                             $("#dtpost").change(function(){
                               if ($(this).val().length > 8){
                                 $('#dtpost').popover('hide');
@@ -4486,7 +4538,7 @@ drawCallback: function(){
                               autoclose: true,
                               language: lang,
                               todayBtn: "linked",
-                              clearBtn: false,
+                              clearBtn: true,
                               todayHighlight: true
                               });
                                 $("#dtpost").datepicker({
@@ -4497,6 +4549,22 @@ drawCallback: function(){
                                   clearBtn: false,
                                   todayHighlight: true
                                 });
+                                $('#invoice_date').change(function(){
+                                  if ($('#invoice').val().length > 0){
+                                  if ($(this).val().length > 0){
+                                    $('#invoice_date_grp').removeClass('has-error');
+                                    $('#invoice_label').removeClass('has-error');
+                                  }
+                                }
+                              });
+                              $('#invoice').keyup(function(){
+                                if ($('#invoice_date').val().length > 0){
+                                  if ($(this).val().length > 0){
+                                    $('#invoice_grp').removeClass('has-error');
+                                    $('#invoice_label').removeClass('has-error');
+                                  }
+                                }
+                              });
                                 $("#dtpost").change(function(){
                                   if ($(this).val().length > 8){
                                     $('#dtpost').popover('hide');
