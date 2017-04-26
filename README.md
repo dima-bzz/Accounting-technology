@@ -34,7 +34,7 @@
 <h4>Какие требования?</h4>
 <ul>
 <li>UNIX-like OS</li>
-<li>Apache (mod_rewrite), PHP (PDO, short_open_tag), MySQL</li>
+<li>Apache (mod_rewrite), PHP5 (PDO, short_open_tag), MySQL</li>
 <li>Access to mail (для отправки писем)</li>
 <img src="https://cloud.githubusercontent.com/assets/3504940/4213057/8c8d9c5a-38ad-11e4-809d-818a16bdfc13.jpg"/>
 </ul>
