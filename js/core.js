@@ -15,34 +15,12 @@ return zzz;
 window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 
-function get_lang_param(par) {
-    var result="";
-    var zcode="";
-    var url = MyHOSTNAME + "lang/lang-" + lang + ".json";
-
-if (url.search("inc") >= 0) {
-zcode="../";
-}
-
-var data = $.parseJSON(
-  $.ajax({
-    datatype: "json",
-    url: url,
-    async: false,
-    cache: false,
-    success: function(html){
-      if (typeof (html[par]) !== 'undefined'){
-                  result = html[par];
-                    }
-                    else if (typeof (html[par]) === 'undefined') {
-                      result = "undefined";
-                    }
-                  }
-              }).responseText
-);
-return (result);
-
-};
+$.i18n.debug = false;
+$.i18n().locale = lang;
+$.i18n().load( {
+    'en' : MyHOSTNAME + "lang/lang-en.json",
+    'ru' : MyHOSTNAME + "lang/lang-ru.json"
+}).done (function(){
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -60,7 +38,7 @@ function getUrlParameter(sParam) {
 function my_select(){
   $(".my_select").chosen({
     disable_search_threshold: 10,
-    no_results_text: get_lang_param('Chosen_empty'),
+    no_results_text: $.i18n('Chosen_empty'),
     search_contains: true,
     allow_single_deselect: true
   });
@@ -70,7 +48,7 @@ function my_select2(){
   $(".my_select2").chosen({
     disable_search_threshold: 10,
     search_contains: true,
-    no_results_text: get_lang_param('Chosen_empty'),
+    no_results_text: $.i18n('Chosen_empty'),
   });
 };
 my_select();
@@ -417,7 +395,7 @@ $("#calendar").fullCalendar({
 
       //  alert('Clicked on: ' + date.format("YYYY-MM-DD HH:mm:ss"));
        window.dialog_event_add = new BootstrapDialog({
-               title: get_lang_param("Event_add"),
+               title: $.i18n("Event_add"),
                message: function(dialogRef) {
      var $message = $('<div></div>');
      var data = $.ajax({
@@ -503,7 +481,7 @@ $("#calendar").fullCalendar({
      if ((calEvent.description !== 'birthday') && (calEvent.description !== 'antivirus')){
      window.edit_event_id = calEvent.id_us_ev;
      window.dialog_event_edit = new BootstrapDialog({
-             title: get_lang_param("Event_edit"),
+             title: $.i18n("Event_edit"),
              message: function(dialogRef) {
    var $message = $('<div></div>');
    var data = $.ajax({
@@ -598,8 +576,8 @@ $("#calendar").fullCalendar({
      window.drag_event_start = event.start.format();
      window.drag_event_end = event.end.format();
      window.dialog_drag = new BootstrapDialog({
-             title: get_lang_param("Event_drop"),
-             message: get_lang_param("Event_info"),
+             title: $.i18n("Event_drop"),
+             message: $.i18n("Event_info"),
              type: BootstrapDialog.TYPE_WARNING,
              cssClass: 'del-dialog',
              closable: false,
@@ -609,7 +587,7 @@ $("#calendar").fullCalendar({
              buttons:[
                {
                  id: "drag_cancel",
-                 label: get_lang_param("Btn_close"),
+                 label: $.i18n("Btn_close"),
                  action: function(){
                         revertFunc();
                         dialog_drag.close();
@@ -617,7 +595,7 @@ $("#calendar").fullCalendar({
                },
                {
                id: "drag_ok",
-               label: get_lang_param("Btn_Ok"),
+               label: $.i18n("Btn_Ok"),
                cssClass: "btn-primary",
              }
            ],
@@ -845,8 +823,8 @@ $('body').on('click', 'button#event_edit', function(event) {
 $('body').on('click', 'button#event_del', function(event) {
           event.preventDefault();
           window.dialog_event_del = new BootstrapDialog({
-                  title: get_lang_param("Event_delete"),
-                  message: get_lang_param("Info_del3"),
+                  title: $.i18n("Event_delete"),
+                  message: $.i18n("Info_del3"),
                   type: BootstrapDialog.TYPE_DANGER,
                   cssClass: 'del-dialog',
                   closable: true,
@@ -855,7 +833,7 @@ $('body').on('click', 'button#event_del', function(event) {
                   closeByKeyboard: false,
                   buttons:[{
                     id: "event_delete",
-                    label: get_lang_param("Delete"),
+                    label: $.i18n("Delete"),
                     cssClass: " btn-danger",
                   }],
                 });
@@ -1195,8 +1173,8 @@ $('#file').on('change', function(){
   }
   else {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg_type")  + '(' +file_types_img +')',
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg_type")  + '(' +file_types_img +')',
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true,
     callback: function() {
@@ -2614,8 +2592,8 @@ $('#file').on('change', function(){
   }
   else {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg_type")  + '(' + file_types_img +')',
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg_type")  + '(' + file_types_img +')',
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true,
     callback: function() {
@@ -3528,8 +3506,8 @@ $('body').on('click', 'button#do_create_news', function(event) {
 
     if ($("#t").val().length == 0 ) { error_code=1;
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg5"),
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg5"),
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true
       });
@@ -3598,8 +3576,8 @@ $('body').on('click', 'button#do_save_news', function(event) {
 
     if ($("#t").val().length == 0 ) { error_code=1;
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg5"),
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg5"),
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true
       });
@@ -3680,8 +3658,8 @@ $('body').on('click', 'button#del_news', function(event) {
     event.preventDefault();
     var hn=$(this).val();
     window.dialog_news_del = new BootstrapDialog({
-            title: get_lang_param("News_del"),
-            message: get_lang_param("Del_news_info"),
+            title: $.i18n("News_del"),
+            message: $.i18n("Del_news_info"),
             type: BootstrapDialog.TYPE_WARNING,
             cssClass: 'del-dialog',
             closable: false,
@@ -3691,14 +3669,14 @@ $('body').on('click', 'button#del_news', function(event) {
             buttons:[
               {
                 id: "news_del_cancel",
-                label: get_lang_param("Btn_no"),
+                label: $.i18n("Btn_no"),
                 action: function(){
                        dialog_news_del.close();
                 }
               },
               {
               id: "news_del_ok",
-              label: get_lang_param("Btn_yes"),
+              label: $.i18n("Btn_yes"),
               cssClass: "btn-primary",
             }
           ],
@@ -4124,7 +4102,7 @@ return data ?
                'data-toggle':'popover',
                'data-placement':'bottom',
                'data-html': 'true',
-               'data-content':get_lang_param("Copy_to_clipboard")
+               'data-content':$.i18n("Copy_to_clipboard")
              });
              var ch_copy = selectText('select_copy');
              //console.log(ch_copy);
@@ -4291,7 +4269,7 @@ drawCallback: function(){
                 text: function(a){return a.i18n("Add","Add")},
                 action: function ( e, dt, node, config ) {
                   window.dialog_add = new BootstrapDialog({
-                          title: get_lang_param("Equipment_add"),
+                          title: $.i18n("Equipment_add"),
                           message: function(dialogRef) {
                 var $message = $('<div></div>');
                 var data = $.ajax({
@@ -4478,7 +4456,7 @@ drawCallback: function(){
                   var $rows = table_eq.$('tr.selected');
                     if ($rows.length == '1'){
                       window.dialog_edit = new BootstrapDialog({
-                              title: get_lang_param("Equipment_edit"),
+                              title: $.i18n("Equipment_edit"),
                               message: function(dialogRef) {
                     var $message = $('<div></div>');
                     var data = $.ajax({
@@ -4644,16 +4622,16 @@ drawCallback: function(){
                     }
                     else if ($rows.length > '1') {
                       BootstrapDialog.alert({
-                      title: get_lang_param("Er_title"),
-                      message: get_lang_param("Er_msg1"),
+                      title: $.i18n("Er_title"),
+                      message: $.i18n("Er_msg1"),
                       type: BootstrapDialog.TYPE_WARNING,
                       draggable: true
                       });
                     }
                     else {
                       BootstrapDialog.alert({
-                      title: get_lang_param("Er_title"),
-                      message: get_lang_param("Er_msg2"),
+                      title: $.i18n("Er_title"),
+                      message: $.i18n("Er_msg2"),
                       type: BootstrapDialog.TYPE_WARNING,
                       draggable: true
                       });
@@ -4666,7 +4644,7 @@ drawCallback: function(){
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length > '0'){
                 window.dialog_move = new BootstrapDialog({
-                        title: get_lang_param("Equipment_move_title"),
+                        title: $.i18n("Equipment_move_title"),
                         message: function(dialogRef) {
               var $message = $('<div></div>');
               var data = $.ajax({
@@ -4726,8 +4704,8 @@ drawCallback: function(){
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -4740,7 +4718,7 @@ drawCallback: function(){
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length > '0'){
                 window.dialog_copy = new BootstrapDialog({
-                        title: get_lang_param("Equipment_copy"),
+                        title: $.i18n("Equipment_copy"),
                         message: function(dialogRef) {
               var $message = $('<div></div>');
               var data = $.ajax({
@@ -4799,8 +4777,8 @@ drawCallback: function(){
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -4816,8 +4794,8 @@ drawCallback: function(){
                     var act_d = dt.row($rows).data()[0];
                     if (act_d != 'not_active') {
                     window.dialog_del = new BootstrapDialog({
-                            title: get_lang_param("Equipment_del"),
-                            message: get_lang_param("Info_del"),
+                            title: $.i18n("Equipment_del"),
+                            message: $.i18n("Info_del"),
                             type: BootstrapDialog.TYPE_DANGER,
                             cssClass: 'del-dialog',
                             closable: true,
@@ -4826,7 +4804,7 @@ drawCallback: function(){
                             closeByKeyboard: false,
                             buttons:[{
                               id: "equipment_delete",
-                              label: get_lang_param("Delete"),
+                              label: $.i18n("Delete"),
                               cssClass: " btn-danger",
                             }],
                             onhidden: function(){
@@ -4843,8 +4821,8 @@ drawCallback: function(){
                   }
                   else{
                     window.dialog_del = new BootstrapDialog({
-                            title: get_lang_param("Equipment_del"),
-                            message: get_lang_param("Info_del5"),
+                            title: $.i18n("Equipment_del"),
+                            message: $.i18n("Info_del5"),
                             type: BootstrapDialog.TYPE_DANGER,
                             cssClass: 'del-dialog',
                             closable: true,
@@ -4853,7 +4831,7 @@ drawCallback: function(){
                             closeByKeyboard: false,
                             buttons:[{
                               id: "equipment_delete",
-                              label: get_lang_param("No_Delete"),
+                              label: $.i18n("No_Delete"),
                               cssClass: " btn-danger",
                             }],
                             onhidden: function(){
@@ -4871,8 +4849,8 @@ drawCallback: function(){
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -4889,7 +4867,7 @@ drawCallback: function(){
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length == '1'){
                 window.dialog_repair = new BootstrapDialog({
-                        title: get_lang_param("Equipment_repair_title"),
+                        title: $.i18n("Equipment_repair_title"),
                         message: function(dialogRef) {
               var $message = $('<div></div>');
               var data = $.ajax({
@@ -4963,16 +4941,16 @@ drawCallback: function(){
                   }
                   else if ($rows.length > '1') {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg4"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg4"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -4986,7 +4964,7 @@ drawCallback: function(){
                 var $rows = table_eq.$('tr.selected');
                   if ($rows.length == '1'){
                     window.dialog_eq_param_add = new BootstrapDialog({
-                            title: get_lang_param("Param_add"),
+                            title: $.i18n("Param_add"),
                             message: function(dialogRef) {
                   var $message = $('<div></div>');
                   var data = $.ajax({
@@ -5086,16 +5064,16 @@ drawCallback: function(){
                   }
                   else if ($rows.length > '1') {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg3"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg3"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -5389,10 +5367,10 @@ function render_checkbox(data, type, full) {
             }
   if (type === 'checkbox'){
       if (data == true){
-          data = get_lang_param('Yes');
+          data = $.i18n('Yes');
       }
       else {
-          data = get_lang_param('No');
+          data = $.i18n('No');
       }
   }
 return data;
@@ -5448,7 +5426,7 @@ $('#equipment_table tbody').on( 'dblclick','td', function () {
         'data-toggle':'popover',
         'data-placement':'bottom',
         'data-html': 'true',
-        'data-content':get_lang_param("Copy_to_clipboard")
+        'data-content':$.i18n("Copy_to_clipboard")
       });
       var ch_copy = selectText('select_copy');
       //console.log(ch_copy);
@@ -5558,7 +5536,7 @@ drawCallback: function(){
             'data-toggle':'popover',
             'data-placement':'bottom',
             'data-html': 'true',
-            'data-content':get_lang_param("Copy_to_clipboard")
+            'data-content':$.i18n("Copy_to_clipboard")
           });
           var ch_copy = selectText('select_copy');
           //console.log(ch_copy);
@@ -5578,7 +5556,7 @@ $('#equipment_move tbody').on( 'click', 'button#move_edit', function () {
         var data = table_eq_move.row( $(this).parents('tr') ).data();
         window.id_move_edit = data[0];
         window.dialog_move_edit = new BootstrapDialog({
-                title: get_lang_param("Equipment_move_title"),
+                title: $.i18n("Equipment_move_title"),
                 message: function(dialogRef) {
       var $message = $('<div></div>');
       var data = $.ajax({
@@ -5609,8 +5587,8 @@ $('#equipment_move tbody').on( 'click', 'button#move_eq_delete', function () {
         var data = table_eq_move.row( $(this).parents('tr') ).data();
         window.id_move_delete = data[0];
         window.dialog_move_del = new BootstrapDialog({
-                title: get_lang_param("Equipment_del_move"),
-                message: get_lang_param("Info_del2"),
+                title: $.i18n("Equipment_del_move"),
+                message: $.i18n("Info_del2"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -5619,7 +5597,7 @@ $('#equipment_move tbody').on( 'click', 'button#move_eq_delete', function () {
                 closeByKeyboard: false,
                 buttons:[{
                   id: "equipment_move_delete",
-                  label: get_lang_param("Delete"),
+                  label: $.i18n("Delete"),
                   cssClass: " btn-danger",
                 }],
               });
@@ -5679,7 +5657,7 @@ $('#equipment_move tbody').on( 'click', 'button#move_eq_delete', function () {
                     'data-toggle':'popover',
                     'data-placement':'bottom',
                     'data-html': 'true',
-                    'data-content':get_lang_param("Copy_to_clipboard")
+                    'data-content':$.i18n("Copy_to_clipboard")
                   });
                   var ch_copy = selectText('select_copy');
                   //console.log(ch_copy);
@@ -5859,7 +5837,7 @@ $('#equipment_move_show_all tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -5956,7 +5934,7 @@ $('#equipment_repair tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -5976,7 +5954,7 @@ $('#equipment_repair tbody').on( 'click', 'button#repair_edit', function () {
         var data = table_eq_repair.row( $(this).parents('tr') ).data();
         window.id_repair_edit = data[0];
         window.dialog_repair_edit = new BootstrapDialog({
-                        title: get_lang_param("Equipment_repair_title"),
+                        title: $.i18n("Equipment_repair_title"),
                         message: function(dialogRef) {
                         var $message = $('<div></div>');
                         var data = $.ajax({
@@ -6035,8 +6013,8 @@ $('#equipment_repair tbody').on( 'click', 'button#repair_eq_delete', function ()
         var data = table_eq_repair.row( $(this).parents('tr') ).data();
         window.id_repair_delete = data[0];
         window.dialog_repair_del = new BootstrapDialog({
-        title: get_lang_param("Equipment_del_repair"),
-        message: get_lang_param("Info_del2"),
+        title: $.i18n("Equipment_del_repair"),
+        message: $.i18n("Info_del2"),
         type: BootstrapDialog.TYPE_DANGER,
         cssClass: 'del-dialog',
         closable: true,
@@ -6045,7 +6023,7 @@ $('#equipment_repair tbody').on( 'click', 'button#repair_eq_delete', function ()
         closeByKeyboard: false,
         buttons:[{
           id: "equipment_repair_delete",
-          label: get_lang_param("Delete"),
+          label: $.i18n("Delete"),
           cssClass: " btn-danger",
         }],
       });
@@ -6142,7 +6120,7 @@ $('#equipment_param tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -6162,7 +6140,7 @@ $('#equipment_param tbody').on( 'click', 'button#param_edit', function () {
         var data = table_eq_param.row( $(this).parents('tr') ).data();
         window.id_param_edit = data[0];
         window.dialog_param_edit = new BootstrapDialog({
-                        title: get_lang_param("Param_edit"),
+                        title: $.i18n("Param_edit"),
                         message: function(dialogRef) {
                         var $message = $('<div></div>');
                         var data = $.ajax({
@@ -6218,8 +6196,8 @@ $('#equipment_param tbody').on( 'click', 'button#param_del', function () {
         var data = table_eq_param.row( $(this).parents('tr') ).data();
         window.id_param_delete = data[0];
         window.dialog_param_del = new BootstrapDialog({
-        title: get_lang_param("Param_del"),
-        message: get_lang_param("Info_del2"),
+        title: $.i18n("Param_del"),
+        message: $.i18n("Info_del2"),
         type: BootstrapDialog.TYPE_DANGER,
         cssClass: 'del-dialog',
         closable: true,
@@ -6228,7 +6206,7 @@ $('#equipment_param tbody').on( 'click', 'button#param_del', function () {
         closeByKeyboard: false,
         buttons:[{
           id: "equipment_param_delete",
-          label: get_lang_param("Delete"),
+          label: $.i18n("Delete"),
           cssClass: " btn-danger",
         }],
       });
@@ -6291,7 +6269,7 @@ window.table_ping = $('#ping').DataTable({
       'data-toggle':'popover',
       'data-placement':'bottom',
       'data-html': 'true',
-      'data-content':get_lang_param("Copy_to_clipboard")
+      'data-content':$.i18n("Copy_to_clipboard")
     });
     var ch_copy = selectText('select_copy');
     //console.log(ch_copy);
@@ -6385,7 +6363,7 @@ $("#print_test").on('click', function(){
       'data-toggle':'popover',
       'data-placement':'bottom',
       'data-html': 'true',
-      'data-content':get_lang_param("Copy_to_clipboard")
+      'data-content':$.i18n("Copy_to_clipboard")
     });
     var ch_copy = selectText('select_copy');
     //console.log(ch_copy);
@@ -6466,7 +6444,7 @@ $('#eq_list tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -6506,7 +6484,7 @@ var table_license = $('#table_license').DataTable({
 "sScrollX": "100%",
 "sScrollXInner": "100%",
 "iDisplayLength": 10,
-"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, $.i18n("All")]],
 "stateSave":true,
 "searching":true,
 "bLengthChange": true,
@@ -6537,7 +6515,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       } );
       $('tbody').find('.group').each(function (i,v) {
         //         var rowCount = $(this).nextUntil('.group').length;
-        // $(this).find('td:first').append($('<span />', { 'class': 'group_text' }).append($('<b />', { 'text': ' ' + get_lang_param("Totale_install") +': ' + rowCount })));
+        // $(this).find('td:first').append($('<span />', { 'class': 'group_text' }).append($('<b />', { 'text': ' ' + $.i18n("Totale_install") +': ' + rowCount })));
             });
             if (Admin !== true ){
               table_license.buttons('.Action_b_license').remove();
@@ -6581,7 +6559,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               // className: 'License_delete_bt',
               action: function ( e, dt, node, config ) {
                 window.dialog_license_add = new BootstrapDialog({
-                        title: get_lang_param("License_add"),
+                        title: $.i18n("License_add"),
                         message: function(dialogRef) {
               var $message = $('<div></div>');
               var data = $.ajax({
@@ -6659,7 +6637,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 var $rows = table_license.$('tr.selected');
                   if ($rows.length == '1'){
                     window.dialog_license_edit = new BootstrapDialog({
-                            title: get_lang_param("License_edit"),
+                            title: $.i18n("License_edit"),
                             message: function(dialogRef) {
                   var $message = $('<div></div>');
                   var data = $.ajax({
@@ -6731,16 +6709,16 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 }
                 else if ($rows.length > '1') {
                   BootstrapDialog.alert({
-                  title: get_lang_param("Er_title"),
-                  message: get_lang_param("Er_msg1"),
+                  title: $.i18n("Er_title"),
+                  message: $.i18n("Er_msg1"),
                   type: BootstrapDialog.TYPE_WARNING,
                   draggable: true
                   });
                 }
                 else {
                   BootstrapDialog.alert({
-                  title: get_lang_param("Er_title"),
-                  message: get_lang_param("Er_msg2"),
+                  title: $.i18n("Er_title"),
+                  message: $.i18n("Er_msg2"),
                   type: BootstrapDialog.TYPE_WARNING,
                   draggable: true
                   });
@@ -6754,7 +6732,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 var $rows = table_license.$('tr.selected');
                   if ($rows.length > '0'){
                     window.dialog_antivirus = new BootstrapDialog({
-                            title: get_lang_param("Antivirus_edit"),
+                            title: $.i18n("Antivirus_edit"),
                             message: function(dialogRef) {
                             var $message = $('<div></div>');
                             var data = $.ajax({
@@ -6811,8 +6789,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -6826,8 +6804,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                   var $rows = table_license.$('tr.selected');
                     if ($rows.length > '0'){
                       window.dialog_license_del = new BootstrapDialog({
-                              title: get_lang_param("Record_Delete"),
-                              message: get_lang_param("Info_del"),
+                              title: $.i18n("Record_Delete"),
+                              message: $.i18n("Info_del"),
                               type: BootstrapDialog.TYPE_DANGER,
                               cssClass: 'del-dialog',
                               closable: true,
@@ -6836,7 +6814,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                               closeByKeyboard: false,
                               buttons:[{
                                 id: "license_delete",
-                                label: get_lang_param("Delete"),
+                                label: $.i18n("Delete"),
                                 cssClass: " btn-danger",
                               }],
                               onhidden: function(){
@@ -6848,8 +6826,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                     }
                     else {
                       BootstrapDialog.alert({
-                      title: get_lang_param("Er_title"),
-                      message: get_lang_param("Er_msg2"),
+                      title: $.i18n("Er_title"),
+                      message: $.i18n("Er_msg2"),
                       type: BootstrapDialog.TYPE_WARNING,
                       draggable: true
                       });
@@ -6864,7 +6842,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 className: 'License_delete_bt',
                 action: function( e, dt, node, config ){
                       window.dialog_license_col = new BootstrapDialog({
-                              title: get_lang_param("License_col_title"),
+                              title: $.i18n("License_col_title"),
                               message: function(dialogRef) {
                               var $message = $('<div></div>');
                               var data = $.ajax({
@@ -6926,7 +6904,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                   text: function(a){return a.i18n("System","Operating System")},
                   action: function( e, dt, node, config ){
                       window.dialog_system = new BootstrapDialog({
-                              title: get_lang_param("System"),
+                              title: $.i18n("System"),
                               message: function(dialogRef) {
                               var $message = $('<div></div>');
                               var data = $.ajax({
@@ -6982,7 +6960,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               text: function(a){return a.i18n("Office","Office")},
               action: function( e, dt, node, config ){
                   window.dialog_office = new BootstrapDialog({
-                          title: get_lang_param("Office"),
+                          title: $.i18n("Office"),
                           message: function(dialogRef) {
                           var $message = $('<div></div>');
                           var data = $.ajax({
@@ -7038,7 +7016,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           text: function(a){return a.i18n("Antivirus","Antivirus")},
           action: function( e, dt, node, config ){
               window.dialog_anti = new BootstrapDialog({
-                      title: get_lang_param("Antivirus"),
+                      title: $.i18n("Antivirus"),
                       message: function(dialogRef) {
                       var $message = $('<div></div>');
                       var data = $.ajax({
@@ -7095,7 +7073,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               className: 'Programming_delete_bt',
               action: function( e, dt, node, config ){
                   window.dialog_programming = new BootstrapDialog({
-                          title: get_lang_param("Programming"),
+                          title: $.i18n("Programming"),
                           message: function(dialogRef) {
                           var $message = $('<div></div>');
                           var data = $.ajax({
@@ -7265,7 +7243,7 @@ $('#table_license tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -7340,7 +7318,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
 "stateSave":true,
 "searching":true,
 "iDisplayLength": 10,
-"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, $.i18n("All")]],
 "bLengthChange": true,
 "select":{
     "style": "os"
@@ -7405,7 +7383,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
               text: function(a){return a.i18n("Add","Add")},
               action: function ( e, dt, node, config ) {
                 window.dialog_cartridge_add = new BootstrapDialog({
-                        title: get_lang_param("Cartridge_add"),
+                        title: $.i18n("Cartridge_add"),
                         message: function(dialogRef) {
               var $message = $('<div></div>');
               var data = $.ajax({
@@ -7470,7 +7448,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
                 var $rows = table_cartridge.$('tr.selected');
                   if ($rows.length == '1'){
                     window.dialog_cartridge_edit = new BootstrapDialog({
-                            title: get_lang_param("Cartridge_edit"),
+                            title: $.i18n("Cartridge_edit"),
                             message: function(dialogRef) {
                   var $message = $('<div></div>');
                   var data = $.ajax({
@@ -7530,16 +7508,16 @@ var table_cartridge = $('#table_cartridge').DataTable({
                 }
                 else if ($rows.length > '1') {
                   BootstrapDialog.alert({
-                  title: get_lang_param("Er_title"),
-                  message: get_lang_param("Er_msg1"),
+                  title: $.i18n("Er_title"),
+                  message: $.i18n("Er_msg1"),
                   type: BootstrapDialog.TYPE_WARNING,
                   draggable: true
                   });
                 }
                 else {
                   BootstrapDialog.alert({
-                  title: get_lang_param("Er_title"),
-                  message: get_lang_param("Er_msg2"),
+                  title: $.i18n("Er_title"),
+                  message: $.i18n("Er_msg2"),
                   type: BootstrapDialog.TYPE_WARNING,
                   draggable: true
                   });
@@ -7552,7 +7530,7 @@ var table_cartridge = $('#table_cartridge').DataTable({
                 var $rows = table_cartridge.$('tr.selected');
                   if ($rows.length > '0'){
                     window.dialog_cartridge_out = new BootstrapDialog({
-                            title: get_lang_param("Cartridge_out_title"),
+                            title: $.i18n("Cartridge_out_title"),
                             message: function(dialogRef) {
                             var $message = $('<div></div>');
                             var data = $.ajax({
@@ -7606,8 +7584,8 @@ var table_cartridge = $('#table_cartridge').DataTable({
                   }
                   else {
                     BootstrapDialog.alert({
-                    title: get_lang_param("Er_title"),
-                    message: get_lang_param("Er_msg2"),
+                    title: $.i18n("Er_title"),
+                    message: $.i18n("Er_msg2"),
                     type: BootstrapDialog.TYPE_WARNING,
                     draggable: true
                     });
@@ -7669,7 +7647,7 @@ $('#table_cartridge tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -7711,7 +7689,7 @@ $('#table_cartridge tbody').on( 'click', 'button#fast_edit', function () {
         var data = table_cartridge.row( $(this).parents('tr') ).data();
         window.id_fast_edit = data[1];
         window.dialog_cartridge_fast_edit = new BootstrapDialog({
-                title: get_lang_param("Cartridge_fast_edit_title"),
+                title: $.i18n("Cartridge_fast_edit_title"),
                 message: function(dialogRef) {
                 var $message = $('<div></div>');
                 var data = $.ajax({
@@ -7747,8 +7725,8 @@ $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
         window.id_del = data[1];
         if (data[0] != 'not_active'){
         window.dialog_cartridge_del = new BootstrapDialog({
-                title: get_lang_param("Record_Delete"),
-                message: get_lang_param("Info_del2"),
+                title: $.i18n("Record_Delete"),
+                message: $.i18n("Info_del2"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -7757,7 +7735,7 @@ $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
                 closeByKeyboard: false,
                 buttons:[{
                   id: "cartridge_delete",
-                  label: get_lang_param("Delete"),
+                  label: $.i18n("Delete"),
                   cssClass: " btn-danger",
                 }],
               });
@@ -7765,8 +7743,8 @@ $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
       }
       else{
         window.dialog_cartridge_del = new BootstrapDialog({
-                title: get_lang_param("Record_Delete"),
-                message: get_lang_param("Info_del4"),
+                title: $.i18n("Record_Delete"),
+                message: $.i18n("Info_del4"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -7775,7 +7753,7 @@ $('#table_cartridge tbody').on( 'click', 'button#cart_delete', function () {
                 closeByKeyboard: false,
                 buttons:[{
                   id: "cartridge_delete",
-                  label: get_lang_param("No_Delete"),
+                  label: $.i18n("No_Delete"),
                   cssClass: " btn-danger",
                 }],
               });
@@ -7899,7 +7877,7 @@ $('#table_cartridge_uchet tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -7919,8 +7897,8 @@ $('#table_cartridge_uchet tbody').on( 'click', 'button#history_cart_delete', fun
            var data = table_cartridge_uchet.row( $(this).parents('tr') ).data();
            window.id_uchet = data[0];
            window.dialog_cartridge_uchet_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -7929,7 +7907,7 @@ $('#table_cartridge_uchet tbody').on( 'click', 'button#history_cart_delete', fun
                    closeByKeyboard: false,
                    buttons:[{
                      id: "cartridge_uchet_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: " btn-danger",
                    }],
                    onhidden: function(){
@@ -8019,8 +7997,8 @@ window.table_invoice = $('#invoice').DataTable({
               }
             else {
               BootstrapDialog.alert({
-              title: get_lang_param("Er_title"),
-              message: get_lang_param("Er_msg2"),
+              title: $.i18n("Er_title"),
+              message: $.i18n("Er_msg2"),
               type: BootstrapDialog.TYPE_WARNING,
               draggable: true
               });
@@ -8102,7 +8080,7 @@ window.table_invoice = $('#invoice').DataTable({
           'data-toggle':'popover',
           'data-placement':'bottom',
           'data-html': 'true',
-          'data-content':get_lang_param("Copy_to_clipboard")
+          'data-content':$.i18n("Copy_to_clipboard")
         });
         var ch_copy = selectText('select_copy');
         //console.log(ch_copy);
@@ -8352,8 +8330,8 @@ window.table_report = $('#report').DataTable({
         }
       else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -8531,7 +8509,7 @@ window.table_report = $('#report').DataTable({
           'data-toggle':'popover',
           'data-placement':'bottom',
           'data-html': 'true',
-          'data-content':get_lang_param("Copy_to_clipboard")
+          'data-content':$.i18n("Copy_to_clipboard")
         });
         var ch_copy = selectText('select_copy');
         //console.log(ch_copy);
@@ -8692,7 +8670,7 @@ window.table_eq_move_show_rep = $('#report_move_show_rep').DataTable({
               'data-toggle':'popover',
               'data-placement':'bottom',
               'data-html': 'true',
-              'data-content':get_lang_param("Copy_to_clipboard")
+              'data-content':$.i18n("Copy_to_clipboard")
             });
             var ch_copy = selectText('select_copy');
             //console.log(ch_copy);
@@ -8754,7 +8732,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_org_add = new BootstrapDialog({
-            title: get_lang_param("Org_add"),
+            title: $.i18n("Org_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -8815,7 +8793,7 @@ $('#table_org tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -8851,7 +8829,7 @@ $('#table_org tbody').on( 'click', 'button#org_edit', function () {
            var data = table_org.row( $(this).parents('tr') ).data();
            window.id_org_edit = data[1];
            window.dialog_org_edit = new BootstrapDialog({
-                   title: get_lang_param("Org_edit"),
+                   title: $.i18n("Org_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -8897,8 +8875,8 @@ $('#table_org tbody').on( 'click', 'button#org_del', function () {
            window.id_org_delete = data[1];
            if (data[0] != 'not_active'){
            window.dialog_org_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -8907,7 +8885,7 @@ $('#table_org tbody').on( 'click', 'button#org_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "org_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -8915,8 +8893,8 @@ $('#table_org tbody').on( 'click', 'button#org_del', function () {
          }
          else{
            window.dialog_org_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -8925,7 +8903,7 @@ $('#table_org tbody').on( 'click', 'button#org_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "org_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -8962,7 +8940,7 @@ var table_places = $('#table_places').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -8987,7 +8965,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_places_add = new BootstrapDialog({
-            title: get_lang_param("Places_add"),
+            title: $.i18n("Places_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -9050,7 +9028,7 @@ $('#table_places tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -9087,7 +9065,7 @@ $('#table_places tbody').on( 'click', 'button#places_edit', function () {
            var data = table_places.row( $(this).parents('tr') ).data();
            window.id_places_edit = data[1];
            window.dialog_places_edit = new BootstrapDialog({
-                   title: get_lang_param("Places_edit"),
+                   title: $.i18n("Places_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -9133,8 +9111,8 @@ $('#table_places tbody').on( 'click', 'button#places_del', function () {
            window.id_places_delete = data[1];
            if (data[0] != 'not_active'){
            window.dialog_places_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -9143,7 +9121,7 @@ $('#table_places tbody').on( 'click', 'button#places_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "places_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -9151,8 +9129,8 @@ $('#table_places tbody').on( 'click', 'button#places_del', function () {
          }
          else{
            window.dialog_places_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -9161,7 +9139,7 @@ $('#table_places tbody').on( 'click', 'button#places_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "places_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -9228,7 +9206,7 @@ $('#table_places_sub tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -9295,7 +9273,7 @@ var table_users = $('#table_users').DataTable({
 "bAutoWidth": true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -9339,7 +9317,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_users_add = new BootstrapDialog({
-            title: get_lang_param("Users_add"),
+            title: $.i18n("Users_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -9510,7 +9488,7 @@ $('#table_users tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -9546,7 +9524,7 @@ $('#table_users tbody').on( 'click', 'button#users_edit', function () {
            var data = table_users.row( $(this).parents('tr') ).data();
            window.id_users_edit = data[1];
            window.dialog_users_edit = new BootstrapDialog({
-                   title: get_lang_param("Users_edit"),
+                   title: $.i18n("Users_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -9711,8 +9689,8 @@ $('#table_users tbody').on( 'click', 'button#users_del', function () {
            window.id_users_delete = data[1];
            if(data[0] != 'not_active'){
            window.dialog_users_del = new BootstrapDialog({
-                   title: get_lang_param("Users_delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Users_delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -9721,7 +9699,7 @@ $('#table_users tbody').on( 'click', 'button#users_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "users_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -9729,8 +9707,8 @@ $('#table_users tbody').on( 'click', 'button#users_del', function () {
          }
          else{
            window.dialog_users_del = new BootstrapDialog({
-                   title: get_lang_param("Users_delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Users_delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -9739,7 +9717,7 @@ $('#table_users tbody').on( 'click', 'button#users_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "users_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -9777,7 +9755,7 @@ var table_contact = $('#table_contact').DataTable({
 "bAutoWidth": true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "multi"
           },
@@ -9860,16 +9838,16 @@ var table_contact = $('#table_contact').DataTable({
 }
   else if ($rows.length > '1') {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg1"),
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg1"),
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true
     });
   }
   else {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg2"),
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg2"),
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true
     });
@@ -9984,7 +9962,7 @@ $('#table_contact tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -10046,7 +10024,7 @@ var table_vendors = $('#table_vendors').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -10071,7 +10049,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_vendors_add = new BootstrapDialog({
-            title: get_lang_param("Vendors_add"),
+            title: $.i18n("Vendors_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -10132,7 +10110,7 @@ $('#table_vendors tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -10168,7 +10146,7 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_edit', function () {
            var data = table_vendors.row( $(this).parents('tr') ).data();
            window.id_vendors_edit = data[1];
            window.dialog_vendors_edit = new BootstrapDialog({
-                   title: get_lang_param("Vendors_edit"),
+                   title: $.i18n("Vendors_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -10214,8 +10192,8 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
            window.id_vendors_delete = data[1];
            if (data[0] != 'not_active'){
            window.dialog_vendors_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10224,7 +10202,7 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "vendors_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10232,8 +10210,8 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
          }
          else{
            window.dialog_vendors_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10242,7 +10220,7 @@ $('#table_vendors tbody').on( 'click', 'button#vendors_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "vendors_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10279,7 +10257,7 @@ var table_group_nome = $('#table_group_nome').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -10304,7 +10282,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_group_nome_add = new BootstrapDialog({
-            title: get_lang_param("Group_add"),
+            title: $.i18n("Group_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -10365,7 +10343,7 @@ $('#table_group_nome tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -10401,7 +10379,7 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_edit', function () 
            var data = table_group_nome.row( $(this).parents('tr') ).data();
            window.id_group_nome_edit = data[1];
            window.dialog_group_nome_edit = new BootstrapDialog({
-                   title: get_lang_param("Group_edit"),
+                   title: $.i18n("Group_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -10447,8 +10425,8 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
            window.id_group_nome_delete = data[1];
            if (data[0] != 'not_active'){
            window.dialog_group_nome_del = new BootstrapDialog({
-                   title: get_lang_param("Group_delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Group_delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10457,7 +10435,7 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "group_nome_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10465,8 +10443,8 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
          }
          else{
            window.dialog_group_nome_del = new BootstrapDialog({
-                   title: get_lang_param("Group_delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Group_delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10475,7 +10453,7 @@ $('#table_group_nome tbody').on( 'click', 'button#group_nome_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "group_nome_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10512,7 +10490,7 @@ var table_nome = $('#table_nome').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -10568,7 +10546,7 @@ stateLoadCallback: function(){
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_nome_add = new BootstrapDialog({
-            title: get_lang_param("Nome_add"),
+            title: $.i18n("Nome_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -10648,7 +10626,7 @@ $('#table_nome tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -10686,7 +10664,7 @@ $('#table_nome tbody').on( 'click', 'button#nome_edit', function () {
            var data = table_nome.row( $(this).parents('tr') ).data();
            window.id_nome_edit = data[1];
            window.dialog_nome_edit = new BootstrapDialog({
-                   title: get_lang_param("Nome_edit"),
+                   title: $.i18n("Nome_edit"),
                    message: function(dialogRef) {
          var $message = $('<div></div>');
          var data = $.ajax({
@@ -10751,8 +10729,8 @@ $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
            window.id_nome_delete = data[1];
            if (data[0] != 'not_active'){
            window.dialog_nome_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del2"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del2"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10761,7 +10739,7 @@ $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "nome_delete",
-                     label: get_lang_param("Delete"),
+                     label: $.i18n("Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10769,8 +10747,8 @@ $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
          }
          else{
            window.dialog_nome_del = new BootstrapDialog({
-                   title: get_lang_param("Record_Delete"),
-                   message: get_lang_param("Info_del4"),
+                   title: $.i18n("Record_Delete"),
+                   message: $.i18n("Info_del4"),
                    type: BootstrapDialog.TYPE_DANGER,
                    cssClass: 'del-dialog',
                    closable: true,
@@ -10779,7 +10757,7 @@ $('#table_nome tbody').on( 'click', 'button#nome_del', function () {
                    closeByKeyboard: false,
                    buttons:[{
                      id: "nome_delete",
-                     label: get_lang_param("No_Delete"),
+                     label: $.i18n("No_Delete"),
                      cssClass: "btn-danger",
                    }],
                  });
@@ -10825,7 +10803,7 @@ var table_requisites = $('#table_requisites').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
           },
@@ -10855,7 +10833,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
   text: function(a){return a.i18n("Add","Add")},
   action: function ( e, dt, node, config ) {
     window.dialog_requisites_add = new BootstrapDialog({
-            title: get_lang_param("Requisites_add"),
+            title: $.i18n("Requisites_add"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -10904,7 +10882,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     var $rows = table_requisites.$('tr.selected');
   if ($rows.length == '1'){
     window.dialog_requisites_edit = new BootstrapDialog({
-            title: get_lang_param("Requisites_edit"),
+            title: $.i18n("Requisites_edit"),
             message: function(dialogRef) {
   var $message = $('<div></div>');
   var data = $.ajax({
@@ -10949,8 +10927,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
         }
         else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -10965,8 +10943,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           var act_d = dt.row($rows).data()[0];
           if (act_d != 'not_active') {
       window.dialog_requisites_del = new BootstrapDialog({
-              title: get_lang_param("Requisites_delete"),
-              message: get_lang_param("Info_del2"),
+              title: $.i18n("Requisites_delete"),
+              message: $.i18n("Info_del2"),
               type: BootstrapDialog.TYPE_DANGER,
               cssClass: 'del-dialog',
               closable: true,
@@ -10975,7 +10953,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               closeByKeyboard: false,
               buttons:[{
                 id: "requisites_delete",
-                label: get_lang_param("Delete"),
+                label: $.i18n("Delete"),
                 cssClass: "btn-danger",
               }],
             });
@@ -10983,8 +10961,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     }
     else {
       window.dialog_requisites_del = new BootstrapDialog({
-              title: get_lang_param("Requisites_delete"),
-              message: get_lang_param("Info_del4"),
+              title: $.i18n("Requisites_delete"),
+              message: $.i18n("Info_del4"),
               type: BootstrapDialog.TYPE_DANGER,
               cssClass: 'del-dialog',
               closable: true,
@@ -10993,7 +10971,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
               closeByKeyboard: false,
               buttons:[{
                 id: "requisites_delete",
-                label: get_lang_param("No_Delete"),
+                label: $.i18n("No_Delete"),
                 cssClass: "btn-danger",
               }],
             });
@@ -11002,8 +10980,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     }
     else {
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg2"),
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg2"),
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true
       });
@@ -11028,7 +11006,7 @@ $('#table_requisites tbody').on( 'dblclick','td', function () {
     'data-toggle':'popover',
     'data-placement':'bottom',
     'data-html': 'true',
-    'data-content':get_lang_param("Copy_to_clipboard")
+    'data-content':$.i18n("Copy_to_clipboard")
   });
   var ch_copy = selectText('select_copy');
   //console.log(ch_copy);
@@ -11132,8 +11110,8 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
       }
       else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -11146,8 +11124,8 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
       var $rows = table_requisites_files.$('tr.selected');
         if ($rows.length > '0'){
       window.dialog_requisites_files_del = new BootstrapDialog({
-              title: get_lang_param("File_delete"),
-              message: get_lang_param("Info_del"),
+              title: $.i18n("File_delete"),
+              message: $.i18n("Info_del"),
               type: BootstrapDialog.TYPE_DANGER,
               cssClass: 'del-dialog',
               closable: true,
@@ -11156,7 +11134,7 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
               closeByKeyboard: false,
               buttons:[{
                 id: "requisites_file_delete",
-                label: get_lang_param("Delete"),
+                label: $.i18n("Delete"),
                 cssClass: "btn-danger",
               }],
             });
@@ -11164,8 +11142,8 @@ var table_requisites_files = $('#table_requisites_files').DataTable({
     }
     else {
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg2"),
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg2"),
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true
       });
@@ -11215,7 +11193,7 @@ $('#file_req').on('change',function(){
       processData: false,
       data: form_data,
       xhr: function() {
-          waitingDialog.show(get_lang_param("Progress_file_upload"));
+          waitingDialog.show($.i18n("Progress_file_upload"));
           var xhr = $.ajaxSettings.xhr();
           if (xhr.upload) {
               xhr.upload.addEventListener('progress', function(evt) {
@@ -11236,8 +11214,8 @@ $('#file_req').on('change',function(){
   }
   else{
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true,
     callback: function(result) {
@@ -11249,8 +11227,8 @@ $('#file_req').on('change',function(){
 }
 else {
   BootstrapDialog.alert({
-  title: get_lang_param("Er_title"),
-  message: get_lang_param("Er_msg_type")  + '(' +file_types +')',
+  title: $.i18n("Er_title"),
+  message: $.i18n("Er_msg_type")  + '(' +file_types +')',
   type: BootstrapDialog.TYPE_WARNING,
   draggable: true,
   callback: function() {
@@ -11280,7 +11258,7 @@ var table_knt = $('#table_knt').DataTable({
 "searching":true,
 "bLengthChange": true,
 "iDisplayLength": 10,
-"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, get_lang_param("All")]],
+"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, $.i18n("All")]],
 "select":{
 "style": "os"
             },
@@ -11308,7 +11286,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     text: function(a){return a.i18n("Add","Add")},
     action: function ( e, dt, node, config ) {
       window.dialog_knt_add = new BootstrapDialog({
-              title: get_lang_param("Knt_add"),
+              title: $.i18n("Knt_add"),
               message: function(dialogRef) {
     var $message = $('<div></div>');
     var data = $.ajax({
@@ -11357,7 +11335,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
         var $rows = table_knt.$('tr.selected');
           if ($rows.length == '1'){
       window.dialog_knt_edit = new BootstrapDialog({
-              title: get_lang_param("Knt_edit"),
+              title: $.i18n("Knt_edit"),
               message: function(dialogRef) {
     var $message = $('<div></div>');
     var data = $.ajax({
@@ -11402,8 +11380,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     }
           else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -11418,8 +11396,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             var act_d = dt.row($rows).data()[0];
             if (act_d != 'not_active') {
         window.dialog_knt_del = new BootstrapDialog({
-                title: get_lang_param("Knt_delete"),
-                message: get_lang_param("Info_del2"),
+                title: $.i18n("Knt_delete"),
+                message: $.i18n("Info_del2"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -11428,7 +11406,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 closeByKeyboard: false,
                 buttons:[{
                   id: "knt_delete",
-                  label: get_lang_param("Delete"),
+                  label: $.i18n("Delete"),
                   cssClass: "btn-danger",
                 }],
               });
@@ -11436,8 +11414,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       }
       else {
         window.dialog_knt_del = new BootstrapDialog({
-                title: get_lang_param("Knt_delete"),
-                message: get_lang_param("Info_del4"),
+                title: $.i18n("Knt_delete"),
+                message: $.i18n("Info_del4"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -11446,7 +11424,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 closeByKeyboard: false,
                 buttons:[{
                   id: "knt_delete",
-                  label: get_lang_param("No_Delete"),
+                  label: $.i18n("No_Delete"),
                   cssClass: "btn-danger",
                 }],
               });
@@ -11455,8 +11433,8 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       }
       else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -11481,7 +11459,7 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
       'data-toggle':'popover',
       'data-placement':'bottom',
       'data-html': 'true',
-      'data-content':get_lang_param("Copy_to_clipboard")
+      'data-content':$.i18n("Copy_to_clipboard")
     });
     var ch_copy = selectText('select_copy');
     //console.log(ch_copy);
@@ -11584,8 +11562,8 @@ var table_knt_files = $('#table_knt_files').DataTable({
         }
         else {
           BootstrapDialog.alert({
-          title: get_lang_param("Er_title"),
-          message: get_lang_param("Er_msg2"),
+          title: $.i18n("Er_title"),
+          message: $.i18n("Er_msg2"),
           type: BootstrapDialog.TYPE_WARNING,
           draggable: true
           });
@@ -11598,8 +11576,8 @@ var table_knt_files = $('#table_knt_files').DataTable({
         var $rows = table_knt_files.$('tr.selected');
           if ($rows.length > '0'){
         window.dialog_knt_files_del = new BootstrapDialog({
-                title: get_lang_param("File_delete"),
-                message: get_lang_param("Info_del"),
+                title: $.i18n("File_delete"),
+                message: $.i18n("Info_del"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -11608,7 +11586,7 @@ var table_knt_files = $('#table_knt_files').DataTable({
                 closeByKeyboard: false,
                 buttons:[{
                   id: "knt_file_delete",
-                  label: get_lang_param("Delete"),
+                  label: $.i18n("Delete"),
                   cssClass: "btn-danger",
                 }],
               });
@@ -11616,8 +11594,8 @@ var table_knt_files = $('#table_knt_files').DataTable({
       }
       else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -11667,7 +11645,7 @@ $('#file_knt').on('change',function(){
         processData: false,
         data: form_data,
         xhr: function() {
-            waitingDialog.show(get_lang_param("Progress_file_upload"));
+            waitingDialog.show($.i18n("Progress_file_upload"));
             var xhr = $.ajaxSettings.xhr();
             if (xhr.upload) {
                 xhr.upload.addEventListener('progress', function(evt) {
@@ -11688,8 +11666,8 @@ $('#file_knt').on('change',function(){
     }
     else{
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true,
       callback: function(result) {
@@ -11701,8 +11679,8 @@ $('#file_knt').on('change',function(){
   }
   else {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg_type")  + '(' + file_types +')',
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg_type")  + '(' + file_types +')',
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true,
     callback: function() {
@@ -11760,8 +11738,8 @@ var table_documents = $('#table_documents').DataTable({
         var $rows = table_documents.$('tr.selected');
           if ($rows.length > '0'){
         window.dialog_documents_files_del = new BootstrapDialog({
-                title: get_lang_param("File_delete"),
-                message: get_lang_param("Info_del"),
+                title: $.i18n("File_delete"),
+                message: $.i18n("Info_del"),
                 type: BootstrapDialog.TYPE_DANGER,
                 cssClass: 'del-dialog',
                 closable: true,
@@ -11770,7 +11748,7 @@ var table_documents = $('#table_documents').DataTable({
                 closeByKeyboard: false,
                 buttons:[{
                   id: "documents_delete",
-                  label: get_lang_param("Delete"),
+                  label: $.i18n("Delete"),
                   cssClass: "btn-danger",
                 }],
               });
@@ -11778,8 +11756,8 @@ var table_documents = $('#table_documents').DataTable({
       }
       else {
         BootstrapDialog.alert({
-        title: get_lang_param("Er_title"),
-        message: get_lang_param("Er_msg2"),
+        title: $.i18n("Er_title"),
+        message: $.i18n("Er_msg2"),
         type: BootstrapDialog.TYPE_WARNING,
         draggable: true
         });
@@ -11828,7 +11806,7 @@ $('#file_documents').on('change',function(){
         processData: false,
         data: form_data,
         xhr: function() {
-            waitingDialog.show(get_lang_param("Progress_file_upload"));
+            waitingDialog.show($.i18n("Progress_file_upload"));
             var xhr = $.ajaxSettings.xhr();
             if (xhr.upload) {
                 xhr.upload.addEventListener('progress', function(evt) {
@@ -11849,8 +11827,8 @@ $('#file_documents').on('change',function(){
     }
     else{
       BootstrapDialog.alert({
-      title: get_lang_param("Er_title"),
-      message: get_lang_param("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
+      title: $.i18n("Er_title"),
+      message: $.i18n("Er_msg_maxsize") + Math.round(maxsize/1024/1024) +'Mb',
       type: BootstrapDialog.TYPE_WARNING,
       draggable: true,
       callback: function(result) {
@@ -11862,8 +11840,8 @@ $('#file_documents').on('change',function(){
   }
   else {
     BootstrapDialog.alert({
-    title: get_lang_param("Er_title"),
-    message: get_lang_param("Er_msg_type")  + '(' + file_types +')',
+    title: $.i18n("Er_title"),
+    message: $.i18n("Er_msg_type")  + '(' + file_types +')',
     type: BootstrapDialog.TYPE_WARNING,
     draggable: true,
     callback: function() {
@@ -11872,4 +11850,5 @@ $('#file_documents').on('change',function(){
     });
   }
 });
+}); //конец i18n
 }); //конец document ready
