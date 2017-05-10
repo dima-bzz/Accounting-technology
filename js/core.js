@@ -18,8 +18,12 @@ $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 $.i18n.debug = false;
 $.i18n().locale = lang;
 $.i18n().load( {
-    lang : MyHOSTNAME + "lang/lang-" + lang + ".json",
+  'en' : MyHOSTNAME + "lang/lang-en.json",
+  'ru' : MyHOSTNAME + "lang/lang-ru.json"
 }).done (function(){
+  $('time#today').html(moment().format("dddd, DD MMMM Y") + " " + $.i18n('G'));
+  $('time#tomorrow').html(moment().add(1, 'days').format('Do MMMM'));
+  $('time#after_tomorrow').html(moment().add(2, 'days').format('Do MMMM'));
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),

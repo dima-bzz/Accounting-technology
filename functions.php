@@ -1017,39 +1017,6 @@ global $dbConnection;
               return $count;
             }
 }
-function show_date()
-{
-$day=date('j');
-$mounth=date('m');
-$year=date('Y');
-$data=array('01'=>get_lang('January'),'02'=>get_lang('February'),'03'=>get_lang('March'),'04'=>get_lang('April'),'05'=>get_lang('May'),'06'=>get_lang('June'),'07'=>get_lang('July'),'08'=>get_lang('August'),'09'=>get_lang('September'),'10'=>get_lang('October'),'11'=>get_lang('November'),'12'=>get_lang('December'));
-foreach ($data as $key=>$value)
-{
-if ($key==$mounth) echo "<b>".get_lang('Today')." - $day $value $year ".get_lang('G')."</font></b>";
-}
-}
-function show_date_tomorrow()
-{
-$day=date("j",strtotime("+1 day"));
-$mounth=date('m',strtotime("+1 day"));
-$data=array('01'=>get_lang('January'),'02'=>get_lang('February'),'03'=>get_lang('March'),'04'=>get_lang('April'),'05'=>get_lang('May'),'06'=>get_lang('June'),'07'=>get_lang('July'),'08'=>get_lang('August'),'09'=>get_lang('September'),'10'=>get_lang('October'),'11'=>get_lang('November'),'12'=>get_lang('December'));
-foreach ($data as $key=>$value)
-{
-  if ($key==$mounth) $d = "$day $value";
-  }
-  return $d;
-}
-function show_date_after_tomorrow()
-{
-$day=date("j",strtotime("+2 day"));
-$mounth=date('m',strtotime("+2 day"));
-$data=array('01'=>get_lang('January'),'02'=>get_lang('February'),'03'=>get_lang('March'),'04'=>get_lang('April'),'05'=>get_lang('May'),'06'=>get_lang('June'),'07'=>get_lang('July'),'08'=>get_lang('August'),'09'=>get_lang('September'),'10'=>get_lang('October'),'11'=>get_lang('November'),'12'=>get_lang('December'));
-foreach ($data as $key=>$value)
-{
-if ($key==$mounth) $d = "$day $value";
-}
-return $d;
-}
 class Tequipment
 {
     var $id;            // уникальный идентификатор
