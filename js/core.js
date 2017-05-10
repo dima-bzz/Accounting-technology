@@ -18,8 +18,7 @@ $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 $.i18n.debug = false;
 $.i18n().locale = lang;
 $.i18n().load( {
-    'en' : MyHOSTNAME + "lang/lang-en.json",
-    'ru' : MyHOSTNAME + "lang/lang-ru.json"
+    lang : MyHOSTNAME + "lang/lang-" + lang + ".json",
 }).done (function(){
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -4191,34 +4190,6 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                     $(nRow).addClass('sale_util');
                     }
                   },
-stateLoadCallback: function(){
-  $.ajax({
-    url:  ACTIONPATH,
-    type: "POST",
-    data:"mode=select_org",
-    success: function(data){
-      $('#equipment_table_filter').prepend(data + '&nbsp;');
-      my_select();
-      // ***** Обновление организации *****
-      $("#org_equipment").on("change",function(){
-        // console.log(this.value);
-        $.ajax({
-          url:  ACTIONPATH,
-          type: "POST",
-          data:"mode=update_ssesion" +
-          "&id_org=" + this.value,
-          success: function(){
-            table_eq.ajax.reload();
-            table_eq_move.clear().draw();
-            table_eq_repair.clear().draw();
-            table_eq_param.clear().draw();
-            $('#photoid').fadeOut(500);
-          }
-        })
-      });
-    }
-  });
-},
 drawCallback: function(){
   if (Admin !== true ){
     table_eq.buttons('.Action_b_eq').remove();
@@ -5330,7 +5301,34 @@ drawCallback: function(){
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
         }
         });
-
+        if ($.fn.DataTable.isDataTable('#equipment_table')){
+              var eq_org_show = $.ajax({
+                url:  ACTIONPATH,
+                type: "POST",
+                data:"mode=select_org",
+                success: function(data){
+                  $('#equipment_table_filter').prepend(data + '&nbsp;');
+                  my_select();
+                  // ***** Обновление организации *****
+                  $("#org_equipment").on("change",function(){
+                    // console.log(this.value);
+                    $.ajax({
+                      url:  ACTIONPATH,
+                      type: "POST",
+                      data:"mode=update_ssesion" +
+                      "&id_org=" + this.value,
+                      success: function(){
+                        table_eq.ajax.reload();
+                        table_eq_move.clear().draw();
+                        table_eq_repair.clear().draw();
+                        table_eq_param.clear().draw();
+                        $('#photoid').fadeOut(500);
+                      }
+                    })
+                  });
+                }
+              });
+            }
 $('body').on('click', 'button#equipment_table_clear', function(event) {
                   event.preventDefault();
                   table_eq.search('').draw();
@@ -7348,21 +7346,6 @@ var table_cartridge = $('#table_cartridge').DataTable({
                     $(nRow).addClass('not_active');
                   }
   },
-  stateLoadCallback: function(){
-    $.ajax({
-    url:  ACTIONPATH,
-    type: "POST",
-    data:"mode=select_print",
-    success: function(data){
-    $('#table_cartridge_filter').prepend(data + '&nbsp;');
-      my_select();
-    $("#printid_fast").change(function(){
-      var select_print = $("#printid_fast option:selected").text();
-      table_cartridge.search(select_print).draw();
-    });
-  }
-});
-  },
 "aoColumns": [
             {"bSearchable":false,"bSortable":false,"className": "center_table","mRender": render_active},
             {"bSearchable":false,"className": "center_table"},
@@ -7640,6 +7623,21 @@ var table_cartridge = $('#table_cartridge').DataTable({
         "url": MyHOSTNAME + "lang/lang-" + lang +".json"
             }
 });
+if ($.fn.DataTable.isDataTable('#table_cartridge')){
+var print_cartridge_show = $.ajax({
+url:  ACTIONPATH,
+type: "POST",
+data:"mode=select_print",
+success: function(data){
+$('#table_cartridge_filter').prepend(data + '&nbsp;');
+  my_select();
+$("#printid_fast").change(function(){
+  var select_print = $("#printid_fast option:selected").text();
+  table_cartridge.search(select_print).draw();
+});
+}
+});
+}
 $('#table_cartridge tbody').on( 'dblclick','td', function () {
   var d = $(this).attr({
     'id':'select_copy',
@@ -10517,21 +10515,6 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           }
       } );
   },
-stateLoadCallback: function(){
-  $.ajax({
-  url:  ACTIONPATH,
-  type: "POST",
-  data:"mode=select_group",
-  success: function(data){
-    $('#table_nome_filter').prepend(data + '&nbsp;');
-    my_select();
-    $("#groupid_fast").change(function(){
-      var select_nome = $("#groupid_fast option:selected").text();
-      table_nome.search(select_nome).draw();
-    });
-}
-});
-},
 "aoColumns": [
               {"bSortable":false,"bSearchable":false,"mRender": render_active,"className": "center_table"},
               {"className": "center_table"},
@@ -10619,6 +10602,21 @@ stateLoadCallback: function(){
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
             }
 });
+if ($.fn.DataTable.isDataTable('#table_nome')){
+var nome_show = $.ajax({
+url:  ACTIONPATH,
+type: "POST",
+data:"mode=select_group",
+success: function(data){
+  $('#table_nome_filter').prepend(data + '&nbsp;');
+  my_select();
+  $("#groupid_fast").change(function(){
+    var select_nome = $("#groupid_fast option:selected").text();
+    table_nome.search(select_nome).draw();
+  });
+}
+});
+}
 $('#table_nome tbody').on( 'dblclick','td', function () {
   var d = $(this).attr({
     'id':'select_copy',
