@@ -230,144 +230,17 @@ if ($("#inf").find("br").length){
 currentMonth = new Date().getMonth() + 1;
 // console.log(currentMonth);
 if ((currentMonth == 12) || (currentMonth == 11)){
-function NewYear()
-{
-  today = new Date();
-  currentYear = today.getFullYear();
-  newYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
-  seconds = ((newYear.getTime() - today.getTime())/1000);
+  function NewYear(){
+    today = new Date();
+    currentYear = today.getFullYear();
+    newYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
+    seconds = (newYear.getTime() - today.getTime());
 
-  days = 0; hours = 0; minutes = 0;
-  oneMinute = 60;
-  oneHour = 60 * oneMinute;
-  oneDay = oneHour * 24;
-  if (seconds / oneDay > 0) {
-  days = parseInt(seconds / oneDay);
-  seconds -= days * oneDay;
+    $("#time").empty().append('<br><font color="rgb(49,203,86)"><b>' + humanizeDuration(seconds,{language: lang, units:['d','h','m','s'], round: true, delimiter: ' '}) + ' :)</b></font><br>')
   }
-  if (seconds / oneHour > 0) {
-  hours = parseInt(seconds / oneHour);
-  seconds -= hours * oneHour;
+  NewYear();
+    setInterval(NewYear,1000);
   }
-
-  if (seconds / oneMinute > 0) {
-  minutes = parseInt(seconds / oneMinute);
-  seconds -= minutes * oneMinute;
-  }
-  dayname = "";
-  minutname = "";
-  hoursname = "";
-  beforeNewYear = "";
-  secondsname = "";
-  if (days>4&&days<21){
-    if (lang == 'ru'){
-    dayname = "дней";
-  }
-  if (lang == 'en'){
-  dayname = "days";
-}
-  }
-  else if (days == 1 || days == 21 || days == 31 || days == 41 || days == 51) {
-    if (lang == 'ru'){
-    dayname = "день";
-  }
-  if (lang == 'en'){
-  dayname = "day";
-}
-  }
-  else if (days == 2 || days == 3 || days == 4 || days == 22 || days == 23 || days == 24 || days == 32 || days == 33 || days == 34 || days == 42 || days == 43 || days == 44 || days == 52 || days == 53 || days == 54) {
-    if (lang == 'ru'){
-    dayname = "дня";
-  }
-  if (lang == 'en'){
-  dayname = "day";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    dayname = "дней";
-  }
-  if (lang == 'en'){
-  dayname = "days";
-}
-  }
-  if (hours>4&&hours<21){
-    if (lang == 'ru'){
-    hoursname = "часов";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  else if (hours == 1 || hours == 21) {
-    if (lang == 'ru'){
-    hoursname = "час";
-  }
-  if (lang == 'en'){
-  hoursname = "hour";
-}
-  }
-  else if (hours == 2 || hours == 3 || hours == 4 || hours == 22 || hours == 23 || hours == 24) {
-    if (lang == 'ru'){
-    hoursname = "часа";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    hoursname = "часов";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  if (minutes>4&&minutes<21){
-    if (lang == 'ru'){
-    minutname = "минут";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
-  else if (minutes == 1 || minutes == 21 || minutes == 31 || minutes == 41 || minutes == 51) {
-    if (lang == 'ru'){
-    minutname = "минута";
-  }
-  if (lang == 'en'){
-  minutname = "minute";
-}
-  }
-  else if (minutes == 2 || minutes == 3 || minutes == 4 || minutes == 22 || minutes == 23 || minutes == 24 || minutes == 32 || minutes == 33 || minutes == 34 || minutes == 42 || minutes == 43 || minutes == 44 || minutes == 52 || minutes == 53 || minutes == 54) {
-    if (lang == 'ru'){
-    minutname = "минуты";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    minutname = "минут";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
- if (lang == 'ru'){
-   beforeNewYear = "До Нового Года осталось";
-   secondsname = "секунд";
- }
- if (lang == 'en'){
-   beforeNewYear = "Before the New Year remains";
-   secondsname = "seconds";
- }
-  $("#time").empty().append('<br><font color="rgb(49,203,86)"><b>'+ beforeNewYear + ' - ' + days + ' ' + dayname +' ' + hours + ' ' + hoursname + ' ' + minutes + ' ' + minutname + ' ' + parseInt(seconds) + ' ' + secondsname + ' :)</b></font><br>');
-};
-NewYear();
-setInterval(NewYear,1000);
-}
 // *****Генератор имен пользователей******
 
     function str_rand(){
