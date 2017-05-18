@@ -18,9 +18,12 @@ $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 $.i18n.debug = false;
 $.i18n().locale = lang;
 $.i18n().load( {
-    'en' : MyHOSTNAME + "lang/lang-en.json",
-    'ru' : MyHOSTNAME + "lang/lang-ru.json"
+  'en' : MyHOSTNAME + "lang/lang-en.json",
+  'ru' : MyHOSTNAME + "lang/lang-ru.json"
 }).done (function(){
+  $('time#today').html(moment().format("dddd, DD MMMM Y") + " " + $.i18n('G'));
+  $('time#tomorrow').html(moment().add(1, 'days').format('Do MMMM'));
+  $('time#after_tomorrow').html(moment().add(2, 'days').format('Do MMMM'));
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -227,144 +230,17 @@ if ($("#inf").find("br").length){
 currentMonth = new Date().getMonth() + 1;
 // console.log(currentMonth);
 if ((currentMonth == 12) || (currentMonth == 11)){
-function NewYear()
-{
-  today = new Date();
-  currentYear = today.getFullYear();
-  newYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
-  seconds = ((newYear.getTime() - today.getTime())/1000);
+  function NewYear(){
+    today = new Date();
+    currentYear = today.getFullYear();
+    newYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
+    seconds = (newYear.getTime() - today.getTime());
 
-  days = 0; hours = 0; minutes = 0;
-  oneMinute = 60;
-  oneHour = 60 * oneMinute;
-  oneDay = oneHour * 24;
-  if (seconds / oneDay > 0) {
-  days = parseInt(seconds / oneDay);
-  seconds -= days * oneDay;
+    $("#time").empty().append('<br><font color="rgb(49,203,86)"><b>' + humanizeDuration(seconds,{language: lang, units:['d','h','m','s'], round: true, delimiter: ' '}) + ' :)</b></font><br>')
   }
-  if (seconds / oneHour > 0) {
-  hours = parseInt(seconds / oneHour);
-  seconds -= hours * oneHour;
+  NewYear();
+    setInterval(NewYear,1000);
   }
-
-  if (seconds / oneMinute > 0) {
-  minutes = parseInt(seconds / oneMinute);
-  seconds -= minutes * oneMinute;
-  }
-  dayname = "";
-  minutname = "";
-  hoursname = "";
-  beforeNewYear = "";
-  secondsname = "";
-  if (days>4&&days<21){
-    if (lang == 'ru'){
-    dayname = "дней";
-  }
-  if (lang == 'en'){
-  dayname = "days";
-}
-  }
-  else if (days == 1 || days == 21 || days == 31 || days == 41 || days == 51) {
-    if (lang == 'ru'){
-    dayname = "день";
-  }
-  if (lang == 'en'){
-  dayname = "day";
-}
-  }
-  else if (days == 2 || days == 3 || days == 4 || days == 22 || days == 23 || days == 24 || days == 32 || days == 33 || days == 34 || days == 42 || days == 43 || days == 44 || days == 52 || days == 53 || days == 54) {
-    if (lang == 'ru'){
-    dayname = "дня";
-  }
-  if (lang == 'en'){
-  dayname = "day";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    dayname = "дней";
-  }
-  if (lang == 'en'){
-  dayname = "days";
-}
-  }
-  if (hours>4&&hours<21){
-    if (lang == 'ru'){
-    hoursname = "часов";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  else if (hours == 1 || hours == 21) {
-    if (lang == 'ru'){
-    hoursname = "час";
-  }
-  if (lang == 'en'){
-  hoursname = "hour";
-}
-  }
-  else if (hours == 2 || hours == 3 || hours == 4 || hours == 22 || hours == 23 || hours == 24) {
-    if (lang == 'ru'){
-    hoursname = "часа";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    hoursname = "часов";
-  }
-  if (lang == 'en'){
-  hoursname = "hours";
-}
-  }
-  if (minutes>4&&minutes<21){
-    if (lang == 'ru'){
-    minutname = "минут";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
-  else if (minutes == 1 || minutes == 21 || minutes == 31 || minutes == 41 || minutes == 51) {
-    if (lang == 'ru'){
-    minutname = "минута";
-  }
-  if (lang == 'en'){
-  minutname = "minute";
-}
-  }
-  else if (minutes == 2 || minutes == 3 || minutes == 4 || minutes == 22 || minutes == 23 || minutes == 24 || minutes == 32 || minutes == 33 || minutes == 34 || minutes == 42 || minutes == 43 || minutes == 44 || minutes == 52 || minutes == 53 || minutes == 54) {
-    if (lang == 'ru'){
-    minutname = "минуты";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
-  else {
-    if (lang == 'ru'){
-    minutname = "минут";
-  }
-  if (lang == 'en'){
-  minutname = "minutes";
-}
-  }
- if (lang == 'ru'){
-   beforeNewYear = "До Нового Года осталось";
-   secondsname = "секунд";
- }
- if (lang == 'en'){
-   beforeNewYear = "Before the New Year remains";
-   secondsname = "seconds";
- }
-  $("#time").empty().append('<br><font color="rgb(49,203,86)"><b>'+ beforeNewYear + ' - ' + days + ' ' + dayname +' ' + hours + ' ' + hoursname + ' ' + minutes + ' ' + minutname + ' ' + parseInt(seconds) + ' ' + secondsname + ' :)</b></font><br>');
-};
-NewYear();
-setInterval(NewYear,1000);
-}
 // *****Генератор имен пользователей******
 
     function str_rand(){
@@ -4191,34 +4067,6 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                     $(nRow).addClass('sale_util');
                     }
                   },
-stateLoadCallback: function(){
-  $.ajax({
-    url:  ACTIONPATH,
-    type: "POST",
-    data:"mode=select_org",
-    success: function(data){
-      $('#equipment_table_filter').prepend(data + '&nbsp;');
-      my_select();
-      // ***** Обновление организации *****
-      $("#org_equipment").on("change",function(){
-        // console.log(this.value);
-        $.ajax({
-          url:  ACTIONPATH,
-          type: "POST",
-          data:"mode=update_ssesion" +
-          "&id_org=" + this.value,
-          success: function(){
-            table_eq.ajax.reload();
-            table_eq_move.clear().draw();
-            table_eq_repair.clear().draw();
-            table_eq_param.clear().draw();
-            $('#photoid').fadeOut(500);
-          }
-        })
-      });
-    }
-  });
-},
 drawCallback: function(){
   if (Admin !== true ){
     table_eq.buttons('.Action_b_eq').remove();
@@ -5330,7 +5178,34 @@ drawCallback: function(){
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
         }
         });
-
+        if ($.fn.DataTable.isDataTable('#equipment_table')){
+              var eq_org_show = $.ajax({
+                url:  ACTIONPATH,
+                type: "POST",
+                data:"mode=select_org",
+                success: function(data){
+                  $('#equipment_table_filter').prepend(data + '&nbsp;');
+                  my_select();
+                  // ***** Обновление организации *****
+                  $("#org_equipment").on("change",function(){
+                    // console.log(this.value);
+                    $.ajax({
+                      url:  ACTIONPATH,
+                      type: "POST",
+                      data:"mode=update_ssesion" +
+                      "&id_org=" + this.value,
+                      success: function(){
+                        table_eq.ajax.reload();
+                        table_eq_move.clear().draw();
+                        table_eq_repair.clear().draw();
+                        table_eq_param.clear().draw();
+                        $('#photoid').fadeOut(500);
+                      }
+                    })
+                  });
+                }
+              });
+            }
 $('body').on('click', 'button#equipment_table_clear', function(event) {
                   event.preventDefault();
                   table_eq.search('').draw();
@@ -7348,21 +7223,6 @@ var table_cartridge = $('#table_cartridge').DataTable({
                     $(nRow).addClass('not_active');
                   }
   },
-  stateLoadCallback: function(){
-    $.ajax({
-    url:  ACTIONPATH,
-    type: "POST",
-    data:"mode=select_print",
-    success: function(data){
-    $('#table_cartridge_filter').prepend(data + '&nbsp;');
-      my_select();
-    $("#printid_fast").change(function(){
-      var select_print = $("#printid_fast option:selected").text();
-      table_cartridge.search(select_print).draw();
-    });
-  }
-});
-  },
 "aoColumns": [
             {"bSearchable":false,"bSortable":false,"className": "center_table","mRender": render_active},
             {"bSearchable":false,"className": "center_table"},
@@ -7640,6 +7500,21 @@ var table_cartridge = $('#table_cartridge').DataTable({
         "url": MyHOSTNAME + "lang/lang-" + lang +".json"
             }
 });
+if ($.fn.DataTable.isDataTable('#table_cartridge')){
+var print_cartridge_show = $.ajax({
+url:  ACTIONPATH,
+type: "POST",
+data:"mode=select_print",
+success: function(data){
+$('#table_cartridge_filter').prepend(data + '&nbsp;');
+  my_select();
+$("#printid_fast").change(function(){
+  var select_print = $("#printid_fast option:selected").text();
+  table_cartridge.search(select_print).draw();
+});
+}
+});
+}
 $('#table_cartridge tbody').on( 'dblclick','td', function () {
   var d = $(this).attr({
     'id':'select_copy',
@@ -10517,21 +10392,6 @@ fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           }
       } );
   },
-stateLoadCallback: function(){
-  $.ajax({
-  url:  ACTIONPATH,
-  type: "POST",
-  data:"mode=select_group",
-  success: function(data){
-    $('#table_nome_filter').prepend(data + '&nbsp;');
-    my_select();
-    $("#groupid_fast").change(function(){
-      var select_nome = $("#groupid_fast option:selected").text();
-      table_nome.search(select_nome).draw();
-    });
-}
-});
-},
 "aoColumns": [
               {"bSortable":false,"bSearchable":false,"mRender": render_active,"className": "center_table"},
               {"className": "center_table"},
@@ -10619,6 +10479,21 @@ stateLoadCallback: function(){
             "url": MyHOSTNAME + "lang/lang-" + lang +".json"
             }
 });
+if ($.fn.DataTable.isDataTable('#table_nome')){
+var nome_show = $.ajax({
+url:  ACTIONPATH,
+type: "POST",
+data:"mode=select_group",
+success: function(data){
+  $('#table_nome_filter').prepend(data + '&nbsp;');
+  my_select();
+  $("#groupid_fast").change(function(){
+    var select_nome = $("#groupid_fast option:selected").text();
+    table_nome.search(select_nome).draw();
+  });
+}
+});
+}
 $('#table_nome tbody').on( 'dblclick','td', function () {
   var d = $(this).attr({
     'id':'select_copy',

@@ -76,8 +76,8 @@ if ($count <> 0){
   <div style="max-height: 370px;scroll-behavior: initial;overflow-y: auto;">
   <div class="panel-body" id="inf">
   <!-- <div class="well"> -->
+  <strong><?php echo get_lang('Today'); ?> - <time id="today"></time></strong>
     <?php
-    show_date();
     $stmt = $dbConnection->prepare ("select lastdt from users");
     $stmt->execute();
     $res1 = $stmt->fetchAll();
@@ -101,7 +101,7 @@ if ($d < 20) {
     $date_today3 = date("d.m",strtotime("+2 day"));
 
     $bd_list = array(array(),array(),array());
-    $bd_dates= array("<span class=\"text-danger\"><strong>Сегодня отмечает свой день рождения:</strong></span>", "<span class=\"text-success\"><strong>Завтра ".show_date_tomorrow()." отмечает свой день рождения:</strong></span>", "<span class=\"text-primary\"><strong>Послезавтра ".show_date_after_tomorrow()." отмечает свой день рождения:</strong></span>");
+    $bd_dates= array("<span class=\"text-danger\"><strong>".get_lang('Today')." ".get_lang('Happy_birthday')."</strong></span>", "<span class=\"text-success\"><strong>".get_lang('Tomorrow')." <time id=\"tomorrow\"></time>".get_lang('Happy_birthday')."</strong></span>", "<span class=\"text-primary\"><strong>".get_lang('After_Tomorrow')." <time id=\"after_tomorrow\"></time>".get_lang('Happy_birthday')."</strong></span>");
 
 
     $stmt = $dbConnection->prepare ("select users_profile.birthday, users.fio from users_profile INNER JOIN users ON users.id = users_profile.usersid where users_profile.birthday !=' ' and users.on_off = 1 order by users_profile.birthday asc");
