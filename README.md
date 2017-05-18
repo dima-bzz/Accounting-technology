@@ -39,6 +39,5 @@
 <img src="https://cloud.githubusercontent.com/assets/3504940/4213057/8c8d9c5a-38ad-11e4-809d-818a16bdfc13.jpg"/>
 </ul>
 
-<h4>Материальная помощь:</h4>
+<h4>Поддержка проекта:</h4>
 <a href='https://money.yandex.ru/to/410011841761556'>Яндекс.Деньги</a>
-<iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410011841761556&quickpay=donate&payment-type-choice=on&default-sum=&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0&target-visibility=on&project-name=dima-bzz%2FAccounting-technology&project-site=https%3A%2F%2Fgithub.com%2Fdima-bzz%2FAccounting-technology&button-text=05&successURL=" width="422" height="117"></iframe>
