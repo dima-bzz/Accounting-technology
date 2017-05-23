@@ -1,3 +1,4 @@
+<input type="hidden" id="home" value="true">
 <div class="container-fluid">
 <div class="row">
 

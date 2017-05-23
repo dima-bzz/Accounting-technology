@@ -5335,7 +5335,10 @@ if ($mode == "check_update") {
 $stmt = $dbConnection->prepare('update users set lastdt=now() where id=:cid');
 $stmt->execute(array(':cid' => $uid ));
 
-  echo 'ok';
+$stmt = $dbConnection->prepare('select count(id) as t1 from approve ');
+$stmt->execute();
+$count = $stmt->fetch(PDO::FETCH_ASSOC);
+echo $count['t1'];
  }
 if ($mode == "select_print"){
   ?>
