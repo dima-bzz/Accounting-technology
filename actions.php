@@ -2316,11 +2316,17 @@ $antivirus=MySQLDateToDate($myrow["antivirus"]);
                 <label class="control-label"><small>Наименование антивируса:</small></label>
               </div>
               <div id="antiname_p" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title_select'); ?>">
-            <select data-placeholder="Выберите антивирус" class='my_select select' name="antiname" id="antiname">
-            	<option value=""></option>
-                 <option value="1" <?php if ($antiname == 1) echo 'selected="selected"'; ?>>Dr.Web</option>
-                 <option value="2" <?php if ($antiname == 2) echo 'selected="selected"'; ?>>Касперский</option>
-                </select>
+                <select data-placeholder="Выберите антивирус" class='my_select select' name="antiname" id="antiname">
+                  <option value=""></option>
+                  <?php
+                                      $morgs=GetArrayProgramming('3');
+                                      for ($i = 0; $i < count($morgs); $i++) {
+                                          $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
+                                          if ($nid==$antiname){$sl=" selected";} else {$sl="";};
+                                          echo "<option value=$nid $sl>$nm</option>";
+                                      };
+                                  ?>
+                    </select>
               </div>
      </div>
    </div><br>
@@ -5329,7 +5335,10 @@ if ($mode == "check_update") {
 $stmt = $dbConnection->prepare('update users set lastdt=now() where id=:cid');
 $stmt->execute(array(':cid' => $uid ));
 
-  echo 'ok';
+$stmt = $dbConnection->prepare('select count(id) as t1 from approve ');
+$stmt->execute();
+$count = $stmt->fetch(PDO::FETCH_ASSOC);
+echo $count['t1'];
  }
 if ($mode == "select_print"){
   ?>

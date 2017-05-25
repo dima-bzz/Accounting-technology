@@ -12,6 +12,7 @@ if (url.search(p1) >= 0) {
 return zzz;
 };
 
+var home = $("#home").val();
 window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 
@@ -923,12 +924,31 @@ function check_update(){
   $.ajax({
   type: "POST",
   url: ACTIONPATH,
-  data: "mode=check_update"
+  data: "mode=check_update",
+  success: function(data){
+if (data !== '0'){
+  if ((data == $( "#ap" ).html()) && ($( "#ap" ).html() != '')){
+$( "#ap" ).html( data ).fadeIn(500);
+$( "#ap" ).html( data )
+
+}
+else{
+$( "#ap" ).hide().empty().html( data ).fadeIn(500);
+$( "#ap2" ).empty().html( data );
+}
+}
+else {
+$( "#ap" ).fadeOut(500);
+$( "#ap2" ).empty().removeAttr( 'style' );
+}
+}
 })
 }
 setInterval(function(){
     check_update();
+    if (home){
     check_approve_users();
+  }
 },5000);
 // ******Сохранение настроек******
 $('body').on('click', 'button#conf_edit_main', function(event) {
