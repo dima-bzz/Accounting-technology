@@ -167,7 +167,7 @@ function cutstr_news2_ret($input) {
 function get_user_status($in) {
 	    global $dbConnection;
 
-    $stmt = $dbConnection->prepare('select lastdt from users where id=:in');
+    $stmt = $dbConnection->prepare('select lastdt from users where id=:in and us_kill=1');
     $stmt->execute(array(':in' => $in));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 	$lt=$row['lastdt'];

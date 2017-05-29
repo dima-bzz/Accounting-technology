@@ -476,6 +476,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `dostup` tinyint(1) NOT NULL DEFAULT '1',
   `lang` varchar(11) NOT NULL DEFAULT 'ru',
   `user_name` varchar(50) DEFAULT NULL,
+  `us_kill` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
