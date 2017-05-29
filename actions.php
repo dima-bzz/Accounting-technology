@@ -3370,14 +3370,8 @@ else {
 }
 
 }
-if ($mode == "approve"){
-  $stmt = $dbConnection->prepare('select count(id) as t1 from approve ');
-  $stmt->execute();
-  $count = $stmt->fetch(PDO::FETCH_ASSOC);
-  echo $count['t1'];
-}
 if ($mode == "approve_users"){
-  $stmt = $dbConnection->prepare ("select lastdt from users");
+  $stmt = $dbConnection->prepare ("select lastdt from users where us_kill=1");
   $stmt->execute();
   $res1 = $stmt->fetchAll();
   $count_lt = array();
@@ -3546,7 +3540,7 @@ if ($mode == "users_table"){
     if (($key['active']=="1") && ($key['on_off']=="1")) {$active="active";} else {$active="not_active";};
     if (($key['active']=="1") && ($key['on_off']=="0")) {$active="off";};
     $s = get_user_status($key['id']);
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button></div>";
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_logout\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('User_logout_toggle')."\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></button></div>";
     $data = array($active,$key['id'],$key['login'],$key['fio'],'скрыто',$key['user_name'],$key['email'],$priv,$dostup,$lang,$s,$act);
     $output['aaData'][] = $data;
   }
@@ -5338,7 +5332,23 @@ $stmt->execute(array(':cid' => $uid ));
 $stmt = $dbConnection->prepare('select count(id) as t1 from approve ');
 $stmt->execute();
 $count = $stmt->fetch(PDO::FETCH_ASSOC);
-echo $count['t1'];
+
+$stmt = $dbConnection->prepare ('SELECT us_kill FROM users WHERE id=:id');
+$stmt->execute(array(':id' => $uid));
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+if($row['us_kill'] == '1'){
+  $mlu = 'false';
+}
+else{
+  $mlu = 'true';
+}
+
+$results[] = array(
+  'approve_delete'=> $count['t1'],
+  'make_logout_user'=> $mlu
+  );
+
+print json_encode($results);
  }
 if ($mode == "select_print"){
   ?>
@@ -6328,6 +6338,17 @@ if ($mode == "edit_anti"){
   $name = ($_POST['name']);
   $stmt = $dbConnection->prepare ('UPDATE programming SET name = :name WHERE id = :id');
   $stmt->execute(array(':name' => $name, ':id' => $id));
+}
+if ($mode == "make_logout_user"){
+  $user_id = $_POST['userid'];
+  $stmt = $dbConnection->prepare("UPDATE users SET us_kill = :kill WHERE id=:user_id");
+  $stmt->execute(array(':user_id' => $user_id, ':kill' => 0));
+}
+if ($mode == "update_logout"){
+  $user_id = $_POST['userid'];
+
+  $stmt = $dbConnection->prepare("UPDATE users SET us_kill = :kill WHERE id=:user_id");
+  $stmt->execute(array(':user_id' => $user_id, ':kill' => 1));
 }
 }
 }

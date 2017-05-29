@@ -87,133 +87,7 @@ function check_ip(){
     }
   })
 }
-// function check_users_documents(){
-//   var check = '';
-// $('#permit_users_documents').blur(function(){
-// if (check === false){
-//   this.value = '';
-// }
-//   $('#users_documents_grp').removeClass('has-error');
-// })
-// $('#permit_users_documents').keyup(function(){
-//   var val = $(this).val();
-//   var documents = new RegExp(/^[0-9,]+[0-9]$/);
-//   this.value = this.value.replace(/[^0-9,]/g,',');
-//   check = documents.test(val);
-//   // console.log(doc_test);
-//   if (check){
-//     $('#users_documents_grp').removeClass('has-error');
-//   }
-//   else {
-//     $('#users_documents_grp').addClass('has-error');
-//   }
-// })
-// }
-// check_users_documents();
-// function check_users_news(){
-//   var check = '';
-// $('#permit_users_news').blur(function(){
-// if (check === false){
-//   this.value = '';
-// }
-//   $('#users_news_grp').removeClass('has-error');
-// })
-// $('#permit_users_news').keyup(function(){
-//   var val = $(this).val();
-//   var news = new RegExp(/^[0-9,]+[0-9]$/);
-//   this.value = this.value.replace(/[^0-9,]/g,',');
-//   check = news.test(val);
-//   // console.log(doc_test);
-//   if (check){
-//     $('#users_news_grp').removeClass('has-error');
-//   }
-//   else {
-//     $('#users_news_grp').addClass('has-error');
-//   }
-// })
-// }
-// check_users_news();
-// function check_users_cont(){
-//   var check = '';
-// $('#permit_users_cont').blur(function(){
-// if (check === false){
-//   this.value = '';
-// }
-//   $('#users_cont_grp').removeClass('has-error');
-// })
-// $('#permit_users_cont').keyup(function(){
-//   var val = $(this).val();
-//   var cont = new RegExp(/^[0-9,]+[0-9]$/);
-//   this.value = this.value.replace(/[^0-9,]/g,',');
-//   check = cont.test(val);
-//   // console.log(doc_test);
-//   if (check){
-//     $('#users_cont_grp').removeClass('has-error');
-//   }
-//   else {
-//     $('#users_cont_grp').addClass('has-error');
-//   }
-// })
-// }
-// check_users_cont();
-// function check_users_req(){
-//   var check = '';
-// $('#permit_users_req').blur(function(){
-// if (check === false){
-//   this.value = '';
-// }
-//   $('#users_req_grp').removeClass('has-error');
-// })
-// $('#permit_users_req').keyup(function(){
-//   var val = $(this).val();
-//   var req = new RegExp(/^[0-9,]+[0-9]$/);
-//   this.value = this.value.replace(/[^0-9,]/g,',');
-//   check = req.test(val);
-//   // console.log(doc_test);
-//   if (check){
-//     $('#users_req_grp').removeClass('has-error');
-//   }
-//   else {
-//     $('#users_req_grp').addClass('has-error');
-//   }
-// })
-// }
-// check_users_req();
-// function check_users_knt(){
-//   var check = '';
-// $('#permit_users_knt').blur(function(){
-// if (check === false){
-//   this.value = '';
-// }
-//   $('#users_knt_grp').removeClass('has-error');
-// })
-// $('#permit_users_knt').keyup(function(){
-//   var val = $(this).val();
-//   var knt = new RegExp(/^[0-9,]+[0-9]$/);
-//   this.value = this.value.replace(/[^0-9,]/g,',');
-//   check = knt.test(val);
-//   // console.log(doc_test);
-//   if (check){
-//     $('#users_knt_grp').removeClass('has-error');
-//   }
-//   else {
-//     $('#users_knt_grp').addClass('has-error');
-//   }
-// })
-// }
-// check_users_knt();
-  function check_approve(){
-     $.post( ACTIONPATH,{ mode: "approve" },function( data ) {
-  if (data !== '0'){
-$( "#ap" ).hide().empty().append( data ).fadeIn(500);
-$( "#ap2" ).empty().append( data );
-}
-else {
-  $( "#ap" ).fadeOut(500);
-  $( "#ap2" ).empty().removeAttr( 'style' );
-}
-});
-};
+
 function check_approve_users(){
    $.post( ACTIONPATH,{ mode: "approve_users" },function( data ) {
      $("#count_update").html(data);
@@ -920,28 +794,66 @@ function equipment_photo(){
   });
 }
 // ***** Обновления активности *****
-function check_update(){
+function check_update(up){
   $.ajax({
   type: "POST",
   url: ACTIONPATH,
   data: "mode=check_update",
-  success: function(data){
-if (data !== '0'){
-  if ((data == $( "#ap" ).html()) && ($( "#ap" ).html() != '')){
-$( "#ap" ).html( data ).fadeIn(500);
-$( "#ap" ).html( data )
+  dataType: "json",
+  success: function(html){
+
+    $.each(html, function(i, item) {
+      if (up != 'update'){
+  if (item.approve_delete !== '0'){
+    if ((item.approve_delete == $( "#ap" ).html()) && ($( "#ap" ).html() != '')){
+$( "#ap" ).html( item.approve_delete ).fadeIn(500);
+$( "#ap" ).html( item.approve_delete )
 
 }
 else{
-$( "#ap" ).hide().empty().html( data ).fadeIn(500);
-$( "#ap2" ).empty().html( data );
+  $( "#ap" ).hide().empty().html( item.approve_delete ).fadeIn(500);
+  $( "#ap2" ).empty().html( item.approve_delete );
 }
 }
 else {
-$( "#ap" ).fadeOut(500);
-$( "#ap2" ).empty().removeAttr( 'style' );
+  $( "#ap" ).fadeOut(500);
+  $( "#ap2" ).empty().removeAttr( 'style' );
+}
+  if (item.make_logout_user == "true"){
+        window.location.href = MyHOSTNAME + 'index.php?logout';
+        $.ajax({
+          url:  ACTIONPATH,
+          type: "POST",
+          data:"mode=update_logout" +
+          "&userid=" + userid
+        })
+  }
+}
+else{
+  if (item.approve_delete !== '0'){
+    if ((item.approve_delete == $( "#ap" ).html()) && ($( "#ap" ).html() != '')){
+$( "#ap" ).html( item.approve_delete ).fadeIn(500);
+$( "#ap" ).html( item.approve_delete )
+
+}
+else{
+  $( "#ap" ).hide().empty().html( item.approve_delete ).fadeIn(500);
+  $( "#ap2" ).empty().html( item.approve_delete );
 }
 }
+else {
+  $( "#ap" ).fadeOut(500);
+  $( "#ap2" ).empty().removeAttr( 'style' );
+}
+}
+})
+}
+  // success: function(data){
+  //   console.log(MyHOSTNAME);
+  //   if (data == ''){
+  //     window.location.href = MyHOSTNAME + 'index.php?logout';
+  //   }
+  // }
 })
 }
 setInterval(function(){
@@ -1439,7 +1351,7 @@ $('body').on('click', 'button#equipment_delete', function(event) {
           table_eq_param.clear().draw();
           arrList=[];
           eq_one_id=[];
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -1922,7 +1834,7 @@ $('body').on('click', 'button#cartridge_delete', function(event) {
           dialog_cartridge_del.close();
           table_cartridge.ajax.reload(null, false);
           eq_one_id=[];
-          check_approve();
+          check_update('update');
           $.ajax({
             url: ACTIONPATH,
             async: false,
@@ -1964,7 +1876,7 @@ $('body').on('click', 'button#org_delete', function(event) {
         success: function() {
           dialog_org_del.close();
           table_org.ajax.reload(null, false);
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -2042,7 +1954,7 @@ $('body').on('click', 'button#dell_all', function(event) {
           data: "mode=delete_all",
           success: function(html) {
             $("#infoblock").empty().append(html);
-            check_approve();
+            check_update('update');
           }
 })
 });
@@ -2063,7 +1975,7 @@ $('body').on('click', 'button#otmena', function(event) {
             // $("#before_delete").html('');
             $("#delete_ok").empty();
             $("#before_delete").empty().append(html);
-            check_approve();
+            check_update('update');
           }
 })
 });
@@ -2095,7 +2007,7 @@ $('body').on('click', 'button#places_delete', function(event) {
           table_places.ajax.reload(null, false);
           table_places_sub.clear().draw();
           eq_one_id=[];
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -2460,7 +2372,7 @@ $('body').on('click', 'button#users_delete', function(event) {
         success: function() {
           dialog_users_del.close();
           table_users.ajax.reload(null, false);
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -2683,7 +2595,7 @@ $('body').on('click', 'button#vendors_delete', function(event) {
         success: function() {
           dialog_vendors_del.close();
           table_vendors.ajax.reload(null, false);
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -2762,7 +2674,7 @@ $('body').on('click', 'button#group_nome_delete', function(event) {
         success: function() {
           dialog_group_nome_del.close();
           table_group_nome.ajax.reload(null, false);
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -2840,7 +2752,7 @@ $('body').on('click', 'button#nome_delete', function(event) {
         success: function() {
           dialog_nome_del.close();
           table_nome.ajax.reload(null, false);
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -3116,7 +3028,7 @@ $('body').on('click', 'button#requisites_delete', function(event) {
           dialog_requisites_del.close();
           table_requisites.ajax.reload(null, false);
           eq_one_id=[];
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -3211,7 +3123,7 @@ $('body').on('click', 'button#knt_delete', function(event) {
           dialog_knt_del.close();
           table_knt.ajax.reload(null, false);
           eq_one_id=[];
-          check_approve();
+          check_update('update');
         }
         });
 });
@@ -3918,6 +3830,20 @@ $('body').on('click', 'button#edit_antivirus', function(event) {
         }
         });
       }
+});
+// ***** Отключение пользователя*****
+$('body').on('click', 'button#users_logout', function(event) {
+          event.preventDefault();
+          var id_users_logout = table_users.row( $(this).parents('tr') ).data()[1];
+          $.ajax({
+            url:  ACTIONPATH,
+            type: "POST",
+            data:"mode=make_logout_user" +
+            "&userid=" + id_users_logout,
+            success: function(){
+              window.location = MyHOSTNAME + "users";
+            }
+          })
 });
 // ******ТМЦ под ответсвенностью на главной странице******
 var table_eq_mat = $('#eq_mat').DataTable({
