@@ -208,6 +208,7 @@ update_val_by_key("what_cartridge", $_POST['what_cartridge']);
 update_val_by_key("what_print_test", $_POST['what_print_test']);
 update_val_by_key("what_license", $_POST['what_license']);
 update_val_by_key("home_text", $_POST['home_text']);
+update_val_by_key("time_zone", $_POST['time_zone']);
 
 
 ?>
@@ -3370,20 +3371,6 @@ else {
 }
 
 }
-if ($mode == "approve_users"){
-  $stmt = $dbConnection->prepare ("select lastdt from users where us_kill=1");
-  $stmt->execute();
-  $res1 = $stmt->fetchAll();
-  $count_lt = array();
-  foreach($res1 as $row) {
-    $lt = $row['lastdt'];
-    $d = time()-strtotime($lt);
-if ($d < 20) {
-    array_push($count_lt,$d);
-  }
-  }
-  echo count($count_lt);
-}
 if ($mode == "places_table"){
   $stmt = $dbConnection->prepare ("SELECT id,name,comment,active FROM places");
   $stmt->execute();
@@ -5343,9 +5330,15 @@ else{
   $mlu = 'true';
 }
 
+$stmt = $dbConnection->prepare('select count(*) as count from users where UNIX_TIMESTAMP(lastdt) > UNIX_TIMESTAMP(NOW())-20 and us_kill=1');
+$stmt->execute();
+$cn = $stmt->fetch(PDO::FETCH_ASSOC);
+$count_lt=$cn['count'];
+
 $results[] = array(
   'approve_delete'=> $count['t1'],
-  'make_logout_user'=> $mlu
+  'make_logout_user'=> $mlu,
+  'users_online'=> $count_lt
   );
 
 print json_encode($results);

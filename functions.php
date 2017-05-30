@@ -5,7 +5,6 @@ define("DS", DIRECTORY_SEPARATOR);
 include_once('sys/Parsedown.php');
 include_once('sys/class.phpmailer.php');
 require 'library/HTMLPurifier.auto.php';
-date_default_timezone_set('Europe/Moscow');
 $dbConnection = new PDO(
     'mysql:host='.$CONF_DB['host'].';dbname='.$CONF_DB['db_name'],
     $CONF_DB['username'],
@@ -35,7 +34,8 @@ $CONF = array (
 'what_cartridge' => get_conf_param('what_cartridge'),
 'what_print_test' => get_conf_param('what_print_test'),
 'what_license' => get_conf_param('what_license'),
-'home_text' => get_conf_param('home_text')
+'home_text' => get_conf_param('home_text'),
+'time_zone' => get_conf_param('time_zone')
 );
 
 $CONF_MAIL = array (
@@ -54,6 +54,7 @@ if ($CONF_AT['debug_mode'] == true) {
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(0);
 }
+date_default_timezone_set(get_conf_param('time_zone'));
 
 include_once('inc/mail.php');
 
@@ -1093,4 +1094,87 @@ function GetById($in){ // обновляем профиль работника �
                 };};
               }
             };
+            class Helper_TimeZone
+{
+public static function getTimeZoneSelect($selectedZone = NULL)
+{
+$regions = array(
+'Africa' => DateTimeZone::AFRICA,
+'America' => DateTimeZone::AMERICA,
+'Antarctica' => DateTimeZone::ANTARCTICA,
+'Aisa' => DateTimeZone::ASIA,
+'Atlantic' => DateTimeZone::ATLANTIC,
+'Europe' => DateTimeZone::EUROPE,
+'Indian' => DateTimeZone::INDIAN,
+'Pacific' => DateTimeZone::PACIFIC
+);
+
+$structure = '<select data-placeholder="'.get_lang('Select_time_zone').'" class="my_select select"  name="time_zone" id="time_zone">';
+$structure .= '<option value=""></option>';
+
+foreach ($regions as $mask) {
+$zones = DateTimeZone::listIdentifiers($mask);
+$zones = self::prepareZones($zones);
+
+foreach ($zones as $zone) {
+    $continent = $zone['continent'];
+    $city = $zone['city'];
+    $subcity = $zone['subcity'];
+    $p = $zone['p'];
+    $timeZone = $zone['time_zone'];
+
+    if (!isset($selectContinent)) {
+        $structure .= '<optgroup label="'.$continent.'">';
+    }
+    elseif ($selectContinent != $continent) {
+        $structure .= '</optgroup><optgroup label="'.$continent.'">';
+    }
+
+    if ($city) {
+        if ($subcity) {
+            $city = $city . '/'. $subcity;
+        }
+
+        $structure .= "<option ".(($timeZone == $selectedZone) ? 'selected="selected "':'') . " value=\"".($timeZone)."\">(UTC ".$p.") " .str_replace('_',' ',$city)."</option>";
+    }
+
+    $selectContinent = $continent;
+}
+}
+
+$structure .= '</optgroup></select>';
+
+return $structure;
+}
+
+private static function prepareZones(array $timeZones)
+{
+$list = array();
+foreach ($timeZones as $zone) {
+$time = new DateTime(NULL, new DateTimeZone($zone));
+$p = $time->format('P');
+if ($p > 13) {
+    continue;
+}
+$parts = explode('/', $zone);
+
+$list[$time->format('P')][] = array(
+    'time_zone' => $zone,
+    'continent' => isset($parts[0]) ? $parts[0] : '',
+    'city' => isset($parts[1]) ? $parts[1] : '',
+    'subcity' => isset($parts[2]) ? $parts[2] : '',
+    'p' => $p,
+);
+}
+
+ksort($list, SORT_NUMERIC);
+
+$zones = array();
+foreach ($list as $grouped) {
+$zones = array_merge($zones, $grouped);
+}
+
+return $zones;
+}
+}
  ?>

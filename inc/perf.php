@@ -90,6 +90,12 @@ include("menus.php");
  </div>
   </div>
   <div class="form-group">
+<label for="time_zone" class="col-sm-4 control-label"><small><?=get_lang('CONF_time_zone');?></small></label>
+<div class="col-sm-8">
+  <?=Helper_TimeZone::getTimeZoneSelect(get_conf_param('time_zone'));?>
+</div>
+</div>
+  <div class="form-group">
   <label for="default_org" class="col-sm-4 control-label"><small><?=get_lang('CONF_default_org');?></small></label>
   <div class="col-sm-8">
     <select data-placeholder="Выберите организацию" class='my_select select' name="default_org" id="default_org">

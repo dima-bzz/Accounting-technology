@@ -828,6 +828,9 @@ else {
           "&userid=" + userid
         })
   }
+  if (home){
+  $("#count_update").html(item.users_online);
+  }
 }
 else{
   if (item.approve_delete !== '0'){
@@ -858,9 +861,6 @@ else {
 }
 setInterval(function(){
     check_update();
-    if (home){
-    check_approve_users();
-  }
 },5000);
 // ******Сохранение настроек******
 $('body').on('click', 'button#conf_edit_main', function(event) {
@@ -887,7 +887,8 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&what_cartridge="+encodeURIComponent($("#what_cartridge").val())+
         "&what_print_test="+encodeURIComponent($("#what_print_test").val())+
         "&what_license="+encodeURIComponent($("#what_license").val())+
-        "&home_text="+encodeURIComponent($("#home_text").val()),
+        "&home_text="+encodeURIComponent($("#home_text").val())+
+        "&time_zone="+encodeURIComponent($("#time_zone").val()),
         success: function(html) {
         $.cookie('cookieorgid',$("#default_org").val());
         $("#conf_edit_main").blur();

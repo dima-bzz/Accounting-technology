@@ -86,7 +86,8 @@
   "CONF_home_text":"Приветсвенное сообщение на главной странице",
   "CONF_title_home_text":"Введите сообщение",
   "CONF_version":"Версия вашей программы:",
-"CONF_version_1":"Актуальная версия ПО: <a href=\"https://github.com/dima-bzz/Accounting-technology\" target=\"blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i>&nbsp;GitHub</a>",
+  "CONF_version_1":"Актуальная версия ПО: <a href=\"https://github.com/dima-bzz/Accounting-technology\" target=\"blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i>&nbsp;GitHub</a>",
+  "CONF_time_zone" : "Временная зона",
 
   "MAIL_active"  :  "Учетная запись активирована",
   "MAIL_adr"  :  "Адрес",
@@ -464,7 +465,8 @@
 "System" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Операционная система",
 "Antivirus" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Антивирус",
 "Office" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Офис",
-"User_logout_toggle" : "Отключить пользователя"
+"User_logout_toggle" : "Отключить пользователя",
+"Select_time_zone" : "Выберите временную зону"
 
 
 }
