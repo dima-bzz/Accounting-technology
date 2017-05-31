@@ -9,6 +9,9 @@ include("menus.php");
  .alert-info hr{
    border-top-color: #fff !important;
  }
+ .chosen-container{
+  width: 100% !important;
+  }
  </style>
 <div class="container">
 <div class="page-header" style="margin-top: -15px;">
