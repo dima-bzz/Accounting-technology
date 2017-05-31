@@ -59,7 +59,7 @@ date_default_timezone_set(get_conf_param('time_zone'));
 include_once('inc/mail.php');
 
 function get_version(){
-  $v = '1.08';
+  $v = '1.09';
   return $v;
 }
 
