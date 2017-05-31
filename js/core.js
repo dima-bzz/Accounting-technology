@@ -15,7 +15,16 @@ return zzz;
 var home = $("#home").val();
 window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false, noty: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
+moment.locale(lang);
+function makemytime(s){
 
+var now = moment();
+
+$('time#b').each(function(i, e) {
+var time = moment($(e).attr('datetime'));
+$(e).html('<span>' + time.from(moment()) + '</span>');
+});
+}
 $.i18n.debug = false;
 $.i18n().locale = lang;
 $.i18n().load( {
@@ -2685,68 +2694,68 @@ $('body').on('click', 'a#img_del_users', function(event) {
         }
     });
   });
-// ***** Редкатирование профеля где контакты*****
-$('body').on('click', 'button#edit_profile_cont', function(event) {
-          event.preventDefault();
-          d = new Date();
-          if (Admin === true){
-          if (check_er.save == true){
-          var data_img = cropper.getDataURL();
-          }
-        else{
-          var data_img = '';
-        }
-      } else {
-        var data_img = '0';
-      }
-        if (Admin === true){
-          var pl = encodeURIComponent($("#placesid").val());
-        }
-        else {
-          var pl = '0';
-        {}
-        var valid_email = function(){
-        var valid_result = false;
-        if ($('#email').val().length < '1'){
-          $('#email').popover('show');
-          $('#email_grp').addClass('has-error');
-          setTimeout(function(){$("#email").popover('hide');},2000);
-          valid_result = true;
-        }
-        return valid_result;
-        };
-if ((valid_email() == false) && (check_er.email == false)){
-$.ajax({
-    type: 'POST',
-    url: ACTIONPATH,
-    data: 'mode=edit_profile_users' +
-    '&id=' + array_cont +
-    '&img=' + data_img +
-    "&placesid=" + pl+
-    "&birthday=" + encodeURIComponent($("#birthday").val())+
-    "&work_number=" + encodeURIComponent($("#work_number").val())+
-    "&email=" + encodeURIComponent($("#email").val())+
-    "&post=" + encodeURIComponent($("#post").val())+
-    "&mobile=" + encodeURIComponent($("#mobile").val())+
-    "&emaildop=" + encodeURIComponent($("#emaildop").val()),
-    success: function() {
-      dialog_users_profile.close();
-      table_contact.ajax.reload(null, false);
-      $.ajax({
-        type: "POST",
-        url: ACTIONPATH,
-        data: "mode=show_img" +
-        "&id="+array_cont,
-        success: function(data){
-          $('li img').attr("src", "images/avatar/" + data + "?"+d.getTime());
-        }
-      });
-      array_cont = [];
-      check_er.save = false;
+  // ***** Редкатирование профеля где контакты*****
+  $('body').on('click', 'button#edit_profile_cont', function(event) {
+            event.preventDefault();
+            d = new Date();
+            if (Admin === true){
+            if (check_er.save == true){
+            var data_img = cropper.getDataURL();
             }
-      })
-    }
-});
+          else{
+            var data_img = '';
+          }
+        } else {
+          var data_img = '0';
+        }
+          if (Admin === true){
+            var pl = encodeURIComponent($("#placesid").val());
+          }
+          else {
+            var pl = '0';
+          }
+          var valid_email = function(){
+          var valid_result = false;
+          if ($('#email').val().length < '1'){
+            $('#email').popover('show');
+            $('#email_grp').addClass('has-error');
+            setTimeout(function(){$("#email").popover('hide');},2000);
+            valid_result = true;
+          }
+          return valid_result;
+          };
+  if ((valid_email() == false) && (check_er.email == false)){
+  $.ajax({
+      type: 'POST',
+      url: ACTIONPATH,
+      data: 'mode=edit_profile_users' +
+      '&id=' + array_cont +
+      '&img=' + data_img +
+      "&placesid=" + pl+
+      "&birthday=" + encodeURIComponent($("#birthday").val())+
+      "&work_number=" + encodeURIComponent($("#work_number").val())+
+      "&email=" + encodeURIComponent($("#email").val())+
+      "&post=" + encodeURIComponent($("#post").val())+
+      "&mobile=" + encodeURIComponent($("#mobile").val())+
+      "&emaildop=" + encodeURIComponent($("#emaildop").val()),
+      success: function() {
+        dialog_users_profile.close();
+        table_contact.ajax.reload(null, false);
+        $.ajax({
+          type: "POST",
+          url: ACTIONPATH,
+          data: "mode=show_img" +
+          "&id="+array_cont,
+          success: function(data){
+            $('li img').attr("src", "images/avatar/" + data + "?"+d.getTime());
+          }
+        });
+        array_cont = [];
+        check_er.save = false;
+              }
+        })
+      }
+  });
 $('body').on('click', 'a#img_del_users_cont', function(event) {
     event.preventDefault();
     d = new Date();
