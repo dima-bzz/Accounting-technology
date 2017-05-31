@@ -95,6 +95,8 @@
   "CONF_check_update_latest": "У вас последняя версия.",
   "CONF_check_update_download": "Скачать послдению версию.",
   "CONF_check_update_actual": "<b>Последняя версия:</b> ",
+  "CONF_user_permit" : "Разрешения",
+  "CONF_group" : "Группы ТМЦ",
 
   "MAIL_active"  :  "Учетная запись активирована",
   "MAIL_adr"  :  "Адрес",

@@ -188,36 +188,56 @@ if ($mode == "activate_login_form") {
           }
     }
     }
-if ($mode == "conf_edit_main") {
-update_val_by_key("name_of_firm", $_POST['name_of_firm']);
-update_val_by_key("title_header", $_POST['title_header']);
-update_val_by_key("hostname", $_POST['hostname']);
-update_val_by_key("first_login", $_POST['first_login']);
-update_val_by_key("mail", $_POST['mail']);
-update_val_by_key("file_types", $_POST['file_types']);
-update_val_by_key("file_types_img", $_POST['file_types_img']);
-update_val_by_key("file_size", $_POST['file_size']);
-update_val_by_key("permit_users_knt", $_POST['permit_users_knt']);
-update_val_by_key("permit_users_req", $_POST['permit_users_req']);
-update_val_by_key("permit_users_cont", $_POST['permit_users_cont']);
-update_val_by_key("permit_users_documents", $_POST['permit_users_documents']);
-update_val_by_key("permit_users_news", $_POST['permit_users_news']);
-update_val_by_key("permit_users_license", $_POST['permit_users_license']);
-update_val_by_key("default_org", $_POST['default_org']);
-update_val_by_key("what_cartridge", $_POST['what_cartridge']);
-update_val_by_key("what_print_test", $_POST['what_print_test']);
-update_val_by_key("what_license", $_POST['what_license']);
-update_val_by_key("home_text", $_POST['home_text']);
-update_val_by_key("time_zone", $_POST['time_zone']);
+    if ($mode == "conf_edit_main") {
+    update_val_by_key("name_of_firm", $_POST['name_of_firm']);
+    update_val_by_key("title_header", $_POST['title_header']);
+    update_val_by_key("hostname", 'http://'.$_POST['hostname']);
+    update_val_by_key("first_login", $_POST['first_login']);
+    update_val_by_key("mail", $_POST['mail']);
+    update_val_by_key("file_types", $_POST['file_types']);
+    update_val_by_key("file_types_img", $_POST['file_types_img']);
+    update_val_by_key("file_size", $_POST['file_size']);
+    update_val_by_key("shutdown", $_POST['shutdown']);
+    update_val_by_key("pass_server", $_POST['pass_server']);
+    update_val_by_key("default_org", $_POST['default_org']);
+    update_val_by_key("home_text", $_POST['home_text']);
+    update_val_by_key("time_zone", $_POST['time_zone']);
 
 
-?>
-<div class="alert alert-success">
-<?=get_lang('PROFILE_msg_ok');?>
-</div>
-<?php
-}
+    ?>
+    <div class="alert alert-success">
+    <?=get_lang('PROFILE_msg_ok');?>
+    </div>
+    <?php
+    }
+    if ($mode == "conf_edit_permit") {
+    update_val_by_key("permit_users_knt", $_POST['permit_users_knt']);
+    update_val_by_key("permit_users_req", $_POST['permit_users_req']);
+    update_val_by_key("permit_users_cont", $_POST['permit_users_cont']);
+    update_val_by_key("permit_users_documents", $_POST['permit_users_documents']);
+    update_val_by_key("permit_users_news", $_POST['permit_users_news']);
+    update_val_by_key("permit_users_license", $_POST['permit_users_license']);
+    update_val_by_key("permit_users_contract", $_POST['permit_users_contract']);
 
+
+    ?>
+    <div class="alert alert-success">
+    <?=get_lang('PROFILE_msg_ok');?>
+    </div>
+    <?php
+    }
+    if ($mode == "conf_edit_group") {
+    update_val_by_key("what_cartridge", $_POST['what_cartridge']);
+    update_val_by_key("what_print_test", $_POST['what_print_test']);
+    update_val_by_key("what_license", $_POST['what_license']);
+
+
+    ?>
+    <div class="alert alert-success">
+    <?=get_lang('PROFILE_msg_ok');?>
+    </div>
+    <?php
+    }
 if ($mode == "conf_edit_mail") {
 update_val_by_key("mail_type", $_POST['type']);
 update_val_by_key("mail_active", $_POST['mail_active']);

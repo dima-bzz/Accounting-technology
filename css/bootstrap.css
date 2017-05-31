@@ -4924,10 +4924,6 @@ a.label:focus {
 .badge:empty {
   display: none;
 }
-.badge-danger{
-  background-color: #d9534f;
-}
-
 .btn .badge {
   position: relative;
   top: -1px;

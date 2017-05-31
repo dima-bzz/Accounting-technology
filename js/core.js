@@ -1046,23 +1046,51 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&file_types="+encodeURIComponent($("#file_types").val())+
         "&file_types_img="+encodeURIComponent($("#file_types_img").val())+
         "&file_size="+encodeURIComponent($("#file_size").val()*1024*1024) +
+        "&shutdown="+encodeURIComponent($("#permit_users_shutdown").val())+
+        "&pass_server="+encodeURIComponent($("#pass_server").val())+
+        "&default_org="+encodeURIComponent($("#default_org").val())+
+        "&home_text="+encodeURIComponent($("#home_text").val())+
+        "&time_zone="+encodeURIComponent($("#time_zone").val()),
+        success: function(html) {
+        $("#conf_edit_main").blur();
+        $("#conf_edit_main_res").hide().html(html).fadeIn(500);
+        setTimeout(function() {$('#conf_edit_main_res').children('.alert').fadeOut(500);}, 3000);
+        }
+        });
+});
+$('body').on('click', 'button#conf_edit_permit', function(event) {
+        event.preventDefault();
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=conf_edit_permit"+
         "&permit_users_knt="+encodeURIComponent($("#permit_users_knt").val()) +
         "&permit_users_req="+encodeURIComponent($("#permit_users_req").val()) +
         "&permit_users_cont="+encodeURIComponent($("#permit_users_cont").val()) +
         "&permit_users_documents="+encodeURIComponent($("#permit_users_documents").val())+
         "&permit_users_news="+encodeURIComponent($("#permit_users_news").val())+
         "&permit_users_license="+encodeURIComponent($("#permit_users_license").val())+
-        "&default_org="+encodeURIComponent($("#default_org").val())+
+        "&permit_users_contract="+encodeURIComponent($("#permit_users_contract").val()),
+        success: function(html) {
+        $("#conf_edit_permit").blur();
+        $("#conf_edit_permit_res").hide().html(html).fadeIn(500);
+        setTimeout(function() {$('#conf_edit_permit_res').children('.alert').fadeOut(500);}, 3000);
+        }
+        });
+});
+$('body').on('click', 'button#conf_edit_group', function(event) {
+        event.preventDefault();
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=conf_edit_group"+
         "&what_cartridge="+encodeURIComponent($("#what_cartridge").val())+
         "&what_print_test="+encodeURIComponent($("#what_print_test").val())+
-        "&what_license="+encodeURIComponent($("#what_license").val())+
-        "&home_text="+encodeURIComponent($("#home_text").val())+
-        "&time_zone="+encodeURIComponent($("#time_zone").val()),
+        "&what_license="+encodeURIComponent($("#what_license").val()),
         success: function(html) {
-        $.cookie('cookieorgid',$("#default_org").val());
-        $("#conf_edit_main").blur();
-        $("#conf_edit_main_res").hide().html(html).fadeIn(500);
-        setTimeout(function() {$('#conf_edit_main_res').children('.alert').fadeOut(500);}, 3000);
+        $("#conf_edit_group").blur();
+        $("#conf_edit_group_res").hide().html(html).fadeIn(500);
+        setTimeout(function() {$('#conf_edit_group_res').children('.alert').fadeOut(500);}, 3000);
         }
         });
 });
