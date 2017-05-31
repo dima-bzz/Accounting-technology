@@ -18,17 +18,22 @@ include("menus.php");
 
 <div class="row" >
 <div class="col-md-3">
-      <div class="alert alert-info" role="alert">
-      <small>
-      <i class="fa fa-info-circle" aria-hidden="true"></i>
+  <div class="alert alert-info" role="alert">
+  <small>
+  <i class="fa fa-info-circle" aria-hidden="true"></i>
 
 <?=get_lang('CONF_info');?>
 <hr>
 <?=get_lang('CONF_version')." ".get_version()?>
 <br>
 <?=get_lang('CONF_version_1');?>
-      </small>
-      </div>
+</small>
+<button class="btn btn-default btn-block" style="margin-top: 20px;" id="conf_check_update"><?=get_lang('CONF_check_update');?></button>
+<div id="check_update"></div>
+<hr>
+<button class="btn btn-primary btn-block" id="conf_system_update" data-toggle="tooltip" data-placement="left" title="<?=get_lang('CONF_system_update_title');?>"><?=get_lang('CONF_system_update');?></button>
+  <div id="up_success"></div>
+  </div>
 
       </div>
 

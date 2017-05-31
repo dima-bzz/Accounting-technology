@@ -751,6 +751,34 @@ function GetArrayUsers(){ // Возврат - массив активных по
                     }
 };
 
+function GetArrayUsersOnline(){ // Возврат - массив пользователей online
+		global $dbConnection;
+    $id_user = $_SESSION['dilema_user_id'];
+		$mOrgs = array();
+  		$stmt = $dbConnection->prepare('SELECT * FROM users WHERE active=1 and on_off=1 and us_kill=1');
+      $stmt->execute();
+      $res1 = $stmt->fetchAll();
+  		if ($res1!='') {
+        foreach($res1 as $myrow) {
+          $lt=$myrow['lastdt'];
+                $d = time()-strtotime($lt);
+          if ($d < 20) {
+				   $mOrgs[]=$myrow["id"];
+          }
+				  };
+          $us_me = array_search($id_user,$mOrgs);
+          if ($us_me !== FALSE){
+            unset($mOrgs[$us_me]);
+            $us_dd = $mOrgs;
+          }
+          else{
+            $us_dd = $mOrgs;
+          }
+
+				return $us_dd;
+                    }
+};
+
 function GetArrayUsers_Ping_Test(){ // Возврат - массив активных пользователей
 		global $dbConnection;
 		$cnt=0;

@@ -87,7 +87,14 @@
   "CONF_title_home_text":"Введите сообщение",
   "CONF_version":"Версия вашей программы:",
   "CONF_version_1":"Актуальная версия ПО: <a href=\"https://github.com/dima-bzz/Accounting-technology\" target=\"blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i>&nbsp;GitHub</a>",
+  "CONF_system_update":"Послать обновление",
+  "CONF_system_update_success" : "Сообщения успешно посланы",
+  "CONF_system_update_title" : "Будет послано уведомления всем пользователям Online, что система обновлена!",
   "CONF_time_zone" : "Временная зона",
+  "CONF_check_update": "Проверять наличие обновлений",
+  "CONF_check_update_latest": "У вас последняя версия.",
+  "CONF_check_update_download": "Скачать послдению версию.",
+  "CONF_check_update_actual": "<b>Последняя версия:</b> ",
 
   "MAIL_active"  :  "Учетная запись активирована",
   "MAIL_adr"  :  "Адрес",
@@ -465,8 +472,12 @@
 "System" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Операционная система",
 "Antivirus" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Антивирус",
 "Office" : "<i class=\"fa fa-plus fa-fw\" aria-hidden=\"true\"></i><i class=\"fa fa-edit fa-fw\" aria-hidden=\"true\"></i>&nbsp;Офис",
+"Update_browser" : "Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.",
+"Disable_browser_noty" : "Вы запретили показывать уведомления",
 "User_logout_toggle" : "Отключить пользователя",
-"Select_time_zone" : "Выберите временную зону"
+"Select_time_zone" : "Выберите временную зону",
+"System_update" : "Система обновилась! Нажмите пожалуйста на уведомление, чтобы обновить.",
+"Noty_admin" : "Отправлено на рассмотрение Администратору!"
 
 
 }

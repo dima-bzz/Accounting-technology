@@ -6343,6 +6343,152 @@ if ($mode == "update_logout"){
   $stmt = $dbConnection->prepare("UPDATE users SET us_kill = :kill WHERE id=:user_id");
   $stmt->execute(array(':user_id' => $user_id, ':kill' => 1));
 }
+if ($mode == "update_noty"){
+  $id_user = $_SESSION['dilema_user_id'];
+
+  $stmt = $dbConnection->prepare('SELECT dt, id, userid, user_read, noty_w FROM noty WHERE userid rlike :id2 order by dt desc');
+  $stmt->execute(array(':id2' => '[[:<:]]'.$id_user.'[[:>:]]'));
+  $res1 = $stmt->fetchAll();
+  foreach($res1 as $rews) {
+  if ($rews != ''){
+    $userid = explode(',',$rews['userid']);
+    $user_read = explode(',',$rews['user_read']);
+    $date = strtotime($rews['dt']);
+
+    $noty_w = $rews['noty_w'];
+    $p = array_diff($userid,$user_read);
+    if (empty($p)){
+      $permit = 'false';
+    }
+    else{
+      $permit = 'true';
+    }
+      if(($permit == 'true') && (!in_array($id_user,$user_read))){
+        if ($noty_w == 'system_update'){
+  $results[] = array(
+        'show'=> 'true',
+        'name'=> 'noty_'.$date.'_'.$noty_w.'_'.$rews['id'],
+        'type'=> 'information',
+        'animated_open' => 'animated bounceInRight',
+        'animated_close' => 'animated bounceOutLeft',
+        'noty_w'=> $noty_w,
+        'modal'=> true,
+        'layout'=> 'center',
+        'message'=> get_lang('System_update'),
+        'time' => "<time id=\"b\" datetime=\"".$rews['dt']."\"></time>"
+      );
+      }
+      else{
+        $results[] = array(
+            'show'=> 'false',
+        );
+    }
+      }
+      else{
+        $results[] = array(
+            'show'=> 'false',
+        );
+    }
+  }
+  else{
+    $results[] = array(
+        'show'=> 'false',
+    );
+  }
+}
+
+  print json_encode($results);
+}
+if ($mode == "update_noty_id_read"){
+  $id = $_POST['id'];
+  $id_user = $_SESSION['dilema_user_id'];
+
+  $stmt = $dbConnection->prepare('SELECT user_read FROM noty where id=:id');
+  $stmt->execute(array(':id' => $id));
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  $us=$row['user_read'];
+
+  if ($us == '0'){
+  $stmt = $dbConnection->prepare('UPDATE noty SET user_read=:user where id=:id');
+  $stmt->execute(array(':id' => $id, ':user'=>$id_user));
+  }
+  else if ($us <> '0'){
+    $stmt = $dbConnection->prepare('UPDATE noty SET user_read= concat(user_read,:user) where id=:id');
+    $stmt->execute(array(':id' => $id, ':user'=>",".$id_user));
+  }
+
+  $stmt = $dbConnection->prepare('SELECT user_read, userid FROM noty where id=:id');
+  $stmt->execute(array(':id' => $id));
+  $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  $userid = explode(',',$row2['userid']);
+  $user_read = explode(',',$row2['user_read']);
+  $p = array_diff($userid,$user_read);
+  if (empty($p)){
+    $stmt = $dbConnection->prepare ('DELETE FROM noty  WHERE id = :id');
+    $stmt->execute(array(':id' => $id));
+  }
+
+
+}
+if ($mode == "conf_system_update"){
+
+  $us = GetArrayUsersOnline();
+  $us = implode(',',$us);
+
+  $stmt = $dbConnection->prepare('SELECT max(id) as id FROM noty');
+  $stmt->execute();
+  $row3 = $stmt->fetch(PDO::FETCH_ASSOC);
+  $idd = $row3['id']+1;
+  if ($us != ''){
+  $stmt = $dbConnection->prepare('INSERT INTO noty (id,noty_w,userid,dt) VALUES (:id,:noty_w,:userid,now())');
+  $stmt->execute(array(':id' => $idd, ':noty_w' => 'system_update', ':userid' => $us));
+  ?>
+  <br>
+  <div class="alert">
+    <center>
+  <?=get_lang('CONF_system_update_success');?>
+</center>
+  </div>
+  <?php
+}
+}
+if ($mode == "conf_check_update"){
+$v = get_version();
+$c = curl_init();
+curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($c, CURLOPT_USERAGENT,'Awesome-Octocat-App');
+curl_setopt($c, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
+curl_setopt($c, CURLOPT_URL, 'https://api.github.com/repos/dima-bzz/Accounting-technology/releases/latest');
+$content = curl_exec($c);
+curl_close($c);
+$api = json_decode($content, true);
+$v_g = $api['tag_name'];
+$url = $api['zipball_url'];
+if ($v == $v_g){
+  ?>
+  <div class="alert" style="margin-bottom: -20px;">
+        <center>
+  <?=get_lang('CONF_check_update_latest');?>
+</center>
+  </div>
+  <?php
+}
+else{
+  ?>
+  <div class="alert" style="margin-bottom: -20px;">
+        <center>
+          <?=get_lang('CONF_check_update_actual').''.$v_g;?>
+          <p></p>
+          <a href="<?=$url;?>">
+  <?=get_lang('CONF_check_update_download');?>
+</a>
+</center>
+  </div>
+  <?php
+}
+}
 }
 }
 ?>

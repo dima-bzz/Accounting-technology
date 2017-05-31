@@ -43,6 +43,7 @@
 <link rel="stylesheet" type="text/css" href="<?=$CONF['hostname']?>css/fullcalendar.css">
 <link rel="stylesheet" type="text/css" href="<?=$CONF['hostname']?>css/summernote.css">
 <link rel="stylesheet" type="text/css" href="<?=$CONF['hostname']?>css/bootstrap-colorpicker.css">
+<link rel="stylesheet" type="text/css" href="<?=$CONF['hostname']?>css/animate.css">
 <!-- Для фотогалереи -->
 <!-- <link rel="stylesheet" type="text/css" href="<?=$CONF['hostname']?>css/jquery.fancybox.css"> -->
 
