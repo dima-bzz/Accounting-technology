@@ -87,13 +87,172 @@ function check_ip(){
     }
   })
 }
+//*****Уведомления*****
+function sendNotification(title, options, noty_id) {
+// Проверим, поддерживает ли браузер HTML5 Notifications
+if (!("Notification" in window)) {
+alert($.i18n('Update_browser'));
+}
 
-function check_approve_users(){
-   $.post( ACTIONPATH,{ mode: "approve_users" },function( data ) {
-     $("#count_update").html(data);
+// Проверим, есть ли права на отправку уведомлений
+else if (Notification.permission === "granted") {
+// Если права есть, отправим уведомление
+var notification = new Notification(title, options);
+notification.onclick = function(){
+  window.open(MyHOSTNAME + 'contract', '_top').focus();
+  notification.close();
+  $.ajax({
+  url:  ACTIONPATH,
+  type: "POST",
+  data:"mode=update_noty_id_read"+
+  "&id=" + noty_id
+})
+}
+}
+
+// Если прав нет, пытаемся их получить
+else if (Notification.permission !== 'denied') {
+Notification.requestPermission(function (permission) {
+// Если права успешно получены, отправляем уведомление
+if (permission === "granted") {
+var notification = new Notification(title, options);
+notification.onclick = function(){
+  window.open(MyHOSTNAME + 'contract', '_top').focus();
+  notification.close();
+  $.ajax({
+  url:  ACTIONPATH,
+  type: "POST",
+  data:"mode=update_noty_id_read"+
+  "&id=" + noty_id
+})
+}
+} else {
+alert($.i18n('Disable_browser_noty')); // Юзер отклонил наш запрос на показ уведомлений
+}
 });
+} else {
+// Пользователь ранее отклонил наш запрос на показ уведомлений
+// В этом месте мы можем, но не будем его беспокоить. Уважайте решения своих пользователей.
+}
 };
 
+$.ionSound({
+    sounds: [
+      {
+        name: "sound-example"
+      }
+    ],
+    path: MyHOSTNAME + 'sounds/',
+    preload: true,
+    // multiplay: true
+});
+function Noty_Show(){
+$.ajax({
+url:  ACTIONPATH,
+type: "POST",
+data:"mode=update_noty",
+dataType: "json",
+success: function(html){
+if(html){
+
+  $.each(html, function(i, item) {
+
+      if (item.show == "true"){
+      var nt = $('#'+item.name).attr('id');
+      var noty_id = item.name.split('_')[4];
+
+      if ((nt == item.name) && (nt != undefined)){
+          check_er.noty = true;
+        }
+        else{
+          check_er.noty = false;
+        }
+      if (check_er.noty == false){
+
+        var t=item.message + '<br><div style=\'float: right;\'><small><i class=\"fa fa-clock-o fa-fw\" aria-hidden=\"true\"></i>&nbsp;'+item.time+'</small></div>';
+
+
+      var n = noty({
+        theme: 'metroui',
+        layout: item.layout,
+        maxVisible: 5,
+        type: item.type,
+        text: t,
+        dismissQueue: true,
+        force: false,
+        modal: item.modal,
+        killer: false,
+        id: item.name,
+        animation: {
+          open: item.animated_open,
+          close: item.animated_close,
+          easing: 'swing',
+          speed: 500
+        },
+        closeWith: ['click'],
+        callback:{
+                    onClose: function(){
+                      $.ajax({
+                      url:  ACTIONPATH,
+                      type: "POST",
+                      data:"mode=update_noty_id_read"+
+                      "&id=" + noty_id,
+                      success: function(){
+                        if (item.noty_w == 'system_update'){
+                          window.location.href = MyHOSTNAME + 'index.php?logout';
+                        }
+                      }
+                    })
+                  },
+        }
+      });
+      if (item.noty_w != 'system_update'){
+      sendNotification(item.name_firm, {
+      body: item.message,
+      icon: MyHOSTNAME+"images/logo32.png",
+      dir: 'auto',
+      tag: item.name
+      }, noty_id);
+      }
+      $.ionSound.play('sound-example');
+      }
+    }
+    makemytime(true);
+    })
+}
+}
+})
+
+}
+
+Noty_Show();
+
+
+
+
+function Noty_Admin(){
+if (Admin !== true ){
+      var n = noty({
+        theme: 'metroui',
+        layout: 'center',
+        maxVisible: 5,
+        type: 'information',
+        text: $.i18n('Noty_admin'),
+        dismissQueue: true,
+        force: false,
+        timeout: 2000,
+        progressBar: true,
+        killer: false,
+        animation: {
+          open: 'animated bounceInRight',
+          close: 'animated bounceOutLeft',
+          easing: 'swing',
+          speed: 500
+        },
+        closeWith: ['click'],
+      })
+}
+}
 // $("#inf").find('br').first().remove();
 if ($("#inf").find("br").length){
   $("#inf").find("br").first().remove();
@@ -828,6 +987,9 @@ else {
           "&userid=" + userid
         })
   }
+  if (home){
+  $("#count_update").html(item.users_online);
+  }
 }
 else{
   if (item.approve_delete !== '0'){
@@ -858,9 +1020,7 @@ else {
 }
 setInterval(function(){
     check_update();
-    if (home){
-    check_approve_users();
-  }
+    Noty_Show();
 },5000);
 // ******Сохранение настроек******
 $('body').on('click', 'button#conf_edit_main', function(event) {
@@ -887,7 +1047,8 @@ $('body').on('click', 'button#conf_edit_main', function(event) {
         "&what_cartridge="+encodeURIComponent($("#what_cartridge").val())+
         "&what_print_test="+encodeURIComponent($("#what_print_test").val())+
         "&what_license="+encodeURIComponent($("#what_license").val())+
-        "&home_text="+encodeURIComponent($("#home_text").val()),
+        "&home_text="+encodeURIComponent($("#home_text").val())+
+        "&time_zone="+encodeURIComponent($("#time_zone").val()),
         success: function(html) {
         $.cookie('cookieorgid',$("#default_org").val());
         $("#conf_edit_main").blur();
@@ -957,7 +1118,33 @@ setTimeout(function() {$('#conf_edit_mail_res').children('.alert').fadeOut(500);
 }
 });
 });
-
+// ******Проверка наличия обновлений******
+$('body').on('click', 'button#conf_check_update', function(event) {
+        event.preventDefault();
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=conf_check_update",
+        success: function(html){
+          $("#conf_check_update").blur();
+          $("#check_update").hide().html(html).fadeIn(500);
+        }
+        });
+      });
+// ******Послание обновления******
+$('body').on('click', 'button#conf_system_update', function(event) {
+        event.preventDefault();
+        $.ajax({
+        type: "POST",
+        url: ACTIONPATH,
+        data: "mode=conf_system_update",
+        success: function(html){
+          $("#conf_system_update").blur();
+          $("#up_success").hide().html(html).fadeIn(500);
+          setTimeout(function() {$('#up_success').children('.alert').fadeOut(500);}, 3000);
+        }
+        });
+      });
 // ******Добавление ТМЦ******
 function img_equipment(){
 var options =

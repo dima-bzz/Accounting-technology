@@ -264,6 +264,22 @@ CREATE TABLE IF NOT EXISTS `nome` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `noty`
+--
+
+CREATE TABLE IF NOT EXISTS `noty` (
+  `id` int(11) NOT NULL,
+  `noty_w` varchar(256) NOT NULL,
+  `userid` varchar(512) NOT NULL DEFAULT '0',
+  `user_read` varchar(512) NOT NULL DEFAULT '0',
+  `dt` datetime NOT NULL,
+  `message` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `org`
 --
 
@@ -321,6 +337,7 @@ VALUES
   (28, 'what_print_test', 'null'),
   (29, 'what_license', 'null'),
   (30, 'home_text', 'приветствуем Вас на внутреннем сайте! Здесь вы сможете посмотреть какие ТМЦ за вами закреплены, что находиться в кабинте в котором вы работаете. Так же можно посмотреть контактную информацию пользователей, реквизиты организаций.');
+  (31, 'time_zone', 'Europe/Moscow'),
 
 UNLOCK TABLES;
 -- --------------------------------------------------------

@@ -78,19 +78,13 @@ if ($count <> 0){
   <div class="panel-body" id="inf">
   <!-- <div class="well"> -->
   <strong><?php echo get_lang('Today'); ?> - <time id="today"></time></strong>
-    <?php
-    $stmt = $dbConnection->prepare ("select lastdt from users");
+  <?php
+    $stmt = $dbConnection->prepare('select count(*) as count from users where UNIX_TIMESTAMP(lastdt) > UNIX_TIMESTAMP(NOW())-20 and us_kill=1');
     $stmt->execute();
-    $res1 = $stmt->fetchAll();
-    $count_lt = array();
-    foreach($res1 as $row) {
-      $lt = $row['lastdt'];
-      $d = time()-strtotime($lt);
-if ($d < 20) {
-      array_push($count_lt,$d);
-    }
-    }
-    $users_coll = "&nbsp;&nbsp;&nbsp;<b>".get_lang('Users_coll')." <span id=\"count_update\">".count($count_lt)."</span></b>";
+    $cn = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count_lt=$cn['count'];
+
+    $users_coll = "&nbsp;&nbsp;&nbsp;<b>".get_lang('Users_coll')." <span id=\"count_update\">".$count_lt."</span></b>";
     echo $users_coll;
      ?>
     <div id="time"></div>

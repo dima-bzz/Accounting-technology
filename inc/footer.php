@@ -51,6 +51,8 @@ else {
       <script type='text/javascript' src='<?=$CONF['hostname']?>lang/bootstrap-datepicker.ru.min.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/bootstrap-paginator.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/bootstrap-colorpicker.js'></script>
+      <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery.noty.packaged.js'></script>
+      <script type='text/javascript' src='<?=$CONF['hostname']?>js/ion.sound.js'></script>
 
 
 
