@@ -13,7 +13,7 @@ return zzz;
 };
 
 var home = $("#home").val();
-window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false};
+window.check_er = {login: false, email: false, account: false, save: false, user_name: false, programming: false, noty: false};
 $('[data-toggle="tooltip"]').tooltip({container: 'body', html:true});
 
 $.i18n.debug = false;
