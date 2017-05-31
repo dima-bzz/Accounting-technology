@@ -198,11 +198,7 @@ CREATE TABLE IF NOT EXISTS `license` (
   `organti` int(11) DEFAULT NULL,
   `antiname` int(11) DEFAULT NULL,
   `antivirus` date NOT NULL,
-  `visio` tinyint(1) NOT NULL,
-  `adobe` tinyint(1) NOT NULL,
-  `lingvo` tinyint(1) NOT NULL,
-  `winrar` tinyint(1) NOT NULL,
-  `visual` tinyint(1) NOT NULL,
+  `programming` varchar(256) DEFAULT NULL,
   `comment` longtext NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
