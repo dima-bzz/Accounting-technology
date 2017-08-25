@@ -78,7 +78,7 @@ if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 
 $url = parse_url($CONF['hostname']);
 
-if ($rq==1) { header("Location: http://".$url['host'].$req_url);}
+if ($rq==1) { header("Location: http://".$url['host'].(isset($url['port']) ? ":".$url['port'] : "").$req_url);}
 if ($rq==0) {
 
     if (!isset($_GET['page'])) {
