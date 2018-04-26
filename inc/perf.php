@@ -361,35 +361,6 @@ include("menus.php");
                                           ?>
                       </select>
                       <p>
-                        <label class="control-label">
-                      <small>
-                      <?=get_lang('CONF_Id_contract');?>:
-                    </small>
-                  </label>
-                    </p>
-                    <select data-placeholder="<?=get_lang('Select_users');?>" class="my_select2 select" multiple id="permit_users_contract" name="permit_users_contract[]">
-                    <?php
-                        $us = get_conf_param('permit_users_contract');
-                        $u=explode(",", $us);
-
-                          $stmt = $dbConnection->prepare('SELECT fio as fio, id as value FROM users where on_off=:n2 and id !=:n order by fio asc');
-                    $stmt->execute(array(':n'=>'0',':n2'=>'1'));
-                    $res1 = $stmt->fetchAll();
-
-                          foreach($res1 as $row) {
-                                              $row['fio']=nameshort($row['fio']);
-                                              $row['value']=(int)$row['value'];
-                    $opt_sel='';
-                    foreach ($u as $val) {
-                    if ($val== $row['value']) {$opt_sel="selected";}
-                    }
-                                              ?>
-                                              <option <?=$opt_sel;?> value="<?=$row['value']?>"><?=nameshort($row['fio'])?></option>
-                                          <?php
-                                          }
-
-                                          ?>
-                      </select>
                     </div>
                       <div class="col-md-offset-3 col-md-6">
                     <center>
