@@ -1200,7 +1200,7 @@ $('#file').on('change', function(){
         cropper = $('.imageBox2').cropbox(options);
     }
     reader.readAsDataURL(this.files[0]);
-    this.files = [];
+    // this.files = [];
     check_er.save = true;
   }
   else {
@@ -2619,7 +2619,7 @@ $('#file').on('change', function(){
         cropper = $('.imageBox').cropbox(options);
     }
     reader.readAsDataURL(this.files[0]);
-    this.files = [];
+    // this.files = [];
     check_er.save = true;
   }
   else {
