@@ -95,7 +95,8 @@ else if (isset($_COOKIE['authhash_usid']) && isset($_COOKIE['authhash_uscode']))
 
 }
 else{
-
+if(isset($_SESSION))
+{
       session_destroy();
       unset($_SESSION);
       session_unset();
@@ -109,7 +110,7 @@ else{
       unset($_COOKIE['cookie_eq_util']);
       unset($_COOKIE['cookie_eq_sale']);
       unset($_COOKIE['on_off_cookie']);
-
+}
     $permit = false;
 }
 if($permit){
