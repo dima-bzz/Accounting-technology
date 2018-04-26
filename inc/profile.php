@@ -25,8 +25,8 @@ $emaildop = $row['emaildop'];
 $get_lang=$row['lang'];
 $photo = $row['jpegphoto'];
 
-if ($get_lang == "en") 	 {$status_get_lang_en="selected";}
-else if ($get_lang == "ru") {$status_get_lang_ru="selected";}
+if ($get_lang == "en") 	 {$status_get_lang_en="selected";}else{$status_get_lang_en="";}
+if ($get_lang == "ru") {$status_get_lang_ru="selected";}else{$status_get_lang_ru="";}
 
 }
 $photo_new = $photo."?".time();

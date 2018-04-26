@@ -1,11 +1,17 @@
-html,
+html{
+  position: relative;
+  min-height: 100%;
+}
 body {
-  height: 100%;
   background-color: #FAFCFF;
+  margin-bottom: 70px;
 }
 #footer {
-  height: 60px;
+  height: 70px;
   background-color: #f5f5f5;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 #ping_show, #print_test_show, #invoice_show, #report_show, #file, #change_img, #file_req, #file_knt, #file_documents, #add_param, #report_move_show, .dop{
   display: none;
@@ -297,137 +303,42 @@ td.fc-sun, td.fc-sat{
 #equipment_table { table-layout: fixed; }*/
 
 
-#circleG{
-	/*width:300px;*/
-	margin:auto;
-}
+.sk-three-bounce {
+  /* margin: 40px auto;
+  width: 80px; */
+  margin:auto;
+  text-align: center; }
+  .sk-three-bounce .sk-child {
+    margin-left:2px;
+    width: 5px;
+    height: 5px;
+    background-color: #333;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+            animation: sk-three-bounce 1.4s ease-in-out 0s infinite both; }
+  .sk-three-bounce .sk-bounce1 {
+    -webkit-animation-delay: -0.32s;
+            animation-delay: -0.32s; }
+  .sk-three-bounce .sk-bounce2 {
+    -webkit-animation-delay: -0.16s;
+            animation-delay: -0.16s; }
 
-.circleG{
-	background-color:rgb(255,255,255);
-	/*float:left;*/
-	height:4px;
-	margin-left:2px;
-	width:4px;
-	animation-name:bounce_circleG;
-		-o-animation-name:bounce_circleG;
-		-ms-animation-name:bounce_circleG;
-		-webkit-animation-name:bounce_circleG;
-		-moz-animation-name:bounce_circleG;
-	animation-duration:2.24s;
-		-o-animation-duration:2.24s;
-		-ms-animation-duration:2.24s;
-		-webkit-animation-duration:2.24s;
-		-moz-animation-duration:2.24s;
-	animation-iteration-count:infinite;
-		-o-animation-iteration-count:infinite;
-		-ms-animation-iteration-count:infinite;
-		-webkit-animation-iteration-count:infinite;
-		-moz-animation-iteration-count:infinite;
-	animation-direction:normal;
-		-o-animation-direction:normal;
-		-ms-animation-direction:normal;
-		-webkit-animation-direction:normal;
-		-moz-animation-direction:normal;
-	border-radius:3px;
-		-o-border-radius:3px;
-		-ms-border-radius:3px;
-		-webkit-border-radius:3px;
-		-moz-border-radius:3px;
-}
-#circleG_1{
-  display: inline-block;;
-	animation-delay:0.6s;
-		-o-animation-delay:0.6s;
-		-ms-animation-delay:0.6s;
-		-webkit-animation-delay:0.6s;
-		-moz-animation-delay:0.6s;
-}
+@-webkit-keyframes sk-three-bounce {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
-#circleG_2{
-  display: inline-block;;
-	animation-delay:0.75s;
-		-o-animation-delay:0.75s;
-		-ms-animation-delay:0.75s;
-		-webkit-animation-delay:0.75s;
-		-moz-animation-delay:0.75s;
-}
-
-#circleG_3{
-  display: inline-block;;
-	animation-delay:0.9s;
-		-o-animation-delay:0.9s;
-		-ms-animation-delay:0.9s;
-		-webkit-animation-delay:0.9s;
-		-moz-animation-delay:0.9s;
-}
-#circleG_4{
-  display: inline-block;;
-	animation-delay:1.05s;
-		-o-animation-delay:1.05s;
-		-ms-animation-delay:1.05s;
-		-webkit-animation-delay:1.05s;
-		-moz-animation-delay:1.05s;
-}
-#circleG_5{
-  display: inline-block;;
-	animation-delay:1.2s;
-		-o-animation-delay:1.2s;
-		-ms-animation-delay:1.2s;
-		-webkit-animation-delay:1.2s;
-		-moz-animation-delay:1.2s;
-}
-
-
-
-@keyframes bounce_circleG{
-	0%{}
-
-	50%{
-		background-color:rgb(0,0,0);
-	}
-
-	100%{}
-}
-
-@-o-keyframes bounce_circleG{
-	0%{}
-
-	50%{
-		background-color:rgb(0,0,0);
-	}
-
-	100%{}
-}
-
-@-ms-keyframes bounce_circleG{
-	0%{}
-
-	50%{
-		background-color:rgb(0,0,0);
-	}
-
-	100%{}
-}
-
-@-webkit-keyframes bounce_circleG{
-	0%{}
-
-	50%{
-		background-color:rgb(0,0,0);
-	}
-
-	100%{}
-}
-
-@-moz-keyframes bounce_circleG{
-	0%{}
-
-	50%{
-		background-color:rgb(0,0,0);
-	}
-
-	100%{}
-}
+@keyframes sk-three-bounce {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+            transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 .input-group-dt {
     display: block;
     }

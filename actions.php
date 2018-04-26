@@ -1749,7 +1749,7 @@ if ($mode == "dialog_equipment_add"){
     <div class="col-md-4">
       <div class="form-group" id="dtpost_add_grp" style="display:inline;">
       <label class="control-label"><small>Дата<font color="red">*</font>:</small></label>
-      <p><input class="form-control input-sm allwidht" name="dtpost" id="dtpost" readonly='true' maxlength="10" type="text" value="<?php echo "$dtpost"; ?>"  data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off"></p>
+      <p><input class="form-control input-sm allwidht" name="dtpost" id="dtpost" readonly='true' maxlength="10" type="text"  data-toggle="popover" data-trigger="manual" data-container="body" data-html="true" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off"></p>
   </div>
   <div class="form-group" id="org_places_user" style="display:inline;">
       <label class="control-label"><small>Орг./Помещение/Мат.Отв.<font color="red">*</font>:</small></label>
@@ -1761,8 +1761,7 @@ if ($mode == "dialog_equipment_add"){
                  $morgs=GetArrayOrg();
                  for ($i = 0; $i < count($morgs); $i++) {
                      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                     if ($nid==$orgid){$sl=" selected";} else {$sl="";};
-                     echo "<option value=$nid $sl>$nm</option>";
+                     echo "<option value=$nid>$nm</option>";
                  };
           ?>
           </select>
@@ -1774,8 +1773,7 @@ if ($mode == "dialog_equipment_add"){
                $morgs=GetArrayPlaces();
                for ($i = 0; $i < count($morgs); $i++) {
                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                   if ($nid==$placesid){$sl=" selected";} else {$sl="";};
-                   echo "<option value=$nid $sl>$nm</option>";
+                   echo "<option value=$nid>$nm</option>";
                };
         ?>
         </select>
@@ -1787,18 +1785,17 @@ if ($mode == "dialog_equipment_add"){
           $morgs=GetArrayUsers();
           for ($i = 0; $i < count($morgs); $i++) {
               $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-              if ($nid==$userid){$sl=" selected";} else {$sl="";};
-              echo "<option value=$nid $sl>$nm</option>";
+              echo "<option value=$nid>$nm</option>";
           };
        ?>
        </select>
        <p></p>
      </div>
       <label class="control-label"><small>Серийный номер:</small></label>
-      <input class="form-control input-sm allwidht" name="sernum" id="sernum" type="text" style="text-transform: uppercase;" value="<?php echo "$sernum";?>">
+      <input class="form-control input-sm allwidht" name="sernum" id="sernum" type="text" style="text-transform: uppercase;">
       <div class="form-group" id="ip_grp" style="display:inline;">
       <label class="control-label"><small>Статический IP:</small></label>
-      <input class="form-control input-sm allwidht" name="ip" id="ip" type="text" value="<?php echo "$ip"; ?>">
+      <input class="form-control input-sm allwidht" name="ip" id="ip" type="text">
     </div>
     </div>
   <div class="col-md-4">
@@ -1811,8 +1808,7 @@ if ($mode == "dialog_equipment_add"){
                $morgs=GetArrayKnt();
                for ($i = 0; $i < count($morgs); $i++) {
                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                   if ($nid==$kntid){$sl=" selected";} else {$sl="";};
-                   echo "<option value=$nid $sl>$nm</option>";
+                   echo "<option value=$nid>$nm</option>";
                };
            ?>
   </select></p>
@@ -1826,8 +1822,7 @@ if ($mode == "dialog_equipment_add"){
                 $morgs=GetArrayGroup();
                 for ($i = 0; $i < count($morgs); $i++) {
                     $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                    if ($nid==$groupid){$sl=" selected";} else {$sl="";};
-                    echo "<option value=$nid $sl>$nm</option>";
+                    echo "<option value=$nid>$nm</option>";
                 };
             ?>
   </select>
@@ -1835,27 +1830,11 @@ if ($mode == "dialog_equipment_add"){
   <div id="svendid_add_p" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="right" data-content="<?= get_lang('Toggle_title_select'); ?>">
   <select data-placeholder="Выберите производителя" class="my_select2 select" name="svendid" id="svendid">
         <option value=""></option>
-             <?php
-                $morgs=GetArrayGroup_vendor($groupid);
-                for ($i = 0; $i < count($morgs); $i++) {
-                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                    if ($nid==$vendorid){$sl=" selected";} else {$sl="";};
-                    echo "<option value=$nid $sl>$nm</option>";
-                };
-            ?>
   </select>
   </div>
   <div id="snomeid_add_p" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title_select'); ?>">
   <select data-placeholder="Выберите номенклатуру" class="my_select2 select" name="snomeid" id="snomeid">
         <option value=""></option>
-            <?php
-                $morgs=GetArrayVendor_nome($groupid,$vendorid);
-                for ($i = 0; $i < count($morgs); $i++) {
-                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                    if ($nid==$nomeid){$sl=" selected";} else {$sl="";};
-                    echo "<option value=$nid $sl>$nm</option>";
-                };
-           ?>
   </select>
   </div>
   <p></p>
@@ -1932,7 +1911,7 @@ if ($mode == "dialog_equipment_add"){
     </div>
   </div>
   <div class="col-md-8">
-  <textarea class="form-control comment" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:286px;"><?php echo "$comment";?></textarea>
+  <textarea class="form-control comment" name="comment" id="comment" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:286px;"></textarea>
   </div>
   </div>
   <div class="center_submit">
@@ -1957,8 +1936,7 @@ if ($mode == "dialog_license_add"){
                       $morgs=GetArrayUsers();
                       for ($i = 0; $i < count($morgs); $i++) {
                           $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-                          if ($nid==$usersid){$sl=" selected";} else {$sl="";};
-                          echo "<option value=$nid $sl>$nm</option>";
+                          echo "<option value=$nid>$nm</option>";
                       };
                   ?>
    </select>
@@ -1971,16 +1949,6 @@ if ($mode == "dialog_license_add"){
   <div id="eqid_add_p" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title_select'); ?>">
    <select data-placeholder="Выберите устройство" class='my_select select' name="eqid" id="eqid">
   	<option value=""></option>
-  <?php
-                      $morgs=GetArrayNome_users($usersid);
-  		    //echo var_dump($morgs);
-  		    //echo "<option value=0>Отсутствует</option>";
-                      for ($i = 0; $i < count($morgs); $i++) {
-                          $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                          if ($nid==$eqid){$sl=" selected";} else {$sl="";};
-                          echo "<option value=$nid $sl>$nm</option>";
-                      };
-                  ?>
    </select>
    </div>
  </div>
@@ -2018,7 +1986,7 @@ if ($mode == "dialog_license_add"){
                         $morgs=GetArrayProgramming('1');
                         for ($i = 0; $i < count($morgs); $i++) {
                             $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                            echo "<option value=$nid $sl>$nm</option>";
+                            echo "<option value=$nid>$nm</option>";
                         };
                     ?>
       </select>
@@ -2031,7 +1999,7 @@ if ($mode == "dialog_license_add"){
                         $morgs=GetArrayProgramming('2');
                         for ($i = 0; $i < count($morgs); $i++) {
                             $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                            echo "<option value=$nid $sl>$nm</option>";
+                            echo "<option value=$nid>$nm</option>";
                         };
                     ?>
       </select>
@@ -2047,8 +2015,7 @@ if ($mode == "dialog_license_add"){
       $morgs=GetArrayOrg();
       for ($i = 0; $i < count($morgs); $i++) {
           $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-          if ($nid==$organti){$sl=" selected";} else {$sl="";};
-          echo "<option value=$nid $sl>$nm</option>";
+          echo "<option value=$nid>$nm</option>";
       };
       ?>
       </select>
@@ -2061,7 +2028,7 @@ if ($mode == "dialog_license_add"){
                             $morgs=GetArrayProgramming('3');
                             for ($i = 0; $i < count($morgs); $i++) {
                                 $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                                echo "<option value=$nid $sl>$nm</option>";
+                                echo "<option value=$nid>$nm</option>";
                             };
                         ?>
           </select>
@@ -2528,7 +2495,6 @@ if ($mode == "dialog_cartridge_add"){
     foreach($res1 as $myrow)
       {$vl=$myrow['id'];
         echo "<option value=$vl";
-        if ($myrow["id"]==$nomeid){echo " selected";};
         $nm=$myrow['name'];
         echo ">$nm</option>";
       };
@@ -2548,8 +2514,7 @@ if ($mode == "dialog_cartridge_add"){
   $morgs=GetArrayPlaces();
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      if ($nid==$placesid){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
+      echo "<option value=$nid>$nm</option>";
   };
   ?>
    </select>
@@ -2568,8 +2533,7 @@ if ($mode == "dialog_cartridge_add"){
   $morgs=GetArrayOrg();
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      if ($nid==$orgid){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
+      echo "<option value=$nid>$nm</option>";
   };
   ?>
    </select>
@@ -2586,8 +2550,7 @@ if ($mode == "dialog_cartridge_add"){
   $morgs=GetArrayUsers();
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-      if ($nid==$userid){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
+      echo "<option value=$nid>$nm</option>";
   };
   ?>
    </select>
@@ -4404,8 +4367,7 @@ if ($mode == "dialog_nome_add"){
                   $morgs=GetArrayGroup();
                   for ($i = 0; $i < count($morgs); $i++) {
                       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                      if ($nid==$groupid){$sl=" selected";} else {$sl="";};
-                      echo "<option value=$nid $sl>$nm</option>";
+                      echo "<option value=$nid>$nm</option>";
                   };
               ?>
    </select>
@@ -4422,8 +4384,7 @@ if ($mode == "dialog_nome_add"){
        $morgs=GetArrayVendor();
        for ($i = 0; $i < count($morgs); $i++) {
            $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-           if ($nid==$vendorid){$sl=" selected";} else {$sl="";};
-           echo "<option value=$nid $sl>$nm</option>";
+           echo "<option value=$nid>$nm</option>";
        };
    ?>
    </select>
@@ -5437,7 +5398,8 @@ if ($mode == "select_org"){
   }
   </style>
   <lable><?=get_lang('Select_org');?>: </label>
-  <select class='my_select' style="width:200px;" name="org_equipment" id="org_equipment">
+  <select class="my_select" data-placeholder="<?=get_lang('Add_org');?>" style="width:200px;" name="org_equipment" id="org_equipment">
+  <option value=""></option>
   <?php
   $morgs=GetArrayOrg();
   for ($i = 0; $i < count($morgs); $i++) {
@@ -6192,8 +6154,7 @@ if ($mode == "dialog_programming"){
            $morgs=GetArrayProgramming('4');
            for ($i = 0; $i < count($morgs); $i++) {
                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
-               echo "<option value=$nid $sl>$nm</option>";
+               echo "<option value=$nid>$nm</option>";
            };
     ?>
     </select>
@@ -6228,8 +6189,7 @@ if ($mode == "dialog_system"){
            $morgs=GetArrayProgramming('1');
            for ($i = 0; $i < count($morgs); $i++) {
                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
-               echo "<option value=$nid $sl>$nm</option>";
+               echo "<option value=$nid>$nm</option>";
            };
     ?>
     </select>
@@ -6264,8 +6224,7 @@ if ($mode == "dialog_office"){
            $morgs=GetArrayProgramming('2');
            for ($i = 0; $i < count($morgs); $i++) {
                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
-               echo "<option value=$nid $sl>$nm</option>";
+               echo "<option value=$nid>$nm</option>";
            };
     ?>
     </select>
@@ -6300,8 +6259,7 @@ if ($mode == "dialog_anti"){
            $morgs=GetArrayProgramming('3');
            for ($i = 0; $i < count($morgs); $i++) {
                $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-              //  if ($nid==$orgidzakaz){$sl=" selected";} else {$sl="";};
-               echo "<option value=$nid $sl>$nm</option>";
+               echo "<option value=$nid>$nm</option>";
            };
     ?>
     </select>
@@ -6385,6 +6343,7 @@ if ($mode == "update_noty"){
   $stmt = $dbConnection->prepare('SELECT dt, id, userid, user_read, noty_w FROM noty WHERE userid rlike :id2 order by dt desc');
   $stmt->execute(array(':id2' => '[[:<:]]'.$id_user.'[[:>:]]'));
   $res1 = $stmt->fetchAll();
+  if (!empty($res1)){
   foreach($res1 as $rews) {
     $userid = explode(',',$rews['userid']);
     $user_read = explode(',',$rews['user_read']);
@@ -6425,12 +6384,12 @@ if ($mode == "update_noty"){
         );
     }
   }
+}
   else{
     $results[] = array(
         'show'=> 'false',
     );
   }
-}
 
   print json_encode($results);
 }

@@ -46,8 +46,7 @@ include("menus.php");
          $morgs=GetArrayUsers();
          for ($i = 0; $i < count($morgs); $i++) {
              $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-             if ($nid==$userid){$sl=" selected";} else {$sl="";};
-             echo "<option value=$nid $sl>$nm</option>";
+             echo "<option value=$nid>$nm</option>";
          };
          ?>
           </select>
@@ -60,8 +59,7 @@ include("menus.php");
          $morgs=GetArrayUsers();
          for ($i = 0; $i < count($morgs); $i++) {
              $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-             if ($nid==$userid){$sl=" selected";} else {$sl="";};
-             echo "<option value=$nid $sl>$nm</option>";
+             echo "<option value=$nid>$nm</option>";
          };
          ?>
           </select>

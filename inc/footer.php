@@ -4,7 +4,7 @@ $time_end = microtime(true);
 $time = round(($time_end - $time_start) * 1000)/1000;
 ?>
 
-      <div id="footer" style="padding-bottom: 70px;">
+      <div id="footer">
           <div class="container" style="padding: 20px;">
             <div class="col-md-8">
               <p class="text-muted credit">

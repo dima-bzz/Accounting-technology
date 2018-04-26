@@ -34,7 +34,6 @@ if (isset($_POST['login']) && isset($_POST['password']))
     $rq=1;
     $req_url=$_POST['req_url'];
 //echo $rm;
-    $rm=$_POST['remember_me'];
 
     $login = ($_POST['login']);
     $password = $_POST['password'];

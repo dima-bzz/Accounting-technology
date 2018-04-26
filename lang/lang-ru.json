@@ -114,7 +114,7 @@
   "infoEmpty": "Записи с 0 до 0 из 0 записей",
   "infoFiltered": "(отфильтровано из _MAX_ записей)",
   "infoPostFix": "",
-  "loadingRecords": "<div id=\"circleG\">Загрузка записей<div id=\"circleG_1\" class=\"circleG\"></div><div id=\"circleG_2\" class=\"circleG\"></div><div id=\"circleG_3\" class=\"circleG\"></div><div id=\"circleG_4\" class=\"circleG\"></div><div id=\"circleG_5\" class=\"circleG\"></div></div>",
+  "loadingRecords": "<div class=\"sk-three-bounce\">Загрузка записей<div class=\"sk-child sk-bounce1\"></div><div class=\"sk-child sk-bounce2\"></div><div class=\"sk-child sk-bounce3\"></div></div>",
   "zeroRecords": "Записи отсутствуют!",
   "emptyTable": "В таблице отсутствуют данные",
   "paginate": {
@@ -186,6 +186,7 @@
 
   "Equipment_title" : "В данном разделе отображаеются ТМЦ и их параметры, а так же история их перемещений и ремонта.",
   "Select_org" : "Выбор организации",
+  "Add_org" : "Добавьте организацию",
   "Equipment_move" : "История перемещений",
   "Equipment_move_title" : "Перемещения ТМЦ",
   "Equipment_copy" : "Копирование имущества",
