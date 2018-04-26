@@ -125,7 +125,7 @@ if ($count <> 0){
         echo "<br>".$fio_d;
       }
     }
-    if (sizeof($fio_d)>0) {echo "<br>";}
+    if (isset($fio_d)) {echo "<br>";}
 //////////////////////////
   $day_event = date("d.m.Y");
   $remind_month = date("m.Y",strtotime("+1 month"));
@@ -192,13 +192,13 @@ if ($count <> 0){
       if (($month_m == '02') && ($ev_day2[0] == '30')){
       $ev_day = "28.".$month;
       }
-      else if (($month-m == '02') && ($ev_day2[0] == '31')){
+      else if (($month_m == '02') && ($ev_day2[0] == '31')){
       $ev_day = "28.".$month;
       }
-      else if (($month-m == '02') && ($ev_day2[0] == '29')){
+      else if (($month_m == '02') && ($ev_day2[0] == '29')){
       $ev_day = "28.".$month;
       }
-      else if ((($month-m == '04')||($month-m == '06')||($month-m == '04')||($month-m == '09')||($month-m == '11'))&&($ev_day2[0] == '31')){
+      else if ((($month_m == '04')||($month_m == '06')||($month_m == '04')||($month_m == '09')||($month_m == '11'))&&($ev_day2[0] == '31')){
       $ev_day = "30.".$month;
       }
       else{
@@ -206,13 +206,13 @@ if ($count <> 0){
       }
       }
       if ($v != '0'){
-      if (($month-m == '02') && ($ev_day2[0] == '30')){
+      if (($month_m == '02') && ($ev_day2[0] == '30')){
       $ev_day = "29.".$month;
       }
-      else if (($month-m == '02') && ($ev_day2[0] == '31')){
+      else if (($month_m == '02') && ($ev_day2[0] == '31')){
       $ev_day = "29.".$month;
       }
-      else if ((($month-m == '04')||($month-m == '06')||($month-m == '04')||($month-m == '09')||($month-m == '11'))&&($ev_day2[0] == '31')){
+      else if ((($month_m == '04')||($month_m == '06')||($month_m == '04')||($month_m == '09')||($month_m == '11'))&&($ev_day2[0] == '31')){
       $ev_day = "30.".$month;
       }
       else{
@@ -297,7 +297,7 @@ if ($row['event_repeat'] == '0'){
       echo "<br>".$eve;
     }
   }
-  if (sizeof($eve) > 0 ) {echo "<br>";};
+  if (isset($eve)) {echo "<br>";};
 //////////////////////////
     $user_id=$_SESSION['dilema_user_id'];
     $permit_users_license = get_conf_param('permit_users_license');

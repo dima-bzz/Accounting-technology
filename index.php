@@ -8,7 +8,6 @@ include_once("functions.php");
 if (isset($_GET['logout'])) {
 
   session_destroy();
-  // $_SESSION['dilema_user_id'] = null;
   unset($_SESSION);
   session_unset();
   setcookie('authhash_usid', "");
@@ -21,7 +20,7 @@ if (isset($_GET['logout'])) {
   unset($_COOKIE['cookie_eq_util']);
   unset($_COOKIE['cookie_eq_sale']);
   unset($_COOKIE['on_off_cookie']);
-  // session_regenerate_id();
+
   header("Location: ".$CONF['hostname']);
   // ТУТ УДАЛИТЬ КУКИ
 
@@ -58,6 +57,9 @@ if (isset($_POST['login']) && isset($_POST['password']))
         setcookie('cookie_eq_util','0');
         setcookie('cookie_eq_sale','0');
         $_SESSION['us_code'] = $password;
+        if (isset($_POST['remember_me'])){
+
+        $rm=$_POST['remember_me'];
         if ($rm == "1") {
 
             setcookie('authhash_usid', $_SESSION['dilema_user_id'], time()+60*60*24*7);
@@ -66,7 +68,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
             setcookie('cookie_eq_sale', '0', time()+60*60*24*7);
             setcookie ('on_off_cookie',$row['on_off'], time()+60*60*24*7);
 
-
+          }
         }
     }
     else {
@@ -74,8 +76,44 @@ if (isset($_POST['login']) && isset($_POST['password']))
     }
 }
 
-if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
+if (isset($_SESSION['dilema_user_id']) && isset($_SESSION['us_code'])){
 
+  $permit = validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code']);
+
+}
+else if (isset($_COOKIE['authhash_usid']) && isset($_COOKIE['authhash_uscode'])){
+
+  if (!isset($_SESSION['dilema_user_id']) && !isset($_SESSION['us_code'])){
+                 $user_id=$_COOKIE['authhash_usid'];
+                 $input=$_COOKIE['authhash_uscode'];
+                 $_SESSION['us_code']=$input;
+                 $_SESSION['dilema_user_id']=$user_id;
+                 $_SESSION['dilema_org'] = get_conf_param('default_org');
+                 $_SESSION['dilema_date'] = date('Y-m-d');
+   }
+
+  $permit = validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code']);
+
+}
+else{
+
+      session_destroy();
+      unset($_SESSION);
+      session_unset();
+      setcookie('authhash_usid', "");
+      setcookie('authhash_uscode', "");
+      setcookie('cookie_eq_util', "");
+      setcookie('cookie_eq_sale', "");
+      setcookie('on_off_cookie', "");
+      unset($_COOKIE['authhash_usid']);
+      unset($_COOKIE['authhash_uscode']);
+      unset($_COOKIE['cookie_eq_util']);
+      unset($_COOKIE['cookie_eq_sale']);
+      unset($_COOKIE['on_off_cookie']);
+
+    $permit = false;
+}
+if($permit){
 $url = parse_url($CONF['hostname']);
 
 if ($rq==1) { header("Location: http://".$url['host'].(isset($url['port']) ? ":".$url['port'] : "").$req_url);}

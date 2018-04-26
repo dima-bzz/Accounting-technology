@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");
 include("menus.php");
@@ -37,8 +40,6 @@ include("menus.php");
 $morgs=GetArrayUsers();
 for ($i = 0; $i < count($morgs); $i++) {
  $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
- // if ($nid==$userid){$sl=" selected";} else {$sl="";};
- // echo "<option value=$nid $sl>$nm</option>";
  echo "<option value=$nid>$nm</option>";
 };
 ?>
@@ -55,8 +56,6 @@ for ($i = 0; $i < count($morgs); $i++) {
          $morgs=GetArrayOrg();
          for ($i = 0; $i < count($morgs); $i++) {
              $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-            //  if ($nid==$orgid){$sl=" selected";} else {$sl="";};
-            //  echo "<option value=$nid $sl>$nm</option>";
              echo "<option value=$nid $sl>$nm</option>";
          };
          ?>
@@ -82,8 +81,6 @@ for ($i = 0; $i < count($morgs); $i++) {
          $morgs=GetArrayPlaces();
          for ($i = 0; $i < count($morgs); $i++) {
              $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-            //  if ($nid==$placesid){$sl=" selected";} else {$sl="";};
-            //  echo "<option value=$nid $sl>$nm</option>";
              echo "<option value=$nid $sl>$nm</option>";
          };
          ?>
@@ -103,8 +100,6 @@ for ($i = 0; $i < count($morgs); $i++) {
          $morgs=GetArrayGroup();
          for ($i = 0; $i < count($morgs); $i++) {
              $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-            //  if ($nid==$placesid){$sl=" selected";} else {$sl="";};
-            //  echo "<option value=$nid $sl>$nm</option>";
              echo "<option value=$nid $sl>$nm</option>";
          };
          ?>

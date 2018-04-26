@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");
 include("menus.php");

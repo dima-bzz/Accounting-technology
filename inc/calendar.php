@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 setcookie ('date',date('Y-m-d'));
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");

@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 if (validate_priv($_SESSION['dilema_user_id']) == 1) {
 include("header.php");
@@ -49,7 +52,7 @@ include("menus.php");
      </div>
      <div id="delete_ok">
      <?php
-     if ($entertable_id != ''){
+     if (isset($entertable_id)){
      echo "<br><b>".get_lang('Delete_ok')."</b> <button class=\"btn btn-danger\" type=\"button\" name=\"dell_all\" id=\"dell_all\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Delete_button')."</button></p>";
      }
       ?>

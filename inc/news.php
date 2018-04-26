@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
   include("header.php");
   include("menus.php");
@@ -51,9 +54,10 @@ else if (!isset($_GET['h'])) {
   $priv = validate_priv($user_id);
   $permit_users_news = get_conf_param('permit_users_news');
   $permit = explode(",",$permit_users_news);
-  foreach ($permit as $permit_id) {
-  if (($user_id == $permit_id) || ($priv == 1) ){
-    $priv_h="yes";
+  $p = array_search($user_id,$permit);
+  $priv_h="no";
+  if ($p !== FALSE){
+       $priv_h="yes";
   }
   }
 ?>
@@ -66,7 +70,7 @@ else if (!isset($_GET['h'])) {
     </div>
     <div class="col-md-3" style="padding-top: 25px; float: right;">
       <?php
-      if ($priv_h == "yes"){
+      if (($priv_h== "yes") || ($priv == 1)){
        ?>
     <button id="create_new_news" type="submit" class="btn btn-success btn-sm btn-block"><i class="fa fa-file-o" aria-hidden="true"></i> <?=get_lang('News_create');?></button>
     <?php
@@ -132,7 +136,6 @@ else if ($pages_count <> 0) {
 </div>
  </div>
  <?php
- }
  }
   else{
  ?>

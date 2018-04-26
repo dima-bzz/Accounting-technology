@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
 include("header.php");
 include("menus.php");
@@ -24,8 +27,7 @@ include("menus.php");
                   $morgs=GetArrayPlaces_Print_Test();
                   for ($i = 0; $i < count($morgs); $i++) {
                       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                      if ($nid==$placesid){$sl=" selected";} else {$sl="";};
-                      echo "<option value=$nid $sl>$nm</option>";
+                      echo "<option value=$nid>$nm</option>";
                   };
                   ?>
                </select>
@@ -39,8 +41,7 @@ include("menus.php");
                $morgs=GetArrayUsers_Print_Test();
                for ($i = 0; $i < count($morgs); $i++) {
                    $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-                   if ($nid==$userid){$sl=" selected";} else {$sl="";};
-                   echo "<option value=$nid $sl>$nm</option>";
+                   echo "<option value=$nid>$nm</option>";
                };
                ?>
              </select>
@@ -58,7 +59,6 @@ include("menus.php");
             foreach($res1 as $myrow)
               {$vl=$myrow['id'];
                 echo "<option value=$vl";
-                if ($myrow["id"]==$nomeid){echo " selected";};
                 $nm=$myrow['name'];
                 echo ">$nm</option>";
               };

@@ -1,6 +1,9 @@
 <?php
 
-session_start();
+if(!isset($_SESSION))
+{
+        session_start();
+}
 include_once("functions.php");
 if ( isset($_POST['mode']) ) {
     $mode=($_POST['mode']);
@@ -353,7 +356,7 @@ if ($mode == "delete_all"){
   unset($fname1);
 }
 if ($mode == "otmena_delete"){
-  if ($_POST['id'] != ''){
+  if (isset($_POST['id'])){
   $id = $_POST['id'];
   $name = $_POST['name'];
 
@@ -393,7 +396,7 @@ if ($mode == "otmena_delete"){
 ?>
 <div id="delete_ok">
 <?php
-if ($entertable_id != ''){
+if (isset($entertable_id)){
 echo "<br><b>".get_lang('Delete_ok')."</b> <button class=\"btn btn-danger\" type=\"button\" name=\"dell_all\" id=\"dell_all\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>&nbsp;".get_lang('Delete_button')."</button></p>";
 }
  ?>
@@ -429,7 +432,7 @@ if ($mode == "equipment_add") {
   $comment=($_POST['comment']);
   $ip=($_POST['ip']);
   $kntid=($_POST['kntid']);
-  if ($_POST['img'] !=''){
+  if (!empty($_POST['img'])){
 $img = ($_POST['img']);
 
 $img = str_replace('data:image/png;base64,', '', $img);
@@ -511,11 +514,11 @@ $stmt = $dbConnection->prepare ('SELECT photo FROM equipment WHERE id=:id');
 $stmt->execute(array(':id' => $id));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $photo = $row['photo'];
-if ($_POST['img'] != ''){
+if (!empty($_POST['img'])){
 $img = str_replace('data:image/png;base64,', '', $img);
 $img = str_replace(' ', '+', $img);
 $data = base64_decode($img);
-if (($photo != '') && ($photo != 'noimage.png')){
+if ((!empty($photo)) && ($photo != 'noimage.png')){
 if (file_exists(UPLOAD_DIR . $photo)){
   $file = $photo;
 }
@@ -530,7 +533,7 @@ $success = file_put_contents(UPLOAD_DIR . $file, $data);
 print $success ? $file : 'Unable to save the file.';
 }
 else {
-  if ($photo != ''){
+  if (!empty($photo)){
     $file = $photo;
   }
   else {
@@ -590,7 +593,7 @@ if ($mode == "equipment_copy"){
   $sorgid=$_POST["sorgid"];
   $splaces=$_POST["splaces"];
   $suserid=$_POST["suserid"];
-  if ($_POST['nomcopy'] != "") {$nomcopy=$_POST["nomcopy"];} else {$nomcopy = "1";};
+  if (!empty($_POST['nomcopy'])) {$nomcopy=$_POST["nomcopy"];} else {$nomcopy = "1";};
   $buhname=($_POST["buhname"]);
 
   $id = ($_POST['id']);
@@ -738,7 +741,7 @@ if ($mode == "eq_mat"){
                     $data = array($info['eqid'],$info['plname'],$info['namenome'],$info['grname'],$info['sernum'],$shtrih,$info['orgname'],$fiopol,$os,$eqmode,$info['bn']);
                     $output['aaData'][] = $data;
                   }
-                  if ($output != ''){
+                  if (isset($output)){
                   echo json_encode($output);
                 }else {
                   $data = array('aaData'=>'');
@@ -786,7 +789,7 @@ if ($mode == "eq"){
     $data = array($active,$key['eqid'],$key['placesname'],$key['nomename'],$key['grnome'],$key['vname'],$key['buhname'],$key['sernum'],$shtrih,$key['orgname'],$fiopol,$dtpost,$key['eqcomment'],$key['invnum'],$key['cost'],$key['currentcost'],$os,$eqmode,$eqbum,$eqrepair,$dtendgar,$key['kntname'],$key['invoice']);
     $output['aaData'][] = $data;
   }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -796,7 +799,7 @@ if ($mode == "eq"){
   }
 }
 if ($mode == "eq_table_move"){
-  if ($_POST['move_eqid'] != ''){
+  if (isset($_POST['move_eqid'])){
   $eqid = ($_POST['move_eqid']);
   $stmt = $dbConnection->prepare('SELECT mv.id as mvid, mv.eqid, nome.name,mv.nomeid,mv.dt, mv.orgname1, org.name AS orgname2, mv.place1, places.name AS place2, mv.user1, users.fio AS user2, mv.kntfrom, move.invoice as invoicefrom,move.comment as comment
             FROM move
@@ -825,7 +828,7 @@ if ($mode == "eq_table_move"){
               $data = array($key['mvid'],$dt,$key["orgname1"],$key["place1"],$user1,$key["kntfrom"],$key["invoicefrom"],$key["orgname2"],$key["place2"],$user2,$key["comment"],$act);
               $output['aaData'][] = $data;
             }
-            if ($output != ''){
+            if (isset($output)){
             echo json_encode($output);
           }else {
             $data = array('aaData'=>'');
@@ -868,7 +871,7 @@ if ($mode == "eq_table_move_show_all"){
               $data = array($key['mvid'],$dt,$key["name"],$key["orgname1"],$key["place1"],$user1,$key["kntfrom"],$key["invoicefrom"],$key["orgname2"],$key["place2"],$user2,$key["comment"]);
               $output['aaData'][] = $data;
             }
-            if ($output != ''){
+            if (isset($output)){
             echo json_encode($output);
           }else {
             $data = array('aaData'=>'');
@@ -877,7 +880,7 @@ if ($mode == "eq_table_move_show_all"){
           }
 }
 if ($mode == "eq_table_repair"){
-  if ($_POST['repair_eqid'] != ''){
+  if (isset($_POST['repair_eqid'])){
   $eqid = ($_POST['repair_eqid']);
   $stmt = $dbConnection->prepare ('SELECT repair.id,repair.dt,repair.dtend,repair.kntid,knt.name,repair.cost,repair.comment,repair.status FROM repair INNER JOIN knt on knt.id=repair.kntid WHERE repair.eqid=:repair_eqid');
   $stmt->execute(array(':repair_eqid' => $eqid));
@@ -892,7 +895,7 @@ if ($mode == "eq_table_repair"){
   $data = array($key["id"],$dt,$dtend,$key["name"],$key["cost"],$key["comment"],$st,$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -949,7 +952,7 @@ if ($mode == "nome_lic"){
       };
 }
 if ($mode == "paramlist"){
-  if ($_POST['id'] != ''){
+  if (isset($_POST['id'])){
   $eqid = ($_POST['id']);
   // $stmt = $dbConnection->prepare ('SELECT eq_param.id as pid,group_param.name as pname,eq_param.param as pparam FROM eq_param INNER JOIN group_param ON group_param.id=eq_param.paramid WHERE eqid= :eqid');
   $stmt = $dbConnection->prepare ('SELECT id,pname,param,comment FROM eq_param WHERE eqid= :eqid');
@@ -962,7 +965,7 @@ if ($mode == "paramlist"){
     $data = array($key["id"],$key["pname"],$key["param"],$key["comment"],$act);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -983,9 +986,9 @@ if ($mode == "table_ping"){
   $placesid=$_POST['splaces'];
   // var_dump($userid);
   $where="";
-  if ($userid!='') {$where=$where." and equipment.usersid=$userid";}
-  if ($orgid!='') {$where=$where." and equipment.orgid=$orgid";}
-  if ($placesid!='') {$where=$where." and equipment.placesid=$placesid";}
+  if (!empty($userid)) {$where=$where." and equipment.usersid=$userid";}
+  if (!empty($orgid)) {$where=$where." and equipment.orgid=$orgid";}
+  if (!empty($placesid)) {$where=$where." and equipment.placesid=$placesid";}
 
   $stmt = $dbConnection->prepare  ("SELECT places.name as pname,eq3.fio as fio,eq3.grname as grname,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.grname as grname,eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT eq1.placesid as placesid,eq1.usersid as usersid,group_nome.name as grname,eq1.ip as ip,eq1.nomename as nomename FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where." ) as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
   $stmt->execute();
@@ -998,7 +1001,7 @@ if ($mode == "table_ping"){
   $data = array($res,$ip,$key["nomename"],$key["grname"],$key["pname"],$key["fio"]);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -1028,7 +1031,7 @@ if ($mode == "eq_list"){
                   $data = array($key['eqid'],$key['plname'],$key['namenome'],$key['grname'],$key['sernum'],$shtrih,$key['orgname'],$fiopol,$key['mode']);
                   $output['aaData'][] = $data;
                 }
-                  if ($output != ''){
+                  if (isset($output)){
                     echo json_encode($output);
                   }
                   else {
@@ -1095,7 +1098,7 @@ if ($mode == "license"){
   foreach($res1 as $row) {
     $total_count = $row['count'];
 }
-  if (($key['anti_col'] != "") && ($counts_str != "")){
+  if ((!empty($key['anti_col'])) && (!empty($counts_str))){
       $or = $key['orname']." <b>".get_lang('Totale_position')." - ".$total_count."</b><br><font color=\"red\">(".get_lang('Amount_license')." ".$key['anti_col'].")</font> ".get_lang('Totale_install').": ".$counts_str;
     }
   else if (($counts_str != "") && ($key['anti_col'] == "")) {
@@ -1112,7 +1115,7 @@ if ($mode == "license"){
 		$data = array($or,$key['licenseid'],$fiopol,$key['orname'],$key['nomename'],$sys,$off,$key['organti'],$antinames,$antivir,$programming,$key['comment']);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -1655,7 +1658,7 @@ if ($mode == "dialog_equipment_edit"){
   <input class="form-control input-sm allwidht" name=dtendgar id=dtendgar type="text" maxlength="10" value="<?php echo "$dtendgar"; ?>">
   <label class="control-label"><small>Имя по бухгалтерии:</small></label>
   <input class="form-control input-sm allwidht" name=buhname id=buhname type="text" value="<?php $buhname=htmlspecialchars($buhname);echo "$buhname";?>">
-  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" value="<?php echo "$cost";?>"placeholder="Начальная стоимость" autocomplete="off">
+  <input class="form-control input-sm allwidht"  name="cost" id="cost" type="text" value="<?php echo "$cost";?>"placeholder="Начальная стоимость"   autocomplete="off">
   <input class="form-control input-sm allwidht" name="currentcost" id="currentcost" type="text" value="<?php echo "$currentcost";?>" placeholder="Текущая стоимость" autocomplete="off">
   <div id="invoice_label">
   <label class="control-label"><small>Номер накладной: </small></label>
@@ -2431,9 +2434,9 @@ if ($mode == "print_test"){
   $printid=$_POST['sprintid'];
   $where="";
   $what_print_test = get_conf_param('what_print_test');
-  if ($placesid!='') {$where=$where." and equipment.placesid=$placesid";}
-  if ($userid!='') {$where=$where." and equipment.usersid=$userid";}
-  if ($printid!='') {$where=$where." and equipment.nomeid=$printid";}
+  if (!empty($placesid)) {$where=$where." and equipment.placesid=$placesid";}
+  if (!empty($userid)) {$where=$where." and equipment.usersid=$userid";}
+  if (!empty($printid)) {$where=$where." and equipment.nomeid=$printid";}
   include_once 'inc/Printer.php';
   $stmt = $dbConnection->prepare ("SELECT places.name as pname,eq3.fio as fio,eq3.ip as ip,eq3.nomename as nomename FROM places INNER JOIN (SELECT users.fio as fio,eq2.placesid as placesid, eq2.ip as ip,eq2.nomename as nomename FROM users INNER JOIN (SELECT * FROM group_nome INNER JOIN (SELECT eq.placesid as placesid, eq.usersid as usersid,nome.groupid as groupid,eq.ip as ip,nome.name as nomename FROM nome INNER JOIN (SELECT equipment.placesid as placesid, equipment.usersid as usersid,equipment.nomeid as nomeid,equipment.ip as ip FROM equipment WHERE equipment.active=1 and equipment.util=0 and equipment.sale=0 and equipment.ip<>'' ".$where.") as eq ON eq.nomeid=nome.id)  as eq1 ON eq1.groupid=group_nome.id where eq1.groupid IN (".$what_print_test.")) as eq2 ON eq2.usersid=users.id) as eq3 ON places.id=eq3.placesid");
   $stmt->execute();
@@ -2475,7 +2478,7 @@ if ($mode == "print_test"){
         echo 'SNMP Error: ' . $e->getMessage();
     }
      }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -2497,7 +2500,7 @@ if ($mode == "cartridge"){
   $data = array($active,$key['printid'],$key['nomename'],$key['namep'],$key['plname'],$key['orgname'],$fiopol,$key['coll'],$key['newk'],$key['zapr'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -2625,7 +2628,7 @@ if ($mode == "dialog_cartridge_edit"){
   $stmt = $dbConnection->prepare ('SELECT * FROM print WHERE id=:id');
   $stmt->execute(array(':id' => $id));
   $res1 = $stmt->fetchAll();
-if ($res1!='') {
+if (!empty($res1)) {
   foreach($res1 as $myrow){
           $nomeid=$myrow['nomeid'];
 $orgid=$myrow['orgid'];
@@ -2770,7 +2773,7 @@ if ($mode == "dialog_cartridge_out"){
   ?>
    </select>
  </div>
-   <p></p>
+   <p style="margin-top:20px"></p>
    <div class="form-group" id="coll_grp" style="display:inline;">
       <label class="control-label" style="display:inline"><small>Колличество:</small></label>
   <input class="input-sm form-control" style="width:100px;margin: 0 auto;" placeholder="Кол-во" name="coll2" id="coll2" value="<?php echo "$coll2";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
@@ -2792,7 +2795,7 @@ if ($mode == "dialog_cartridge_fast_edit"){
   $stmt = $dbConnection->prepare ('SELECT * FROM print WHERE id=:id');
   $stmt->execute(array(':id' => $id));
   $res1 = $stmt->fetchAll();
-if ($res1!='') {
+if (!empty($res1)) {
   foreach($res1 as $myrow){
 $coll=$myrow['coll'];
 $newk=$myrow['newk'];
@@ -2826,7 +2829,7 @@ $comment=$myrow['comment'];
   <?php
 }
 if ($mode == "cartridge_uchet"){
-  if ($_POST['id'] !=''){
+  if (isset($_POST['id'])){
   $id = $_POST['id'];
   $stmt = $dbConnection->prepare ('SELECT print_param.id,print_param.dt,users.fio AS fio,print_param.coll2 as coll2,print_param.comment as comment,print_param.active FROM print_param INNER JOIN users ON users.id=userid WHERE printid=:id');
   $stmt->execute(array(':id' => $id));
@@ -2837,7 +2840,7 @@ if ($mode == "cartridge_uchet"){
     $data = array($key['id'],MySQLDateToDate($key['dt']),$key['fio'],$key['coll2'],$key['comment'],$act);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -2946,7 +2949,7 @@ if ($mode == "cartridge_fast_edit"){
 
 }
 if ($mode == "table_invoice"){
-  if ($_POST['userid'] != ''){
+  if (isset($_POST['userid'])){
   $userid = $_POST['userid'];
 
   $stmt = $dbConnection->prepare ('SELECT name as grname,res2.* FROM group_nome INNER JOIN (SELECT places.name as plname,res.* FROM places  INNER JOIN(
@@ -2966,7 +2969,7 @@ if ($mode == "table_invoice"){
       $data = array($key['eqid'],$key['plname'],$key['namenome'],$key['grname'],$key['sernum'],$shtrih,$key['invnum'],$key['orgname'],$key['fio'],$key['mode'],$key['os'],$key['bn']);
       $output['aaData'][] = $data;
     }
-      if ($output != ''){
+      if (isset($output)){
         echo json_encode($output);
       }
       else {
@@ -3125,7 +3128,7 @@ hr {
   };
 echo "</table>";
 
-if (($userid2 != "") && ($userid3 != "")){
+if ((!empty($userid2)) && (!empty($userid3))){
 echo "<table class = \"lc dl\" align = \"right\">";
 echo "<tr class = \"lc\"><td height=\"50\">Сдал (а)</td><td class = \"lc\"><b>$fio_pol</b></td><td>Подпись</td><td class = \"lc\" width = \"200\"><hr></hr></td><td>Дата</td><td class = \"lc\" width = \"200\"><hr></hr></tr></td>";
 echo "<tr class = \"lc\"><td height=\"50\">Принял (а)</td><td class = \"lc\"><b>$fio_pol2</b></td><td>Подпись</td><td class = \"lc\" width = \"200\"><hr></hr></td><td>Дата</td><td class = \"lc\"  width = \"200\"><hr></hr></tr></td>";
@@ -3208,7 +3211,7 @@ if ($mode == "table_report"){
                   $data = array($key['eqid'],$key['plname'],$key['namenome'],$key['grname'],$key['vendorname'],$key['buhname'],$key['sernum'],$key['invnum'],$shtrih,$key['orgname'],$fiopol,$dtpost,$key['cs'],$mode_eq,$os,$bum,$key['kntname'],$key['invoice'],$key['comment']);
                   $output['aaData'][] = $data;
                 }
-                  if ($output != ''){
+                  if (isset($output)){
                     echo json_encode($output);
                   }
                   else {
@@ -3218,7 +3221,7 @@ if ($mode == "table_report"){
                   }
 }
 if ($mode == "eq_table_move_rep"){
-  if ($_POST['move_eqid'] != ''){
+  if (isset($_POST['move_eqid'])){
   $eqid = ($_POST['move_eqid']);
   $stmt = $dbConnection->prepare('SELECT mv.id as mvid, mv.eqid, nome.name,mv.nomeid,mv.dt, mv.orgname1, org.name AS orgname2, mv.place1, places.name AS place2, mv.user1, users.fio AS user2, mv.kntfrom, move.invoice as invoicefrom,move.comment as comment
             FROM move
@@ -3246,7 +3249,7 @@ if ($mode == "eq_table_move_rep"){
               $data = array($key['mvid'],$dt,$key["orgname1"],$key["place1"],$user1,$key["kntfrom"],$key["invoicefrom"],$key["orgname2"],$key["place2"],$user2,$key["comment"]);
               $output['aaData'][] = $data;
             }
-            if ($output != ''){
+            if (isset($output)){
             echo json_encode($output);
           }else {
             $data = array('aaData'=>'');
@@ -3304,8 +3307,8 @@ if ($mode == "dialog_org_add"){
   <div class="row">
       <div class="center_all">
         <div class="form-group" id="org_add_grp" style="display:inline;">
-      <label class="control-label"><small>Наименование организации:</small></label>
-  <input class="input-sm form-control allwidht" placeholder="Наименование организации" name="org" id="org" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+      <label class="control-label"><small><?=get_lang('Name_org');?>:</small></label>
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_org');?>" name="org" id="org" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
   </div>
 </div>
   </div>
@@ -3326,8 +3329,8 @@ if ($mode == "dialog_org_edit"){
   <div class="row">
       <div class="center_all">
         <div class="form-group" id="org_edit_grp" style="display:inline;">
-      <label class="control-label"><small>Наименование организации:</small></label>
-  <input class="input-sm form-control allwidht" placeholder="Наименование организации" name="org" id="org" value="<?php echo "$orgname";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+      <label class="control-label"><small><?=get_lang('Name_org');?>:</small></label>
+  <input class="input-sm form-control allwidht" placeholder="<?=get_lang('Name_org');?>" name="org" id="org" value="<?php echo "$orgname";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
 </div>
   </div>
   </div>
@@ -3348,7 +3351,7 @@ if ($mode == "org_table"){
     $data = array($active,$key['id'],$key['name'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -3401,7 +3404,7 @@ if ($mode == "places_table"){
     $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -3492,7 +3495,7 @@ else {
 
 }
 if ($mode == "places_sub_table"){
-  if ($_POST['id'] !=''){
+  if (isset($_POST['id'])){
   $placesid = $_POST['id'];
   $stmt = $dbConnection->prepare ("SELECT places_users.id AS plid,placesid,userid,users.login as name,users.fio AS fio, users.id as id FROM places_users INNER JOIN users ON users.id=userid WHERE placesid=:placesid and users.on_off = 1 ");
   $stmt->execute(array(':placesid' => $placesid));
@@ -3502,7 +3505,7 @@ if ($mode == "places_sub_table"){
     $data = array($key['id'],$key['fio'],$key['name']);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -3544,14 +3547,30 @@ if ($mode == "users_table"){
   case 'en': $lang="English";
   break;
     }
+    $stmt = $dbConnection->prepare('select lastdt from users where id=:in and us_kill=1');
+    $stmt->execute(array(':in' => $key['id']));
+    $row3 = $stmt->fetch(PDO::FETCH_ASSOC);
+    $lt=$row3['lastdt'];
+          $d = time()-strtotime($lt);
+    if ($d > 20) {
+      $st = "offline";
+    }else{
+      $st = 'online';
+    }
     if (($key['active']=="1") && ($key['on_off']=="1")) {$active="active";} else {$active="not_active";};
     if (($key['active']=="1") && ($key['on_off']=="0")) {$active="off";};
     $s = get_user_status($key['id']);
-    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_logout\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('User_logout_toggle')."\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></button></div>";
+    if (($key['on_off']=="1") && ($st == "online")){
+      $users_logout = "<button type=\"button\" id=\"users_logout\" class=\"btn btn-xs btn-warning\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('User_logout_toggle')."\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
+    }
+      else if (($key['on_off']=="1") && ($st == "offline")){
+        $users_logout = "<button type=\"button\" id=\"users_logout\" class=\"btn btn-xs btn-warning\" disabled=\"disabled\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('User_logout_toggle')."\"><i class=\"fa fa-close\" aria-hidden=\"true\"></i></button>";
+      }
+    $act = "<div class=\"btn-group btn-action\"><button type=\"button\" id=\"users_edit\" class=\"btn btn-xs btn-success\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Edit_toggle')."\"><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_profile\" class=\"btn btn-xs btn-primary\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Profile_toggle')."\"><i class=\"fa fa-cogs\" aria-hidden=\"true\"></i></button><button type=\"button\" id=\"users_del\" class=\"btn btn-xs btn-danger\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"".get_lang('Delete_toggle')."\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button>$users_logout</div>";
     $data = array($active,$key['id'],$key['login'],$key['fio'],'скрыто',$key['user_name'],$key['email'],$priv,$dostup,$lang,$s,$act);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -3570,8 +3589,7 @@ if ($mode == "dialog_users_add"){
       <input placeholder="Логин" class="input-sm form-control allwidht" name="login" id="login" type="text" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
     </div>
     <div class="form-group" id="pass_add_grp" style="display:inline;">
-      <div class="allwidht input-group ">
-        <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+        <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="new-password">
          <span class="input-group-btn">
         <button type = "button" id="show_pass" class="btn btn-default btn-sm allwidht">
           <i id="show" class="fa fa-eye" aria-hidden="true"></i>
@@ -3675,7 +3693,6 @@ if ($mode == "dialog_users_edit"){
     $pass = $row['pass'];
     $fio = $row['fio'];
     $email = $row['email'];
-    $priv = $row['priv'];
     $permit_menu = $row['permit_menu'];
     $on_off = $row['on_off'];
     $dostup = $row['dostup'];
@@ -3691,7 +3708,7 @@ if ($mode == "dialog_users_edit"){
     </div>
     <div class="form-group" id="pass_edit_grp" style="display:inline;">
       <div class="allwidht input-group ">
-        <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD value="<?php echo "$pass";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+        <input placeholder="Пароль" name="pass" id="pass" class="form-control input-sm" TYPE=PASSWORD value="<?php echo "$pass";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="left" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="new-password">
          <span class="input-group-btn">
         <button type = "button" id="show_pass" class="btn btn-default btn-sm allwidht">
           <i id="show" class="fa fa-eye" aria-hidden="true"></i>
@@ -3712,12 +3729,12 @@ if ($mode == "dialog_users_edit"){
     <div class="form-group">
         <div class="col-sm-4 text-right" ><label class="control-label"><small>Имя пользователя:</small></label></div>
         <div class="col-sm-8">
-          <div class="allwidht input-group ">
+          <div class="allwidht input-group">
             <div id="user_name_grp" style="display:inline;">
-            <input name="user_name" id="user_name" type="text" class="input-sm form-control allwidht" value="<?php echo "$user_name";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_user_name'); ?>" autocomplete="off">
+            <input name="user_name" id="user_name" type="text" class="input-sm form-control" value="<?php echo "$user_name";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_user_name'); ?>" autocomplete="off">
           </div>
             <span class="input-group-btn">
-              <button type = "button" id="user_name_gen" class="btn btn-default btn-sm allwidht">Генерировать</button>
+              <button type = "button" id="user_name_gen" class="btn btn-default btn-sm">Генерировать</button>
             </span>
           </div>
         </div>
@@ -3981,12 +3998,11 @@ if ($mode == "edit_profile_users"){
   $stmt->execute(array(':id' => $id));
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   $photo = $row['jpegphoto'];
-
-  if (($_POST['img'] != '') && ($_POST['img'] != '0')){
+  if ((!empty($_POST['img'])) && ($_POST['img'] != '0')){
   $img = str_replace('data:image/png;base64,', '', $img);
   $img = str_replace(' ', '+', $img);
   $data = base64_decode($img);
-  if (($photo != '') && ($photo != 'noavatar.png')){
+  if ((!empty($photo)) && ($photo != 'noavatar.png')){
   if (file_exists(UPLOAD_DIR . $photo)){
     $file = $photo;
   }
@@ -4001,7 +4017,7 @@ else {
   // print $success ? $file : 'Unable to save the file.';
 }
 else {
-  if ($photo != ''){
+  if (!empty($photo)) {
     $file = $photo;
   }
   else {
@@ -4010,7 +4026,7 @@ else {
 }
   $stmt = $dbConnection->prepare ('UPDATE users_profile, users SET users_profile.jpegphoto = :jpegphoto, users_profile.post = :post, users_profile.emaildop = :emaildop, users_profile.birthday = :birthday, users_profile.homephone = :homephone, users_profile.telephonenumber = :telephonenumber, users.email = :email WHERE users.id = users_profile.usersid AND users.id = :id');
   $stmt->execute(array(':id' => $id, ':jpegphoto' => $file, ':post' => $post, ':emaildop' => $emaildop, ':birthday' => $birthday, ':homephone' => $homephone, ':telephonenumber' => $telephonenumber, ':email' => $email));
-  if (($_POST['placesid'] != '') && ($_POST['placesid'] != '0')){
+  if ((!empty($_POST['placesid'])) && ($_POST['placesid'] != '0')){
     $stmt2 = $dbConnection->prepare ('INSERT INTO places_users (id,placesid,userid) VALUES (null,:placesid,:userid) ON DUPLICATE KEY UPDATE placesid= :placesid2');
     $stmt2->execute(array(':placesid' => $placesid, ':placesid2' => $placesid, ':userid' => $id));
   }
@@ -4062,7 +4078,7 @@ if ($mode =="contact_table"){
   $data = array($key['usersid'],$key['plname'],$key['fio'],$key['wphone'],$key['sphone'],$em,$key['bi']);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -4265,7 +4281,7 @@ if ($mode == "vendors_table"){
   $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -4364,7 +4380,7 @@ if ($mode == "nome_table"){
   $data = array($active,$key['nomeid'],$key['groupname'],$key['vendorname'],$key['nomename'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -4542,11 +4558,11 @@ if ($mode == "edit_profile_to_user") {
       $stmt->execute(array(':id' => $id));
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
       $photo = $row['jpegphoto'];
-      if ($_POST['img'] != ''){
+      if (!empty($_POST['img'])){
       $img = str_replace('data:image/png;base64,', '', $img);
       $img = str_replace(' ', '+', $img);
       $data = base64_decode($img);
-      if (($photo != '') && ($photo != 'noavatar.png')){
+      if ((!empty($photo)) && ($photo != 'noavatar.png')){
       if (file_exists(UPLOAD_DIR . $photo)){
         $file = $photo;
       }
@@ -4561,7 +4577,7 @@ if ($mode == "edit_profile_to_user") {
       // print $success ? $file : 'Unable to save the file.';
     }
     else {
-      if ($photo != ''){
+      if (!empty($photo)){
         $file = $photo;
       }
       else {
@@ -4735,7 +4751,7 @@ if ($mode == "requisites_table"){
   $data = array($active,$key['id'],$key['name'],$key['INN'],$key['KPP'],$key['ind'],$key['tel'],$key['address']);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -4745,7 +4761,7 @@ if ($mode == "requisites_table"){
   }
 }
 if ($mode == "requisites_files_table"){
-  if ($_POST['id'] !=''){
+  if (isset($_POST['id'])){
   $idrequisites = $_POST['id'];
   $stmt = $dbConnection->prepare ("SELECT * FROM files_requisites WHERE idrequisites = :id ");
   $stmt->execute(array(':id' => $idrequisites));
@@ -4759,7 +4775,7 @@ if ($mode == "requisites_files_table"){
     $data = array($key['id'],$dt,$file);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -4913,7 +4929,7 @@ if ($mode == "knt_table"){
   $data = array($active,$key['id'],$key['name'],$key['INN'],$key['KPP'],$key['comment']);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -4923,7 +4939,7 @@ if ($mode == "knt_table"){
   }
 }
 if ($mode == "knt_files_table"){
-  if ($_POST['id'] !=''){
+  if (isset($_POST['id'])){
   $idrequisites = $_POST['id'];
   $stmt = $dbConnection->prepare ("SELECT * FROM files_contractor WHERE idcontract = :id ");
   $stmt->execute(array(':id' => $idrequisites));
@@ -4936,7 +4952,7 @@ if ($mode == "knt_files_table"){
     $data = array($key['id'],$file);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -5239,7 +5255,7 @@ if ($mode == "group_nome_table"){
   $data = array($active,$key['id'],$key['name'],$key['comment'],$act);
   $output['aaData'][] = $data;
 }
-  if ($output != ''){
+  if (isset($output)){
     echo json_encode($output);
   }
   else {
@@ -5333,7 +5349,7 @@ if ($mode == "check_update") {
     // $ip_addr = $_SERVER["REMOTE_ADDR"];
     // $ip = vsprintf("%03d.%03d.%03d.%03d", explode(".", $ip_addr));
 
-$stmt = $dbConnection->prepare('update users set lastdt=now() where id=:cid');
+$stmt = $dbConnection->prepare('update users set lastdt=now() where id=:cid and us_kill=1');
 $stmt->execute(array(':cid' => $uid ));
 
 $stmt = $dbConnection->prepare('select count(id) as t1 from approve ');
@@ -5377,7 +5393,7 @@ if ($mode == "select_print"){
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
       // if ($nid==$orgidprint){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
+      echo "<option value=$nid>$nm</option>";
   };
     ?>
   </select>
@@ -5407,7 +5423,7 @@ if ($mode == "select_group"){
                  for ($i = 0; $i < count($morgs); $i++) {
                      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
                     //  if ($nid==$groupid_fast){$sl=" selected";} else {$sl="";};
-                     echo "<option value=$nid $sl>$nm</option>";
+                     echo "<option value=$nid>$nm</option>";
                  };
              ?>
   </select>
@@ -5469,10 +5485,10 @@ if ($mode == "calendar_antivirus"){
   $user_id=$_SESSION['dilema_user_id'];
   $permit_users_license = get_conf_param('permit_users_license');
   $permit = explode(",",$permit_users_license);
-  foreach ($permit as $permit_id) {
-    if ($user_id == $permit_id){
-      $priv_license="yes";
-    }
+  $p = array_search($user_id,$permit);
+  $priv_license = "no";
+  if ($p !== FALSE){
+       $priv_license="yes";
   }
   if ((validate_priv($_SESSION['dilema_user_id']) == 1) || ($priv_license == "yes")){
   $events = array();
@@ -5504,7 +5520,7 @@ if ($mode == "documents_table"){
     $data = array($key['id'],$file);
     $output['aaData'][] = $data;
   }
-    if ($output != ''){
+    if (isset($output)){
       echo json_encode($output);
     }
     else {
@@ -5914,10 +5930,10 @@ if ($mode == "list_news") {
     $priv = validate_priv($user_id);
     $permit_users_news = get_conf_param('permit_users_news');
     $permit = explode(",",$permit_users_news);
-    foreach ($permit as $permit_id) {
-    if ($user_id == $permit_id){
-      $priv_h="yes";
-    }
+    $p = array_search($user_id,$permit);
+    $priv_h="yes";
+    if ($p !== FALSE){
+         $priv_h="yes";
     }
     $page=($_POST['page']);
     $perpage='5';
@@ -6159,8 +6175,8 @@ echo $e->getMessage(); //Boring error messages from anything else!
 }
 }
 if ($mode == "update_ssesion"){
-  $id_org = $_POST['id_org'];
-  if ($id_org != ''){
+  if (isset($_POST['id_org'])){
+    $id_org = $_POST['id_org'];
     $_SESSION['dilema_org'] = $id_org;
   }
 }
@@ -6370,7 +6386,6 @@ if ($mode == "update_noty"){
   $stmt->execute(array(':id2' => '[[:<:]]'.$id_user.'[[:>:]]'));
   $res1 = $stmt->fetchAll();
   foreach($res1 as $rews) {
-  if ($rews != ''){
     $userid = explode(',',$rews['userid']);
     $user_read = explode(',',$rews['user_read']);
     $date = strtotime($rews['dt']);
@@ -6461,7 +6476,7 @@ if ($mode == "conf_system_update"){
   $stmt->execute();
   $row3 = $stmt->fetch(PDO::FETCH_ASSOC);
   $idd = $row3['id']+1;
-  if ($us != ''){
+  if (!empty($us)){
   $stmt = $dbConnection->prepare('INSERT INTO noty (id,noty_w,userid,dt) VALUES (:id,:noty_w,:userid,now())');
   $stmt->execute(array(':id' => $idd, ':noty_w' => 'system_update', ':userid' => $us));
   ?>

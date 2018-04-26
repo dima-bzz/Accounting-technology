@@ -66,7 +66,7 @@ function get_version(){
 function get_user_lang(){
     global $dbConnection;
 
-
+    if (isset($_SESSION['dilema_user_id'])){
     $mid=$_SESSION['dilema_user_id'];
     $stmt = $dbConnection->prepare('SELECT lang from users where id=:mid');
     $stmt->execute(array(':mid' => $mid));
@@ -75,6 +75,10 @@ function get_user_lang(){
     $max_id=$max[0];
     $length = strlen(utf8_decode($max_id));
     if (($length < 1) || $max_id == "0") {$ress='ru';} else {$ress=$max_id;}
+    }
+    else{
+      $ress='ru';
+    }
     return $ress;
 }
 
@@ -563,21 +567,21 @@ function validate_user($user_id, $input) {
 
     global $dbConnection;
 
-    if (!isset($_SESSION['us_code'])) {
-
-        if (isset($_COOKIE['authhash_uscode'])) {
-
-            $user_id=$_COOKIE['authhash_usid'];
-            $input=$_COOKIE['authhash_uscode'];
-            $_SESSION['us_code']=$input;
-            $_SESSION['dilema_user_id']=$user_id;
-            $_SESSION['dilema_org'] = get_conf_param('default_org');
-            $_SESSION['dilema_date'] = date('Y-m-d');
-
-        }
-
-
-    }
+    // if (!isset($_SESSION['us_code'])) {
+    //
+    //     if (isset($_COOKIE['authhash_uscode'])) {
+    //
+    //         $user_id=$_COOKIE['authhash_usid'];
+    //         $input=$_COOKIE['authhash_uscode'];
+    //         $_SESSION['us_code']=$input;
+    //         $_SESSION['dilema_user_id']=$user_id;
+    //         $_SESSION['dilema_org'] = get_conf_param('default_org');
+    //         $_SESSION['dilema_date'] = date('Y-m-d');
+    //
+    //     }
+    //
+    //
+    // }
 
 
     $stmt = $dbConnection->prepare('SELECT pass,login,fio from users where id=:user_id LIMIT 1');
@@ -641,8 +645,8 @@ function validate_exist_user_name($str) {
 global $dbConnection;
 $uid=$_SESSION['dilema_user_id'];
 
-$stmt = $dbConnection->prepare('SELECT count(user_name) as un from users where user_name=:str');
-$stmt->execute(array(':str' => $str));
+$stmt = $dbConnection->prepare('SELECT count(user_name) as un from users where user_name=:str and on_off = :n');
+$stmt->execute(array(':str' => $str, ':n' => '1'));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row['un'] > 0) {$r=false;}
 else if ($row['un'] == 0) {$r=true;}
@@ -701,7 +705,7 @@ function GetArrayPrint(){ // Возврат - массив принтеров
 		$cnt=0;
     $cartridge = get_conf_param('what_cartridge');
 		$mOrgs = array();
-    $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id FROM nome LEFT JOIN equipment ON equipment.nomeid = nome.id INNER JOIN print ON print.nomeid=nome.id WHERE nome.active=1 and print.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
+    $stmt= $dbConnection->prepare("SELECT nome.name as name, nome.id as id, nome.active FROM nome LEFT JOIN equipment ON equipment.nomeid = nome.id INNER JOIN print ON print.nomeid=nome.id WHERE nome.active=1 and print.active=1 and nome.groupid IN (".$cartridge.") and equipment.util=0 and equipment.sale=0 group by nome.name order by nome.name;");
       $stmt->execute();
       $res1 = $stmt->fetchAll();
   		if ($res1!='') {

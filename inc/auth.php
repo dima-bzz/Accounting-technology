@@ -81,7 +81,7 @@ color: #555;
             </label>
         </div>
     </div>
-        <?php if ($va == 'error') { ?>
+        <?php if (isset($va) == 'error') { ?>
             <div class="alert alert-danger">
                 <center><?=get_lang('error_auth');?></center>
             </div> <?php } ?>

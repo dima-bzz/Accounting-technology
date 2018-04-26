@@ -15,6 +15,9 @@ $permit = explode(",",$permit_menu);
 if (validate_priv($_SESSION['dilema_user_id']) == 1){
   $admin = true;
 }
+else{
+  $admin = false;
+}
 // echo sizeof(preg_grep("/^(1+)?\-\d+$/", $permit)) || ($admin == true));
 ?>
 <nav class="navbar navbar-default  navbar-static-top" role="navigation">
