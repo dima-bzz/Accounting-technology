@@ -120,6 +120,7 @@ if ($mode == "activate_login_form") {
 <?php
 }
 
+      if (isset($_SESSION['dilema_user_id']) && isset($_SESSION['us_code'])){
     if (validate_user($_SESSION['dilema_user_id'], $_SESSION['us_code'])) {
       if ($mode == "show") {
   if (isset($_POST['query'])) {
@@ -6484,5 +6485,13 @@ else{
 }
 }
 }
+  }
+  else{
+    ?>
+    <script>
+    window.location.reload();
+    </script>
+    <?php
+  }
 }
 ?>
