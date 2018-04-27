@@ -315,24 +315,21 @@ function GetArrayFilesInDir($dir)
 function DateToMySQLDateTime2($dt)
 {
    $str_exp = explode(".", $dt);
-   $str_exp2 = explode(" ", $str_exp[2]);
-   $dtt=$str_exp2[0]."-".$str_exp[1]."-".$str_exp[0]." ".$str_exp2[1].":00";
+   $dtt=$str_exp[2]."-".$str_exp[1]."-".$str_exp[0]." 00:00:00";
    return $dtt;
 };
 // Преобразует дату типа dd.mm.2012 в формат MySQL 2012-01-01 00:00:00
 function DateToMySQLDateTimeCalStart($dt)
 {
    $str_exp = explode(".", $dt);
-   $str_exp2 = explode(" ", $str_exp[2]);
-   $dtt=$str_exp2[0]."-".$str_exp[1]."-".$str_exp[0]." ".$str_exp2[1]."00:00:00";
+   $dtt=$str_exp[2]."-".$str_exp[1]."-".$str_exp[0]." 00:00:00";
    return $dtt;
 };
 // Преобразует дату типа dd.mm.2012 в формат MySQL 2012-01-01 23:59:00
 function DateToMySQLDateTimeCalEnd($dt)
 {
    $str_exp = explode(".", $dt);
-   $str_exp2 = explode(" ", $str_exp[2]);
-   $dtt=$str_exp2[0]."-".$str_exp[1]."-".$str_exp[0]." ".$str_exp2[1]."23:59:00";
+   $dtt=$str_exp[2]."-".$str_exp[1]."-".$str_exp[0]." 23:59:00";
    return $dtt;
 };
 //День рождение

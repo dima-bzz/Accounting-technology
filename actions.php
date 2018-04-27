@@ -662,7 +662,12 @@ echo "ok";
 if ($mode == "equipment_repair"){
   $id=$_POST["id"];
   $dt = DateToMySQLDateTime2($_POST["dt"]);
-  $dtend = DateToMySQLDateTime2($_POST["dtend"]." 00:00:00");
+  if ($_POST["dtend"] != 'undefined'){
+  $dtend = DateToMySQLDateTime2($_POST["dtend"]);
+  }
+  else{
+    $dtend = "0000-00-00";
+  }
   $kntid=$_POST["kntid"];
   $cst=$_POST["cst"];
   $comment=$_POST["comment"];
@@ -920,7 +925,6 @@ if ($mode == "ven"){
   echo "<option value\"\"></option>";
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      //if ($nid==$groupid){$sl=" selected";} else {$sl="";};
       echo "<option value=$nid>$nm</option>";
       };
 }
@@ -934,7 +938,6 @@ if ($mode == "nome"){
   echo "<option value=\"\"></option>";
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      //if ($nid==$vendorid){$sl=" selected";} else {$sl="";};
       echo "<option value=$nid>$nm</option>";
       };
 }
@@ -948,7 +951,6 @@ if ($mode == "nome_lic"){
   //echo "<option value=0>Отсутствует</option>";
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      //if ($nid==$usersid){$sl=" selected";} else {$sl="";};
       echo "<option value=$nid>$nm</option>";
       };
 }
@@ -1217,8 +1219,8 @@ if ($mode == "dialog_move_edit"){
 }
 if ($mode == "dialog_repair"){
   $id=$_POST["id"];
-  $stmt = $dbConnection->prepare ('SELECT COUNT(*) as count FROM repair where eqid = :id');
-  $stmt->execute(array(':id'=> $id));
+  $stmt = $dbConnection->prepare ('SELECT COUNT(*) as count FROM repair where eqid = :id and status = :n');
+  $stmt->execute(array(':id'=> $id, ':n' => 1));
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   $count = $row['count'];
   // var_dump($count);
@@ -1270,7 +1272,7 @@ if ($mode == "dialog_repair"){
       if ($status == '1'){
         ?>
         <select  class="my_select select" name="status" id="status">
-             <option value="0" <?php if ($status == 0) echo 'selected="selected"'; ?>>Ремонт завершен</option>
+             <option value="0" selected="selected">Ремонт завершен</option>
         </select>
         <?php
       }
@@ -1278,7 +1280,7 @@ if ($mode == "dialog_repair"){
       {
         ?>
         <select  class="my_select select" name="status" id="status">
-            <option value="1" <?php if ($status == 1) echo 'selected="selected"'; ?>>В ремонте</option>
+            <option value="1" selected="selected">В ремонт</option>
         </select>
         <?php
       }
@@ -1510,7 +1512,7 @@ if ($mode == "dialog_equipment_edit"){
      $mode=$myrow["mode"];
      $bum=$myrow["bum"];
      $comment=$myrow["comment"];
-    $ip=$myrow["ip"];
+     $ip=$myrow["ip"];
      $kntid=$myrow["kntid"];
      $photo=$myrow["photo"];
      $eq_util=$myrow["util"];
@@ -2731,8 +2733,7 @@ if ($mode == "dialog_cartridge_out"){
   $morgs=GetArrayUsers();
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["fio"];
-      if ($nid==$userid){$sl=" selected";} else {$sl="";};
-      echo "<option value=$nid $sl>$nm</option>";
+      echo "<option value=$nid>$nm</option>";
   };
   ?>
    </select>
@@ -2740,12 +2741,12 @@ if ($mode == "dialog_cartridge_out"){
    <p style="margin-top:20px"></p>
    <div class="form-group" id="coll_grp" style="display:inline;">
       <label class="control-label" style="display:inline"><small>Колличество:</small></label>
-  <input class="input-sm form-control" style="width:100px;margin: 0 auto;" placeholder="Кол-во" name="coll2" id="coll2" value="<?php echo "$coll2";?>" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
+  <input class="input-sm form-control" style="width:100px;margin: 0 auto;" placeholder="Кол-во" name="coll2" id="coll2" data-toggle="popover" data-html="true" data-trigger="manual" data-container="body" data-placement="bottom" data-content="<?= get_lang('Toggle_title'); ?>" autocomplete="off">
     </div>
   </div>
 <div class="col-md-6">
     <label class="control-label"><small><?=get_lang('Comment');?>:</small></label>
-        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:76px;" name="comment" id="comment"><?php echo "$comment";?></textarea>
+        <textarea class="form-control allwidht" placeholder="<?=get_lang('Comment_placeholder');?>" style="height:76px;" name="comment" id="comment"></textarea>
     </div>
   </div>
   <div class="center_submit">
@@ -5354,7 +5355,6 @@ if ($mode == "select_print"){
   $morgs=GetArrayPrint();
   for ($i = 0; $i < count($morgs); $i++) {
       $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-      // if ($nid==$orgidprint){$sl=" selected";} else {$sl="";};
       echo "<option value=$nid>$nm</option>";
   };
     ?>
@@ -5384,7 +5384,6 @@ if ($mode == "select_group"){
                  $morgs=GetArrayGroup();
                  for ($i = 0; $i < count($morgs); $i++) {
                      $nid=$morgs[$i]["id"];$nm=$morgs[$i]["name"];
-                    //  if ($nid==$groupid_fast){$sl=" selected";} else {$sl="";};
                      echo "<option value=$nid>$nm</option>";
                  };
              ?>
@@ -6360,18 +6359,18 @@ if ($mode == "update_noty"){
     }
       if(($permit == 'true') && (!in_array($id_user,$user_read))){
         if ($noty_w == 'system_update'){
-  $results[] = array(
-        'show'=> 'true',
-        'name'=> 'noty_'.$date.'_'.$noty_w.'_'.$rews['id'],
-        'type'=> 'information',
-        'animated_open' => 'animated bounceInRight',
-        'animated_close' => 'animated bounceOutLeft',
-        'noty_w'=> $noty_w,
-        'modal'=> true,
-        'layout'=> 'center',
-        'message'=> get_lang('System_update'),
-        'time' => "<time id=\"b\" datetime=\"".$rews['dt']."\"></time>"
-      );
+          $results[] = array(
+              'show'=> 'true',
+              'name'=> 'noty_'.$date.'_'.$noty_w.'_'.$rews['id'],
+              'type'=> 'information',
+              'animated_open' => 'animated bounceInRight',
+              'animated_close' => 'animated bounceOutLeft',
+              'noty_w'=> $noty_w,
+              'modal'=> true,
+              'layout'=> 'center',
+              'message'=> get_lang('System_update'),
+              'time' => "<time id=\"b\" datetime=\"".$rews['dt']."\"></time>"
+            );
       }
       else{
         $results[] = array(
