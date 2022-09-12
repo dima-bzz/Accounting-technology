@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `noty` (
 CREATE TABLE IF NOT EXISTS `org` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `antivirus_col` varchar(10) NOT NULL,
+  `antivirus_col` varchar(10) DEFAULT NULL,
   `active` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
