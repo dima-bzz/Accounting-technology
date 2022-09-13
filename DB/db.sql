@@ -177,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `knt` (
   `name` varchar(100) NOT NULL,
   `comment` text NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `ERPCode` int(11) NOT NULL,
   `INN` varchar(20) NOT NULL,
   `KPP` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
