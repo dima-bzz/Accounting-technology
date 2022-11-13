@@ -54,8 +54,6 @@ else {
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery.noty.packaged.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/ion.sound.js'></script>
 
-
-
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/dataTables.scroller.min.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/dataTables.select.min.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/dataTables.buttons.js'></script>
@@ -73,10 +71,7 @@ else {
       <script type='text/javascript' src="<?=$CONF['hostname']?>js/jquery.zeninput.js"></script>
       <script type='text/javascript' src="<?=$CONF['hostname']?>js/jquery.i18n.js"></script>
       <script type='text/javascript' src="<?=$CONF['hostname']?>js/jquery.i18n.messagestore.js"></script>
-
-
-
-
+      <script type='text/javascript' src="<?=$CONF['hostname']?>js/humanize-duration.js"></script>
 
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/chosen.jquery.js' ></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery.maskedinput.js'></script>
@@ -84,10 +79,6 @@ else {
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/waitingfor.js'></script>
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/jquery.caret.js'></script>
 
-
-
-
       <script type='text/javascript' src='<?=$CONF['hostname']?>js/core.js'></script>
-
 </body>
 </html>
